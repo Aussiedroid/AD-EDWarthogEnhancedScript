@@ -6,7 +6,7 @@ These files map controls setup in the scripts, into Elite Dangerous. Key mapping
 
 Do you own/play with one of these rudder pedals _(pictured below)_?
 
-__YES__, choose 'WITH MFG Crosswind'. __NO__, choose 'WITHOUT MFG Crosswind'.
+ __YES__, choose 'WITH MFG Crosswind'. __NO__, choose 'WITHOUT MFG Crosswind'.
 
 `Copy Bindings To:`
 `C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings`
