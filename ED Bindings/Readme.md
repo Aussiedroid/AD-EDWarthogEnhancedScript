@@ -9,7 +9,7 @@ Do you own/play with one of these _(pictured below)_?
 YES, choose 'WITH MFG Crosswind'. NO, choose 'WITHOUT MFG Crosswind'.
 ![MFG Crosswind](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/master/ED%20Bindings/WITH%20MFG%20Crosswind/folder.jpg "MFG Crosswind Rudder Pedals") 
 
-`Copy To:`
+`Copy Bindings To:`
 `C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings`
 
 [Home] [MFG Crosswind](https://mfg.simundza.com/products "MFG Crosswind")
