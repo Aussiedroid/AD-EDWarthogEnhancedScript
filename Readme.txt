@@ -3,7 +3,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // Standing on the Shoulders of Giants! Creation of this TARGET Script would not have been possible without amazing ED Scripts I found online created by:	//
 // Alexandr Zhevedenko, Michael Lehman (WraithMG11235), DarKcyde & Thomas Duployez (CMDR Touille). The script continues to evolve with the fantastic community  //
-// feedback, ideas, bug reports & sharing of code... the help & support shown on the forums/guide has been been amazing!	!! You ALL Rock! Thank you !!	//
+// feedback, ideas, bug reports & sharing of code... the help & support shown on the forums/guide has been been amazing!	 !! You ALL Rock! Thank you !!	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // GENERAL INFO & LINKS //																	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -11,18 +11,21 @@
 // Full Guide:				(http://steamcommunity.com/sharedfiles/filedetails/?id=769637037)							//
 // Frontier Forums Discussion Thread:	(https://forums.frontier.co.uk/showthread.php/293027-Aussiedroid-s-Enhanced-Thrustmaster-Warthog-Script)		//
 // Some Previous Ver. Reference Maps:	(https://aussiedroid.imgur.com/)											//
-//																				//
-//					** RECOMMENDED RUNNING SCRIPT IN TARGET GUI & EDITING VIA TARGET SCRIPT EDITOR **					//
-//					    ** REMINDER: CUSTOMISE/SET YOUR USER PREFERENCES IN AD_EDSETTINGS FILE **						//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MINIMUM REQUIREMENTS: THRUSTMASTER TARGET SOFTWARE v3.0.18.328+ \ DRIVERS+FIRMWARE 2018+  ->(https://support.thrustmaster.com/en/product/hotaswarthog-en/)<- //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// VERSION HISTORY //	Version 3.3.3		\\ Released Sept 2016	|	Updated Feb 2019 //		\\		Public Release #20		//
+//																				//
+//							  ** RECOMMENDED RUNNING SCRIPT IN TARGET GUI **							//
+//						** REMINDER: CUSTOMISE/SET YOUR USER PREFERENCES IN AD_EDUSERPREFS FILE **					//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// VERSION HISTORY //	Version 4.0.0			\\ Released Sept 2016	|	Updated ??? 2019 //		\\		Public Release #21	//
 // =============================================================================================================================================================//
-// v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord Keymap resolved.//
+// v4.0 - NEW: Customisable Chat Presets! FIX: LEDs on Launch Sequence. //
+// v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord keymap resolved.//
 // v3.3 - BEYOND CH.4: ALL New Keys mapped! NEW: ED-BAT App Launcher, TM TPR Rudder Support, Swap PIP Hat, Report Crimes Macro & LED 'Blinking' Controller.	//
+// v3.3 - NEW: User Override on Sec. Fire Pinky. IMPROVED: initPrintState formatting & Merged Ship/SRV Cam. FIX: Autodock Macro, C.Scoop LED & ECM duration. 	//
 // v3.2 - IMPROVED: PIP MGT now works first press & FAOFF HOLD Toggle now returns to Previously Active Joystick Curve. FIXED: Multiple Minor Keybind Conflicts.	//
-// v3.1 - FIXED: Galnet Audio & Escape Vector Sequence conflict. IMPROVED: Combined Fire Trigger behaviour, & Dual Tier PIPs 4xWEP now (2xSYS->2xENG). 		//
+// v3.1 - FIXED: Galnet Audio & Escape Vector Sequence conflict. IMPROVED: Combined Fire Trigger behaviour, & Dual Tier PIPs 4xWEP now (2xSYS->2xENG).  	//
 // v3.0.2-BEYOND CH.1: Added User def. Double Tap to Pinky Trigger, NEW Inverted Dual PIP scheme (short=full PIPs), Fighter Follow replaced with Attack.	//
 // v3.0.1-BEYOND BETA UPDATE: Added the new Galnet Audio keybindings mapped in ED .binds file which are now updated to (v3.0).					//
 // v3.0 - NEW: Ship Take Off Sequence! UPDATED: Mic Switch Function, Def. VA Toggle Mapping ADD: EDFX/EDDI to SW List FIX: Throttle Prec. Mode preventing Boost.//
@@ -47,6 +50,7 @@
 // v1.3 - ADD Auto-dock, PIPs Macros & also Joystick & Throttle Curve presets. Plus Subsystem Prev Jump to Powerplant shortcut when holding Prev Subsystem.	//
 // v1.0 - ADD All Standard KeyMaps, Default Axis settings & Core script structure/defaults. ADD Trigger Combo code. Debug testing.				//
 // =============================================================================================================================================================//
+
 
 Need help understanding this script?
 
@@ -78,7 +82,7 @@ Close TARGET Script Editor (if still running).
 
 Open TARGET GUI & Run (Can also be run from TARGET Script Editor - if editing).
 
-Copy the Elite Dangerous Profile to: (Profile is found in the '/ED Bindings' folder.)
+Copy the Elite Dangerous Profile to: (Profile is found in the '/ED Profile' folder.)
 C:\Users\<User>\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
 
 Copy the TrackIR Profile to: (Profile is found in the '/TrackIR' folder.)
@@ -99,7 +103,7 @@ Always make sure the script is running as well as any other 3rd party tools prio
 
 *Remember to select the AD Enhanced Warthog x.x.x profile in Elite Dangerous & Apply.
 
-First Run: If you are not using MFG Crosswind Pedals, at this point, you will need to map the 'Other Mappings' outlined in the Legend Section (See Steam Guide or Maps folder). This will configure Roll & some Galaxy Map axes (along with some optional custom configurations highlighed you may like).
+First Run: If you are not using MFG Crosswind Pedals, at this point, you will need to map the 'Other Mappings' outlined in the Legend Section. This will configure Roll & some Galaxy Map axes (along with some optional custom configurations highlighed you may like).
 
 Once you are done mapping, scroll to bottom and press Apply to save.
 

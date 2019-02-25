@@ -1,0 +1,30 @@
+Update 4.0.0:  ???
+
+
+-> Big code clean-up
+
+
+New to the script? Be sure to also check out the Beginners Reference Map in the download pack to get started.
+
+
+List of Changes:
+
+NEW: Pulse Repeater Fire Preset for Miners!! ???
+NEW: Customisable Auto-Text Chat Responses (You can now edit these via the User Preferences). (Thx CMDR Clicker & ySfte)
+
+IMPROVEMENT: Reconfigured Chat Preset Toggle on the Throttle to switch between Auto-Text Responses (FWD), Wing Commands (CTR) & Fighter Commands (BCK) based on Toggle position. See Reference Map for new layout. (This gives the Trim Hat Switch a total of 8 commands mapped per Toggle Position - both with and without modifier)
+IMPROVEMENT: Formalised & Cleaned up Script File Structure (each section now has its own separate file & is sorted).
+IMPROVEMENT: Categorised User Preferences section (make it easier to find the right setting).
+IMPROVEMENT: Added Secondary Fire Override, LED Blink & Combined Microphone User Preferences to Script Run Print Out on load.
+IMPROVEMENT: Added Table of Contents in AD_EDFunctions file (to help find correct function quickly).
+
+FIXED: LEDs on Launch Sequence not working (typo). (Thx CMDR Clicker)
+
+REMOVED: Redundant ChatPresetMode User Preference (due to changes on the Toggle).
+
+
+Fly Safe CMDRs!
+
+
+TODO - Update UIBack to F8?
+TODO - Remove other Hat Switch Mappings for Camera & HoloMe and move to Throttle.
