@@ -7,9 +7,12 @@ These files map controls setup in the scripts, into Elite Dangerous. Key mapping
 Do you own/play with one of these rudder pedals _(pictured below)_?
 
 __YES__, choose 'WITH MFG Crosswind'. __NO__, choose 'WITHOUT MFG Crosswind'.
-![MFG Crosswind](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/master/ED%20Bindings/WITH%20MFG%20Crosswind/folder.jpg "MFG Crosswind Rudder Pedals") 
 
 `Copy Bindings To:`
 `C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings`
+
+![MFG Crosswind](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/master/ED%20Bindings/WITH%20MFG%20Crosswind/folder.jpg "MFG Crosswind Rudder Pedals") 
+
+
 
 [Home] [MFG Crosswind](https://mfg.simundza.com/products "MFG Crosswind")
