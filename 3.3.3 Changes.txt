@@ -1,0 +1,24 @@
+Update 3.3.3:  BEYOND..BEYOND
+
+** IMPORTANT - v3.3.3 Requires the latest 2018 (v3.0.18.328 or higher) Update for TARGET Software, Drivers & Firmware to be installed. **
+
+
+-> A few minor issues/conflicts addressed that have been reported by CMDRS since 3.3.0...
+
+
+New to the script? Be sure to also check out the Beginners Reference Map in the download pack.
+
+
+List of Changes:
+
+IMPROVEMENT: ED-BAT option added to open Reference Maps (pictures) when running batch. (Please update your folder path to use) (Thx CMDR Awesome)
+IMPROVEMENT: For Discord, added variables for Overlay & for opening Chat in Overlay in EDKeyMap file (unused). (mapped to ALT+F3, ALT+F4)
+
+FIXED: VoiceAttack + Singularity multiple keybind issues. 4x Conflicting VA Galaxy Map binds (now all uses CTRL+'Mapping') & 3x Missing VA commands bound for Attach/Detach Free Camera (CTRL+C) & Thruster Forward-Only Reverse (for Ship+SRV) (CTRL+R). (Thx CMDR CrazyDisi & CMDR Axsom)
+FIXED: Missing FAOff Printout for when UseRudderAxisCurves is active (1) has been added. (Thx CMDR sw33tp34)
+FIXED: Changed default Discord PTT mapping due to conflict. (Does not support '~', so has been swapped with alternative 'NUMPAD *') (Thx CMDR Axsom)
+
+REMOVED: MFG Crosswind Toe Brake axis mapping for Thrusters Forward/Backwards from default setup. (safer/more precise)
+
+
+Fly Safe CMDRs!

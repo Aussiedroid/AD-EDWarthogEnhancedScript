@@ -17,10 +17,10 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MINIMUM REQUIREMENTS: THRUSTMASTER TARGET SOFTWARE v3.0.18.328+ \ DRIVERS+FIRMWARE 2018+  ->(https://support.thrustmaster.com/en/product/hotaswarthog-en/)<- //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// VERSION HISTORY //		Version 3.3.0		\\ Released Sept 2016	|	Updated Dec 2018 //		\\		Public Release #19	//
+// VERSION HISTORY //	Version 3.3.3		\\ Released Sept 2016	|	Updated Feb 2019 //		\\		Public Release #20		//
 // =============================================================================================================================================================//
-// v3.3 - BEYOND CH.4: ALL New Keys mapped! NEW: EDBAT App Launcher, TM TPR Rudder Support, Swap PIP Hat, Report Crimes Macro & LED 'Blinking' Controller.	//	
-// v3.3 - NEW: User Override on Sec. Fire Pinky. IMPROVED: initPrintState formatting & Merged Ship/SRV Cam. FIX: Autodock Macro, C.Scoop LED & ECM duration. 	//
+// v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord Keymap resolved.//
+// v3.3 - BEYOND CH.4: ALL New Keys mapped! NEW: ED-BAT App Launcher, TM TPR Rudder Support, Swap PIP Hat, Report Crimes Macro & LED 'Blinking' Controller.	//
 // v3.2 - IMPROVED: PIP MGT now works first press & FAOFF HOLD Toggle now returns to Previously Active Joystick Curve. FIXED: Multiple Minor Keybind Conflicts.	//
 // v3.1 - FIXED: Galnet Audio & Escape Vector Sequence conflict. IMPROVED: Combined Fire Trigger behaviour, & Dual Tier PIPs 4xWEP now (2xSYS->2xENG). 		//
 // v3.0.2-BEYOND CH.1: Added User def. Double Tap to Pinky Trigger, NEW Inverted Dual PIP scheme (short=full PIPs), Fighter Follow replaced with Attack.	//
