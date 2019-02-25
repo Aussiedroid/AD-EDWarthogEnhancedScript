@@ -1,0 +1,710 @@
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// FUNCTIONS: TABLE OF CONTENTS //						// FUNCTIONS Include logic to customise specific Button/Toggle functionality.							//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	[1. FIRE & HARDPOINT CONTROLS (line 15)]		[3. TOGGLE CONTROLS (line 202)]				[4. SPECIALISED FEATURES (line 595)]							//
+//		- initHardpointManagement						- initLEDController							- initNightVisionEnhancer									//
+//		- initSetCombinedFire							- initEnhancedFAOFF							- initAPEngageEnhancer										//
+//		- initAdvancedFireModule						- initToggleRotationCorrection				- initIDLEMaster											//
+//														- initToggleSilentRunning					- initHeadlookModeSelect									//
+//	[2. PIP & TEXT CHAT CONTROLS (line 110)]			- initToggleCargoScoop						- initUserHotSlotPinkyTrigger								//
+//		- initPIPMapper									- initToggleLandingGear																					//
+//		- initSendChatString							- initToggleShipLights					[5. REPORT SCRIPT STATES (line 691)]							//
+//		- initCommsPresets								- initMicCommander							- initPrintState											//
+//																																								//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// FUNCTIONS: FIRE & HARDPOINT CONTROLS //
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int initHardpointManagement() {																// FUNCTION: Manage Hardpoint Deployment & Associated Menu Mappings
+		if(Joystick[S4] & !Joystick[H4P]) {														// This check forces Hardpoints to be deployed so Escape Vector is always in the right state. 
+			if(!HPoints) {																		// (It will result in the hardpoints appearing to deploy in your HUD, but does not slow macro down)
+				HPoints = 1;
+				ActKey(KEYON+PULSE+DeployHardpoints); }
+			initEscapeVector();	}																// Disengage & Escape Vector Macro
+		if(Joystick[H4P] & !Joystick[S4]) {
+			ActKey(KEYON+PULSE+UIEscape); }														// EXIT to MENU (Hold Modifier 2)
+		if(Joystick[H4P] & Joystick[S4]) {
+			ActKey(KEYON+PULSE+mFastModeSwitch); }												// EXIT to MENU + Fast Game Mode Switch (Hold Modifier 1+2)
+		if(!Joystick[H4P] & !Joystick[S4]) {													// Standard Hardpoint Deploy/Retract
+			if(!StartupLock) {
+				ActKey(KEYON+PULSE+DeployHardpoints);											// If in Ship: Deploy/Retract Hardpoints
+				HPoints=!HPoints;
+				ActKey(KEYON+DOWN+ShowCQCScoreboard); }	} }										// If in CQC: Show Scoreboard (Hold)
+
+
+
+	int initSetCombinedFire(int toggleValue) { 													// FUNCTION: Calculate Combined Fire Status (Default = ON (Combined))
+		if(toggleValue) {																		// When disabled, Trigger 2 is independant on Pinky Button (DX3) only
+			combinePriSecFire = !combinePriSecFire;	}
+		if(combinePriSecFire){
+			printf("Trigger 2: Set to COMBINED Primary + Secondary Fire\x0a");
+			MapKey(&Joystick, TG2, CHAIN(PrimaryFire, SecondaryFire)); }
+		else {
+			printf("Trigger 2: Set to SEPARATE Fire\x0a");
+			MapKey(&Joystick, TG2, 0); } }
+
+
+
+	int initAdvancedFireModule() {																// FUNCTION: Advanced Weapon Fire Module
+		if(Joystick[TG1]) {																		//	[Integrates Combo Fire & Repeater Fire into Primary/Secondary Fire Buttons]
+			if(Joystick[S4]) {																	
+				rAutoP=!rAutoP;
+				if(!rFireP) {
+					ActKey(KEYON+DOWN+PrimaryFire);												// Pinky Trigger + Primary = REPEATING FIRE
+					rFireP = 1; }
+				if(rAutoP) {
+					printf("Repeater Fire: AUTO ON  (PRIMARY) ^^\x0a"); } }
+			if(Joystick[H4P]) {
+				initSetCombinedFire(1);	}														// CMS Hat Switch + Primary = COMBINE TOGGLE
+			if(!Joystick[H4P] & !Joystick[S4]) {
+				rAutoP = 0;
+				if(!rFireP) {
+					ActKey(KEYON+DOWN+PrimaryFire); } } }										// Primary Only = STANDARD FIRE (Releases Repeating Fire when on Manual User Preference)
+		if(!Joystick[TG1]) {																	// 	[Set 'RepeaterAutoRelease' value in the User Preferences]
+			if(RepeaterAutoRelease) {															// Auto Primary Release ENABLED
+				if(rFireP & rAutoP) {
+					DeferCall(RepeaterTimer, 	&ActKey, KEYON+UP+PrimaryFire); 				// Automatic timer delay to release Primary Fire after a 6 second hold
+					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rFireP = 0;"));		// Slight offset timing of +200ms to ensure triggering after event
+					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rAutoP = 0;"));
+					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: AUTO OFF (PRIMARY)\\x0a\");")); }
+				if(!rFireP) {
+					ActKey(KEYON+UP+PrimaryFire); }	}
+			if(!RepeaterAutoRelease) {															// Manual Primary Release ENABLED
+				if(!rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if NO, only release primary fire button
+					ActKey(KEYON+UP+PrimaryFire); }
+				if(rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if YES, also reset flag & print
+					ActKey(KEYON+UP+PrimaryFire);
+					rFireP = 0;
+					printf("Repeater Fire: AUTO OFF (PRIMARY)\x0a"); } } }
+		if(Joystick[S3]) {
+			if(Joystick[S4]) {
+				rAutoS=!rAutoS;
+				if(!rFireS) {
+					ActKey(KEYON+DOWN+SecondaryFire);											// Pinky Trigger + Secondary = REPEATING FIRE
+					rFireS = 1; }
+				if(rAutoS) {
+					printf("Repeater Fire: AUTO ON  (SECONDARY) ^^\x0a"); } }
+			if(!Joystick[S4]) {
+				rAutoS = 0;
+				if(!rFireS) {
+					ActKey(KEYON+DOWN+SecondaryFire); } } }										// Secondary Only = STANDARD FIRE (Releases Repeating Fire)
+		if(!Joystick[S3]) {
+			if(RepeaterAutoRelease) {															// Auto Secondary Release ENABLED
+				if(rFireS & rAutoS) {
+					DeferCall(RepeaterTimer, 	&ActKey, KEYON+UP+SecondaryFire); 				// Automatic timer delay to release Secondary Fire after a 6 second hold
+					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rFireS = 0;"));		// Slight offset timing of +200ms to ensure triggering after event
+					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rAutoS = 0;"));
+					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: AUTO OFF (SECONDARY)\\x0a\");")); }
+				if(!rFireS) {
+					ActKey(KEYON+UP+SecondaryFire); } }				
+			if(!RepeaterAutoRelease) {															// Manual Secondary Release ENABLED
+				if(!rFireS & !rAutoS) {															// Checks if Repeater Fire was enabled, if NO, only release secondary fire button
+					ActKey(KEYON+UP+SecondaryFire); }
+				if(rFireS & !rAutoS) {															// Checks if Repeater Fire was enabled, if YES, also reset flag & print
+					ActKey(KEYON+UP+SecondaryFire);
+					rFireS = 0;
+					printf("Repeater Fire: AUTO OFF (SECONDARY)\x0a"); } } } }
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// FUNCTIONS: PIP & TEXT CHAT CONTROLS //														// HAT SWITCHES
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int initPIPMapper(int maxPIPx=0, int minPIPy=0, int balPIPz=0) {							// FUNCTION: Sets Auto-PIP Mapping & then Sends Keystrokes   (Max, Min, Bal)
+		int PIPx, PIPy, PIPz;																	// Parameters = SYS, ENG, WEP, MID		(See AD_EDSettings file)
+
+		if		(maxPIPx == 0) 	 PIPx = 0;														// maxPIPx gets 4 PIPs (balanced 1 PIP on others if no 2nd parameter set)
+		else if (maxPIPx == SYS) PIPx = PULSE+PowerSys;
+		else if (maxPIPx == ENG) PIPx = PULSE+PowerEng;
+		else if (maxPIPx == WEP) PIPx = PULSE+PowerWep;
+
+		if 		(minPIPy == 0)	 PIPy = 0;														// minPIPy gets 2 PIPs
+		else if (minPIPy == SYS) PIPy = PULSE+PowerSys;
+		else if (minPIPy == ENG) PIPy = PULSE+PowerEng;
+		else if (minPIPy == WEP) PIPy = PULSE+PowerWep;
+
+		if 		(balPIPz == 0)	 PIPz = 0;														// balPIPz overrides minPIPy and sets 3 PIPs each 'balanced' for max & min PIPs
+		else if (balPIPz == MID) PIPz = PIPy;
+
+		if(!StartupLock) {
+			ActKey(KEYON+CHAIN(																	// MACRO: Send PIP Configuration
+				PULSE+BalancePower, D(),														// If NO other parameters set, only Balance Power
+				PIPx, D(),
+				PIPy, D(),
+				PIPx, D(),
+				PIPx, D(),
+				PIPz));	} }
+
+
+																								// FUNCTION: Send String of Predefined Characters to Cockpit Comms Panel
+	int initSendChatString(alias string) {														//           [NOTE 1: Set ChatPresetMode in the AD_EDSettings file]
+		int length, pos = 0;																	// 			 [NOTE 2: LOCK function does not work with this, so if you press a button which sends keys to the game whilst the routine is typing into the chat window, these will get inserted into the text stream and will not go to the game.]
+
+		length = strlen(&string);																// Determine Length of the Chat String (used to set number of loops needed in while statement below)
+
+		ActKey(KEYON+PULSE+UIBack);					Sleep(50);									// PANEL RESET: UIBack Sequence is to ensure that no UI is active/open before running SendChatString loop.
+		ActKey(KEYON+PULSE+UIBack);					Sleep(50);									//	NOTE: If no UI is selected anyways, these commands will do nothing.
+		ActKey(KEYON+PULSE+UIBack);					Sleep(50);
+		ActKey(KEYON+PULSE+CommsPanel);				Sleep(250);									// OPEN New Comms Panel (+UI Delay - Default: 250ms) (Delay ensures panel is Open and Text Box Active before entering characters)
+		ActKey(KEYON+PULSE+QuickCommsPanel);		Sleep(50);									//	Select Text Box/Quick Comms (Enter) ready for auto-text input..
+
+		strsub(&ca_pulseChar, &string, pos, pos);												// FIRST CHAR:		Before Entering Loop, Set String Value and..
+		ActKey(KEYON+PULSE+ca_pulseChar[0]); 		pos = pos + 1;								// 					..Pulse First Keypress without Delay (Prevents issues with Capitals 'sticking' for first letters)
+		while (pos < length) {																	// REMAINING CHARS:	WHILE there are characters to output, loop.
+			strsub(&ca_pulseChar, &string, pos, pos);											// 					Update pulseChar key
+			DeferCall(ChatKeyRepeatTime * (pos + 1), &ActKey, KEYON+PULSE+ca_pulseChar[0]);		// 					Output pulseChar key to Comms Panel
+			pos = pos + 1;   }																	// 					Next character/key
+		DeferCall(ChatKeyRepeatTime * (pos + 2), &ActKey, KEYON+PULSE+QuickCommsPanel);			// Prepare to Close Text Box/Comms
+		Sleep(250); DeferCall(ChatKeyRepeatTime * (pos + 2), &ActKey, KEYON+PULSE+CommsPanel);	// CLOSE Comms Panel (+UI Delay - Default: 250ms)
+		printf("Comms Auto-Text  :SENT:  \"");		printf(&string);		printf("\" \x0a"); }// Display Full Chat String to TARGET Output Panel
+
+
+																								// FUNCTION: Multi-Channel Ship Comms System Integration (Comms Panel, Wing & SLF) (Controls ALL the non-audio Comm Channels)
+																								//           [NOTE: Each Preset Group has 8 mappings (4 directions + modifier alt.]
+	int initDirectCommControls() {																// 3 Comms Preset Groups for Trim Hat Switch are based on Pinky Throttle Switch Position
+		if(!StartupLock) {
+			if(CommsPreset == 0) {																// COMMS: WING/PVP COMMANDS				[Pinky Throttle Switch MIDDLE]
+				if(Joystick[S4]) {
+					if(Joystick[H1U]) ActKey(KEYON+PULSE+mReportCrimesToggle);
+					if(Joystick[H1D]) ActKey(KEYON+PULSE+WingmanNavlock);
+					if(Joystick[H1L]) ActKey(KEYON+PULSE+mNAVBeaconOff);
+					if(Joystick[H1R]) ActKey(KEYON+PULSE+mNAVBeaconWing); }
+				else {
+					if(Joystick[H1U]) ActKey(KEYON+PULSE+WingmanTarget);
+					if(Joystick[H1D]) ActKey(KEYON+PULSE+SelectWingman2);
+					if(Joystick[H1L]) ActKey(KEYON+PULSE+SelectWingman1);
+					if(Joystick[H1R]) ActKey(KEYON+PULSE+SelectWingman3); } }
+			if(CommsPreset == 1) {																// COMMS: AUTO-TEXT CHAT COMMANDS		[Pinky Throttle Switch FORWARD]
+				if(Joystick[S4]) {																//		      (COMMS PANEL)
+					if(Joystick[H1U]) initSendChatString(chat_Modifier_UP);
+					if(Joystick[H1D]) initSendChatString(chat_Modifier_DOWN);
+					if(Joystick[H1L]) initSendChatString(chat_Modifier_LEFT);
+					if(Joystick[H1R]) initSendChatString(chat_Modifier_RIGHT); }
+				else {
+					if(Joystick[H1U]) initSendChatString(chat_Basic_UP);
+					if(Joystick[H1D]) initSendChatString(chat_Basic_DOWN);
+					if(Joystick[H1L]) initSendChatString(chat_Basic_LEFT);
+					if(Joystick[H1R]) initSendChatString(chat_Basic_RIGHT);	} }
+			if(CommsPreset == 2) {																// COMMS: SHIP LAUNCH FIGHTER COMMANDS	[Pinky Throttle Switch BACKWARD]
+				if(Joystick[S4]) {
+					if(Joystick[H1U]) ActKey(KEYON+PULSE+FighterFocusAttack);
+					if(Joystick[H1D]) ActKey(KEYON+PULSE+FighterDock);
+					if(Joystick[H1L]) ActKey(KEYON+PULSE+FighterHoldPosition);
+					if(Joystick[H1R]) ActKey(KEYON+PULSE+FighterHoldFire); }
+				else {
+					if(Joystick[H1U]) ActKey(KEYON+PULSE+FighterAggressive);
+					if(Joystick[H1D]) ActKey(KEYON+PULSE+FighterOrders);
+					if(Joystick[H1L]) ActKey(KEYON+PULSE+FighterDefensive);
+					if(Joystick[H1R]) ActKey(KEYON+PULSE+FighterFollow); } } } }
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// FUNCTIONS: TOGGLE CONTROLS //
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int initLEDController(int x) {																// FUNCTION: LED Controller provides flashing LED feedback on Toggle switching & will initiate a startup up sequence patter for LEDs when script starts.
+		int counter = 0;																		// [Set BlingLEDBling=1 in User Preferences to Enable Function]
+		if(!StartupLock) {
+			while (counter < 6) {																// Flash LED Sequencer (Approx 3 times) (Change counter value & counter*xx in Defercall to change timings/duration) (Default values are 6 and 60)
+				DeferCall(counter*60, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^x));	// Usage example: if(BlingLEDBling) initLEDController(LED1);
+				counter = counter + 1;	} }
+		else {																					// Startup LED Sequencer (This will leave LED 1 & 2 active for FAOFF & Rotational Correction at end of script launch)
+			ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, SetLED)); 							// Enable LED Backlight on Start & then Initiate LED status below:
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));					// Disable any active LEDs 1-5, Ready For Sequencing.
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3)); 					// set LED 3 OFF 	[Silent Running]
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); 					// set LED 4 OFF	[Cargo Scoop]
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); 					// set LED 5 OFF	[Landing Gear]
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1));					// Start Sequence
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));	Sleep(20);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3));
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));	Sleep(33);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4));
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));	Sleep(33);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5));
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));	Sleep(33);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));	Sleep(120);		// End of Reverse Sequence
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4));	Sleep(33);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3));
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));	Sleep(33);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));	Sleep(33);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1)); 					// set LED 1 ON 	[Flight Assist]
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));	Sleep(33);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));	Sleep(20);
+			ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));	} }				// set LED 2 ON 	[Rotational Correction]
+																								// End of Forward Sequence
+
+
+	int initEnhancedFAOFF() {																	// FUNCTION: Enhanced Joystick Curves tailored for Flight Assist Off (TOGGLE)
+		if(Throttle[SPDF]) {																	//    AKA     "FAOFF LIKE A BOSS!"
+			if(Joystick[S4]) {																	// FA OFF: TOGGLE
+				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Enables Alternative Flight Control Mappings (when using the Pinky Trigger).
+				AltFlightToggle = 1; }
+			if(!Joystick[S4]) {
+				ActKey(KEYON+PULSE+FlightAssist);
+				SetSCurve(&Joystick, JOYX, 0, 1, 0, 2, -1);										// Reduces the Joystick sensitivity on Forward TOGGLE on FA Off
+				SetSCurve(&Joystick, JOYY, 0, 1, 0, 2, -1);										// Full Joystick sensitivity remains on Back HOLD on FA Off for quick turns in combat
+				if(UseRuddersTPR & UseRudderAxisCurves)		SetSCurve(&TFRPHARudder, TRUDDER, 0, 10, 0, 3, -1);
+				if(UseRuddersT16000 & UseRudderAxisCurves)	SetSCurve(&TFRPRudder, TFRPHA_RUDDER, 0, 10, 0, 3, -1);
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));				// set LED 1 OFF
+				if(BlingLEDBling) initLEDController(LED1);
+				FAOFFToggle = 1;
+				if(UseRudderAxisCurves)  printf("Joystick Profile[%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
+				if(!UseRudderAxisCurves) printf("Joystick Profile[%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]); } }
+		if(!Throttle[SPDF]) {
+			if(AltFlightToggle) {
+				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Disables Alternative Flight Control Mappings (works with both Pinky Trigger & Without!).
+				AltFlightToggle=!AltFlightToggle; }
+			if(FAOFFToggle) {
+				ActKey(KEYON+PULSE+FlightAssist);
+				initSetJoystickCurves();														// Return Joystick Curve back to previous preset (based on toggle position)
+				if(BlingLEDBling) initLEDController(LED1);
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1));				// set LED 1 ON     you will need to toggle back to center, then UP/DOWN again to reapply settings.
+				FAOFFToggle=!FAOFFToggle;
+				if(UseRudderAxisCurves)  printf("Returning to Joystick Profile [%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
+				if(!UseRudderAxisCurves) printf("Returning to Joystick Profile [%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]);  } }
+		if(Throttle[SPDB]) {																	// FA OFF: HOLD
+			if(Joystick[S4]) {
+				ActKey(KEYON+PULSE+AlternativeFlightMode);
+				AltFlightHold = 1; }
+			if(!Joystick[S4]) {
+				ActKey(KEYON+PULSE+FlightAssist);
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));				// set LED 1 OFF
+				FAOFFHold = 1; } }
+		if(!Throttle[SPDB]) {
+			if(AltFlightHold) {
+				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Disables Alternative Flight Control Mappings (works with both Pinky Trigger & Without!).
+				AltFlightHold=!AltFlightHold; }
+			if(FAOFFHold) {
+				ActKey(KEYON+PULSE+FlightAssist);
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1));				// set LED 1 ON
+				FAOFFHold=!FAOFFHold; } } }
+
+
+
+	int initToggleRotationCorrection() {														// TOGGLE: Rotational Correction
+		if(Throttle[EORMOTOR]) {																// Default: ON (Position toggle switch DOWN to disable)
+			if(!RCorrection) {																	// Press 'F4' to toggle manually if misaligned, or change in Sys Panel.
+				printf("Rotation Correction: DISABLED !!\x0a");
+				RCorrection = 1;
+				ActKey(KEYON+PULSE+RotationalCorrection);
+				if(BlingLEDBling) initLEDController(LED2);
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2)); } }			// set LED 2 OFF
+		if(!Throttle[EORMOTOR]) {
+			if(RCorrection) {
+				printf("Rotation Correction: ENABLED  ^^\x0a");
+				RCorrection = 0;
+				if(!StartupLock) {
+					ActKey(KEYON+PULSE+RotationalCorrection); }
+				if(BlingLEDBling) initLEDController(LED2);
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2)); } } }			// set LED 2 ON
+
+
+
+	int initToggleSilentRunning() {																// TOGGLE: Silent Running
+		if(Throttle[APUON]) {																	// Default: OFF (Exhaust Vents Open)
+			if(!SRunning) {																		// Press 'DEL' to toggle manually if misaligned, or change in Sys Panel.
+				if(!Joystick[S4]) {
+					ActKey(KEYON+PULSE+SilentRunning);											// [Toggle Hold]
+					printf("Silent Running: ACTIVATED   !!\x0a"); }
+				if(Joystick[S4])  {																// Heat Sink + Silent Running Combo [Pinky+Silent Running]
+					ActKey(KEYON+PULSE+DeployHeatSink);
+					ActKey(KEYON+PULSE+SilentRunning);
+					printf("Silent Running: COOL RUNNINGS (Heat Sink Combo Sequence Activated!)\x0a"); }
+				SRunning = 1;
+				if(BlingLEDBling) initLEDController(LED3);
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3)); } }			// set LED 3 ON
+		if(!Throttle[APUON]) {
+			if(SRunning) {
+				ActKey(KEYON+PULSE+SilentRunning);												// [Toggle Release]
+				printf("Silent Running: DEACTIVATED <<\x0a");
+				SRunning = 0;
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));				// set LED 3 OFF
+				if(BlingLEDBling) initLEDController(LED3); } } }
+
+
+
+	int initToggleCargoScoop() {																// TOGGLE: Cargo Scoop
+		if(Throttle[RDRNRM]){																	// UP (ON)
+			if(Joystick[S4] & !Joystick[H4P]) {													// UP/TOGGLE OVERRIDE: If Pinky Trigger + Cargo Scoop UP, then override Cargo Scoop.
+				CargoSc=!CargoSc;
+				printf("Cargo Scoop: !! Toggle RESET !!\x0a"); }
+			if(!Joystick[S4] & Joystick[H4P]) {													// UP/TOGGLE PRECISION MODE: If CMS Hat Switch + Cargo Scoop UP, then toggle Throttle Precision Mode when Cargo Scoop is Open.
+				CargoPrecisionMode=!CargoPrecisionMode;
+				if(CargoPrecisionMode)	printf("Cargo Scoop Precision Mode: ENABLED! [Throttle Limiter ACTIVE]\x0a");
+				else 					printf("Cargo Scoop Precision Mode: DISABLED <<\x0a"); }
+			if(!Joystick[S4] & !Joystick[H4P]) {												// UP/OPEN CARGO SCOOP: If No Modifiers are pressed, then open Cargo Scoop
+				if(!CargoSc) {
+					printf("Cargo Scoop: DEPLOYED >>\x0a");
+					CargoSc = 1;
+					ActKey(KEYON+PULSE+CargoScoop);
+					if(BlingLEDBling) initLEDController(LED4);
+					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4));			// set LED 4 ON
+					if(CargoPrecisionMode) {													// UP/ENABLE PRECISION MODE: If Precision Mode is ON, then limit Throttle axis to 50% (Blue Zone).
+						TrimDXAxis(DX_Z_AXIS, SET(0));
+						SetSCurve(&Throttle, THR_RIGHT, 0, 2, 0, 2, -2);
+						printf("Throttle Profile: CARGO SCOOP OVERRIDE PRECISION [-50 -> 50]\x0a");
+						SetThrottle(); } } } }
+		if(!Throttle[RDRNRM]) {																	// DOWN (OFF)
+			if(Joystick[S4] & !Joystick[H4P]) {													// DOWN/TOGGLE OVERRIDE: If Pinky Trigger + Cargo Scoop DOWN, then override Cargo Scoop.
+				CargoSc=!CargoSc;
+				printf("Cargo Scoop: !! Toggle RESET !!\x0a"); }
+			if(!Joystick[S4] & Joystick[H4P]) {													// DOWN/TOGGLE PRECISION MODE: If CMS Hat Switch + Cargo Scoop DOWN, then toggle Throttle Precision Mode when Cargo Scoop is Open.
+				CargoPrecisionMode=!CargoPrecisionMode;
+				if(CargoPrecisionMode)	printf("Cargo Scoop Precision Mode: ENABLED! [Throttle Limiter ACTIVE]\x0a");
+				else 					printf("Cargo Scoop Precision Mode: DISABLED <<\x0a"); }
+			if(!Joystick[S4] & !Joystick[H4P]) {												// DOWN/CLOSE CARGO SCOOP: If No Modifiers are pressed, then close Cargo Scoop
+				if(CargoSc) {
+					CargoSc = 0;
+					ActKey(KEYON+PULSE+CargoScoop);
+					printf("Cargo Scoop: RETRACTED <<\x0a");
+					if(CargoPrecisionMode) {													// DOWN/TOGGLE PRECISION MODE: If Precision Mode is ON, then remove Throttle axis limitation & return axis to user's preference.
+						if(CargoReturnMode == 0) {
+							TrimDXAxis(DX_Z_AXIS, SET(-1024));
+							if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);
+							if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -90, 0, 0); 
+							printf("Throttle Profile: CARGO SCOOP REVERT FORWARD ONLY [0 -> 100]\x0a"); }
+						if(CargoReturnMode == 1) {
+							TrimDXAxis(DX_Z_AXIS, SET(0));
+							if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, 5, 0, 0);
+							if(CruiseOnThrottle == 1) SetJCurve(&Throttle, THR_RIGHT, 90, 100);
+							printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE [-100 -> 100]\x0a"); }
+						if(CargoReturnMode == 2) {
+							TrimDXAxis(DX_Z_AXIS, SET(0));
+							SetJCurve(&Throttle, THR_RIGHT, 80, 100);
+							printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE CUSTOM [-100 -> 80]\x0a"); }
+						if(CargoReturnMode == 3) {
+							TrimDXAxis(DX_Z_AXIS, SET(0));
+							SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);
+							printf("Throttle Profile: CARGO SCOOP REVERT TRIMMED [-75 -> 75]\x0a"); }							
+						SetThrottle(); } } }
+			if(Joystick[S4] & Joystick[H4P]) {													// DOWN/JETTISON ALL CARGO: If BOTH CMS Hat Switch & Pinky Trigger Modifier are held + Cargo Scoop is DOWN, the activate Jettison All Cargo & close Cargo Scoop.
+				if(CargoSc) {
+					CargoSc = 0;
+					ActKey(KEYON+PULSE+JettisonAllCargo);
+					printf("Cargo Scoop: JETTISON ALL CARGO !!\x0a");
+					if(CargoPrecisionMode) {													// DOWN/TOGGLE PRECISION MODE: If Precision Mode is ON & BOTH CMS Hat Switch & Pinky Trigger Modifier are held, then remove Throttle axis limitation & return axis to user's preference.
+						if(CargoReturnMode == 0) {
+							TrimDXAxis(DX_Z_AXIS, SET(-1024));
+							if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);
+							if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -90, 0, 0); 
+							printf("Throttle Profile: CARGO SCOOP REVERT FORWARD ONLY [0 -> 100]\x0a"); }
+						if(CargoReturnMode == 1) {
+							TrimDXAxis(DX_Z_AXIS, SET(0));
+							if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, 5, 0, 0);
+							if(CruiseOnThrottle == 1) SetJCurve(&Throttle, THR_RIGHT, 90, 100);
+							printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE [-100 -> 100]\x0a"); }
+						if(CargoReturnMode == 2) {
+							TrimDXAxis(DX_Z_AXIS, SET(0));
+							SetJCurve(&Throttle, THR_RIGHT, 80, 100);
+							printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE CUSTOM [-100 -> 80]\x0a"); }
+						if(CargoReturnMode == 3) {
+							TrimDXAxis(DX_Z_AXIS, SET(0));
+							SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);
+							printf("Throttle Profile: CARGO SCOOP REVERT TRIMMED [-75 -> 75]\x0a"); }
+						SetThrottle(); }
+					DeferCall(5000, &ActKey, KEYON+PULSE+CargoScoop);
+					DeferCall(5050, &ActKey, KEYON+PULSE+EXEC("printf(\"Cargo Scoop: RETRACTED <<\\x0a\");")); } }
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));				// set LED 4 OFF
+				if(BlingLEDBling) initLEDController(LED4); } }
+
+
+
+	int initToggleLandingGear() {																// TOGGLE: Landing Gear
+		if(Throttle[EACON]) {																	// Default: ON (Assumes you are docked when loading into ED)
+			if(Joystick[S4]) {																	// Hold Pinky Trigger to toggle manual position reset, or change in Sys Panel.
+				Gears=!Gears;
+				printf("Landing Gear: !! Toggle RESET !!\x0a");	}
+			if(Joystick[H4P]) {																	// Hold CMS Hat Switch to Initiate Take Off Procedure (This will hold Vert. Thrust up, toggle Landing Gear & Set PIPs for Launch at Station or Planet Surface)
+				Gears = 0;																		// (Mapped to work in either toggle direction)
+				ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));							// Set PIPs to SYSx4 ENGx2 - Protect Ship on Launch
+				ActKey(KEYON+DOWN+ThrustUp);
+				DeferCall(3500,  &ActKey, KEYON+PULSE+LandingGear);								// Retract Landing Gear shortly after leaving pad/surface
+				DeferCall(4000, &ActKey, KEYON+UP+ThrustUp);									// Releases Vertical Thrust after 4 seconds
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));				// set LED 5 OFF
+				if(BlingLEDBling) initLEDController(LED5);
+				printf("Landing Gear: LAUNCH SEQUENCE ACTIVATED >>\x0a");
+				printf("Landing Gear: RETRACTED <<\x0a"); }
+			if((!Joystick[S4]) & (!Joystick[H4P])) {
+				if(!Gears) {
+					printf("Landing Gear: DEPLOYED >>\x0a");
+					Gears = 1;
+					ActKey(KEYON+PULSE+LandingGear);
+					if(BlingLEDBling) initLEDController(LED5);
+					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5)); } } }		// set LED 5 ON
+		if(!Throttle[EACON]) {
+			if(Joystick[S4]) {																	// Hold Pinky Trigger to toggle manual position reset, or change in Sys Panel.
+				Gears=!Gears;
+				printf("Landing Gear: !! Toggle RESET !!\x0a");	}
+			if(Joystick[H4P]) {																	// Hold CMS Hat Switch to Initiate Take Off Procedure (This will hold Vert. Thrust up, toggle Landing Gear & Set PIPs for Launch at Station or Planet Surface)
+				Gears = 0;																		// (Mapped to work in either toggle direction)
+				ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));							// Set PIPs to SYSx4 ENGx2 - Protect Ship on Launch
+				ActKey(KEYON+DOWN+ThrustUp);
+				DeferCall(3500,  &ActKey, KEYON+PULSE+LandingGear);								// Retract Landing Gear shortly after leaving pad/surface
+				DeferCall(4000, &ActKey, KEYON+UP+ThrustUp);									// Releases Vertical Thrust after 4 seconds
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));				// set LED 5 OFF
+				if(BlingLEDBling) initLEDController(LED5);
+				printf("Landing Gear: LAUNCH SEQUENCE ACTIVATED >>\x0a");
+				printf("Landing Gear: RETRACTED <<\x0a"); }
+			if((!Joystick[S4]) & (!Joystick[H4P])) {
+				if(Gears) {
+					printf("Landing Gear: RETRACTED <<\x0a");
+					Gears = 0;
+					ActKey(KEYON+PULSE+LandingGear);
+					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));			// set LED 5 OFF
+					if(BlingLEDBling) initLEDController(LED5); } } } }
+
+
+
+	int initToggleShipLights(int toggleValue) { 												// FUNCTION: Calculate ShipLights state.
+		if(toggleValue) {																		// Dims Throttle LED Backlight intensity when active.
+			Lights=!Lights; }																	// Note: This can get a little buggy with the SRV multiple lighting levels.
+		if(Lights){																				// Press 'INSERT' to toggle manually if SRV has messed things up or extra long hold to reset.
+			printf("Lights: ^^ ILLUMINATE! ^^\x0a");
+			ActKey(KEYON+PULSE+ShipLights);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 50)); }							// Dim Throttle Lights
+		if(!Lights) {
+			printf("Lights:    DELUMINATE!\x0a");
+			ActKey(KEYON+PULSE+ShipLights);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }							// Return Throttle Lights to Default
+
+
+
+	int initMicCommander() {																	// FUNCTION: Manages Microphone Internal/External Push-to-Talk buttons
+		if(Throttle[MSP]) {																		// [HOLD PTT]
+			MicCheckHold = 1;																	// Enable PTT Buttons
+			if(Throttle[EFROVER]) {																// If Mic Toggle OFF:	Use Internal PTT Voice Comms/Open Comms
+				if(ExternalMicInverse) {														// Will Invert VoiceAttack listening when Internal Comms are used
+						ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal);
+						ActKey(KEYON+PULSE+InternalVoiceCommsPTT); }
+				else {	ActKey(KEYON+PULSE+InternalVoiceCommsPTT); } }
+			if(Throttle[EFRNORM]) {																// If Mic Toggle ON:	Use External PTT Voice Comms/Open Comms
+			  if(ExternalMicInverse) {															// Enables Inversed External PTT Channels (Enabling Discord will Disable VoiceAttack)
+				if(!MicExternalAction) {														// Check if user preference match requirements for 'ExternalMicInverse' functionality (See NOTE 2 in AD_EDSettings.tmh file)
+					ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal);								// 	NOTE: This will only work correctly if Listening is enabled (ALT+F2) in VoiceAttack prior to first press of the PTT button
+					ActKey(KEYON+DOWN+ExternalVoiceCommsPTT);
+					MicExtHoldCheck = 1; } }
+			  if(!ExternalMicInverse) {															// Enables Independant External PTT Channels (Each channel separated by Pinky Trigger and can be used in any combination)
+				if(!Joystick[S4]) {
+					if(MicExternalAction) {														// Check if user preference for External Voice is Toggle or PTT
+							ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);
+							MicExtPulseCheck = 1; }
+					else {	ActKey(KEYON+DOWN+ExternalVoiceCommsPTT);
+							MicExtHoldCheck = 1; } }
+				if(Joystick[S4]) {																// If Mic Toggle ON + Pinky Trigger Held:  Use Alternative External PTT Voice Comms Open Comms
+					if(MicExternalActionALT) {													// Check if user preference for Alt. External Voice is Toggle or PTT
+							ActKey(KEYON+PULSE+ExternalVoiceCommsPTT_ALT);
+							MicExtPulseCheckALT = 1; }
+					else {	ActKey(KEYON+DOWN+ExternalVoiceCommsPTT_ALT);
+							MicExtHoldCheckALT = 1; } } } } }
+		if(!Throttle[MSP] & MicCheckHold) {														// [HOLD PTT]
+			MicCheckHold=!MicCheckHold;															// Release PTT Buttons
+			if(Throttle[EFROVER]) {																// If Mic Toggle OFF:	Release Internal PTT Voice Comms Open Comms
+				if(ExternalMicInverse) {														// Will Invert VoiceAttack listening when Internal Comms are used
+						ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal);
+						ActKey(KEYON+PULSE+InternalVoiceCommsPTT); }
+				else {	ActKey(KEYON+PULSE+InternalVoiceCommsPTT); } }
+			if(Throttle[EFRNORM]) {																
+				if(MicExtPulseCheck) {															// Check if Internal, External or Alt. External was pressed, then release accordingly.
+					ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);									// If Mic Toggle ON:	Release External PTT Voice Comms Open Comms
+					MicExtPulseCheck = 0; }
+				if(MicExtPulseCheckALT) {
+					ActKey(KEYON+PULSE+ExternalVoiceCommsPTT_ALT);								// If Mic Toggle ON:	Release Alternative External PTT Voice Comms Open Comms
+					MicExtPulseCheckALT = 0; }
+				if(ExternalMicInverse & MicExtHoldCheck) {
+					ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }								// Toggles VoiceAttack Back ON
+				if(MicExtHoldCheck | MicExtHoldCheckALT) {
+					ActKey(KEYON+UP+ExternalVoiceCommsPTT);										// Release HOLDS
+					ActKey(KEYON+UP+ExternalVoiceCommsPTT_ALT);
+					MicExtHoldCheck = 0;
+					MicExtHoldCheckALT = 0; } } }
+		if(Throttle[EOLMOTOR]) {																// [TOGGLE PTT]
+			MicCheckToggle = 1;																	// Enable Toggle
+			if(Throttle[EFROVER]) {
+				printf("Voice Comms: ^^  INTERNAL MIC OPEN  ^^\x0a");
+				ActKey(KEYON+PULSE+InternalVoiceCommsPTT); }									// If Mic Toggle OFF:	Use Internal PTT Voice Comms Open Comms
+			if(Throttle[EFRNORM]) {
+				if(!Joystick[S4]) {
+					printf("Voice Comms: ^^  MAIN EXTERNAL MIC OPEN  ^^\x0a");
+					if(MicExternalAction)  ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);			// If Mic Toggle ON:	Use External PTT Voice Comms Open Comms
+					if(!MicExternalAction) ActKey(KEYON+DOWN+ExternalVoiceCommsPTT);
+					MicExtToggleCheck = 1; }
+				if(Joystick[S4]) {
+					if(ExternalMicCombined) {													// Check if user preference for External Voice Comms is Combined or Separate
+						printf("Voice Comms: ^^  BOTH EXTERNAL MICS OPEN  ^^\x0a");
+						MicExtToggleCombo = 1;
+						if(MicExternalAction & MicExternalActionALT) {							// Depending on the user preferences, enable the correct combination of External Voice Comms
+							ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);
+							ActKey(KEYON+PULSE+ExternalVoiceCommsPTT_ALT); }
+						if(!MicExternalAction & MicExternalActionALT) {
+							ActKey(KEYON+DOWN+ExternalVoiceCommsPTT);
+							ActKey(KEYON+PULSE+ExternalVoiceCommsPTT_ALT); }
+						if(MicExternalAction & !MicExternalActionALT) {
+							ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);
+							ActKey(KEYON+DOWN+ExternalVoiceCommsPTT_ALT); }
+						if(!MicExternalAction & !MicExternalActionALT) {
+							ActKey(KEYON+DOWN+ExternalVoiceCommsPTT);
+							ActKey(KEYON+DOWN+ExternalVoiceCommsPTT_ALT); }	}
+					if(!ExternalMicCombined) {
+						printf("Voice Comms: ^^  ALT EXTERNAL MIC OPEN  ^^\x0a");
+						if(MicExternalActionALT)  ActKey(KEYON+PULSE+ExternalVoiceCommsPTT_ALT);// If Mic Toggle ON:  Use Alternative External PTT Voice Comms Open Comms	
+						if(!MicExternalActionALT) ActKey(KEYON+DOWN+ExternalVoiceCommsPTT_ALT);
+						MicExtToggleCheckALT = 1; } } } }
+		if(!Throttle[EOLMOTOR] & MicCheckToggle) {												// [TOGGLE PTT]
+			MicCheckToggle=!MicCheckToggle;														// Release Toggle
+			if(Throttle[EFROVER]) {
+				printf("Voice Comms: <<  INTERNAL MIC CLOSED  <<\x0a");
+				ActKey(KEYON+PULSE+InternalVoiceCommsPTT); }									// If Mic Toggle OFF:	Release Internal PTT Voice Comms Open Comms
+			if(Throttle[EFRNORM]) {
+				if(ExternalMicCombined) {														// Check if user preference for External Voice Comms is Combined
+					if(MicExtToggleCombo) {														// If Mic Toggle ON + Combined External:	Release External PTT Voice Comms Open Comms
+						printf("Voice Comms: <<  BOTH EXTERNAL MICS CLOSED  <<\x0a");
+						MicExtToggleCombo = 0;
+						if(MicExternalAction & MicExternalActionALT) {							// Depending on the user preferences, release the correct combination of External Voice Comms
+							ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);
+							ActKey(KEYON+PULSE+ExternalVoiceCommsPTT_ALT); }
+						if(!MicExternalAction & MicExternalActionALT) {
+							ActKey(KEYON+UP+ExternalVoiceCommsPTT);
+							ActKey(KEYON+PULSE+ExternalVoiceCommsPTT_ALT); }
+						if(MicExternalAction & !MicExternalActionALT) {
+							ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);
+							ActKey(KEYON+UP+ExternalVoiceCommsPTT_ALT); }
+						if(!MicExternalAction & !MicExternalActionALT) {
+							ActKey(KEYON+UP+ExternalVoiceCommsPTT);
+							ActKey(KEYON+UP+ExternalVoiceCommsPTT_ALT); } }
+					if(MicExtToggleCheck) {														// If Mic Toggle ON + Combined External:	Release External PTT Voice Comms Open Comms
+						printf("Voice Comms: <<  MAIN EXTERNAL MIC CLOSED  <<\x0a");
+						if(MicExternalAction)  ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);
+						if(!MicExternalAction) ActKey(KEYON+UP+ExternalVoiceCommsPTT);
+						MicExtToggleCheck = 0; } }
+				if(!ExternalMicCombined) {														// Check if user preference for External Voice Comms is Separate
+					if(MicExtToggleCheck) {														// If Mic Toggle ON + Not Combined External:	Release External PTT Voice Comms Open Comms
+						printf("Voice Comms: <<  MAIN EXTERNAL MIC CLOSED  <<\x0a");
+						if(MicExternalAction)  ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);
+						if(!MicExternalAction) ActKey(KEYON+UP+ExternalVoiceCommsPTT);
+						MicExtToggleCheck = 0; }
+					if(MicExtToggleCheckALT) {													// If Mic Toggle ON + Not Combined External:	Release Alt. External PTT Voice Comms Open Comms
+						printf("Voice Comms: <<  ALT EXTERNAL MIC CLOSED  <<\x0a");
+						if(MicExternalActionALT)  ActKey(KEYON+PULSE+ExternalVoiceCommsPTT_ALT);
+						if(!MicExternalActionALT) ActKey(KEYON+UP+ExternalVoiceCommsPTT_ALT);
+						MicExtToggleCheckALT = 0; } } } } }
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// FUNCTIONS: SPECIALISED FEATURES //
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+
+	int initNightVisionEnhancer(int toggleValue) { 												// FUNCTION: Calculate Night Vision state.
+		if(toggleValue) {																		// Dims Throttle LED Backlight intensity when active.
+			NightVisionStatus=!NightVisionStatus; }
+		if(NightVisionStatus){
+			printf("Night Vision: ^^ ACTIVE ^^\x0a");
+			ActKey(KEYON+PULSE+NightVision);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 50)); }							// Dim Throttle Lights
+		if(!NightVisionStatus) {
+			printf("Night Vision: DEACTIVATED!\x0a");
+			ActKey(KEYON+PULSE+NightVision);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }							// Return Throttle Lights to Default
+
+
+
+	int initAPEngageEnhancer() { 																// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
+		if(Joystick[H4P]) {																		//	Defaults: Include the Autodock, Signal Light Sequences (Flashing ShipLights) & Basic Text Comms.
+			if(APSeqShort) {																	// [Short+CMS: Text "CMDR o7" (default)]
+				ActKey(KEYON+PULSE+APEngageCMSShort);											// Set custom APEngageCMSShort value in the User Preferences
+				APSeqShort=!APSeqShort; }
+			if(APSeqLong) {																		// [Long+CMS: Text "Fly Safe CMDR" (default)]
+				ActKey(KEYON+PULSE+APEngageCMSLong);											// Set custom APEngageCMSLong value in the User Preferences
+				APSeqLong=!APSeqLong; } }
+		if(Joystick[S4]) {
+			if(APSeqShort) {																	// [Short+Pinky: Auto-Dock Request (default)]
+				ActKey(KEYON+PULSE+APEngagePinkyShort);											// Set custom APEngagePinkyShort value in the User Preferences
+				if(APEngagePinkyShort == mRequestDock) printf("Attempting Auto-Dock Procedure...\x0a");
+				APSeqShort=!APSeqShort; }
+			if(APSeqLong) {																		// [Long+Pinky: Auto-Dock Request (default)]
+				ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
+				if(APEngagePinkyLong == mRequestDock) printf("Attempting Auto-Dock Procedure...\x0a");
+				APSeqLong=!APSeqLong; } }
+		if(!Joystick[S4] & !Joystick[H4P]) {
+			if(APSeqShort) {																	// [Short: Short Signal Light Sequence (default)]
+				ActKey(KEYON+PULSE+APEngageShort);												// Set custom APEngageShort value in the User Preferences
+				if(APEngageShort == mSignalLights) printf("Lights: ^ SHORT SIGNAL SEQUENCE ACTIVATED ^\x0a");
+				APSeqShort=!APSeqShort; }
+			if(APSeqLong) {																		// [Long: Long Signal Light Sequence (default)]
+				ActKey(KEYON+PULSE+APEngageLong);												// Set custom APEngageLong value in the User Preferences
+				if(APEngageLong == mSignalLightsLong) printf("Lights: ^ LONG SIGNAL SEQUENCE ACTIVATED ^\x0a");
+				APSeqLong=!APSeqLong; } } }
+
+
+
+	int initIDLEMaster() {																		// FUNCTION: Enforce Throttle IDLE (Stationary) on any Throttle Mode
+		if(!StartupLock) {
+			if(Throttle[IDLELON]) {
+				if(!Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Full Range Throttle Modes
+					DXAxis(DX_ZROT_AXIS, 0);													// Prevents issues launching from stations etc
+					DXAxis(DX_Z_AXIS, 0);
+					LockAxis(&Throttle, THR_LEFT, 1);											// Lock Axes to keep null value
+					LockAxis(&Throttle, THR_RIGHT, 1);
+					ActKey(KEYON+PULSE+SRVHandbrake); }											// IDLE Doubles as SRV Handbrake ON when on surface
+				if(Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Forward Only Throttle Mode
+					DXAxis(DX_ZROT_AXIS, 32767);
+					DXAxis(DX_Z_AXIS, 32767);
+					LockAxis(&Throttle, THR_LEFT, 1);											// Lock Axes to keep null value
+					LockAxis(&Throttle, THR_RIGHT, 1);
+					ActKey(KEYON+PULSE+SRVHandbrake); }	}										// IDLE Doubles as SRV Handbrake ON when on surface
+			if(!Throttle[IDLELON]) {
+				LockAxis(&Throttle, THR_LEFT, 0);												// Unlocks the Throttle Axes when exiting IDLE
+				LockAxis(&Throttle, THR_RIGHT, 0);
+				ActKey(KEYON+PULSE+SRVHandbrake); } } }											// Release the SRV Handbrake
+
+
+
+	int initHeadlookModeSelect() {																// FUNCTION: Choose Headlook Center Method, based on hardware preference
+		if(!StartupLock) {
+			if(HeadtrackPref == 0) {															// 			(Maps to the Engine Operate Ign/Norm LEFT UP)
+				if(!Joystick[S4]) ActKey(KEYON+PULSE+LookCenter);								// [Short:		 Headlook Center Toggle] 	[MOUSE]
+				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
+			if(HeadtrackPref == 1) {
+				if(!Joystick[S4]) ActKey(KEYON+PULSE+TrackIRCenter);							// [Short: 		 TIR Center]				[TRACKIR/TOBI EYE/EDTRACKER]
+				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
+			if(HeadtrackPref == 2) {
+				if(!Joystick[S4]) ActKey(KEYON+PULSE+ResetHeadOrientation);						// [Short: 		 Reset HMD Orientation]		[VR/VIVE/OCCULUS RIFT]
+				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); } } }			// [Short+Pinky: VA Toggle]
+
+
+
+	int initUserHotSlotPinkyTrigger() {															// FUNCTION: Enables User Definable 'Double Tap' functionality on the Pinky Trigger [S4]
+		if(!StartupLock) {																		// *This line is only required to prevent running on startup
+			if(DoubleTapPT == 0) {																// IF Single (First) Press  (DoubleTapPT starts at 0)
+				ActKey(KEYON+DOWN+PinkyTriggerDefault);											// Trigger Standard DX4/JOY 4 mapping
+				DoubleTapPT = 1;																// Increment DoubleTapPT counter
+				DeferCall(DTPressDelay, &ActKey, KEYON+PULSE+EXEC("DoubleTapPT = 0;")); }		// Sets Double Tap Speed: After delay of 365ms, reset DoubleTapPT counter to 0 (This is your window to press Pinky Trigger again for double tap) 
+			else if(DoubleTapPT == 1) {															// IF Double (Second) Press
+				DoubleTapPT = 2;																// Increment DoubleTapPT counter (prevents further triggers until DoubleTapPT delay timer cycle completes)
+				ActKey(KEYON+PULSE+UserDTPinkyKeyBind); } } }									// Trigger User Hot Slot Preference (*see User Preferences to set*)
+//				ActKey(KEYON+DOWN+UserDTPinkyKeyBind); } } }									// ALT Config (enable if Double Tap Pinky Trigger needs a Hold action - remember to disable the line above!)
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// START-UP: REPORT SCRIPT STATES //
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int initPrintState() {																		// Display the status of the macro toggles & user prefs on run.
+		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
+		printf(">> ENHANCEMENTS LOADING:	v%d.%d.%d	  TARGET Mappings, Macros & Functions Decrypted	      <|>\x0a", ADVersionMajor, ADVersionMinor, ADVersionPoint);
+		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
+		printf(":....USER PREFERENCES....:\x0a");
+		printf("[Run Software @ Start = %d]  [Custom Slider Curve = %d]  [PIP Mgt. Preset = %d]  [MFD Active  = %d]\x0a", StartSoftware, CustomDXSliderCurve, UserPIPPref, UseMFD);
+		printf("[Cargo Precision Mode = %d]  [S/Cruise @ Throttle = %d]  [Chaff @ Escape  = %d]  [Boost @ Esc = %d]\x0a", CargoPrecisionMode, CruiseOnThrottle, AutoChaffOnEscape, AutoBoostOnEscape);
+		printf("[Combine External Mic = %d]  [AUTO Repeater Fire  = %d]  [Sec Fire O/ride = %d]  [Ext Mic+Mic = %d]\x0a", ExternalMicCombined, RepeaterAutoRelease, SecFirePinkyPref, ExternalMicCombined);
+		printf("[Headtrak Center Mode = %d]  [Ship Utility Mode   = %d]  [LED Backlight = %d]  [LED Bling!  = %d]\x0a", HeadtrackPref, ShipUtilityPref, SetLED, BlingLEDBling);
+		printf("\x0a"); 
+		printf(":..DEFAULT TOGGLE STATE..:\x0a");
+		printf("[Combine Pri+Sec Fire = %d]  [Rot. Correction = %d]  [C/ Scoop = %d]  [L/ Gear = %d]  [Lights  = %d]\x0a", combinePriSecFire, RCorrection, CargoSc, Gears, Lights);
+		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
+		printf("Starting Macros... "); }
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
