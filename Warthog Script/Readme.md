@@ -1,4 +1,4 @@
-The Thrustmaster TARGET Warthog Script is split into several files. Each houses different function. AD_ED_v4.0.0.tmc calls on all the other included files.
+The Thrustmaster TARGET Warthog Script is split into several files. Each houses different function. AD_ED_v4.0.0.tmc calls on all the other included files. Target.tmh will generate on script Run.
 
 ### File List: ###
 
