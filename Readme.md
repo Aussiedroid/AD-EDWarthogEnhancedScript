@@ -1,5 +1,7 @@
 # Aussiedroid's Enhanced Warthog Script for Elite Dangerous
 
+![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/folder.jpg)
+
 An advanced Thrustmaster Warthog Script that fully utilises all the features of the HOTAS & maps all commands in Elite Dangerous to the HOTAS.
 
 Updated for The Beyond 3.3 "Chapter 4" Patch
