@@ -4,7 +4,7 @@ These files map controls setup in the scripts, into Elite Dangerous. Key mapping
 
 ### Which One to Choose? ###
 
-Do you own/play with one of these rudder pedals_(pictured below)_?
+Do you own/play with one of these rudder pedals _(pictured below)_?
 
 __YES__, choose 'WITH MFG Crosswind'. __NO__, choose 'WITHOUT MFG Crosswind'.
 ![MFG Crosswind](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/master/ED%20Bindings/WITH%20MFG%20Crosswind/folder.jpg "MFG Crosswind Rudder Pedals") 
