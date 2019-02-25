@@ -1,1 +1,4 @@
-# Aussiedroid-s-Enhanced-Warthog-Script-for-Elite-Dangerous
+# Aussiedroid's Enhanced Warthog Script for Elite Dangerous
+
+
+
