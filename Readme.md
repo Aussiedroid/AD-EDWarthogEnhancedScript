@@ -89,20 +89,22 @@ Includes Enhanced Features:
 
     
 
-Installation:
+## Installation: ##
 
-    Extract the zip file pack.
-    The Warthog Script can be run from any location. All files need to be in the same folder though.
-    Open TARGET GUI & Run (Can also be run from TARGET Script Editor - if editing)
-    Most commands can be tested prior to starting the game using the Event Tester & Device Analyzer.
-    Copy the Elite Dangerous Profile to:
-    C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
-    Copy the TrackIR Profile to:
-    C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
-    Set the hotkeys in TrackIR; Pause Key to PAUSE, and Center to END.
-    Also set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required).
-    Map any other 3rd Party Keys such as Voice Comms (as required).
-    Always make sure the script is running as well as any other 3rd party tools prior to starting Elite Dangerous.
+    1. Extract the zip file pack. The Warthog Script can be run from any location. 
+       All files need to be in the same folder though.
+    2. Open TARGET GUI & Run (Can also be run from TARGET Script Editor - if editing)
+       Most commands can be tested prior to starting the game using the Event Tester & Device Analyzer.
+    3. Copy the Elite Dangerous Profile to:
+       C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
+    4. Copy the TrackIR Profile to:
+       C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
+    5. Set the hotkeys in TrackIR; Pause Key to PAUSE, and Center to END.
+    6. Also set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required).
+    7. Map any other 3rd Party Keys such as Voice Comms (as required).
+    
+       Always make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
+
 
     "I am a leaf on the wind!"
 
