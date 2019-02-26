@@ -8,13 +8,17 @@
 ------------ | -------------
 ![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Untitled2.png)
 
+
+### LATEST BUILD: Updated for Elite Dangerous Beyond 3.3 "Chapter 4" Patch ###
+### SCRIPT BUILD: v4.0.0 ###
+
 ## Table of Contents ##
 
 [Latest Release]() | [Enhanced Feature List]() | [Layout Maps]() | [Installation]() | [Acknowledgements]()
 
 [Script Files]() | [Binding Files]() | [TrackIR Profile]() | [ED-BAT Launcher]() | [User Preferences]()
 
-[Steam Guide]() | [Frontier Forums]() | [ModDB]() | [Imgur]()
+[Steam Guide](https://steamcommunity.com/sharedfiles/filedetails/?id=769637037) | [Frontier Forums]() | [ModDB]() | [Imgur]()
 
 
 ## Enhanced Features: ##
@@ -80,12 +84,7 @@ Some of the highlighted advanced features available that are not found in the de
 
 ![Joystick](https://steamuserimages-a.akamaihd.net/ugc/940587658405000389/78F8D80F0E8182768C52CB526FF419EC5682AA97/)
 
-Updated for The Beyond 3.3 "Chapter 4" Patch
 
-For Full Detailed Guide Please Visit: https://steamcommunity.com/sharedfiles/filedetails/?id=769637037
-
-
-Includes Enhanced Features:
 
     
 
