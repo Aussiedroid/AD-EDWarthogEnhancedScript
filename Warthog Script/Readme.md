@@ -262,7 +262,7 @@ Setting value to 0 will simplify this to a single tier of responses (4 in total)
 
 ## ##
 
-## Acknowledgements ##
+## Script: Acknowledgements ##
 
 >>__Standing on the Shoulders of Giants!__ Creation of this TARGET Script would not have been possible without amazing ED Scripts I found online created by: Alexandr Zhevedenko, Michael Lehman (WraithMG11235), DarKcyde & Thomas Duployez (CMDR Touille). 
 >>
