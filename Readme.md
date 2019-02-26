@@ -91,19 +91,20 @@ Some of the highlighted advanced features available that are not found in the de
 
     1. Extract the zip file pack. The Warthog Script can be run from any location. 
        All files need to be in the same folder though.
-    2. Open TARGET Script Editor, Compile & Open AD_EDUserPrefs_v4.x.x.tmh. (Can also be run from TARGET GUI)
+    2. Open TARGET Script Editor, Compile & then Edit AD_EDUserPrefs_v4.x.x.tmh. (Can also be Run from TARGET GUI)
     3. Edit User Preferences file, primarily the 'Core Hardware' variables (rest can be reconfigured on later runs)
-       Close TARGET Script Editor when done editing.
+       Save & Close TARGET Script Editor when done editing.
          Note: Most commands can be tested prior to starting the game using the Event Tester & Device Analyzer.
     4. Copy the Elite Dangerous Profile to:
          C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
     5. Copy the TrackIR Profile to:
          C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
-    6. Set the hotkeys in TrackIR; Pause Key to PAUSE, and Center to END. (Tick 'Exclusive' in TrackIR to autoload) 
-    7. Also set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required).
-    8. Map any other 3rd Party Keys such as Voice Comms (as required).
-    9. Open TARGET GUI & Run, and Start ED Launcher or ED-BAT file.
-    10.*If you are not running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
+    6. Set the Hotkeys in TrackIR; Pause Key to PAUSE, and Center to END. (Tick 'Exclusive' in TrackIR to autoload) 
+    7. Set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required). (Default causes conflict)
+    8. Map any other 3rd Party Keys such as Voice Comms (as required). (Setup Microphone Behaviour User Prefs)
+    9. Edit ED-BAT Batch File and update path/locations (if using auto-start batch sequence, else skip).
+    10.Open TARGET GUI & Run, and then Start ED Launcher or ED-BAT file.
+    11.*If you are not running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
        the Legend in ED Config Menu, once loaded.*
     
        Always make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
