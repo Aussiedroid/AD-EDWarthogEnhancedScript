@@ -3,7 +3,7 @@ An advanced Thrustmaster Warthog Script that fully utilises all the features of 
 
 ` ` | Specs
 ------------ | -------------
-![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | test
+![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | REQUIRED: Thrustmaster Warthog (Joystick + Throttle) `               ` OPTIONAL SUPPORT: Thrustmaster T16000 & TPR, TrackIR
 
 
 ![Joystick](https://steamuserimages-a.akamaihd.net/ugc/940587658405000389/78F8D80F0E8182768C52CB526FF419EC5682AA97/)
