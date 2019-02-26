@@ -1,9 +1,16 @@
 # Aussiedroid's Enhanced Warthog Script for Elite Dangerous
 An advanced Thrustmaster Warthog Script that fully utilises all the features of the HOTAS & maps all commands in Elite Dangerous to the HOTAS.
 
-` ` | Specs
+` ` | Support
 ------------ | -------------
-![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | __REQUIRED HARDWARE:__ Thrustmaster Warthog (Joystick + Throttle)  ` ` ` ` ` ` ` ` ` ` ` `  ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` __OPTIONAL HARDWARE:__ Thrustmaster T16000 & TPR, TrackIR, MFG Crosswind.   ` ` ` ` ` ` ` ` ` ` ` `  ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` `__OPTIONAL SOFTWARE:__
+![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | Test
+
+
+__REQUIRED HARDWARE:__ Thrustmaster Warthog (Joystick + Throttle) HOTAS.
+
+__OPTIONAL HARDWARE:__ Thrustmaster T.Flight TFRP & Pendular TPR Pedals, Thrustmaster MFD Cougar Flight Panels, TrackIR & MFG Crosswind.
+
+__OPTIONAL SOFTWARE:__ Voice Attack (with HCS Voice Pack Support), 
 
 
 ![Joystick](https://steamuserimages-a.akamaihd.net/ugc/940587658405000389/78F8D80F0E8182768C52CB526FF419EC5682AA97/)
