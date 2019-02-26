@@ -3,7 +3,7 @@ An advanced Thrustmaster Warthog Script that fully utilises all the features of 
 
 ` ` | Support
 ------------ | -------------
-![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | Test
+![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Untitled.png)
 
 
 __REQUIRED HARDWARE:__ Thrustmaster Warthog (Joystick + Throttle) HOTAS
