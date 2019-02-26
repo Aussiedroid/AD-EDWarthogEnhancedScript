@@ -8,6 +8,13 @@
 ------------ | -------------
 ![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Untitled2.png)
 
+## Table of Contents ##
+
+[Latest Release]() | [Enhanced Feature List]() | [Reference Maps]() | [Installation]() | [Acknowledgements]()
+
+[Script Files]() | [Binding Files]() | [TrackIR Profile]() | [ED-BAT Launcher]() | [User Preferences]()
+
+[Steam Guide]() | [Frontier Forums]() | [ModDB]() | [Imgur]()
 
 
 ## Enhanced Features: ##
