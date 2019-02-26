@@ -112,7 +112,8 @@ To further enhance the Modifier button system, some buttons have also been desig
     8. Map any other 3rd Party Keys such as Voice Comms (as required). (Setup Microphone Behaviour User Prefs)
     9. Edit ED-BAT Batch File and update path/locations (if using auto-start batch sequence, else skip).
     10.Open TARGET GUI & Run, and then Start ED Launcher or ED-BAT file.
-    11.*If you are not running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
+    11.Remember to select the AD Enhanced Warthog 4.x.x profile in Elite Dangerous Config Menu & Apply.
+    12.*If you are not running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
        the Legend in ED Config Menu, once loaded.*
     
        Always make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
