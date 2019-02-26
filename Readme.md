@@ -26,7 +26,7 @@
 
 Some of the highlighted advanced features available that are not found in the default ED binding configurations:
 
-- __Three Tier PIP Management Hat Switch__ offering different presets depending how long you hold down the button. _(Optional configurations also available for a Two Tier PIP system & also default One Tier PIP system configurable in the preferences)_
+ - __Three Tier PIP Management Hat Switch__ offering different presets depending how long you hold down the button. _(Optional configurations also available for a Two Tier PIP system & also default One Tier PIP system configurable in the preferences)_
     
 - __Auto-Docking Request procedure__.
     
