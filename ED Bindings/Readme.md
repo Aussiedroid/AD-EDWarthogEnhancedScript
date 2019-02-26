@@ -18,3 +18,11 @@ Do you own/play with one of these rudder pedals _(pictured below)_?
 ` `
 
 [Home] [MFG Crosswind](https://mfg.simundza.com/products "MFG Crosswind")
+
+## MFG Configurator ##
+
+For those who have a set of MFG Crosswind Rudder Pedals, these are the settings I am using with my profile. Toe Brake is combined & I have the tension on both the Toe & Rudder fairly high to offer good accuracy.
+
+Please ensure you are running the latest software/firmware version from [here](https://mfg.simundza.com/downloads "MFG Downloads").
+
+![MFG Crosswind](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/MFG.png "MFG Configurator")
