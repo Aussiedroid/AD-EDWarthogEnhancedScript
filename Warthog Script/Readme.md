@@ -21,7 +21,7 @@ AD_EDFunctions_v4.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 ## ##
 
 ## User Preferences : Table of Contents ##
-[How To Use]() | [Start-Up]() | [Core Hardware]() | [Throttle Axis]() | [Ship/SRV PIP Config]() | [Ship Radar]() | [Pri-Sec Fire Control]()
+[How To Use]() | [Start-Up]() | [Core Hardware]() | [Throttle Axis]() | [Ship/SRV PIP Config]() | [Ship Radar/Vision]() | [Pri-Sec Fire Control]()
 
 [Utility Slot Control]() | [Microphone Behaviour]() | [Cargo Scoop Tweaks]() | [Escape Vector Macro]() | [Pinky 'Double Tap' Override]()
 
