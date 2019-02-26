@@ -10,7 +10,7 @@ Running the script also will allow you to automatically create a Backup of your 
 
 
 
-### WHAT IS IT ALL ABOUT? ###
+## WHAT IS IT ALL ABOUT? ##
 
 For those not familiar with a batch file (.bat), its a text file containing instructions that can be run from a Command Prompt in Windows. Double click a .bat file and it will run just like an .exe file.
 
@@ -19,7 +19,7 @@ To create a batch file, copy and paste the code into a new text file via your fa
 __Open the .bat file & edit any folder paths for the apps you use under the Folder section. If the paths are correct then batch file should start it up for you & ignore any incorrect paths to complete startup run.__
 
 
-### USAGE TIPS: ###
+## USAGE TIPS: ##
 
 Before you start, ensure your 'empty' backup folder is created. If the backup folder path is not created then script will error.
 
@@ -35,7 +35,7 @@ _[Note 5]_ Will never delete a backup. Backups are small, but remember to delete
 
 
 
-### WHAT APPS DOES THE SCRIPT SUPPORT? ###
+## WHAT APPS DOES THE SCRIPT SUPPORT? ##
 
 - EDLauncher
 - Thrustmaster Target GUI + Will Open/Run Script
@@ -53,7 +53,7 @@ _(This can be customised to suit your own needs)_
 
 
 
-### WHAT ARE THE DIFFERENT VERSIONS? ###
+## WHAT ARE THE DIFFERENT VERSIONS? ##
 
 Filename | Features
 ------------ | -------------
