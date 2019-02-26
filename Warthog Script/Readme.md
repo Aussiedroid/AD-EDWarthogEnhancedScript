@@ -25,7 +25,7 @@ AD_EDFunctions_v4.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 
 [Utility Slot Control]() | [Microphone Behaviour]() | [Cargo Scoop Tweaks]() | [Escape Vector Macro]() | [Pinky 'Double Tap' Override]()
 
-[Autopilot Button Override]() | [Auto-Text Chat Presets]()
+[Autopilot Button Override]() | [Auto-Text Chat Presets]() | [Acknowledgements]()
 ## ##
 
 ## User Preferences : AD_EDUserPrefs_v.4._x_._x_.tmh ##
