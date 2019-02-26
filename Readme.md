@@ -10,7 +10,66 @@
 
 
 
+## Enhanced Features: ##
 
+Some of the highlighted advanced features available that are not found in the default ED binding configurations:
+
+- __Three Tier PIP Management Hat Switch__ offering different presets depending how long you hold down the button. _(Optional configurations also available for a Two Tier PIP system & also default One Tier PIP system configurable in the preferences)_
+    
+- __Auto-Docking Request procedure__.
+    
+- __Full LED Lighting__ implemented for core Ship Systems, plus full LED Backlight manual control for the Throttle.
+    
+- __Three Joystick Curve & Throttle Mode Presets__ that can be configured on-the-fly.
+    
+- __Complete Integration of 3rd Party Tools/Keys__, inc. TrackIR, Steam, Video Capture, Voice Comms & Voice Attack.
+    
+- Proper implementation of the __dual stage trigger__ on the Joystick.
+    
+- __Repeater Fire (Auto-fire)__ on Primary & Secondary Fire Buttons.
+    
+- __Automatically fire a Heat Sink__ when entering Silent Running _(Can also be fired separately)_.
+    
+- __Comms Panel Auto-Response System__. An upgrade offering up to 12 pre-configured text chat responses mapped to Joystick to assist with quick responses for general day-to-day interactions.
+    
+- __Auto-Dim your Throttle Backlights__ when you enable your Ship/SRV Lights.
+    
+- __Frame Shift Drive & Super Cruise engage on Throttle @ 100%__. Millennium Falcon style! _(Enabled only with Modifier to ensure full control)_
+    
+- FA OFF like a boss!, with __automatic sensitivity adjustment__ mod in toggle mode.
+    
+- __Safety Rating A++__, Improved Safety Features, including limiting access to Ship Boost based on presets or __IDLE lock__, additional combination required for Jettison All Cargo to prevent mishaps & disabling Throttle when IDLE is enabled. Nothing critical to the ship can be accidentally pressed.
+    
+- __Defensive Pattern Delta__: An advanced withdraw tactic from combat that will retract your hardpoints, set PIPs to defensive & attempt to Supercruise/High Wake out.
+    
+- __Everything is mapped!__ Practically everything you can set in Elite Dangerous Controls has been added to the Warthog, plus the hidden shortcuts to control your __FPS & Bandwidth displays__ and to __Hide Your Ship's GUI__.
+    
+- __Fast Game Mode Switching!__
+    
+- __Fully Integrated Voice Comm support__, offer both toggles & push-to-talk functionality for Internal ED Channel PLUS two External Voice Comm Channels _(Discord, Ventrillo, Skype, OBS, Twitch etc)_.
+    
+- __Fast Jump Next/Prev Sub-Systems__ to help find the Module you need.
+    
+- __Efficient mapping design__ originally based off my 3301 generation X55 profile, that ensures frequent use keys are quick and intuitive to use while also enabling the complete key mapping offerings through layered modifiers & specific placement to ensure no conflicts.
+    
+- __21st Century Comforts__: Dim your Throttle Backlights automatically when you enable your Ship/SRV Lights.
+    
+- __Signal Light Sequence__: Flash your Ship/SRV lights on & off. Short & Long sequence options available for a bit of fun! __:)__
+    
+- __Take-Off Launch Sequence__: Will set PIPs to 4xSYS, 2xENG, engage Vertical Thrusters for 4secs & retract Landing Gear. Works in both stations & planetary locations.
+    
+- Scripting files are __properly formatted & contain full comments__ to help understand what the code is doing.
+    
+- __DX Mapping & Conversion table__ also included in the Key Mapping file to help with changes.
+    
+- __User Configurable Settings__ for easy script customisation.
+    
+- __Start Software & 3rd Party Apps__ with Script Run or Batch Run.
+
+- More...
+
+
+## Reference Maps: ##
 
 ![Joystick](https://steamuserimages-a.akamaihd.net/ugc/940587658405000389/78F8D80F0E8182768C52CB526FF419EC5682AA97/)
 
@@ -21,60 +80,7 @@ For Full Detailed Guide Please Visit: https://steamcommunity.com/sharedfiles/fil
 
 Includes Enhanced Features:
 
-    Three Tier PIP Management Hat Switch offering different presets depending how long you hold down the button. (Optional configurations also available for a Two Tier PIP system & also default One Tier PIP system configurable in the preferences)
     
-    Auto-Docking Request procedure.
-    
-    Full LED Lighting implemented for core Ship Systems, plus full LED Backlight manual control for the Throttle.
-    
-    Three Joystick Curve & Throttle Mode Presets that can be configured on-the-fly.
-    
-    Complete Integration of 3rd Party Tools/Keys, inc. TrackIR, Steam, Video Capture, Voice Comms & Voice Attack.
-    
-    Proper implementation of the dual stage trigger on the Joystick.
-    
-    Repeater Fire (Auto-fire) on Primary & Secondary Fire Buttons.
-    
-    Automatically fire a Heat Sink when entering Silent Running (Can also be fired separately). *NEW*
-    
-    Comms Panel Auto-Response System. An upgrade offering up to 12 pre-configured text chat responses mapped to Joystick to assist with quick responses for general day-to-day interactions. *NEW*
-    
-    Dim your Throttle Backlights auto when you enable your Ship/SRV Lights.
-    
-    Frame Shift Drive & Super Cruise engage on Throttle @ 100%. Millennium Falcon style! (Enabled only with Modifier to ensure full control)
-    
-    FA OFF like a boss!, with automatic sensitivity adjustment mod in toggle mode.
-    
-    Safety Rating A++, Improved Safety Features, including limiting access to Ship Boost based on presets or IDLE lock, additional combination required for Jettison All Cargo to prevent mishaps & disabling Throttle when IDLE is enabled. Nothing critical to the ship can be accidentally pressed.
-    
-    Defensive Pattern Delta: An advanced withdraw tactic from combat that will retract your hardpoints, set PIPs to defensive & attempt to Supercruise/High Wake out.
-    
-    Everything is mapped! Practically everything you can set in Elite Dangerous Controls has been added to the Warthog, plus the hidden shortcuts to control your FPS & Bandwidth displays and to Hide Your Ship's GUI.
-    
-    Fast Game Mode Switching!
-    
-    Fully Integrated Voice Comm support, offer both toggles & push-to-talk functionality for Internal ED Channel PLUS two External Voice Comm Channels (Discord, Ventrillo, Skype, OBS, Twitch etc).
-    
-    Fast Jump Next/Prev Sub-Systems to help find the Module you need.
-    
-    Efficient mapping design originally based off my 3301 generation X55 profile, that ensures frequent use keys are quick and intuitive to use while also enabling the complete key mapping offerings through layered modifiers & specific placement to ensure no conflicts.
-    
-    21st Century Comforts: Dim your Throttle Backlights automatically when you enable your Ship/SRV Lights.
-    
-    Signal Light Sequence: Flash your Ship/SRV lights on & off. Short & Long sequence options available for a bit of fun! :)
-    
-    Take-Off Launch Sequence: Will set PIPs to 4xSYS, 2xENG, engage Vertical Thrusters for 4secs & retract Landing Gear. Works in both stations & planetary locations.
-    
-    Scripting files are properly formatted & contain full comments to help understand what the code is doing.
-    
-    DX Mapping & Conversion table also included in the Key Mapping file to help with changes.
-    
-    User Configurable Settings for easy script customisation.
-    
-    Support for Thrustmaster MFDs & TFRP Pedals, Virtual Reality HMDs & MFG Crosswind Pedals too!
-    
-    Start Software & 3rd Party Apps with Script Run.
-    + More...
 
 Installation:
 
