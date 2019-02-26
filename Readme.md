@@ -10,7 +10,7 @@
 
 ## Table of Contents ##
 
-[Latest Release]() | [Enhanced Feature List]() | [Reference Maps]() | [Installation]() | [Acknowledgements]()
+[Latest Release]() | [Enhanced Feature List]() | [Layout Maps]() | [Installation]() | [Acknowledgements]()
 
 [Script Files]() | [Binding Files]() | [TrackIR Profile]() | [ED-BAT Launcher]() | [User Preferences]()
 
@@ -93,17 +93,20 @@ Includes Enhanced Features:
 
     1. Extract the zip file pack. The Warthog Script can be run from any location. 
        All files need to be in the same folder though.
-    2. Open TARGET GUI & Run (Can also be run from TARGET Script Editor - if editing)
-       Most commands can be tested prior to starting the game using the Event Tester & Device Analyzer.
-    3. Copy the Elite Dangerous Profile to:
-       C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
-    4. Copy the TrackIR Profile to:
-       C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
-    5. Set the hotkeys in TrackIR; Pause Key to PAUSE, and Center to END.
-    6. Also set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required).
-    7. Map any other 3rd Party Keys such as Voice Comms (as required).
-    8. If you are not running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
-       the Legend.
+    2. Open TARGET Script Editor, Compile & Open AD_EDUserPrefs_v4.x.x.tmh. (Can also be run from TARGET GUI)
+    3. Edit User Preferences file, primarily the 'Core Hardware' variables (rest can be reconfigured on later runs)
+       Close TARGET Script Editor when done editing.
+         Note: Most commands can be tested prior to starting the game using the Event Tester & Device Analyzer.
+    4. Copy the Elite Dangerous Profile to:
+         C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
+    5. Copy the TrackIR Profile to:
+         C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
+    6. Set the hotkeys in TrackIR; Pause Key to PAUSE, and Center to END. (Tick 'Exclusive' in TrackIR to autoload) 
+    7. Also set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required).
+    8. Map any other 3rd Party Keys such as Voice Comms (as required).
+    9. Open TARGET GUI & Run, and Start ED Launcher or ED-BAT file.
+    10.*If you are not running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
+       the Legend in ED Config Menu, once loaded.*
     
        Always make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
 
