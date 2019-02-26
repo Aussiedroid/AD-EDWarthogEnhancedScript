@@ -125,7 +125,8 @@ To further enhance the Modifier button system, some buttons have also been desig
        Always make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
 
 
+#### Example of Successful Script Run: ####
+![Script Run](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Script-Startup-Success-Readout.jpg "Success Readout")
+
  #### "I am a leaf on the wind!" ####
-
-
 
