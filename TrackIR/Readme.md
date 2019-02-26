@@ -1,4 +1,4 @@
-## TrackIR Configuration ##
+# TrackIR Configuration #
 
 Custom headtracking profile, with controlled curvature towards the extremeties and zero acceleration zones at key areas where panels etc occur.
 
