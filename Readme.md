@@ -110,7 +110,7 @@ Some of the highlighted advanced features available that are not found in the de
        Always make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
 
 
-    "I am a leaf on the wind!"
+ #### "I am a leaf on the wind!" ####
 
 
 
