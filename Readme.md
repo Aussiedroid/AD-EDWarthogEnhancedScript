@@ -89,7 +89,7 @@ Some of the highlighted advanced features available that are not found in the de
 
 ## Installation: ##
 
-    1. Extract the zip file pack. The Warthog Script can be run from any location. 
+    1. Download & Extract the latest zip file pack. The Warthog Script can be run from any location. 
        All files need to be in the same folder though.
     2. Open TARGET Script Editor, Compile & then Edit AD_EDUserPrefs_v4.x.x.tmh. (Can also be Run from TARGET GUI)
     3. Edit User Preferences file, primarily the 'Core Hardware' variables (rest can be reconfigured on later runs)
