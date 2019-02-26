@@ -1,10 +1,10 @@
 # TM TARGET Scripts #
 
-The Thrustmaster TARGET Warthog Script is split into several files. Each houses different function. __AD_ED_v4._x_._x_.tmc__ calls on all the other included files. __Target.tmh__ will generate on script Run.
+The Thrustmaster TARGET Warthog Script is split into several files. Each houses different functionality. __AD_ED_v4._x_._x_.tmc__ calls on all the other included files. __Target.tmh__ will generate on script Run.
 
 ### File List: ###
 
-Filename | Description
+Filename | Function
 ------------ | -------------
 AD_ED_v4.0.0.tmc | Main Script File, Maps Combined Device & Includes Files Below
 AD_EDDefaults_v4.0.0.tmh | Global Variable Settings, States & Timings/Delays
