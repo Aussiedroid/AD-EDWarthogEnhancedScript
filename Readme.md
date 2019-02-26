@@ -6,17 +6,30 @@ An advanced Thrustmaster Warthog Script that fully utilises all the features of 
 ![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | Test
 
 
-__REQUIRED HARDWARE:__ ` ` Thrustmaster Warthog (Joystick + Throttle) HOTAS.
+__REQUIRED HARDWARE:__ ` ` Thrustmaster Warthog (Joystick + Throttle) HOTAS
 
-__OPTIONAL HARDWARE:__ ` ` Thrustmaster T.Flight TFRP & Pendular TPR Pedals,
-
-MFG Crosswind,
+__OPTIONAL HARDWARE:__ ` ` Thrustmaster T.Flight TFRP & Pendular TPR Rudder Pedals
 
 Thrustmaster MFD Cougar Flight Panels
- 
-NaturePoint TrackIR.
 
-__OPTIONAL SOFTWARE:__ ` ` Voice Attack _(with HCS Voice Pack Support)_, 
+HTC Vive/Occulus Rift VR Head Mounted Displays
+
+MFG Crosswind Rudder Pedals
+ 
+NaturePoint TrackIR
+
+
+
+__OPTIONAL SOFTWARE:__ ` ` Voice Attack _(with HCS Voice Pack Support)_ 
+
+External Voice Comms (such as Discord, Ventrillo, Skype)
+
+External Capture (such as Nvidia/AMD, OBS, Twitch, Youtube)
+
+Steam
+
+Three Tier PIP Management Hat Switch offering different presets depending how long you hold down the button. (Optional configurations also available for a Two Tier PIP system & also default One Tier PIP system configurable in the preferences)
+
 
 
 ![Joystick](https://steamuserimages-a.akamaihd.net/ugc/940587658405000389/78F8D80F0E8182768C52CB526FF419EC5682AA97/)
