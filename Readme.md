@@ -5,7 +5,7 @@
 
 ` ` | Supported
 ------------ | -------------
-![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Untitled2.png)
+![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/Supported.png)
 
 
 ### LATEST BUILD | [v4.0.0](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/releases/latest) | Updated for [Elite Dangerous](https://www.elitedangerous.com/) Beyond 3.3 "Chapter 4" Patch ###
