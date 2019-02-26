@@ -20,6 +20,14 @@ AD_EDFunctions_v4.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 
 ## ##
 
+## User Preferences : Table of Contents ##
+[How To Use]() | [Start-Up]() | [Core Hardware]() | [Throttle Axis]() | [Ship/SRV PIP Config]() | [Ship Radar]() | [Pri-Sec Fire Control]()
+
+[Utility Slot Control]() | [Microphone Behaviour]() | [Cargo Scoop Tweaks]() | [Escape Vector Macro]() | [Pinky 'Double Tap' Override]()
+
+[Autopilot Button Override]() | [Auto-Text Chat Presets]()
+## ##
+
 ## User Preferences : AD_EDUserPrefs_v.4._x_._x_.tmh ##
 
 Although it is not practical to have everything as a user preference, for key features & play styles I have tried to cover as many as possible in a simple to use User Preference section with the goal to make the script accessible to as many players as possible. This will help those who do not know the scripting programming language make quick changes to suite their needs.
