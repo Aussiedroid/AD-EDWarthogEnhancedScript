@@ -38,9 +38,13 @@
 	define UserPIPPref 			2						// Choose your preferred PIP configuration [0 -> 3]: 
 														// 	Options:	Triple Tier = 3 (Tap/Short Hold/Long Hold)	Double Tier = 2 (default)  (Tap/Short Hold)
 														//				Single Tier = 1 (ED Standard) (Tap)	 		Double Tier = 0 (Inverted) (Short Hold/Tap) (ie. Hold = One PIP, Tap = Full PIPs)
-		// SHIP RADAR //
+		// SHIP RADAR/VISION //
 	define CustomDXSliderCurve 	1						// Enable an Offset Curve Arc for DX Slider (Radar Zoom) (Smooths the movement a little)
 														//  Options:	Compensate for non-linear acceleration = 1 (default).	Default ED linear acceleration = 0.
+	
+	define NightVisionHUD		1						// Disables the Ship/SRV HUD GUI when Night Vision is Enabled (or Visa-Versa).
+														//	Options:	Hide HUD in Night Vision = 1.				Show HUD in Night Vision = 0 (default).
+
 
 		// PRI-SEC FIRE CONTROL //
 	int    combinePriSecFire  = 1					   ;// Set the default behaviour for the main Dual Stage Trigger	(how full depression of trigger will work)  (Note: You can still toggle this behaviour in-game)

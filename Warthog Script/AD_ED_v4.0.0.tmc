@@ -14,7 +14,7 @@
 // Frontier Forums Discussion Thread:	(https://forums.frontier.co.uk/showthread.php/293027-Aussiedroid-s-Enhanced-Thrustmaster-Warthog-Script)				//
 // Some Previous Ver. Reference Maps:	(https://aussiedroid.imgur.com/)																						//
 //																																								//
-// What's New?  Release Notes?				-> Scroll to End of File or Changelog/Readme <-																		//
+// What's New?  Release Notes?				-> Scroll to End-of-File OR Changelog/History <-																		//
 //																																								//
 // Need help understanding this script?		-> Click the (?) HELP button in top right corner of Target Script Editor OR ask a question in the Forum/Guide <-	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -491,7 +491,7 @@
 // =============================================================================================================================================================//
 // VERSION HISTORY //			Version 4.0.0			\\ Released Sept 2016	|	Updated ??? 2019 //					\\		Public Release #21				//
 // =============================================================================================================================================================//
-// v4.0 - NEW: Customisable Chat Presets! FIX: LEDs on Launch Sequence. IMPROVED: New File Structure. //
+// v4.0 - NEW: Customisable Chat Presets & Hide HUD on NightVision. FIX: LEDs on Launch Sequence. IMPROVED: New File Structure. //
 // v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord keymap resolved.//
 // v3.3 - BEYOND CH.4: ALL New Keys mapped! NEW: ED-BAT App Launcher, TM TPR Rudder Support, Swap PIP Hat, Report Crimes Macro & LED 'Blinking' Controller.		//
 // v3.3 - NEW: User Override on Sec. Fire Pinky. IMPROVED: initPrintState formatting & Merged Ship/SRV Cam. FIX: Autodock Macro, C.Scoop LED & ECM duration. 	//
