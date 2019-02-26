@@ -1,6 +1,6 @@
 # TM TARGET Scripts #
 
-The Thrustmaster TARGET Warthog Script is split into several files. Each houses different function. __AD_ED_v4.0.0.tmc__ calls on all the other included files. __Target.tmh__ will generate on script Run.
+The Thrustmaster TARGET Warthog Script is split into several files. Each houses different function. __AD_ED_v4._x_._x_.tmc__ calls on all the other included files. __Target.tmh__ will generate on script Run.
 
 ### File List: ###
 
@@ -20,7 +20,7 @@ AD_EDFunctions_v4.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 
 ## ##
 
-## User Preferences : AD_EDUserPrefs_v.4.x.x.tmh ##
+## User Preferences : AD_EDUserPrefs_v.4._x_._x_.tmh ##
 
 Although it is not practical to have everything as a user preference, for key features & play styles I have tried to cover as many as possible in a simple to use User Preference section with the goal to make the script accessible to as many players as possible. This will help those who do not know the scripting programming language make quick changes to suite their needs.
 
