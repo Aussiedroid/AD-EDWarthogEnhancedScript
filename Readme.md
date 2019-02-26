@@ -1,5 +1,6 @@
 # Aussiedroid's Enhanced Warthog Script for Elite Dangerous
-An advanced Thrustmaster Warthog Script that fully utilises all the features of the HOTAS & maps all commands in Elite Dangerous to the HOTAS.
+
+>> "Welcome Commander, let me introduce myself, I am Engineer Aussiedroid, & I offer only the best Grade 5 Controller mods in the bubble! No lower level enhancements, no no .. only the best, for the Elite of the Pilot's Federation. Not all of my mods are, shall we say 'approved' in all duristictions throughout the galaxy, but I see in your eyes that's why you are here, is it not? No questions asked, I understand, please browse the shop & remember for Pilot's Federation Members upgrades are free of charge."
 
 ` ` | Support
 ------------ | -------------
