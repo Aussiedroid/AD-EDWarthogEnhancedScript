@@ -6,11 +6,13 @@ An advanced Thrustmaster Warthog Script that fully utilises all the features of 
 ![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | Test
 
 
-__REQUIRED HARDWARE:__ Thrustmaster Warthog (Joystick + Throttle) HOTAS.
+__REQUIRED HARDWARE:__ ` ` Thrustmaster Warthog (Joystick + Throttle) HOTAS.
 
-__OPTIONAL HARDWARE:__ Thrustmaster T.Flight TFRP & Pendular TPR Pedals, Thrustmaster MFD Cougar Flight Panels, TrackIR & MFG Crosswind.
+__OPTIONAL HARDWARE:__ ` ` Thrustmaster T.Flight TFRP & Pendular TPR Pedals, MFG Crosswind,
 
-__OPTIONAL SOFTWARE:__ Voice Attack (with HCS Voice Pack Support), 
+ Thrustmaster MFD Cougar Flight Panels & NaturePoint TrackIR.
+
+__OPTIONAL SOFTWARE:__ ` ` Voice Attack (with HCS Voice Pack Support), 
 
 
 ![Joystick](https://steamuserimages-a.akamaihd.net/ugc/940587658405000389/78F8D80F0E8182768C52CB526FF419EC5682AA97/)
