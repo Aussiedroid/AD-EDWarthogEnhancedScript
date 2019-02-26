@@ -62,7 +62,7 @@ Some of the highlighted advanced features available that are not found in the de
     
 - __Fast Jump Next/Prev Sub-Systems__ to help find the Module you need.
     
-- __Efficient mapping design__ originally based off my 3301 generation X55 profile, that ensures frequent use keys are quick and intuitive to use while also enabling the complete key mapping offerings through layered modifiers & specific placement to ensure no conflicts.
+- __Efficient mapping design__ originally based off [my 3301 generation X55 profile](https://steamcommunity.com/sharedfiles/filedetails/?id=456122613), that ensures frequent use keys are quick and intuitive to use while also enabling the complete key mapping offerings through layered modifiers & specific placement to ensure no conflicts.
     
 - __21st Century Comforts__: Dim your Throttle Backlights automatically when you enable your Ship/SRV Lights.
     
