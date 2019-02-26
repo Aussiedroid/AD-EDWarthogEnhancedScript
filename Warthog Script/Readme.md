@@ -272,6 +272,6 @@ Setting value to 0 will simplify this to a single tier of responses (4 in total)
 
 >>I would also like to recognise __jgm__ whose site was super helpful to export a base line reference map which I used as a basis to create my custom reference maps above, as well as the keyboard button mappings list. As of Aug 17, __jgm__ has stepped down on maintaining the website, which is now maintained by __VerticalBlank__.
 
->>Their fantastic tool can be found [here](edrefcard.info).
+>>Their fantastic tool can be found [here](https://edrefcard.info/).
 
 __!! You ALL Rock! Thank you !!__
