@@ -26,5 +26,4 @@ REMOVED: Redundant ChatPresetMode User Preference (due to changes on the Toggle)
 Fly Safe CMDRs!
 
 
-TODO - Update UIBack to F8?
 TODO - Remove other Hat Switch Mappings for Camera & HoloMe and move to Throttle.
