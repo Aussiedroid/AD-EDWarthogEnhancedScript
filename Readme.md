@@ -13,7 +13,7 @@
 
 ## Table of Contents ##
 
-[Latest Release]() | [Enhanced Feature List]() | [Layout Maps]() | [Installation]() | [Acknowledgements]()
+[Latest Release]() | [Enhanced Feature List](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Readme.md#enhanced-features) | [Layout Maps]() | [Installation]() | [Acknowledgements]()
 
 [Script Files]() | [Binding Files]() | [TrackIR Profile]() | [ED-BAT Launcher]() | [User Preferences]()
 
