@@ -102,6 +102,8 @@ Includes Enhanced Features:
     5. Set the hotkeys in TrackIR; Pause Key to PAUSE, and Center to END.
     6. Also set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required).
     7. Map any other 3rd Party Keys such as Voice Comms (as required).
+    8. If you are not running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
+       the Legend.
     
        Always make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
 
