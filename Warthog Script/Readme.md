@@ -17,3 +17,8 @@ AD_EDFunctions_v4.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 ` `
 
 [HOME] [Thrustmaster Warthog HOTAS](https://support.thrustmaster.com/en/product/hotaswarthog-en/ "TM Warthog HOTAS")
+
+## ##
+
+## User Preferences (AD_EDUserPrefs_v.4.x.x.tmh) ##
+
