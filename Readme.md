@@ -8,11 +8,15 @@ An advanced Thrustmaster Warthog Script that fully utilises all the features of 
 
 __REQUIRED HARDWARE:__ ` ` Thrustmaster Warthog (Joystick + Throttle) HOTAS.
 
-__OPTIONAL HARDWARE:__ ` ` Thrustmaster T.Flight TFRP & Pendular TPR Pedals, MFG Crosswind,
+__OPTIONAL HARDWARE:__ ` ` Thrustmaster T.Flight TFRP & Pendular TPR Pedals,
 
- Thrustmaster MFD Cougar Flight Panels & NaturePoint TrackIR.
+MFG Crosswind,
 
-__OPTIONAL SOFTWARE:__ ` ` Voice Attack (with HCS Voice Pack Support), 
+Thrustmaster MFD Cougar Flight Panels
+ 
+NaturePoint TrackIR.
+
+__OPTIONAL SOFTWARE:__ ` ` Voice Attack _(with HCS Voice Pack Support)_, 
 
 
 ![Joystick](https://steamuserimages-a.akamaihd.net/ugc/940587658405000389/78F8D80F0E8182768C52CB526FF419EC5682AA97/)
