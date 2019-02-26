@@ -57,6 +57,6 @@ _(This can be customised to suit your own needs)_
 
 Filename | Features
 ------------ | -------------
-Launch ED-BAT Basic.bat | Will open the essential apps only! (Only EDLauncher/Target GUI/TrackIR/VA/EDMC) (NO BINDS BACKUP).
+Launch ED-BAT Basic.bat | Will open the essential apps only! (Only Inc. EDLauncher/Target GUI/TrackIR/VA/EDMC) (NO BINDS BACKUP).
 Launch ED-BAT Full.bat | Will open ALL supported apps listed above (NO BINDS BACKUP).
 Launch ED-BAT Full + Backup.bat | Will open ALL supported apps PLUS Create a Backup of your Bindings.
