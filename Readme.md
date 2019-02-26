@@ -16,11 +16,9 @@
 
 ## Table of Contents ##
 
-[Latest Release]() | [Enhanced Feature List](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Readme.md#enhanced-features) | [Legend]() | [Layout Maps]() | [Installation]() | [Acknowledgements]()
+[Latest Release]() | [Feature List](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Readme.md#enhanced-features) | [Legend]() | [Layout Maps]() | [Installation]()| [User Preferences]() | [Acknowledgements]()
 
-[Script Files]() | [Binding Files]() | [TrackIR Profile]() | [ED-BAT Launcher]() | [User Preferences]()
-
-[Steam Guide](https://steamcommunity.com/sharedfiles/filedetails/?id=769637037) | [Frontier Forums]() | [ModDB]() | [Imgur]()
+[Script Files]() | [Binding Files]() | [TrackIR Profile]() | [ED-BAT Launcher]() | [Steam Guide](https://steamcommunity.com/sharedfiles/filedetails/?id=769637037) | [Frontier Forums]() | [ModDB]() | [Imgur]()
 
 ## ##
 
