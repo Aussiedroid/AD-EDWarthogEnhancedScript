@@ -3,13 +3,15 @@
 >> _"Welcome Commander, let me introduce myself, I am Engineer Aussiedroid, & I offer only the best Grade 5 Controller mods in the bubble! No lower level enhancements, no no .. only the best, for the Elite of the Pilot's Federation. Not all of my mods are, shall we say 'approved' in all duristictions throughout the galaxy, but I see in your eyes that's why you are here, is it not? No questions asked, I understand, please browse the shop & remember for Pilot's Federation Members upgrades are free of charge."_
 
 
-
 ` ` | Supported
 ------------ | -------------
 ![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Untitled2.png)
 
 
 ### LATEST BUILD | v4.0.0 | Updated for Elite Dangerous Beyond 3.3 "Chapter 4" Patch ###
+
+### REQUIREMENTS | 2018 Update (v3.0.18.328 _or higher_) for TARGET Software, Drivers & Firmware ###
+
 
 ## Table of Contents ##
 
@@ -86,6 +88,7 @@ Some of the highlighted advanced features available that are not found in the de
 In order to map everything, this script uses Modifier buttons. A Modifier button when held down and combined with another button press will give a different command. This combination is represented in the reference map pictures by [x] prefixing command name. Eg. [1] Next Target. This feature allows multiple mappings for a single button, different layers, that also offers some protection from accidental presses. You will find most of the potentially dangerous commands configured with Modifier keys, along with lower priority tasks that do not get used as often.
 
 To further enhance the Modifier button system, some buttons have also been designed to offer different commands based on the length of time you hold the button down. Some buttons offer up to 3 different commands based on Short, Med, Long timings.
+
 
 ## Reference Maps: ##
 
