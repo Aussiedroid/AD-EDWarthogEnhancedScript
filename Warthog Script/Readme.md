@@ -128,13 +128,19 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - Choose value 3 [Triple Tier] Three presets depending if you long hold, short hold or tap direction.
 - Choose value 0 [Double Tier] (Inverted) Opposite Two preset option for combat pilots. (Tap = Full PIPs, Hold = One PIP.)
 
-## -> SHIP RADAR ##
+## -> SHIP RADAR/VISION ##
 ### CustomDXSliderCurve [Value 1 or 0] ###
 - This attempts to smooth out the movement of your Sensor Range Zoom (Radar) in your 
 cockpit by changing the axis curve.
 
 - Set value to 0 to disable, or keep as 1 to enable. Recommend Linear Acceleration in the ED settings.
 
+### NightVisionHUD [Value 1 or 0] ###
+- Gives a truly dark experience by automatically disabling the Ship/SRV HUD when enabling Night Vision.
+
+- Set to 1 to enable, 0 to disable.
+
+- Standard Hide Ship GUI toggle on Throttle will still work as a override (if needed).
 
 ## -> PRIMARY/SECONDARY FIRE CONTROL ##
 ### combinePriSecFire [Value 1 or 0] ###
