@@ -1,4 +1,6 @@
 ## ED-BAT: Elite Dangerous Startup Batch File ##
+__VERSION 0.2__
+##  ##
 
 Simplify & speed up loading of Elite Dangerous, and setting up your hardware & apps. Allows you to run many 3rd party apps plus the ED Launcher in a single shortcut.
 
