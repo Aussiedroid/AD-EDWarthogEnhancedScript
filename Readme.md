@@ -82,6 +82,7 @@ Some of the highlighted advanced features available that are not found in the de
 
 - More...
 
+## ##
 
 ## Legend: ##
 
@@ -91,6 +92,7 @@ In order to map everything, this script uses Modifier buttons. A Modifier button
 
 To further enhance the Modifier button system, some buttons have also been designed to offer different commands based on the length of time you hold the button down. Some buttons offer up to 3 different commands based on Short, Med, Long timings.
 
+## ##
 
 ## Reference Maps: ##
 
@@ -99,6 +101,7 @@ To further enhance the Modifier button system, some buttons have also been desig
 
 
     
+## ##
 
 ## Installation: ##
 
