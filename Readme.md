@@ -12,6 +12,7 @@
 
 ### REQUIREMENTS | 2018 Update (v3.0.18.328 _or higher_) for TARGET Software, Drivers & Firmware ###
 
+## ##
 
 ## Table of Contents ##
 
@@ -21,6 +22,7 @@
 
 [Steam Guide](https://steamcommunity.com/sharedfiles/filedetails/?id=769637037) | [Frontier Forums]() | [ModDB]() | [Imgur]()
 
+## ##
 
 ## Enhanced Features: ##
 
