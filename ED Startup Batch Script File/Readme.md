@@ -8,7 +8,7 @@ Full list of currently supported apps listed below _(This can be customised to s
 
 Running the script also will allow you to automatically create a Backup of your bindings folder before starting the game. Backup will create a new folder with today's date & timestamp under your chosen backup folder location. (See note on different versions)
 
-
+![Command Prompt](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/master/ED%20Startup%20Batch%20Script%20File/folder.jpg)
 
 ## ED-BAT, WHAT IS IT ALL ABOUT? ##
 
