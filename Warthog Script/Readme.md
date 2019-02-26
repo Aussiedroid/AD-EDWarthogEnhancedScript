@@ -51,7 +51,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 - Will not work on Windows 10 _(See ED-BAT File)_ :(
 
-### SetLED [Values: 1-255] ###
+### SetLED [Values: 0-255] ###
 - Sets the initial LED Backlight brightness on the Throttle. (default = 172)
 
 ### BlingLEDBling [Value 1 or 0] ###
