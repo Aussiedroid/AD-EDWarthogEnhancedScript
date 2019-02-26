@@ -1,4 +1,4 @@
-## ED-BAT: Elite Dangerous Startup Batch File ##
+# ED-BAT: Elite Dangerous Startup Batch File #
 
 ## VERSION 0.2 ##
 
