@@ -9,8 +9,7 @@
 ![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Untitled2.png)
 
 
-### LATEST BUILD: Updated for Elite Dangerous Beyond 3.3 "Chapter 4" Patch ###
-### SCRIPT BUILD: v4.0.0 ###
+### LATEST BUILD | v4.0.0 | Updated for Elite Dangerous Beyond 3.3 "Chapter 4" Patch ###
 
 ## Table of Contents ##
 
