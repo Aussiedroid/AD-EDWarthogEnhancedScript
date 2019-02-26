@@ -10,7 +10,7 @@
 
 ### LATEST BUILD | [v4.0.0](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/releases/latest) | Updated for [Elite Dangerous](https://www.elitedangerous.com/) Beyond 3.3 "Chapter 4" Patch ###
 
-### REQUIREMENTS | 2018 Update ([v3.0.18.328](https://support.thrustmaster.com/en/product/hotaswarthog-en/) _or higher_) for TARGET Software, Drivers & Firmware ###
+### REQUIREMENTS | TARGET Software, Drivers & Firmware, 2018 Update ([v3.0.18.328](https://support.thrustmaster.com/en/product/hotaswarthog-en/) _or higher_) ###
 
 ## ##
 
