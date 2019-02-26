@@ -266,7 +266,7 @@ Setting value to 0 will simplify this to a single tier of responses (4 in total)
 
 >>__Standing on the Shoulders of Giants!__ Creation of this TARGET Script would not have been possible without amazing ED Scripts I found online created by: Alexandr Zhevedenko, Michael Lehman (WraithMG11235), DarKcyde & Thomas Duployez (CMDR Touille). 
 >>
->>I was really strugging to get my head around the coding, and seeing practical examples really helped unravel it all. Sections of all their scripts have been incorporated into my design along with some other odds and ends I learned searching online _(so if I missed calling out your name, sorry!)_. Special mention to CMDR Clicker for all his help squashing those bugs & code improvements in general.
+>>I was supremely strugging to get my head around the coding, and seeing practical script examples really helped unravel it all. Sections of all their scripts have been incorporated into my design along with some other odds and ends I learned searching online _(so if I missed calling out your name, sorry!)_. Special mention to CMDR Clicker for all his help squashing those bugs & code improvements in general across on the Frontier Forums.
 >>
 >>The script continues to evolve with the fantastic community feedback, ideas, bug reports & sharing of code... the help & support shown on the forums/guide has been been amazing!
 >>
