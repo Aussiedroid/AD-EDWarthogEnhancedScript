@@ -50,6 +50,11 @@
 			if(Joystick[S4]) {																	
 				rAutoP=!rAutoP;
 				if(!rFireP) {
+//					if(RepeaterAutoRelease == 2) ActKey(KEYON+PULSE+PrimaryFire);	
+//					else {
+//						ActKey(KEYON+DOWN+PrimaryFire);											// Pinky Trigger + Primary = REPEATING FIRE
+//						rFireP = 1; } }			
+					
 					ActKey(KEYON+DOWN+PrimaryFire);												// Pinky Trigger + Primary = REPEATING FIRE
 					rFireP = 1; }
 				if(rAutoP) {
@@ -61,7 +66,7 @@
 				if(!rFireP) {
 					ActKey(KEYON+DOWN+PrimaryFire); } } }										// Primary Only = STANDARD FIRE (Releases Repeating Fire when on Manual User Preference)
 		if(!Joystick[TG1]) {																	// 	[Set 'RepeaterAutoRelease' value in the User Preferences]
-			if(RepeaterAutoRelease) {															// Auto Primary Release ENABLED
+			if(RepeaterAutoRelease == 1) {															// Auto Primary Release ENABLED
 				if(rFireP & rAutoP) {
 					DeferCall(RepeaterTimer, 	&ActKey, KEYON+UP+PrimaryFire); 				// Automatic timer delay to release Primary Fire after a 6 second hold
 					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rFireP = 0;"));		// Slight offset timing of +200ms to ensure triggering after event
@@ -69,7 +74,7 @@
 					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: AUTO OFF (PRIMARY)\\x0a\");")); }
 				if(!rFireP) {
 					ActKey(KEYON+UP+PrimaryFire); }	}
-			if(!RepeaterAutoRelease) {															// Manual Primary Release ENABLED
+			if(RepeaterAutoRelease == 0) {															// Manual Primary Release ENABLED
 				if(!rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if NO, only release primary fire button
 					ActKey(KEYON+UP+PrimaryFire); }
 				if(rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if YES, also reset flag & print

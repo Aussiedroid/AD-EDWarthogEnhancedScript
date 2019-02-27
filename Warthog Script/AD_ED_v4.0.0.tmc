@@ -126,6 +126,19 @@
 // MAP JOYSTICK CONTROLS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
+//	SetShiftButton(&Joystick, PSM, &Throttle, PSF, PSB, UDTOGGLE);													// Set Shift Button for MapKeyUMD
+
+//	MapKeyUMD(&Joystick, TG1,
+//						 SEQ(REXEC(0, 7000, "ActKey(KEYON+PULSE+PrimaryFire);", RNOSTOP), EXEC("StopAutoRepeat(0);")),
+//						 PrimaryFire,  							// <<< you could call your advanced firecontrol function here and still have the other functionality
+//						 EXEC("ActKey(KEYON+DOWN+PrimaryFire); DeferCall(6100, &ActKey, KEYON+UP+PrimaryFire);"));
+
+//	MapKeyUMD(&Joystick, TG1,																						// Trigger 1 [Main Trigger]
+//						 SEQ(REXEC(0, 7000, "RepeaterAutoRelease=2; initAdvancedFireModule();", RNOSTOP), EXEC("StopAutoRepeat(0);")),
+//						 EXEC(				"RepeaterAutoRelease=1; initAdvancedFireModule();"),  							
+//						 EXEC(				"RepeaterAutoRelease=0; initAdvancedFireModule();"));
+//	MapKeyR(&Joystick, TG1, EXEC("if(RepeaterAutoRelease < 2) initAdvancedFireModule();"));							// Release Primary Trigger
+
 	MapKey(&Joystick,  TG1, EXEC("initAdvancedFireModule();"));														// Trigger 1 [Main Trigger]
 	MapKeyR(&Joystick, TG1, EXEC("initAdvancedFireModule();"));														// Release Primary Trigger
 //	MapKey(&Joystick,  TG2, SecondaryFire);																			// Trigger 2 [Secondary Trigger] (Mapped in initAdvancedFireModule())
