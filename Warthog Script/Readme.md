@@ -67,7 +67,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 - Enabled by default 1, disable by changing value to 0.
 
-
+` `
 ## -> CORE HARDWARE ##
 ### KBLayout [Values: KB_ENG, KB_GER & KB_FR] ###
 - Sets your keyboard button layout based off international standards. _(Wrong selection can break some commands)_
@@ -100,7 +100,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 - Note: You may need to align the external mapping keys via AD_EDKeyMap_v3.x.x under External Bindings.
 
-
+` `
 ## -> THROTTLE AXIS ##
 ### CruiseOnThrottle [Value 1 or 0] ###
 - When value 1 is set, it allows you to enter Supercruise/Hypercruise by holding down the Pinky Trigger Modifier & moving the Throttle forward to 100%. Repeat the same action to disengage. Hold the CMS Hatswitch Modifier instead of Pinky Trigger if you target destination is blocked.
@@ -118,7 +118,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - mThrottleFullScaleCustom [-100 -> 80] is same as above but trims the range to 80% for less movement in the forward direction.
 - mThrottleTrimmed [-75 -> 75] reduces the movement range required to hit 100% by 25% in both directions.
 
-
+` `
 ## -> SHIP/SRV PIP CONFIG ##
 ### UsePIPPref [Value 3, 2, 1 or 0] ###
 - Set how you would like the PIP Hat Switch to behave. You can set standard ED PIP control or try out the Double & Triple Tier variants that allow different presets based on how long you hold the hat direction down.
@@ -128,6 +128,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - Choose value 3 [Triple Tier] Three presets depending if you long hold, short hold or tap direction.
 - Choose value 0 [Double Tier] (Inverted) Opposite Two preset option for combat pilots. (Tap = Full PIPs, Hold = One PIP.)
 
+` `
 ## -> SHIP RADAR/VISION ##
 ### CustomDXSliderCurve [Value 1 or 0] ###
 - This attempts to smooth out the movement of your Sensor Range Zoom (Radar) in your 
@@ -142,6 +143,7 @@ cockpit by changing the axis curve.
 
 - Standard Hide Ship GUI toggle on Throttle will still work as a override (if needed).
 
+` `
 ## -> PRIMARY/SECONDARY FIRE CONTROL ##
 ### combinePriSecFire [Value 1 or 0] ###
 - This will set the behaviour for the Dual-Stage Trigger and how full depression of trigger will work.
@@ -173,7 +175,7 @@ cockpit by changing the axis curve.
 
 - Some examples are provided in the comments of the AD_ED_Settings file, but almost any of the commands defined in the AD_EDKeyMap file are also viable options.
 
-
+` `
 ## -> UTILITY SLOT CONTROL ##
 ### ShipUtilityPref [Value 1 or 0] ###
 - There are two buttons on the Joystick, S1 & S2, that use a short & long press combo to fire. They are used to engage your Chaff/ECM/Shield Cell Boost/Heat Sinks. Depending on your playstyle sometimes it is better to have short press (quicker) access to some utilities.
@@ -182,7 +184,7 @@ cockpit by changing the axis curve.
 
 - If you are mainly COMBAT type, set value to 1. This will give short press priority to Heat Sinks & Shield Cell Banks.
 
-
+` `
 ## -> MICROPHONE BEHAVIOUR ##
 ### ExternalMicCombined [Value 1 or 0] ###
 - When you enable the Open Mic toggle on the Throttle, this value will determine if one or both External Voice Channels are opened. Set value to 1 to combine, and value to 0 to keep them independant.
@@ -206,7 +208,7 @@ Rings of Haze
 
 - Set the value to 0 if your software uses a hold down (Push-To-Talk) setup.
 
-
+` `
 ## -> CARGO SCOOP TWEAKS ##
 ### CargoPrecisionMode [Value 1 or 0] ###
 - To assist with reducing your speed when attempting to scoop up cargo & provide a greater level of control, you can enable this value to 1 to automatically change your Throttle axis preset to Precision mode.
@@ -221,14 +223,14 @@ Rings of Haze
 - If your main Throttle axis mode is Full Range Custom, set this value to 2.
 - If your main Throttle axis mode is Trimmed, set this value to 3.
 
-
+` `
 ## -> ESCAPE VECTOR MACRO ##
 ### AutoChaffOnEscape/AutoBoostOnEscape [Value 1 or 0] ###
 - Both of these actions are optional parts of the Escape Vector macro, which will retract your hardpoints & engage Supercruise if you encounter trouble. By changing either of these values to 1, it will additionally fire a Chaff to mask your escape &/or perform an Engine Boost to get you clear of danger when Escape Vector is triggered.
 
 - Setting either value to 0 will keep these as a manual event for the player to action as required.
 
-
+` `
 ## -> PINKY 'DOUBLE TAP' OVERRIDE ##
 ### UserDTPinkyKeyBind [Value Variable] ###
 - Define what you want to map to the "Double Tap" feature on the Joystick Pinky Trigger. Squeeze trigger twice quickly to activate. Single press remains the Pinky Modifier key. Choose something you would frequently use or would like easy access to.
@@ -241,7 +243,7 @@ Rings of Haze
 - -> SHIP | ShipLights, SetSpeed75, CargoScoop, SilentRunning, QuickCommsPanel, mRequestDock, BalancePower
 - -> OTHER | mTextBasicHello, SelectNextSystemInRoute, FighterOrders, UIEscape, TakeSteamScreenshot, GalNetAudioPlayPause, LookToggle
 
-
+` `
 ## -> AUTOPILOT BUTTON OVERRIDES ##
 ### APEngageShort/APEngageLong/APEngagePinkyShort/APEngagePinkyLong/APEngageCMSShort/APEngageCMSLong [Value Variable] ###
 - User definable overrides for the Autopilot Engage (APENG) button on the Throttle base. Use your own custom macros or preferred 'easy access' commands you frequently use.
@@ -252,7 +254,7 @@ Rings of Haze
 
 - Some examples are provided in the comments of the AD_ED_UserPrefs file, but almost any of the commands defined in the AD_EDKeyMap file are also viable options.
 
-
+` `
 ## -> AUTO-TEXT CHAT PRESETS ## 
 ### chat_Basic_UP/chat_Basic_DOWN/chat_Basic_LEFT/chat_Basic_RIGHT [Value Character] ###
 ### chat_Modifier_UP/chat_Modifier_DOWN/chat_Modifier_LEFT/chat_Modifier_RIGHT [Value Character] ###
