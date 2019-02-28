@@ -245,7 +245,9 @@ Rings of Haze
 
 ` `
 ## -> AUTOPILOT BUTTON OVERRIDES ##
-### APEngageShort/APEngageLong/APEngagePinkyShort/APEngagePinkyLong/APEngageCMSShort/APEngageCMSLong [Value Variable] ###
+### APEngageShort/APEngageLong [Value Variable] ###
+### APEngagePinkyShort/APEngagePinkyLong [Value Variable] ###
+### APEngageCMSShort/APEngageCMSLong [Value Variable] ###
 - User definable overrides for the Autopilot Engage (APENG) button on the Throttle base. Use your own custom macros or preferred 'easy access' commands you frequently use.
 
 - There are total of Six customisable commands. A Short and Long press for standard, plus a Modifier 1 (Pinky Trigger) or Modifer 2 (CMS Hat Button). 
@@ -256,8 +258,10 @@ Rings of Haze
 
 ` `
 ## -> AUTO-TEXT CHAT PRESETS ## 
-### chat_Basic_UP/chat_Basic_DOWN/chat_Basic_LEFT/chat_Basic_RIGHT [Value Character] ###
-### chat_Modifier_UP/chat_Modifier_DOWN/chat_Modifier_LEFT/chat_Modifier_RIGHT [Value Character] ###
+### chat_Basic_UP/chat_Basic_DOWN [Value Character] ###
+### chat_Basic_LEFT/chat_Basic_RIGHT [Value Character] ###
+### chat_Modifier_UP/chat_Modifier_DOWN [Value Character] ###
+### chat_Modifier_LEFT/chat_Modifier_RIGHT [Value Character] ###
 Chat Preset feature offers a way for VR users or those without easy access to a keyboard a way to communicate via the comms panel in game. These pre-defined responses can be edited in the script in the AD_EDFunctions_v3.x.x.tmh file to suit your personality/playstyle.
 
 Setting value to 1 will give access to 3 tiers of responses (12 in total) depending on the position of the Pinky Throttle Switch (as seen in the reference maps).
