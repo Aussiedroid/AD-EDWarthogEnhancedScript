@@ -71,6 +71,6 @@
 	int DoubleTapPT			= 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
 	int ReportCrimeState	= 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v4.x.x.tmc)
 	int ShowGameStatState	= 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v4.x.x.tmc)
-
+	int FSSMode				= 0;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

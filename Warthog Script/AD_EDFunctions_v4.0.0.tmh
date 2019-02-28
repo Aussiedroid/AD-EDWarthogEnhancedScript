@@ -48,17 +48,20 @@
 	int initAdvancedFireModule() {																// FUNCTION: Advanced Weapon Fire Module
 		if(Joystick[TG1]) {																		//	[Integrates Combo Fire & Repeater Fire into Primary/Secondary Fire Buttons]
 			if(Joystick[S4]) {																	
-				rAutoP=!rAutoP;
+//				rAutoP=!rAutoP;
 				if(!rFireP) {
-//					if(RepeaterAutoRelease == 2) ActKey(KEYON+PULSE+PrimaryFire);	
-//					else {
-//						ActKey(KEYON+DOWN+PrimaryFire);											// Pinky Trigger + Primary = REPEATING FIRE
-//						rFireP = 1; } }			
+					if(RepeaterAutoRelease == 2) { printf("Repeater Fire: MINING PULSE WAVE MODE ON (PRIMARY)\x0a"); ActKey(KEYON+PULSE+PrimaryFire); }	
+					else {
+						rAutoP=!rAutoP;
+						ActKey(KEYON+DOWN+PrimaryFire);											// Pinky Trigger + Primary = REPEATING FIRE
+						rFireP = 1; } }			
 					
-					ActKey(KEYON+DOWN+PrimaryFire);												// Pinky Trigger + Primary = REPEATING FIRE
-					rFireP = 1; }
+//					ActKey(KEYON+DOWN+PrimaryFire);												// Pinky Trigger + Primary = REPEATING FIRE
+//					rFireP = 1; }
 				if(rAutoP) {
-					printf("Repeater Fire: AUTO ON  (PRIMARY) ^^\x0a"); } }
+					if(RepeaterAutoRelease == 1) printf("Repeater Fire: EXPLORER SCANNER MODE ON  (PRIMARY) ^^\x0a");
+					if(RepeaterAutoRelease == 0) printf("Repeater Fire: COMBAT CONTINUOUS MODE ON  (PRIMARY) ^^\x0a"); } }
+//					printf("Repeater Fire: AUTO ON  (PRIMARY) ^^\x0a"); } }
 			if(Joystick[H4P]) {
 				initSetCombinedFire(1);	}														// CMS Hat Switch + Primary = COMBINE TOGGLE
 			if(!Joystick[H4P] & !Joystick[S4]) {
@@ -71,7 +74,8 @@
 					DeferCall(RepeaterTimer, 	&ActKey, KEYON+UP+PrimaryFire); 				// Automatic timer delay to release Primary Fire after a 6 second hold
 					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rFireP = 0;"));		// Slight offset timing of +200ms to ensure triggering after event
 					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rAutoP = 0;"));
-					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: AUTO OFF (PRIMARY)\\x0a\");")); }
+					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER SCANNER MODE OFF (PRIMARY)\\x0a\");")); }
+//					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: AUTO OFF (PRIMARY)\\x0a\");")); }
 				if(!rFireP) {
 					ActKey(KEYON+UP+PrimaryFire); }	}
 			if(RepeaterAutoRelease == 0) {															// Manual Primary Release ENABLED
@@ -80,7 +84,8 @@
 				if(rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if YES, also reset flag & print
 					ActKey(KEYON+UP+PrimaryFire);
 					rFireP = 0;
-					printf("Repeater Fire: AUTO OFF (PRIMARY)\x0a"); } } }
+					printf("Repeater Fire: COMBAT CONTINUOUS MODE OFF (PRIMARY)\x0a"); } } }
+//					printf("Repeater Fire: AUTO OFF (PRIMARY)\x0a"); } } }
 		if(Joystick[S3]) {
 			if(Joystick[S4]) {
 				rAutoS=!rAutoS;
@@ -616,6 +621,19 @@
 			ActKey(KEYON+PULSE+NightVision);
 			if(NightVisionHUD) ActKey(KEYON+PULSE+HideShipGUI);									// If enabled in User Preferences, Show the Ship/SRV HUD when disabling Night Vision.
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }							// Return Throttle Lights to Default
+
+							
+	int initToggleFSSMode() {																	// FUNCTION: Toggle Enter/Exit FSS Mode with Modified Axis Curve
+		FSSMode = !FSSMode;
+		if (FSSMode) {
+			ActKey(KEYON+PULSE+FSSModeON);
+			SetSCurve(&Throttle, THR_FC, 0, 0, 0, 0, -2); 										// DX-SLIDER Linear progression. Low sensitivity
+			printf("FSS Mode:		ON		>>\x0a");
+		}
+		else {
+			ActKey(KEYON+PULSE+FSSModeOFF);
+			SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100));			// DX-SLIDER Non-Linear progression
+			printf("FSS Mode:		OFF		>>\x0a"); } }
 
 
 

@@ -3,7 +3,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int mRequestDock, mShowGameStats, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys, mSignalLights, mSignalLightsLong, mReportCrimesToggle, mChatPanelGrab;
-	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullScaleCustom, mFastModeSwitch, mNAVBeaconWing, mNAVBeaconOff;
+	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullScaleCustom, mFastModeSwitch, mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MACROS: SPECIALISED SEQUENCES //																// MACROS Include a series of automated key presses to perform a specific task.
@@ -140,7 +140,11 @@
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIPrevPanel,			D(),
-			PULSE+UIBack,				LOCK);	
+			PULSE+UIBack,				LOCK);
+			
+		mNAVBeaconToggle = SEQ(																	// SEQUENCE: Wing NAV Beacon Toggle that allows both On & Off macros to be mapped to one button.
+			PULSE+mNAVBeaconWing,																// Alternates between turning On & Off Wing NAV Beacon each press.
+			PULSE+mNAVBeaconOff);
 			
 		mChatPanelGrab = CHAIN(																	// MACRO: Reset GUI in preparation of Auto-Chat Response Text String (Used in initSendChatString())
 			LOCK+PULSE+UIBack,			D(100),													// Lock and Exit any current GUI windows (x3).
