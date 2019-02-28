@@ -2,6 +2,7 @@
 
 ## VERSION 0.3 ##
 
+
 Simplify & speed up loading of Elite Dangerous, and setting up your hardware & apps. Allows you to run many 3rd party apps plus the ED Launcher in a single shortcut.
 
 Full list of currently supported apps listed below _(This can be customised to suit your own needs or even other games!)_.
@@ -9,6 +10,15 @@ Full list of currently supported apps listed below _(This can be customised to s
 Running the script also will allow you to automatically create a Backup of your bindings folder before starting the game. Backup will create a new folder with today's date & timestamp under your chosen backup folder location. (See note on different versions)
 
 ![Command Prompt](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/master/ED%20Startup%20Batch%20Script%20File/folder.jpg)
+
+## VARIANTS OF ED-BAT? ##
+
+Filename | Features
+------------ | -------------
+Launch ED-BAT Basic.bat | Will open the essential apps only! (Only Inc. EDLauncher/Target GUI/TrackIR/VA/EDMC) (NO BINDS BACKUP).
+Launch ED-BAT Full.bat | Will open ALL supported apps listed above (NO BINDS BACKUP).
+Launch ED-BAT Full + Backup.bat | Will open ALL supported apps PLUS Create a Backup of your Bindings.
+
 
 ## ED-BAT, WHAT IS IT ALL ABOUT? ##
 
@@ -52,11 +62,3 @@ _[Note 5]_ Will never delete a backup. Backups are small, but remember to delete
 _(This can be customised to suit your own needs)_
 
 
-
-## WHAT ARE THE DIFFERENT VERSIONS OF ED-BAT? ##
-
-Filename | Features
------------- | -------------
-Launch ED-BAT Basic.bat | Will open the essential apps only! (Only Inc. EDLauncher/Target GUI/TrackIR/VA/EDMC) (NO BINDS BACKUP).
-Launch ED-BAT Full.bat | Will open ALL supported apps listed above (NO BINDS BACKUP).
-Launch ED-BAT Full + Backup.bat | Will open ALL supported apps PLUS Create a Backup of your Bindings.
