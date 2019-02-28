@@ -1,6 +1,6 @@
 # TrackIR Configuration #
 
-Custom headtracking profile, with controlled curvature towards the extremeties and zero acceleration zones at key areas where panels etc occur.
+Custom headtracking profile, with controlled curvature towards the extremeties and zero acceleration zones at key areas where panels occur.
 
 Offers a more realistic feel with head movement in Elite Dangerous.
 
