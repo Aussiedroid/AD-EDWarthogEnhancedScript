@@ -64,6 +64,11 @@
 								"SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);"
 								"printf(\"Throttle Profile: TRIMMED [-75 -> 75]\\x0a\");"
 								"SetThrottle();");
+		mThrottleNonLinear = EXEC(																// Initialising Throttle 
+								"TrimDXAxis(DX_Z_AXIS, SET(0));"
+								"SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100));"	// DX-SLIDER Non-Linear progression Curve
+								"printf(\"Throttle Profile: NON-LINEAR [-100 ~> 100]\\x0a\");"
+								"SetThrottle();");
 		mThrottleFullScaleCustom = EXEC(  														// Initialising Throttle Full Scale - Max Shorter @ 80% Preset (ALTERNATIVE)
 								"TrimDXAxis(DX_Z_AXIS, SET(0));" 								// Slightly Shorter Forward travel distance for my RSeat RS1 Cockpit setup. :)
 								"SetJCurve(&Throttle, THR_RIGHT, 80, 100);"						// <Unmapped by Default> (See User Preferences to Set)

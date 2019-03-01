@@ -5,11 +5,12 @@
 //		- initHardpointManagement						- initLEDController							- initNightVisionEnhancer									//
 //		- initSetCombinedFire							- initEnhancedFAOFF							- initAPEngageEnhancer										//
 //		- initAdvancedFireModule						- initToggleRotationCorrection				- initIDLEMaster											//
-//														- initToggleSilentRunning					- initHeadlookModeSelect									//
-//	[2. PIP & TEXT CHAT CONTROLS (line 110)]			- initToggleCargoScoop						- initUserHotSlotPinkyTrigger								//
+//														- initToggleSilentRunning					- initUserHotSlotPinkyTrigger								//
+//	[2. PIP & TEXT CHAT CONTROLS (line 110)]			- initToggleCargoScoop																					//
 //		- initPIPMapper									- initToggleLandingGear																					//
-//		- initSendChatString							- initToggleShipLights					[5. REPORT SCRIPT STATES (line 691)]							//
-//		- initCommsPresets								- initMicCommander							- initPrintState											//
+//		- initSendChatString							- initHeadlookModeSelect				[5. REPORT SCRIPT STATES (line 691)]							//
+//		- initCommsPresets								- initToggleShipLights						- initPrintState											//
+//														- initMicCommander																						//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FUNCTIONS: FIRE & HARDPOINT CONTROLS //
@@ -483,6 +484,20 @@
 
 
 
+	int initHeadlookModeSelect() {																// FUNCTION: Choose Headlook Center Method, based on hardware preference
+		if(!StartupLock) {
+			if(HeadtrackPref == 0) {															// 			(Maps to the Engine Operate Ign/Norm LEFT UP)
+				if(!Joystick[S4]) ActKey(KEYON+PULSE+LookCenter);								// [Short:		 Headlook Center Toggle] 	[MOUSE]
+				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
+			if(HeadtrackPref == 1) {
+				if(!Joystick[S4]) ActKey(KEYON+PULSE+TrackIRCenter);							// [Short: 		 TIR Center]				[TRACKIR/TOBI EYE/EDTRACKER]
+				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
+			if(HeadtrackPref == 2) {
+				if(!Joystick[S4]) ActKey(KEYON+PULSE+ResetHeadOrientation);						// [Short: 		 Reset HMD Orientation]		[VR/VIVE/OCCULUS RIFT]
+				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); } } }			// [Short+Pinky: VA Toggle]
+
+
+
 	int initMicCommander() {																	// FUNCTION: Manages Microphone Internal/External Push-to-Talk buttons
 		if(Throttle[MSP]) {																		// [HOLD PTT]
 			MicCheckHold = 1;																	// Enable PTT Buttons
@@ -621,20 +636,7 @@
 			ActKey(KEYON+PULSE+NightVision);
 			if(NightVisionHUD) ActKey(KEYON+PULSE+HideShipGUI);									// If enabled in User Preferences, Show the Ship/SRV HUD when disabling Night Vision.
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }							// Return Throttle Lights to Default
-
-							
-	int initToggleFSSMode() {																	// FUNCTION: Toggle Enter/Exit FSS Mode with Modified Axis Curve
-		FSSMode = !FSSMode;
-		if (FSSMode) {
-			ActKey(KEYON+PULSE+FSSModeON);
-			SetSCurve(&Throttle, THR_FC, 0, 0, 0, 0, -2); 										// DX-SLIDER Linear progression. Low sensitivity
-			printf("FSS Mode:		ON		>>\x0a");
-		}
-		else {
-			ActKey(KEYON+PULSE+FSSModeOFF);
-			SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100));			// DX-SLIDER Non-Linear progression
-			printf("FSS Mode:		OFF		>>\x0a"); } }
-
+				
 
 
 	int initAPEngageEnhancer() { 																// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
@@ -685,20 +687,6 @@
 				LockAxis(&Throttle, THR_LEFT, 0);												// Unlocks the Throttle Axes when exiting IDLE
 				LockAxis(&Throttle, THR_RIGHT, 0);
 				ActKey(KEYON+PULSE+SRVHandbrake); } } }											// Release the SRV Handbrake
-
-
-
-	int initHeadlookModeSelect() {																// FUNCTION: Choose Headlook Center Method, based on hardware preference
-		if(!StartupLock) {
-			if(HeadtrackPref == 0) {															// 			(Maps to the Engine Operate Ign/Norm LEFT UP)
-				if(!Joystick[S4]) ActKey(KEYON+PULSE+LookCenter);								// [Short:		 Headlook Center Toggle] 	[MOUSE]
-				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
-			if(HeadtrackPref == 1) {
-				if(!Joystick[S4]) ActKey(KEYON+PULSE+TrackIRCenter);							// [Short: 		 TIR Center]				[TRACKIR/TOBI EYE/EDTRACKER]
-				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
-			if(HeadtrackPref == 2) {
-				if(!Joystick[S4]) ActKey(KEYON+PULSE+ResetHeadOrientation);						// [Short: 		 Reset HMD Orientation]		[VR/VIVE/OCCULUS RIFT]
-				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); } } }			// [Short+Pinky: VA Toggle]
 
 
 

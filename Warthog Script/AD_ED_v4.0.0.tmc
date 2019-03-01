@@ -14,7 +14,7 @@
 // Frontier Forums Discussion Thread:	(https://forums.frontier.co.uk/showthread.php/293027-Aussiedroid-s-Enhanced-Thrustmaster-Warthog-Script)				//
 // Some Previous Ver. Reference Maps:	(https://aussiedroid.imgur.com/)																						//
 //																																								//
-// What's New?  Release Notes?				-> Scroll to End-of-File OR Changelog/History <-																		//
+// What's New?  Release Notes?				-> Scroll to End-of-File OR Changelog/History <-																	//
 //																																								//
 // Need help understanding this script?		-> Click the (?) HELP button in top right corner of Target Script Editor OR ask a question in the Forum/Guide <-	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -74,7 +74,8 @@
 	SetKBRate(PulseTime, DelayTime);														// Base Settings 	(See AD_EDDefaults.tmh)
 	SetKBLayout(KBLayout);
 
-	initCustomCommands();																	// Initiate Custom Macros & Functions (See AD_EDFunctions.tmh)
+	initCustomMacroCommands();																// Initiate Custom Macros & Functions (See AD_EDMacros.tmh)
+	initEscapeVector();																		// Initiate Advanced Macro to perform a tactical withdraw from combat (Retract Hardpoints, Set Defensive PIPs, Auto Boost/Chaff, Engage Supercruise) (See AD_EDMacros.tmh)
 	initSetThrottleCurves();																// Initiate Mapping of Custom Throttle Curves (3 Presets configurable in AD_EDSettings.tmh)
 	initPrintState();																		// Initiate Display Script Settings to Output Window in Script/GUI (See AD_EDFunctions.tmh)
 	initPIPMapper();																		// Initiate PIP Configuration Mapper (See AD_EDFunctions.tmh)
@@ -86,7 +87,6 @@
 	initToggleLandingGear();																// Initiate Toggle Mapping for Landing Gear			 (LED Support) (See AD_EDFunctions.tmh)
 	initToggleCargoScoop();																	// Initiate Toggle Mapping for Cargo Scoop			 (LED Support) (See AD_EDFunctions.tmh)
 	initIDLEMaster();																		// Initiate Advanced Function to disable Throttle (& Boost) when engaging Throttle IDLE/Afterburner Lock Indent. Will also enable SRV Handbrake. (See AD_EDFunctions.tmh)
-	initEscapeVector();																		// Initiate Advanced Macro to perform a tactical withdraw from combat (Retract Hardpoints, Set Defensive PIPs, Auto Boost/Chaff, Engage Supercruise) (See AD_EDFunctions.tmh)
 	initDirectCommControls();																// Initiate Mapping of Text Chat Macros to Hatswitch (2 Presets configurable in AD_EDSettings.tmh)
 	initHeadlookModeSelect();																// Initiate Custom mapping preference for Headlook Centering based on your hardware (TrackIR, VR, Mouse) (See AD_EDFunctions.tmh)
 	initHardpointManagement();																// Initiate Advanced Function integrating all Hardpoint/Other functions related to the Red Left Throttle Button (See AD_EDFunctions.tmh)
@@ -94,7 +94,6 @@
 	initUserHotSlotPinkyTrigger();															// Initiate Double Tap Functionality on the Joystick Pinky Trigger (See AD_EDFunctions.tmh)
 	initLEDController(0);																	// Initiate Short LED Flashing Sequence on Toggle Flip & a Pattern on Startup. (LED Support) (See AD_EDFunctions.tmh)
 	initAPEngageEnhancer();																	// Initiate Autopilot Engage button customisation				   (See AD_EDFunctions.tmh) (includes Auto-Dock & Signal Light Macros)
-	initToggleFSSMode();
 
 	StartupLock = 0;																		// Startup Pre-checks: "Releases" Startup Lock (which is in place while initialising the Macros/Functions above)
 
@@ -115,8 +114,8 @@
 
 																							// Map Flaps Select Toggle to Throttle Axis Presets
 	MapKey(&Throttle, FLAPU, EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetUP);"));	 // Flaps UP  	 (Safety: Only Activate When Throttle IDLE is not Locked ON)
-	MapKey(&Throttle, FLAPM, EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetMID);")); // Flaps MIDDLE (Safety: Only Activate When Throttle IDLE is not Locked ON)
-	MapKey(&Throttle, FLAPD, EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetDOWN);"));// Flaps DOWN	 (Safety: Only Activate When Throttle IDLE is not Locked ON)
+	MapKey(&Throttle, FLAPM, EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetMID);"));  // Flaps MIDDLE (Safety: Only Activate When Throttle IDLE is not Locked ON)
+	MapKey(&Throttle, FLAPD, EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetDOWN);"));  // Flaps DOWN	 (Safety: Only Activate When Throttle IDLE is not Locked ON)
 
 																							// Map Throttle Autopilot to Joystick Curve Presets
 	MapKey(&Throttle, APPAT, EXEC("initSetJoystickCurves();"));								// Autopilot PATH UP

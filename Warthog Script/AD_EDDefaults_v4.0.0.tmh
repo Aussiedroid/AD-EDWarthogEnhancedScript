@@ -14,7 +14,8 @@
 	define MID					4						// Used in initPIPMapper for managing Balance PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT modify!)
 
 	char   ca_pulseChar[] 	 = "0"					   ;// Used in Auto-Text Chat Presets		(DO NOT modify!)
-
+	
+//	define ThrottleCurrentPreset = ThrottlePresetMID;	// 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // DEFAULT TIMINGS //
@@ -71,6 +72,6 @@
 	int DoubleTapPT			= 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
 	int ReportCrimeState	= 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v4.x.x.tmc)
 	int ShowGameStatState	= 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v4.x.x.tmc)
-	int FSSMode				= 0;
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

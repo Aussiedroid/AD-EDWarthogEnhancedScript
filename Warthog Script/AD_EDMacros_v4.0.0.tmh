@@ -2,14 +2,15 @@
 // START-UP: MACRO VARIABLE INITALISATION //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int mRequestDock, mShowGameStats, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys, mSignalLights, mSignalLightsLong, mReportCrimesToggle, mChatPanelGrab;
-	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullScaleCustom, mFastModeSwitch, mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle;
+	int mRequestDock, mShowGameStats, mFastModeSwitch, mChatPanelGrab, mSignalLights, mSignalLightsLong, mReportCrimesToggle;
+	int mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys;
+	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleNonLinear, mThrottleFullScaleCustom;	// Configured in AD_EDHardware.tmh
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MACROS: SPECIALISED SEQUENCES //																// MACROS Include a series of automated key presses to perform a specific task.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int initCustomCommands() {
+	int initCustomMacroCommands() {
 		mRequestDock = CHAIN(																	// MACRO: Auto-Docking Request
 			LOCK+PULSE+TargetPanel, 	D(250),
 			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if Target Panel cursor in

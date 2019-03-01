@@ -29,9 +29,10 @@
 		// THROTTLE AXIS //
 	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% = 1 (default). Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%]
 
-	define ThrottlePresetUP 	mThrottleFwdOnly		// 5 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottlePrecision	[-50 -> 50] (This should be in the DOWN position when mapped)
+	define ThrottlePresetUP 	mThrottleNonLinear		// 6 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottlePrecision	[-50 -> 50] (This should be in the DOWN position when mapped)
 	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleTrimmed	[-75 -> 75]
-	define ThrottlePresetDOWN 	mThrottlePrecision		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]  [Note: Full Range Trimmed by ~10% when CruiseOnThrottle active]
+	define ThrottlePresetDOWN 	mThrottlePrecision		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]	mThrottleNonLinear	[-100 -> 100]
+														// 				[Note: Full Range Trimmed by ~10% when CruiseOnThrottle active]
 
 
 		// SHIP/SRV PIP CONFIG //
@@ -108,7 +109,7 @@
 	define APEngageCMSLong		mNAVBeaconOff			//	CMS Modifier   + Long Press		= mNAVBeaconOff 	(default)
 
 																									// NOTE: ONLY Change the text between the "quotes" (in Red) below.	(SEE JOYSTICK REFERENCE MAP FOR HATSWITCH LAYOUT)
-		// AUTO-TEXT CHAT PRESETS //					// Define your custom chat variables here.	// 		 DO NOT Modify macro names (that means everything starting with "chat_").
+		// AUTO-TEXT CHAT PRESETS //					// Define your custom chat variables here	// 		 DO NOT Modify macro names (that means everything starting with "chat_").
 	define chat_Basic_UP		"o7"																					// Default: Hello		(Non-Modifier Chat Mode)
 	define chat_Basic_DOWN		"Fly safe CMDR"																			// Default: Farewell	(Non-Modifier Chat Mode)
 	define chat_Basic_LEFT		"Thank you for your assistance! o7"														// Default: Thank		(Non-Modifier Chat Mode)
