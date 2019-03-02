@@ -14,8 +14,8 @@
 	define MID					4						// Used in initPIPMapper for managing Balance PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT modify!)
 
 	char   ca_pulseChar[] 	 = "0"					   ;// Used in Auto-Text Chat Presets		(DO NOT modify!)
+
 	
-//	define ThrottleCurrentPreset = ThrottlePresetMID;	// 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // DEFAULT TIMINGS //
@@ -41,37 +41,43 @@
 														// *[Set your toggles before you start Elite Dangerous to align default toggle states]*
 														//  NOTE: If your switches aren't set to match, then you'll need to use a toggle override, or have to do an extra key toggle/key press to "catch up"
 
-	int StartupLock			= 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes)
-	int RCorrection 		= 1;						// Rotational Correction ON		(Press 'F4' to align as required in-game) 		(used in initToggleRotationCorrection())
-	int SRunning			= 0;						// Silent Running OFF			(Press 'DEL' to toggle manually if misaligned)	(used in initToggleSilentRunning())
-	int Gears 				= 0;						// Landing Gears set to ON 		(Assumes docked in station on Start. Press 'L' to align as required) (used in initToggleLandingGear())
-	int Lights 				= 0;						// Ship Lights OFF				(Press 'INSERT' to align if SRV takes out of alignment) (used in initToggleShipLights())
-	int NightVisionStatus	= 0;						// Tracks if Night Vision is enabled (for LED backlight)(used in initNightVisionEnhancer())
-	int AltFlightToggle		= 0;						// Tracks Alternative Flight Controls Toggle Status OFF	(used in initEnhancedFAOFF())
-	int AltFlightHold		= 0;						// Tracks Alternative Flight Controls Hold Status OFF	(used in initEnhancedFAOFF())
-	int FAOFFToggle			= 0;						// Tracks Flight Assist Off Controls Toggle Status  OFF	(used in initEnhancedFAOFF())
-	int FAOFFHold			= 0;						// Tracks Flight Assist Off Controls Hold Status  OFF	(used in initEnhancedFAOFF())
-	int CargoSc 			= 0;						// Cargo Scoop Deployed OFF								(used in initToggleCargoScoop())
-	int rFireP 				= 0;						// Repeating Primary Fire	(Auto-fire)					(used in initAdvancedFireModule())
-	int rFireS 				= 0;						// Repeating Secondary Fire	(Auto-fire)					(used in initAdvancedFireModule())
-	int rAutoP				= 0;						// Primary Fire Flag to check if Repeater Fire was triggered last press		(used in initAdvancedFireModule())
-	int rAutoS				= 0;						// Secondary Fire Flag to check if Repeater Fire was triggered last press	(used in initAdvancedFireModule())
-	int HPoints 			= 0;						// Hardpoints Deployed OFF								(used in initEscapeVector())
-	int APSeqLong			= 0;						// Tracks if long press was triggered for Autopilot Engage Button			(used in initAPEngageEnhancer())
-	int APSeqShort			= 0;						// Tracks if short press was triggered for Autopilot Engage Button		  	(used in initAPEngageEnhancer())
-	int CommsPreset			= 0;						// Set Text Chat Set (Default 0 - Pinky Toggle CENTER)	(used in initTextChatPresets())
-	int MicCheckHold		= 0;						// Tracks if Microphone PTT Hold is engaged				(used in initMicCommander())
-	int MicCheckToggle		= 0;						// Tracks if Microphone Toggle is engaged 				(used in initMicCommander())
-	int MicExtPulseCheck	= 0;						// Tracks state of PTT Microphone Pulse action			(used in initMicCommander())
-	int MicExtHoldCheck		= 0;						// Tracks state of PTT Microphone Down/Up action		(used in initMicCommander())
-	int MicExtPulseCheckALT	= 0;						// Tracks state of Alt. PTT Microphone Pulse action		(used in initMicCommander())
-	int MicExtHoldCheckALT	= 0;						// Tracks state of Alt. PTT Microphone Down/Up action	(used in initMicCommander())
-	int MicExtToggleCheck	= 0;						// Tracks state of Toggle Microphone action				(used in initMicCommander())
-	int MicExtToggleCheckALT= 0;						// Tracks state of Alt. Toggle Microphone action		(used in initMicCommander())
-	int MicExtToggleCombo	= 0;						// Tracks state of Toggle Microphone Combo action		(used in initMicCommander())
-	int DoubleTapPT			= 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
-	int ReportCrimeState	= 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v4.x.x.tmc)
-	int ShowGameStatState	= 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v4.x.x.tmc)
+	int StartupLock			  = 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes)
+	int RCorrection 		  = 1;						// Rotational Correction ON		(Press 'F4' to align as required in-game) 		(used in initToggleRotationCorrection())
+	int SRunning			  = 0;						// Silent Running OFF			(Press 'DEL' to toggle manually if misaligned)	(used in initToggleSilentRunning())
+	int Gears 				  = 0;						// Landing Gears set to ON 		(Assumes docked in station on Start. Press 'L' to align as required) (used in initToggleLandingGear())
+	int Lights 				  = 0;						// Ship Lights OFF				(Press 'INSERT' to align if SRV takes out of alignment) (used in initToggleShipLights())
+	int NightVisionStatus	  = 0;						// Tracks if Night Vision is enabled (for LED backlight)(used in initNightVisionEnhancer())
+	int AltFlightToggle		  = 0;						// Tracks Alternative Flight Controls Toggle Status OFF	(used in initEnhancedFAOFF())
+	int AltFlightHold		  = 0;						// Tracks Alternative Flight Controls Hold Status OFF	(used in initEnhancedFAOFF())
+	int FAOFFToggle			  = 0;						// Tracks Flight Assist Off Controls Toggle Status  OFF	(used in initEnhancedFAOFF())
+	int FAOFFHold			  = 0;						// Tracks Flight Assist Off Controls Hold Status  OFF	(used in initEnhancedFAOFF())
+	int CargoSc 			  = 0;						// Cargo Scoop Deployed OFF								(used in initToggleCargoScoop())
+	int rFireP 				  = 0;						// Repeating Primary Fire	(Auto-fire)					(used in initAdvancedFireModule())
+	int rFireS 				  = 0;						// Repeating Secondary Fire	(Auto-fire)					(used in initAdvancedFireModule())
+	int rAutoP				  = 0;						// Primary Fire Flag to check if Repeater Fire was triggered last press		(used in initAdvancedFireModule())
+	int rAutoS				  = 0;						// Secondary Fire Flag to check if Repeater Fire was triggered last press	(used in initAdvancedFireModule())
+	int HPoints 			  = 0;						// Hardpoints Deployed OFF								(used in initEscapeVector())
+	int APSeqLong			  = 0;						// Tracks if long press was triggered for Autopilot Engage Button			(used in initAPEngageEnhancer())
+	int APSeqShort			  = 0;						// Tracks if short press was triggered for Autopilot Engage Button		  	(used in initAPEngageEnhancer())
+	int CommsPreset			  = 0;						// Set Text Chat Set (Default 0 - Pinky Toggle CENTER)	(used in initTextChatPresets())
+	int MicCheckHold		  = 0;						// Tracks if Microphone PTT Hold is engaged				(used in initMicCommander())
+	int MicCheckToggle		  = 0;						// Tracks if Microphone Toggle is engaged 				(used in initMicCommander())
+	int MicExtPulseCheck	  = 0;						// Tracks state of PTT Microphone Pulse action			(used in initMicCommander())
+	int MicExtHoldCheck		  = 0;						// Tracks state of PTT Microphone Down/Up action		(used in initMicCommander())
+	int MicExtPulseCheckALT	  = 0;						// Tracks state of Alt. PTT Microphone Pulse action		(used in initMicCommander())
+	int MicExtHoldCheckALT	  = 0;						// Tracks state of Alt. PTT Microphone Down/Up action	(used in initMicCommander())
+	int MicExtToggleCheck	  = 0;						// Tracks state of Toggle Microphone action				(used in initMicCommander())
+	int MicExtToggleCheckALT  = 0;						// Tracks state of Alt. Toggle Microphone action		(used in initMicCommander())
+	int MicExtToggleCombo	  = 0;						// Tracks state of Toggle Microphone Combo action		(used in initMicCommander())
+	int DoubleTapPT			  = 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
+	int ReportCrimeState	  = 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v4.x.x.tmc)
+	int ShowGameStatState	  = 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v4.x.x.tmc)
+	int rptR				  = 1;						// 
+	int RepeaterAutoRelease	  = 1;						// Choose how Autofire on your Primary & Secondary Fire Buttons will behave:
+														// 	Options: 	Manual	= 0			   -COMBAT-  Best for Weapons  			 (Hold Fire: Remains ON until you press the fire button again to disengage)
+														//				Auto	= 1	(default) -EXPLORER- Best for Scanners			 (Repeater Fire: Holds the Trigger for a fixed interval (6 secs) before automatically disengaging) [Can modify duration by changing RepeaterTimer & RepeaterTimerOff above]
+//														//				Pulse	= 2			   -MINING-	 Best for Pulse Wave Scanner (Pulse Fire: Activates a Trigger press every 7 secs. Press again to disable. [Disable before Supercruise/Instance Change to keep alignment]
+
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

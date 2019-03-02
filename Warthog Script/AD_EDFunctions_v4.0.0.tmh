@@ -1,16 +1,15 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FUNCTIONS: TABLE OF CONTENTS //						// FUNCTIONS Include logic to customise specific Button/Toggle functionality.							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	[1. FIRE & HARDPOINT CONTROLS (line 15)]		[3. TOGGLE CONTROLS (line 202)]				[4. SPECIALISED FEATURES (line 595)]							//
-//		- initHardpointManagement						- initLEDController							- initNightVisionEnhancer									//
-//		- initSetCombinedFire							- initEnhancedFAOFF							- initAPEngageEnhancer										//
-//		- initAdvancedFireModule						- initToggleRotationCorrection				- initIDLEMaster											//
-//														- initToggleSilentRunning					- initUserHotSlotPinkyTrigger								//
-//	[2. PIP & TEXT CHAT CONTROLS (line 110)]			- initToggleCargoScoop																					//
-//		- initPIPMapper									- initToggleLandingGear																					//
-//		- initSendChatString							- initHeadlookModeSelect				[5. REPORT SCRIPT STATES (line 691)]							//
-//		- initCommsPresets								- initToggleShipLights						- initPrintState											//
-//														- initMicCommander																						//
+//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 202)]	[4. TOGGLE CONTROLS (line 595)]			[5. REPORT STATES (line 691)]	//
+//		- initHardpointManagement					- initLEDController						- initEnhancedFAOFF						- initPrintState			//
+//		- initSetCombinedFire						- initNightVisionEnhancer				- initToggleRotationCorrection										//
+//		- initAdvancedFireModule					- initAPEngageEnhancer					- initToggleSilentRunning											//
+//													- initIDLEMaster						- initToggleCargoScoop												//
+//	[2. PIP & TEXT CHAT CONTROLS (line 110)]		- initUserHotSlotPinkyTrigger			- initToggleLandingGear												//
+//		- initPIPMapper								 										- initHeadlookModeSelect											//
+//		- initSendChatString																- initToggleShipLights												//
+//		- initCommsPresets																	- initMicCommander													//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FUNCTIONS: FIRE & HARDPOINT CONTROLS //
@@ -49,26 +48,52 @@
 	int initAdvancedFireModule() {																// FUNCTION: Advanced Weapon Fire Module
 		if(Joystick[TG1]) {																		//	[Integrates Combo Fire & Repeater Fire into Primary/Secondary Fire Buttons]
 			if(Joystick[S4]) {																	
-//				rAutoP=!rAutoP;
-				if(!rFireP) {
-					if(RepeaterAutoRelease == 2) { printf("Repeater Fire: MINING PULSE WAVE MODE ON (PRIMARY)\x0a"); ActKey(KEYON+PULSE+PrimaryFire); }	
-					else {
-						rAutoP=!rAutoP;
+				rAutoP=!rAutoP;
+				//if(RepeaterAutoRelease == 2) { }
+	//				if(rptR) {
+		//				if(!rFireP) printf("Repeater Fire: MINING PULSE WAVE MODE ON (PRIMARY)\x0a");
+		//				rFireP = 1;
+	//					ActKey(KEYON+PULSE+PrimaryFire); }
+					if(!rptR) {
+						rFireP = 0;
+						rAutoP = 0;
+						printf("Repeater Fire: MINING PULSE WAVE MODE OFF (PRIMARY)\x0a");
+						StopAutoRepeat(0); } 
+				if(RepeaterAutoRelease < 2) {
+					if(!rFireP & rAutoP) {
 						ActKey(KEYON+DOWN+PrimaryFire);											// Pinky Trigger + Primary = REPEATING FIRE
-						rFireP = 1; } }			
+						rFireP = 1; }
+					if(rFireP & rAutoP) {
+						if(RepeaterAutoRelease == 1) printf("Repeater Fire: EXPLORER SCANNER MODE ON  (PRIMARY) ^^\x0a");
+						if(RepeaterAutoRelease == 0) printf("Repeater Fire: COMBAT CONTINUOUS MODE ON  (PRIMARY) ^^\x0a"); }
+					if(rFireP & !rAutoP) {
+						ActKey(KEYON+UP+PrimaryFire);
+						rFireP = 0;
+						printf("Repeater Fire: COMBAT CONTINUOUS MODE OFF (PRIMARY)\x0a"); } } }	
+				
+//				if(!rFireP & rAutoP) {
+//					if(RepeaterAutoRelease == 2) { rFireP = 1; printf("Repeater Fire: MINING PULSE WAVE MODE ON (PRIMARY)\x0a"); ActKey(KEYON+PULSE+PrimaryFire); }	
+//					else {
+						//rAutoP=!rAutoP;
+//						ActKey(KEYON+DOWN+PrimaryFire);											// Pinky Trigger + Primary = REPEATING FIRE
+//						rFireP = 1; } }			
 					
 //					ActKey(KEYON+DOWN+PrimaryFire);												// Pinky Trigger + Primary = REPEATING FIRE
 //					rFireP = 1; }
-				if(rAutoP) {
-					if(RepeaterAutoRelease == 1) printf("Repeater Fire: EXPLORER SCANNER MODE ON  (PRIMARY) ^^\x0a");
-					if(RepeaterAutoRelease == 0) printf("Repeater Fire: COMBAT CONTINUOUS MODE ON  (PRIMARY) ^^\x0a"); } }
+//				if(rFireP & !rAutoP) {
+//					ActKey(KEYON+UP+PrimaryFire);
+//					rFireP = 0;
+//					printf("Repeater Fire: COMBAT CONTINUOUS MODE OFF (PRIMARY)\x0a"); }					
+//				if(rFireP & rAutoP) {
+//					if(RepeaterAutoRelease == 1) printf("Repeater Fire: EXPLORER SCANNER MODE ON  (PRIMARY) ^^\x0a");
+//					if(RepeaterAutoRelease == 0) printf("Repeater Fire: COMBAT CONTINUOUS MODE ON  (PRIMARY) ^^\x0a"); }
 //					printf("Repeater Fire: AUTO ON  (PRIMARY) ^^\x0a"); } }
 			if(Joystick[H4P]) {
 				initSetCombinedFire(1);	}														// CMS Hat Switch + Primary = COMBINE TOGGLE
 			if(!Joystick[H4P] & !Joystick[S4]) {
 				rAutoP = 0;
 				if(!rFireP) {
-					ActKey(KEYON+DOWN+PrimaryFire); } } }										// Primary Only = STANDARD FIRE (Releases Repeating Fire when on Manual User Preference)
+					ActKey(KEYON+DOWN+PrimaryFire); } } 	}						// Primary Only = STANDARD FIRE (Releases Repeating Fire when on Manual User Preference)
 		if(!Joystick[TG1]) {																	// 	[Set 'RepeaterAutoRelease' value in the User Preferences]
 			if(RepeaterAutoRelease == 1) {															// Auto Primary Release ENABLED
 				if(rFireP & rAutoP) {
@@ -76,17 +101,12 @@
 					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rFireP = 0;"));		// Slight offset timing of +200ms to ensure triggering after event
 					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rAutoP = 0;"));
 					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER SCANNER MODE OFF (PRIMARY)\\x0a\");")); }
-//					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: AUTO OFF (PRIMARY)\\x0a\");")); }
 				if(!rFireP) {
 					ActKey(KEYON+UP+PrimaryFire); }	}
-			if(RepeaterAutoRelease == 0) {															// Manual Primary Release ENABLED
-				if(!rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if NO, only release primary fire button
-					ActKey(KEYON+UP+PrimaryFire); }
-				if(rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if YES, also reset flag & print
-					ActKey(KEYON+UP+PrimaryFire);
-					rFireP = 0;
-					printf("Repeater Fire: COMBAT CONTINUOUS MODE OFF (PRIMARY)\x0a"); } } }
-//					printf("Repeater Fire: AUTO OFF (PRIMARY)\x0a"); } } }
+			if(RepeaterAutoRelease != 1) {															// Manual Primary Release ENABLED
+ 				if(!Joystick[S4] & !rFireP) {															// Checks if Repeater Fire was enabled, if NO, only release primary fire button
+// 				if(!rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if NO, only release primary fire button
+					ActKey(KEYON+UP+PrimaryFire); } } }
 		if(Joystick[S3]) {
 			if(Joystick[S4]) {
 				rAutoS=!rAutoS;
@@ -212,7 +232,7 @@
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS: TOGGLE CONTROLS //
+// FUNCTIONS: SPECIALISED FEATURES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initLEDController(int x) {																// FUNCTION: LED Controller provides flashing LED feedback on Toggle switching & will initiate a startup up sequence patter for LEDs when script starts.
@@ -248,6 +268,89 @@
 			ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));	} }				// set LED 2 ON 	[Rotational Correction]
 																								// End of Forward Sequence
 
+
+	int initNightVisionEnhancer(int toggleValue) { 												// FUNCTION: Calculate Night Vision state.
+		if(toggleValue) {																		// Dims Throttle LED Backlight intensity when active.
+			NightVisionStatus=!NightVisionStatus; }
+		if(NightVisionStatus){
+			printf("Night Vision: ^^ ACTIVE ^^\x0a");
+			ActKey(KEYON+PULSE+NightVision);
+			if(NightVisionHUD) ActKey(KEYON+PULSE+HideShipGUI);									// If enabled in User Preferences, Hide the Ship/SRV HUD when enabling Night Vision.
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 50)); }							// Dim Throttle Lights
+		if(!NightVisionStatus) {
+			printf("Night Vision: DEACTIVATED!\x0a");
+			ActKey(KEYON+PULSE+NightVision);
+			if(NightVisionHUD) ActKey(KEYON+PULSE+HideShipGUI);									// If enabled in User Preferences, Show the Ship/SRV HUD when disabling Night Vision.
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }							// Return Throttle Lights to Default
+				
+
+
+	int initAPEngageEnhancer() { 																// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
+		if(Joystick[H4P]) {																		//	Defaults: Include the Autodock, Signal Light Sequences (Flashing ShipLights) & Basic Text Comms.
+			if(APSeqShort) {																	// [Short+CMS: Text "CMDR o7" (default)]
+				ActKey(KEYON+PULSE+APEngageCMSShort);											// Set custom APEngageCMSShort value in the User Preferences
+				APSeqShort=!APSeqShort; }
+			if(APSeqLong) {																		// [Long+CMS: Text "Fly Safe CMDR" (default)]
+				ActKey(KEYON+PULSE+APEngageCMSLong);											// Set custom APEngageCMSLong value in the User Preferences
+				APSeqLong=!APSeqLong; } }
+		if(Joystick[S4]) {
+			if(APSeqShort) {																	// [Short+Pinky: Auto-Dock Request (default)]
+				ActKey(KEYON+PULSE+APEngagePinkyShort);											// Set custom APEngagePinkyShort value in the User Preferences
+				if(APEngagePinkyShort == mRequestDock) printf("Attempting Auto-Dock Procedure...\x0a");
+				APSeqShort=!APSeqShort; }
+			if(APSeqLong) {																		// [Long+Pinky: Auto-Dock Request (default)]
+				ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
+				if(APEngagePinkyLong == mRequestDock) printf("Attempting Auto-Dock Procedure...\x0a");
+				APSeqLong=!APSeqLong; } }
+		if(!Joystick[S4] & !Joystick[H4P]) {
+			if(APSeqShort) {																	// [Short: Short Signal Light Sequence (default)]
+				ActKey(KEYON+PULSE+APEngageShort);												// Set custom APEngageShort value in the User Preferences
+				if(APEngageShort == mSignalLights) printf("Lights: ^ SHORT SIGNAL SEQUENCE ACTIVATED ^\x0a");
+				APSeqShort=!APSeqShort; }
+			if(APSeqLong) {																		// [Long: Long Signal Light Sequence (default)]
+				ActKey(KEYON+PULSE+APEngageLong);												// Set custom APEngageLong value in the User Preferences
+				if(APEngageLong == mSignalLightsLong) printf("Lights: ^ LONG SIGNAL SEQUENCE ACTIVATED ^\x0a");
+				APSeqLong=!APSeqLong; } } }
+
+
+
+	int initIDLEMaster() {																		// FUNCTION: Enforce Throttle IDLE (Stationary) on any Throttle Mode
+		if(!StartupLock) {
+			if(Throttle[IDLELON]) {
+				if(!Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Full Range Throttle Modes
+					DXAxis(DX_ZROT_AXIS, 0);													// Prevents issues launching from stations etc
+					DXAxis(DX_Z_AXIS, 0);
+					LockAxis(&Throttle, THR_LEFT, 1);											// Lock Axes to keep null value
+					LockAxis(&Throttle, THR_RIGHT, 1);
+					ActKey(KEYON+PULSE+SRVHandbrake); }											// IDLE Doubles as SRV Handbrake ON when on surface
+				if(Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Forward Only Throttle Mode
+					DXAxis(DX_ZROT_AXIS, 32767);
+					DXAxis(DX_Z_AXIS, 32767);
+					LockAxis(&Throttle, THR_LEFT, 1);											// Lock Axes to keep null value
+					LockAxis(&Throttle, THR_RIGHT, 1);
+					ActKey(KEYON+PULSE+SRVHandbrake); }	}										// IDLE Doubles as SRV Handbrake ON when on surface
+			if(!Throttle[IDLELON]) {
+				LockAxis(&Throttle, THR_LEFT, 0);												// Unlocks the Throttle Axes when exiting IDLE
+				LockAxis(&Throttle, THR_RIGHT, 0);
+				ActKey(KEYON+PULSE+SRVHandbrake); } } }											// Release the SRV Handbrake
+
+
+
+	int initUserHotSlotPinkyTrigger() {															// FUNCTION: Enables User Definable 'Double Tap' functionality on the Pinky Trigger [S4]
+		if(!StartupLock) {																		// *This line is only required to prevent running on startup
+			if(DoubleTapPT == 0) {																// IF Single (First) Press  (DoubleTapPT starts at 0)
+				ActKey(KEYON+DOWN+PinkyTriggerDefault);											// Trigger Standard DX4/JOY 4 mapping
+				DoubleTapPT = 1;																// Increment DoubleTapPT counter
+				DeferCall(DTPressDelay, &ActKey, KEYON+PULSE+EXEC("DoubleTapPT = 0;")); }		// Sets Double Tap Speed: After delay of 365ms, reset DoubleTapPT counter to 0 (This is your window to press Pinky Trigger again for double tap) 
+			else if(DoubleTapPT == 1) {															// IF Double (Second) Press
+				DoubleTapPT = 2;																// Increment DoubleTapPT counter (prevents further triggers until DoubleTapPT delay timer cycle completes)
+				ActKey(KEYON+PULSE+UserDTPinkyKeyBind); } } }									// Trigger User Hot Slot Preference (*see User Preferences to set*)
+//				ActKey(KEYON+DOWN+UserDTPinkyKeyBind); } } }									// ALT Config (enable if Double Tap Pinky Trigger needs a Hold action - remember to disable the line above!)
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// FUNCTIONS: TOGGLE CONTROLS //
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initEnhancedFAOFF() {																	// FUNCTION: Enhanced Joystick Curves tailored for Flight Assist Off (TOGGLE)
 		if(Throttle[SPDF]) {																	//    AKA     "FAOFF LIKE A BOSS!"
@@ -616,90 +719,6 @@
 						if(MicExternalActionALT)  ActKey(KEYON+PULSE+ExternalVoiceCommsPTT_ALT);
 						if(!MicExternalActionALT) ActKey(KEYON+UP+ExternalVoiceCommsPTT_ALT);
 						MicExtToggleCheckALT = 0; } } } } }
-
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS: SPECIALISED FEATURES //
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-
-	int initNightVisionEnhancer(int toggleValue) { 												// FUNCTION: Calculate Night Vision state.
-		if(toggleValue) {																		// Dims Throttle LED Backlight intensity when active.
-			NightVisionStatus=!NightVisionStatus; }
-		if(NightVisionStatus){
-			printf("Night Vision: ^^ ACTIVE ^^\x0a");
-			ActKey(KEYON+PULSE+NightVision);
-			if(NightVisionHUD) ActKey(KEYON+PULSE+HideShipGUI);									// If enabled in User Preferences, Hide the Ship/SRV HUD when enabling Night Vision.
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 50)); }							// Dim Throttle Lights
-		if(!NightVisionStatus) {
-			printf("Night Vision: DEACTIVATED!\x0a");
-			ActKey(KEYON+PULSE+NightVision);
-			if(NightVisionHUD) ActKey(KEYON+PULSE+HideShipGUI);									// If enabled in User Preferences, Show the Ship/SRV HUD when disabling Night Vision.
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }							// Return Throttle Lights to Default
-				
-
-
-	int initAPEngageEnhancer() { 																// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
-		if(Joystick[H4P]) {																		//	Defaults: Include the Autodock, Signal Light Sequences (Flashing ShipLights) & Basic Text Comms.
-			if(APSeqShort) {																	// [Short+CMS: Text "CMDR o7" (default)]
-				ActKey(KEYON+PULSE+APEngageCMSShort);											// Set custom APEngageCMSShort value in the User Preferences
-				APSeqShort=!APSeqShort; }
-			if(APSeqLong) {																		// [Long+CMS: Text "Fly Safe CMDR" (default)]
-				ActKey(KEYON+PULSE+APEngageCMSLong);											// Set custom APEngageCMSLong value in the User Preferences
-				APSeqLong=!APSeqLong; } }
-		if(Joystick[S4]) {
-			if(APSeqShort) {																	// [Short+Pinky: Auto-Dock Request (default)]
-				ActKey(KEYON+PULSE+APEngagePinkyShort);											// Set custom APEngagePinkyShort value in the User Preferences
-				if(APEngagePinkyShort == mRequestDock) printf("Attempting Auto-Dock Procedure...\x0a");
-				APSeqShort=!APSeqShort; }
-			if(APSeqLong) {																		// [Long+Pinky: Auto-Dock Request (default)]
-				ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
-				if(APEngagePinkyLong == mRequestDock) printf("Attempting Auto-Dock Procedure...\x0a");
-				APSeqLong=!APSeqLong; } }
-		if(!Joystick[S4] & !Joystick[H4P]) {
-			if(APSeqShort) {																	// [Short: Short Signal Light Sequence (default)]
-				ActKey(KEYON+PULSE+APEngageShort);												// Set custom APEngageShort value in the User Preferences
-				if(APEngageShort == mSignalLights) printf("Lights: ^ SHORT SIGNAL SEQUENCE ACTIVATED ^\x0a");
-				APSeqShort=!APSeqShort; }
-			if(APSeqLong) {																		// [Long: Long Signal Light Sequence (default)]
-				ActKey(KEYON+PULSE+APEngageLong);												// Set custom APEngageLong value in the User Preferences
-				if(APEngageLong == mSignalLightsLong) printf("Lights: ^ LONG SIGNAL SEQUENCE ACTIVATED ^\x0a");
-				APSeqLong=!APSeqLong; } } }
-
-
-
-	int initIDLEMaster() {																		// FUNCTION: Enforce Throttle IDLE (Stationary) on any Throttle Mode
-		if(!StartupLock) {
-			if(Throttle[IDLELON]) {
-				if(!Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Full Range Throttle Modes
-					DXAxis(DX_ZROT_AXIS, 0);													// Prevents issues launching from stations etc
-					DXAxis(DX_Z_AXIS, 0);
-					LockAxis(&Throttle, THR_LEFT, 1);											// Lock Axes to keep null value
-					LockAxis(&Throttle, THR_RIGHT, 1);
-					ActKey(KEYON+PULSE+SRVHandbrake); }											// IDLE Doubles as SRV Handbrake ON when on surface
-				if(Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Forward Only Throttle Mode
-					DXAxis(DX_ZROT_AXIS, 32767);
-					DXAxis(DX_Z_AXIS, 32767);
-					LockAxis(&Throttle, THR_LEFT, 1);											// Lock Axes to keep null value
-					LockAxis(&Throttle, THR_RIGHT, 1);
-					ActKey(KEYON+PULSE+SRVHandbrake); }	}										// IDLE Doubles as SRV Handbrake ON when on surface
-			if(!Throttle[IDLELON]) {
-				LockAxis(&Throttle, THR_LEFT, 0);												// Unlocks the Throttle Axes when exiting IDLE
-				LockAxis(&Throttle, THR_RIGHT, 0);
-				ActKey(KEYON+PULSE+SRVHandbrake); } } }											// Release the SRV Handbrake
-
-
-
-	int initUserHotSlotPinkyTrigger() {															// FUNCTION: Enables User Definable 'Double Tap' functionality on the Pinky Trigger [S4]
-		if(!StartupLock) {																		// *This line is only required to prevent running on startup
-			if(DoubleTapPT == 0) {																// IF Single (First) Press  (DoubleTapPT starts at 0)
-				ActKey(KEYON+DOWN+PinkyTriggerDefault);											// Trigger Standard DX4/JOY 4 mapping
-				DoubleTapPT = 1;																// Increment DoubleTapPT counter
-				DeferCall(DTPressDelay, &ActKey, KEYON+PULSE+EXEC("DoubleTapPT = 0;")); }		// Sets Double Tap Speed: After delay of 365ms, reset DoubleTapPT counter to 0 (This is your window to press Pinky Trigger again for double tap) 
-			else if(DoubleTapPT == 1) {															// IF Double (Second) Press
-				DoubleTapPT = 2;																// Increment DoubleTapPT counter (prevents further triggers until DoubleTapPT delay timer cycle completes)
-				ActKey(KEYON+PULSE+UserDTPinkyKeyBind); } } }									// Trigger User Hot Slot Preference (*see User Preferences to set*)
-//				ActKey(KEYON+DOWN+UserDTPinkyKeyBind); } } }									// ALT Config (enable if Double Tap Pinky Trigger needs a Hold action - remember to disable the line above!)
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

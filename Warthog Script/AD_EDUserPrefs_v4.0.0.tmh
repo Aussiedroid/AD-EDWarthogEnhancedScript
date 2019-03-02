@@ -51,10 +51,10 @@
 	int    combinePriSecFire  = 1					   ;// Set the default behaviour for the main Dual Stage Trigger	(how full depression of trigger will work)  (Note: You can still toggle this behaviour in-game)
 														//	Options:	Combine Primary+Secondary Fire on Trigger 2 = 1	(default)		No Mapping on Trigger 2 = 0 (ie. main Trigger dedicated to Primary Fire)
 
-	define RepeaterAutoRelease	2						// Choose how Autofire on your Primary & Secondary Fire Buttons will behave:
-														// 	Options: 	Manual	= 0			   -COMBAT-  Best for Weapons  			 (Hold Fire: Remains ON until you press the fire button again to disengage)
-														//				Auto	= 1	(default) -EXPLORER- Best for Scanners			 (Repeater Fire: Holds the Trigger for a fixed interval (6 secs) before automatically disengaging) [Can modify duration by changing RepeaterTimer & RepeaterTimerOff above]
-//														//				Pulse	= 2			   -MINING-	 Best for Pulse Wave Scanner (Pulse Fire: Activates a Trigger press every 7 secs. Press again to disable. [Disable before Supercruise/Instance Change to keep alignment]
+
+
+
+
 
 	define SecFirePinkyPref		0						// User Defined Override for Secondary Fire (Pinky Button) (S3) (!*Removes Sec. Fire from Pinky Button*!)
 														//   Options:		Use Standard Secondary Fire Mapping (OFF) = 0 (default),		 User Defined Configuration (ON) = 1 (Map via PinkyBtnDefaultShort & PinkyBtnDefaultLong values below)
