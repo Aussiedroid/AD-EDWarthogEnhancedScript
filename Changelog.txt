@@ -1,7 +1,7 @@
-Update 4.0.0:  ???
+Update 4.0.0:  THE LONG HYPERSPACE JUMP TO 2020
 
 
--> Big code clean-up. Script is now also available on GitHub.
+-> Big code clean-up. Along with file name changes and restructure, there has also been a Shift Key on Pinky Toggle Switch introduced to handle both new Comms Channels & Repeater Fire Mode (which can now be changed on-the-fly) changes. Script is now also available on GitHub too.
 
 
 New to the script? Be sure to also check out the Beginners Reference Map in the download pack to get started.
@@ -9,27 +9,27 @@ New to the script? Be sure to also check out the Beginners Reference Map in the 
 
 List of Changes:
 
-??? NEW: Pulse Repeater Fire Preset for Miners!! ???
+NEW: Pulse Repeater Fire Preset for Miners!
 NEW: Customisable Auto-Text Chat Responses (You can now edit these via the User Preferences). (Thx CMDR Clicker & ySfte)
 NEW: Enable/Disable Ship/SRV HUD when Toggling Night Vision (enable via the User Preferences).
-NEW: Automatically change Throttle Axis when entering FSS Mode (enable via the User Preferences). (Thx CMDR Clicker)
-NEW: Shift Key Added to Pinky Throttle Switch. This now enables multiple layouts currently for Comms Panel & Repeater Fire Modes.
-NEW: Shift: Change Comms Panel Mode on Trim Hat Switch on Joystick. (FWD: Auto-Text Responses, CTR: Wing & BCK: Fighter). See Reference Map for new layout. (This gives the Trim Hat Switch a total of 8 commands mapped per Toggle Position - both with and without modifier)
-NEW: Shift: Change Repeater Fire Mode on Primary/Sec. Triggers on Joystick. (FRD: Combat-Continuous, CTR: Explorer-Scanner & BCK: new Mining-Pulse) (Note: Pinky Modifier still required to activate). See Reference Map for new layout.
+NEW: Throttle Axis Preset (NonLinear) can now be enabled via the User Preferences. This new preset will modify the absolute 1-1 axis used in other modes and make it curve so the outside regions are slightly compressed, while slightly more movement in the center. (Thx CMDR Clicker)
+NEW: Shift Key Added to Pinky Throttle Switch. This now enables multiple layouts (layers) currently configured for Comms Panel & Repeater Fire Modes. Each position enable a different mapping on Trim Hat Switch & what Repeater Fire Mode is active on Joystick Trigger.
+NEW: Shift Key: Trim Hat Switch on Joystick - Change Comms Panel Mode. (FWD: Auto-Text Responses, CTR: Wing & BCK: Fighter). See Reference Maps for new layout. (This gives the Trim Hat Switch a total of 8 commands mapped per Toggle Position - both with and without Pinky modifier)
+NEW: Shift Key: Trigger(s) on Joystick - Change Repeater Fire Mode on Primary/Sec.  (FRD: Combat-Continuous, CTR: Explorer-Scanner & BCK: new Mining-Pulse) (Note: Pinky Modifier still required to activate). See Reference Map for new layout.
 
 IMPROVEMENT: Formalised & Cleaned up Script File Structure (each section now has its own separate file & is sorted).
 IMPROVEMENT: Categorised User Preferences section (make it easier to find the right setting).
 IMPROVEMENT: Added Secondary Fire Override, LED Blink & Combined Microphone User Preferences to Script Run Print Out on load.
 IMPROVEMENT: Added Table of Contents in AD_EDFunctions file (to help find correct function quicker).
-IMPROVEMENT: Added Toggle Option (mNAVBeaconToggle) to merge Wing Nav Beacon Enable & Disable into a single button instead of two.
+IMPROVEMENT: Added Toggle Option (mNAVBeaconToggle) to merge Wing Nav Beacon Enable & Disable into a single button instead of two. (not currently mapped/used)
 
 MOVED: Free Camera Zoom Increase/Decrease to Coolie Hat Switch on Throttle Down/Up (due to changes on the Trim Hat Switch).
 MOVED: HoloMe Undo/Redo to Coolie Hat Switch on Throttle Right/Left (due to changes on the Trim Hat Switch).
 
 FIXED: LEDs on Launch Sequence not working (typo). (Thx CMDR Clicker)
 
-REMOVED: Redundant ChatPresetMode User Preference (due to changes on the Chat Toggle).
-REMOVED: Redundant RepeaterFireMode from User Preference (this is now manually changed via Pinky Throttle Shift Switch in-game).
+REMOVED: Redundant ChatPresetMode in User Preference (due to changes on the Chat Toggle).
+REMOVED: Redundant RepeaterFireMode moved from User Preference (this is now manually changed via Pinky Throttle Shift Switch in-game).
 
 
 Fly Safe CMDRs!
