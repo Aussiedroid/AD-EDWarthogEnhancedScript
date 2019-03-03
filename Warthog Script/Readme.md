@@ -154,13 +154,6 @@ cockpit by changing the axis curve.
 
 - Using Modifier 2 (CMS Hatswitch) and the Trigger to toggle in game.
 
-### RepeaterAutoRelease [Value 1 or 0] ###
-- One of the advanced features of the Primary/Secondary Fire is the ability to hold down the trigger for you & rest your finger. To enable, hold down the Pinky Trigger Modifier when engaging the Primary/Secondary Fire. There are two modes available depending on your playstyle:
-
-- For EXPLORER CMDRs, set value to 1. This will engage the Fire button for 6 seconds, giving you the perfect duration to complete your planetary body scan. After this time, it will automatically release. The 6 second timing can be changed if you have engineered scanners by changing the RepeaterTimer define value in the AD_ED_Settings file.
-
-- For COMBAT CMDRs, set value to 0. You can keep the Fire button repeating indefinitely until you choose to release it by pressing the button again. This means you can keep firing on your target as long as you wish!
-
 ### SecFirePinkyPref [Value 1 or 0] ###
 - Depending on your playstyle, not everyone needs independant mapping of the Secondary Fire button (S3) on the Joystick. Sometimes the Dual-Stage Primary Trigger is sufficient. WIth this enabled 1, you can customise the Secondary Fire button with your own commands.
 
