@@ -12,7 +12,7 @@
 //		- initCommsPresets																	- initMicCommander													//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS: FIRE & HARDPOINT CONTROLS //
+// 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initHardpointManagement() {																// FUNCTION: Manage Hardpoint Deployment & Associated Menu Mappings
@@ -49,63 +49,34 @@
 		if(Joystick[TG1]) {																		//	[Integrates Combo Fire & Repeater Fire into Primary/Secondary Fire Buttons]
 			if(Joystick[S4]) {																	
 				rAutoP=!rAutoP;
-				//if(RepeaterAutoRelease == 2) { }
-	//				if(rptR) {
-		//				if(!rFireP) printf("Repeater Fire: MINING PULSE WAVE MODE ON (PRIMARY)\x0a");
-		//				rFireP = 1;
-	//					ActKey(KEYON+PULSE+PrimaryFire); }
-					if(!rptR) {
-						rFireP = 0;
-						rAutoP = 0;
-						printf("Repeater Fire: MINING PULSE WAVE MODE OFF (PRIMARY)\x0a");
-						StopAutoRepeat(0); } 
-				if(RepeaterAutoRelease < 2) {
+				if(RepeaterAutoRelease < 2) {													// Not really needed, but remains in case I add code for RepeaterAutoRelease = 2 in the future.
 					if(!rFireP & rAutoP) {
 						ActKey(KEYON+DOWN+PrimaryFire);											// Pinky Trigger + Primary = REPEATING FIRE
 						rFireP = 1; }
 					if(rFireP & rAutoP) {
-						if(RepeaterAutoRelease == 1) printf("Repeater Fire: EXPLORER SCANNER MODE ON  (PRIMARY) ^^\x0a");
-						if(RepeaterAutoRelease == 0) printf("Repeater Fire: COMBAT CONTINUOUS MODE ON  (PRIMARY) ^^\x0a"); }
+						if(RepeaterAutoRelease == 1) printf("Repeater Fire: EXPLORER SCANNER	MODE ON	.^...^.		(PRIMARY) ^^\x0a");
+						if(RepeaterAutoRelease == 0) printf("Repeater Fire: COMBAT ENDLESS	MODE ON	.^^^^^.		(PRIMARY) ^^\x0a"); }
 					if(rFireP & !rAutoP) {
 						ActKey(KEYON+UP+PrimaryFire);
 						rFireP = 0;
-						printf("Repeater Fire: COMBAT CONTINUOUS MODE OFF (PRIMARY)\x0a"); } } }	
-				
-//				if(!rFireP & rAutoP) {
-//					if(RepeaterAutoRelease == 2) { rFireP = 1; printf("Repeater Fire: MINING PULSE WAVE MODE ON (PRIMARY)\x0a"); ActKey(KEYON+PULSE+PrimaryFire); }	
-//					else {
-						//rAutoP=!rAutoP;
-//						ActKey(KEYON+DOWN+PrimaryFire);											// Pinky Trigger + Primary = REPEATING FIRE
-//						rFireP = 1; } }			
-					
-//					ActKey(KEYON+DOWN+PrimaryFire);												// Pinky Trigger + Primary = REPEATING FIRE
-//					rFireP = 1; }
-//				if(rFireP & !rAutoP) {
-//					ActKey(KEYON+UP+PrimaryFire);
-//					rFireP = 0;
-//					printf("Repeater Fire: COMBAT CONTINUOUS MODE OFF (PRIMARY)\x0a"); }					
-//				if(rFireP & rAutoP) {
-//					if(RepeaterAutoRelease == 1) printf("Repeater Fire: EXPLORER SCANNER MODE ON  (PRIMARY) ^^\x0a");
-//					if(RepeaterAutoRelease == 0) printf("Repeater Fire: COMBAT CONTINUOUS MODE ON  (PRIMARY) ^^\x0a"); }
-//					printf("Repeater Fire: AUTO ON  (PRIMARY) ^^\x0a"); } }
+						printf("Repeater Fire: COMBAT ENDLESS	MODE OFF	._____.		(PRIMARY)\x0a"); } } }	
 			if(Joystick[H4P]) {
 				initSetCombinedFire(1);	}														// CMS Hat Switch + Primary = COMBINE TOGGLE
 			if(!Joystick[H4P] & !Joystick[S4]) {
 				rAutoP = 0;
 				if(!rFireP) {
-					ActKey(KEYON+DOWN+PrimaryFire); } } 	}						// Primary Only = STANDARD FIRE (Releases Repeating Fire when on Manual User Preference)
+					ActKey(KEYON+DOWN+PrimaryFire); } } 	}									// Primary Only = STANDARD FIRE (Releases Repeating Fire when on Manual User Preference)
 		if(!Joystick[TG1]) {																	// 	[Set 'RepeaterAutoRelease' value in the User Preferences]
 			if(RepeaterAutoRelease == 1) {															// Auto Primary Release ENABLED
 				if(rFireP & rAutoP) {
 					DeferCall(RepeaterTimer, 	&ActKey, KEYON+UP+PrimaryFire); 				// Automatic timer delay to release Primary Fire after a 6 second hold
 					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rFireP = 0;"));		// Slight offset timing of +200ms to ensure triggering after event
 					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rAutoP = 0;"));
-					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER SCANNER MODE OFF (PRIMARY)\\x0a\");")); }
+					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER SCANNER	MODE OFF	._..._.		(PRIMARY)\\x0a\");")); }
 				if(!rFireP) {
 					ActKey(KEYON+UP+PrimaryFire); }	}
 			if(RepeaterAutoRelease != 1) {															// Manual Primary Release ENABLED
- 				if(!Joystick[S4] & !rFireP) {															// Checks if Repeater Fire was enabled, if NO, only release primary fire button
-// 				if(!rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if NO, only release primary fire button
+  				if(!rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if NO, only release primary fire button
 					ActKey(KEYON+UP+PrimaryFire); } } }
 		if(Joystick[S3]) {
 			if(Joystick[S4]) {
@@ -138,7 +109,7 @@
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS: PIP & TEXT CHAT CONTROLS //														// HAT SWITCHES
+// 2. FUNCTIONS: PIP & TEXT CHAT CONTROLS //														// HAT SWITCHES
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initPIPMapper(int maxPIPx=0, int minPIPy=0, int balPIPz=0) {							// FUNCTION: Sets Auto-PIP Mapping & then Sends Keystrokes   (Max, Min, Bal)
@@ -232,7 +203,7 @@
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS: SPECIALISED FEATURES //
+// 3. FUNCTIONS: SPECIALISED FEATURES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initLEDController(int x) {																// FUNCTION: LED Controller provides flashing LED feedback on Toggle switching & will initiate a startup up sequence patter for LEDs when script starts.
@@ -267,6 +238,11 @@
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));	Sleep(20);
 			ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));	} }				// set LED 2 ON 	[Rotational Correction]
 																								// End of Forward Sequence
+
+	int initShiftKeyStartUp() {
+		if(Throttle[PSF]) RepeaterAutoRelease = 0;  
+		if(Throttle[PSM]) RepeaterAutoRelease = 1;  
+		if(Throttle[PSB]) RepeaterAutoRelease = 2; }
 
 
 	int initNightVisionEnhancer(int toggleValue) { 												// FUNCTION: Calculate Night Vision state.
@@ -349,7 +325,7 @@
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS: TOGGLE CONTROLS //
+// 4. FUNCTIONS: TOGGLE CONTROLS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initEnhancedFAOFF() {																	// FUNCTION: Enhanced Joystick Curves tailored for Flight Assist Off (TOGGLE)
@@ -722,7 +698,7 @@
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// START-UP: REPORT SCRIPT STATES //
+// 5. START-UP: REPORT SCRIPT STATES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initPrintState() {																		// Display the status of the macro toggles & user prefs on run.

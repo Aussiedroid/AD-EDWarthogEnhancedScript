@@ -98,6 +98,7 @@
 	initUserHotSlotPinkyTrigger();															// Initiate Double Tap Functionality on the Joystick Pinky Trigger (See AD_EDFunctions.tmh)
 	initLEDController(0);																	// Initiate Short LED Flashing Sequence on Toggle Flip & a Pattern on Startup. (LED Support) (See AD_EDFunctions.tmh)
 	initAPEngageEnhancer();																	// Initiate Autopilot Engage button customisation				   (See AD_EDFunctions.tmh) (includes Auto-Dock & Signal Light Macros)
+	initShiftKeyStartUp();
 
 	StartupLock = 0;																		// Startup Pre-checks: "Releases" Startup Lock (which is in place while initialising the Macros/Functions above)
 
@@ -130,12 +131,12 @@
 // MAP JOYSTICK CONTROLS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	SetShiftButton(&Joystick, S4, &Throttle, PSF, PSB);																// Set Shift Button for MapKeyUMD
+	SetShiftButton(&Joystick, S4, &Throttle, PSF, PSB);			// With UDTOGGLE is Toggle, without is a hold		// Set Shift Button for MapKeyUMD
 
 	MapKeyUMD(&Joystick, TG1,																						// Trigger 1 [Main Trigger]
 							EXEC(				"initAdvancedFireModule();"),
 							EXEC(				"initAdvancedFireModule();"),  							
-							SEQ(REXEC(0, 7000,	"PULSE+PrimaryFire;", RNOSTOP), EXEC("initAdvancedFireModule();")));
+							SEQ(REXEC(0, 7000,	"ActKey(KEYON+PULSE+PrimaryFire); printf(\"Repeater Fire: AUTO-PULSE WAVE	^FIRED^	.^.^.^.		(PRIMARY) ^^\\x0a\");", RNOSTOP), EXEC("StopAutoRepeat(0); printf(\"Repeater Fire: AUTO-PULSE WAVE	DISABLE	._._._.		(PRIMARY)\\x0a\");")));
 	MapKeyR(&Joystick, TG1, EXEC(			"if(RepeaterAutoRelease < 2) initAdvancedFireModule();"));				// Release Primary Trigger
 
 //	MapKey(&Joystick,  TG1, EXEC("initAdvancedFireModule();"));														// Trigger 1 [Main Trigger]
@@ -314,15 +315,15 @@
 	MapKey(&Throttle,  PSF, EXEC(																					// Pinky Throttle Switch FORWARD
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpNextSubSys);"
 								"if(Joystick[S4])  initSendChatString(chat_ClearChatBox);"
-								"if(!Joystick[S4] & !Joystick[H4P]) RepeaterAutoRelease = 0; CommsPreset = 1; printf(\"Comms Channel [%d]: AUTO-TEXT\\x0a\", CommsPreset);"));
+								"if(!Joystick[S4] & !Joystick[H4P]) RepeaterAutoRelease = 0; CommsPreset = 1; printf(\"SHIFT KEY:	>> Set FORWARD  >>		[Comms Channel [%d]: AUTO-TEXT]	[Repeater Fire Mode [%d]: COMBAT ENDLESS]\\x0a\", CommsPreset, RepeaterAutoRelease);"));
 //	MapKeyR(&Throttle, PSF, 0);																						// Pinky Throttle Switch FORWARD RELEASE
 	MapKey(&Throttle,  PSM, EXEC( 																					// Pinky Throttle Switch MIDDLE
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpMidSubSys);"
-								"if(!Joystick[S4] & !Joystick[H4P]) RepeaterAutoRelease = 1; CommsPreset = 0; printf(\"Comms Channel [%d]: WING SQUADRON (Default)\\x0a\", CommsPreset);"));
+								"if(!Joystick[S4] & !Joystick[H4P]) RepeaterAutoRelease = 1; CommsPreset = 0; printf(\"SHIFT KEY:	-- Set MIDDLE   --		[Comms Channel [%d]: WINGS]	[Repeater Fire Mode [%d]: EXPLORER SCANNER]\\x0a\", CommsPreset, RepeaterAutoRelease);"));
 	MapKey(&Throttle,  PSB, EXEC(																					// Pinky Throttle Switch BACK
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpPrevSubSys);"
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"
-								"if(!Joystick[S4] & !Joystick[H4P]) RepeaterAutoRelease = 2; CommsPreset = 2; printf(\"Comms Channel [%d]: SHIP LAUNCH FIGHTER\\x0a\", CommsPreset);"));
+								"if(!Joystick[S4] & !Joystick[H4P]) RepeaterAutoRelease = 2; CommsPreset = 2; printf(\"SHIFT KEY:	<< Set BACKWARD <<		[Comms Channel [%d]: FIGHTER]	[Repeater Fire Mode [%d]: MINING AUTO-PULSE WAVE]\\x0a\", CommsPreset, RepeaterAutoRelease);"));
 	MapKeyR(&Throttle, PSB, EXEC(																					// Pinky Throttle Switch BACK RELEASE
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"));
 
