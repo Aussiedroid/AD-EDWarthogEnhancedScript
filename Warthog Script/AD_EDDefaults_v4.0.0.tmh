@@ -16,7 +16,6 @@
 	char   ca_pulseChar[] 	 = "0"					   ;// Used in Auto-Text Chat Presets		(DO NOT modify!)
 
 	
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // DEFAULT TIMINGS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -41,6 +40,7 @@
 														// *[Set your toggles before you start Elite Dangerous to align default toggle states]*
 														//  NOTE: If your switches aren't set to match, then you'll need to use a toggle override, or have to do an extra key toggle/key press to "catch up"
 
+	int AxisCurveMod;									// 
 	int StartupLock			  = 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes)
 	int RCorrection 		  = 1;						// Rotational Correction ON		(Press 'F4' to align as required in-game) 		(used in initToggleRotationCorrection())
 	int SRunning			  = 0;						// Silent Running OFF			(Press 'DEL' to toggle manually if misaligned)	(used in initToggleSilentRunning())
@@ -72,12 +72,9 @@
 	int DoubleTapPT			  = 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
 	int ReportCrimeState	  = 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v4.x.x.tmc)
 	int ShowGameStatState	  = 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v4.x.x.tmc)
-	int rptR				  = 1;						// 
-	int RepeaterAutoRelease	  = 1;						// Choose how Autofire on your Primary & Secondary Fire Buttons will behave:
-														// 	Options: 	Manual	= 0			   -COMBAT-  Best for Weapons  			 (Hold Fire: Remains ON until you press the fire button again to disengage)
+	int RepeaterAutoRelease	  = 1;						// Track the Autofire behaviour mode on Primary & Secondary Fire Buttons; 	 (used in initAdvancedFireModule()). Value set automatically via Pinky Toggle Switch on Throttle.
+														// 	Values: 	Manual	= 0			   -COMBAT-  Best for Weapons (eg. Beams)(Hold Fire: Remains ON endlessly until you press the fire button again to disengage)
 														//				Auto	= 1	(default) -EXPLORER- Best for Scanners			 (Repeater Fire: Holds the Trigger for a fixed interval (6 secs) before automatically disengaging) [Can modify duration by changing RepeaterTimer & RepeaterTimerOff above]
-//														//				Pulse	= 2			   -MINING-	 Best for Pulse Wave Scanner (Pulse Fire: Activates a Trigger press every 7 secs. Press again to disable. [Disable before Supercruise/Instance Change to keep alignment]
-
-
+														//				Pulse	= 2			   -MINING-	 Best for Pulse Wave Scanner (Pulse Fire: Activates a Trigger press every 7 secs. Press again to disable. [Disable before Supercruise/Instance Change to keep alignment]
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

@@ -48,13 +48,13 @@
 		mThrottleFwdOnly = EXEC(  																// Initialising Throttle Forward Only Preset (SRV etc)
 								"TrimDXAxis(DX_Z_AXIS, SET(-1024));"							// *TrimDXAxis(axis, +/-1024) trim is additive, SET forces trim value, CURRENT reads axis.pos
 								"if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);" 	// *SetSCurve(&Device, axis, left_deadzone%, center_deadzone%, right_deadzone%, curve(-20...20), scale)
-								"if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -90, 0, 0);"		// Trims Axis 10% when Supercruise On Throttle Active
+								"if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -95, 0, 0);"		// Trims Axis 5% when Supercruise On Throttle Active
 								"printf(\"Throttle Profile: FORWARD ONLY [0 -> 100]\\x0a\");"
 								"SetThrottle();");
 		mThrottleFullScale = EXEC(  															// Make Throttle Linear & Full Scale	(Default: Full Range)
 								"TrimDXAxis(DX_Z_AXIS, SET(0));"								// Initialising Throttle Full Scale Preset 
 								"if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, 5, 0, 0);"		// ..(Alternative= "SetJCurve(&Throttle, THR_RIGHT, 50, 50);")
-								"if(CruiseOnThrottle == 1) SetJCurve(&Throttle, THR_RIGHT, 90, 100);"			// Trims Axis 10% when Supercruise On Throttle Active
+								"if(CruiseOnThrottle == 1) SetJCurve(&Throttle, THR_RIGHT, 95, 100);"			// Trims Axis 5% when Supercruise On Throttle Active
 								"printf(\"Throttle Profile: FULL SCALE [-100 -> 100]\\x0a\");"
 								"SetThrottle();");												// *SetJCurve(&device, axis, physical axis value%, DirectX output value%)
 		mThrottlePrecision = EXEC( 																// Initialising Throttle Precision Preset (Docking etc)

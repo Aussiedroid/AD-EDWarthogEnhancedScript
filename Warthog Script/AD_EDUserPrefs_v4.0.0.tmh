@@ -11,7 +11,7 @@
 														// 	Options:		Enable = 1 (default),		Disable = 0
 
 		// CORE HARDWARE //
-	define KBLayout 			KB_ENG					// Default Keyboard Layout	(Change this to your local keyboard layout (KB_GER for German / KB_FR for French) otherwise some keys may not function correctly!)
+	define KBLayout 			KB_ENG					// Default Keyboard Layout	(Change this to your local keyboard layout (KB_GER for German | KB_FR for French) otherwise some keys may not function correctly!)
 
 	define UseMFD 				0 						// One MFD = 1 (Right MFD).  Two MFDs = 2 (Right & Left MFD).  No MFD = 0 (default)  **UNMAPPED** **UNTESTED**
 	
@@ -31,8 +31,8 @@
 
 	define ThrottlePresetUP 	mThrottleNonLinear		// 6 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottlePrecision	[-50 -> 50] (This should be in the DOWN position when mapped)
 	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleTrimmed	[-75 -> 75]
-	define ThrottlePresetDOWN 	mThrottlePrecision		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]	mThrottleNonLinear	[-100 -> 100]
-														// 				[Note: Full Range Trimmed by ~10% when CruiseOnThrottle active]
+	define ThrottlePresetDOWN 	mThrottlePrecision		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]	mThrottleNonLinear	[-100 ~> 100]
+														// 				[Note: Full Range Trimmed by ~5% when CruiseOnThrottle active]
 
 
 		// SHIP/SRV PIP CONFIG //

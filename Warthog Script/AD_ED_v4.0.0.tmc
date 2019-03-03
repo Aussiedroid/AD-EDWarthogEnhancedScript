@@ -1,5 +1,5 @@
 // =============================================================================================================================================================//
-// Version 4.0.0										\\ Released Sept 2016	|	Updated ??? 2019 //								Public Release #21			//
+// Version 4.0.0									\\ Released Sept 2016	|	Updated ??? 2019 //									Public Release #21			//
 // =============================================================================================================================================================//
 // AUSSIEDROID'S ACKNOWLEDGEMENTS //																															//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -37,8 +37,6 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // START-UP: DEVICE CHECK / MAIN //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	int AxisCurveMod;													// 
 
 	int main() {														// Exclude Missing Devices
 		Configure(&HCougar, MODE_EXCLUDED);
@@ -131,16 +129,13 @@
 // MAP JOYSTICK CONTROLS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	SetShiftButton(&Joystick, S4, &Throttle, PSF, PSB);			// With UDTOGGLE is Toggle, without is a hold		// Set Shift Button for MapKeyUMD
+	SetShiftButton(&Joystick, S4, &Throttle, PSF, PSB);																// Set Shift Button (Pinky Toggle Switch) for MapKeyUMD	(With UDTOGGLE is Toggle, without is a Hold - See Page 22 of manual)	
 
 	MapKeyUMD(&Joystick, TG1,																						// Trigger 1 [Main Trigger]
 							EXEC(				"initAdvancedFireModule();"),
 							EXEC(				"initAdvancedFireModule();"),  							
 							SEQ(REXEC(0, 7000,	"ActKey(KEYON+PULSE+PrimaryFire); printf(\"Repeater Fire: AUTO-PULSE WAVE	^FIRED^	.^.^.^.		(PRIMARY) ^^\\x0a\");", RNOSTOP), EXEC("StopAutoRepeat(0); printf(\"Repeater Fire: AUTO-PULSE WAVE	DISABLE	._._._.		(PRIMARY)\\x0a\");")));
-	MapKeyR(&Joystick, TG1, EXEC(			"if(RepeaterAutoRelease < 2) initAdvancedFireModule();"));				// Release Primary Trigger
-
-//	MapKey(&Joystick,  TG1, EXEC("initAdvancedFireModule();"));														// Trigger 1 [Main Trigger]
-//	MapKeyR(&Joystick, TG1, EXEC("initAdvancedFireModule();"));														// Release Primary Trigger
+	MapKeyR(&Joystick, TG1, EXEC(				"if(RepeaterAutoRelease < 2) initAdvancedFireModule();"));			// Release Primary Trigger
 //	MapKey(&Joystick,  TG2, SecondaryFire);																			// Trigger 2 [Secondary Trigger] (Mapped in initAdvancedFireModule())
 	MapKeyR(&Joystick,  TG2, EXEC("initAdvancedFireModule();"));													// Release Secondary Trigger (Keeps Primary firing after releasing Secondary Tier)
 

@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FUNCTIONS: TABLE OF CONTENTS //						// FUNCTIONS Include logic to customise specific Button/Toggle functionality.							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 202)]	[4. TOGGLE CONTROLS (line 595)]			[5. REPORT STATES (line 691)]	//
+//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 206)]	[4. TOGGLE CONTROLS (line 328)]			[5. REPORT STATES (line 701)]	//
 //		- initHardpointManagement					- initLEDController						- initEnhancedFAOFF						- initPrintState			//
-//		- initSetCombinedFire						- initNightVisionEnhancer				- initToggleRotationCorrection										//
-//		- initAdvancedFireModule					- initAPEngageEnhancer					- initToggleSilentRunning											//
-//													- initIDLEMaster						- initToggleCargoScoop												//
-//	[2. PIP & TEXT CHAT CONTROLS (line 110)]		- initUserHotSlotPinkyTrigger			- initToggleLandingGear												//
-//		- initPIPMapper								 										- initHeadlookModeSelect											//
-//		- initSendChatString																- initToggleShipLights												//
+//		- initSetCombinedFire						- initShiftKeyStartUp					- initToggleRotationCorrection										//
+//		- initAdvancedFireModule					- initNightVisionEnhancer				- initToggleSilentRunning											//
+//													- initAPEngageEnhancer					- initToggleCargoScoop												//
+//	[2. PIP & TEXT CHAT CONTROLS (line 112)]		- initIDLEMaster						- initToggleLandingGear												//
+//		- initPIPMapper								- initUserHotSlotPinkyTrigger		 	- initToggleShipLights												//
+//		- initSendChatString																- initHeadlookModeSelect											//
 //		- initCommsPresets																	- initMicCommander													//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -49,7 +49,7 @@
 		if(Joystick[TG1]) {																		//	[Integrates Combo Fire & Repeater Fire into Primary/Secondary Fire Buttons]
 			if(Joystick[S4]) {																	
 				rAutoP=!rAutoP;
-				if(RepeaterAutoRelease < 2) {													// Not really needed, but remains in case I add code for RepeaterAutoRelease = 2 in the future.
+				if(RepeaterAutoRelease < 2) {													// *Not really needed, but remains in case I add code for RepeaterAutoRelease = 2 in the future.
 					if(!rFireP & rAutoP) {
 						ActKey(KEYON+DOWN+PrimaryFire);											// Pinky Trigger + Primary = REPEATING FIRE
 						rFireP = 1; }
@@ -162,7 +162,6 @@
 		Sleep(250); DeferCall(ChatKeyRepeatTime * (pos + 2), &ActKey, KEYON+PULSE+CommsPanel);	// CLOSE Comms Panel (+UI Delay - Default: 250ms)
 		printf("Comms Auto-Text  :SENT:  \"");		printf(&string);		printf("\" \x0a"); }// Display Full Chat String to TARGET Output Panel
 
-
 																								// FUNCTION: Multi-Channel Ship Comms System Integration (Comms Panel, Wing & SLF) (Controls ALL the non-audio Comm Channels)
 																								//           [NOTE: Each Preset Group has 8 mappings (4 directions + modifier alt.]
 	int initDirectCommControls() {																// 3 Comms Preset Groups for Trim Hat Switch are based on Pinky Throttle Switch Position
@@ -239,10 +238,13 @@
 			ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));	} }				// set LED 2 ON 	[Rotational Correction]
 																								// End of Forward Sequence
 
-	int initShiftKeyStartUp() {
-		if(Throttle[PSF]) RepeaterAutoRelease = 0;  
-		if(Throttle[PSM]) RepeaterAutoRelease = 1;  
-		if(Throttle[PSB]) RepeaterAutoRelease = 2; }
+
+	int initShiftKeyStartUp() {																	// FUNCTION: Set Pinky Toggle Switch Position on Start-up
+		if(StartupLock) {
+			if(Throttle[PSF]) RepeaterAutoRelease = 0; CommsPreset = 1;  
+			if(Throttle[PSM]) RepeaterAutoRelease = 1; CommsPreset = 0;  
+			if(Throttle[PSB]) RepeaterAutoRelease = 2; CommsPreset = 2; } }
+
 
 
 	int initNightVisionEnhancer(int toggleValue) { 												// FUNCTION: Calculate Night Vision state.

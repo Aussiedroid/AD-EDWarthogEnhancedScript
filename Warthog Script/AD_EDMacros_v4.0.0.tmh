@@ -145,7 +145,7 @@
 			
 		mNAVBeaconToggle = SEQ(																	// SEQUENCE: Wing NAV Beacon Toggle that allows both On & Off macros to be mapped to one button.
 			PULSE+mNAVBeaconWing,																// Alternates between turning On & Off Wing NAV Beacon each press.
-			PULSE+mNAVBeaconOff);
+			PULSE+mNAVBeaconOff);																// (Unmapped by Default)
 			
 		mChatPanelGrab = CHAIN(																	// MACRO: Reset GUI in preparation of Auto-Chat Response Text String (Used in initSendChatString())
 			LOCK+PULSE+UIBack,			D(100),													// Lock and Exit any current GUI windows (x3).
