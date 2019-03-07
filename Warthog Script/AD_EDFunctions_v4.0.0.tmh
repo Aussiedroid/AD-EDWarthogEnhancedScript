@@ -37,75 +37,15 @@
 		if(toggleValue) {																		// When disabled, Trigger 2 is independant on Pinky Button (DX3) only
 			combinePriSecFire = !combinePriSecFire;	}
 		if(combinePriSecFire){
-			printf("Trigger 2: Set to COMBINED Primary + Secondary Fire\x0a");
+			printf("Dual-Stage Trigger: Set to COMBINED Primary + Secondary Fire\x0a");
 			MapKey(&Joystick, TG2, CHAIN(PrimaryFire, SecondaryFire)); }
 		else {
-			printf("Trigger 2: Set to SEPARATE Fire\x0a");
+			printf("Dual-Stage Trigger: Set to SEPARATE Fire\x0a");
 			MapKey(&Joystick, TG2, 0); } }
 
 
 
-	int initAdvancedFireModule() {																// FUNCTION: Advanced Weapon Fire Module
-		if(Joystick[TG1]) {																		//	[Integrates Combo Fire & Repeater Fire into Primary/Secondary Fire Buttons]
-			if(Joystick[S4]) {																	
-				rAutoP=!rAutoP;
-				if(RepeaterAutoRelease < 2) {													// *Not really needed, but remains in case I add code for RepeaterAutoRelease = 2 in the future.
-					if(!rFireP & rAutoP) {
-						ActKey(KEYON+DOWN+PrimaryFire);											// Pinky Trigger + Primary = REPEATING FIRE
-						rFireP = 1; }
-					if(rFireP & rAutoP) {
-						if(RepeaterAutoRelease == 1) printf("Repeater Fire: EXPLORER SCANNER	MODE ON	.^...^.		(PRIMARY) ^^\x0a");
-						if(RepeaterAutoRelease == 0) printf("Repeater Fire: COMBAT ENDLESS	MODE ON	.^^^^^.		(PRIMARY) ^^\x0a"); }
-					if(rFireP & !rAutoP) {
-						ActKey(KEYON+UP+PrimaryFire);
-						rFireP = 0;
-						printf("Repeater Fire: COMBAT ENDLESS	MODE OFF	._____.		(PRIMARY)\x0a"); } } }	
-			if(Joystick[H4P]) {
-				initSetCombinedFire(1);	}														// CMS Hat Switch + Primary = COMBINE TOGGLE
-			if(!Joystick[H4P] & !Joystick[S4]) {
-				rAutoP = 0;
-				if(!rFireP) {
-					ActKey(KEYON+DOWN+PrimaryFire); } } 	}									// Primary Only = STANDARD FIRE (Releases Repeating Fire when on Manual User Preference)
-		if(!Joystick[TG1]) {																	// 	[Set 'RepeaterAutoRelease' value in the User Preferences]
-			if(RepeaterAutoRelease == 1) {															// Auto Primary Release ENABLED
-				if(rFireP & rAutoP) {
-					DeferCall(RepeaterTimer, 	&ActKey, KEYON+UP+PrimaryFire); 				// Automatic timer delay to release Primary Fire after a 6 second hold
-					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rFireP = 0;"));		// Slight offset timing of +200ms to ensure triggering after event
-					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rAutoP = 0;"));
-					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER SCANNER	MODE OFF	._..._.		(PRIMARY)\\x0a\");")); }
-				if(!rFireP) {
-					ActKey(KEYON+UP+PrimaryFire); }	}
-			if(RepeaterAutoRelease != 1) {															// Manual Primary Release ENABLED
-  				if(!rFireP & !rAutoP) {															// Checks if Repeater Fire was enabled, if NO, only release primary fire button
-					ActKey(KEYON+UP+PrimaryFire); } } }
-		if(Joystick[S3]) {
-			if(Joystick[S4]) {
-				rAutoS=!rAutoS;
-				if(!rFireS) {
-					ActKey(KEYON+DOWN+SecondaryFire);											// Pinky Trigger + Secondary = REPEATING FIRE
-					rFireS = 1; }
-				if(rAutoS) {
-					printf("Repeater Fire: AUTO ON  (SECONDARY) ^^\x0a"); } }
-			if(!Joystick[S4]) {
-				rAutoS = 0;
-				if(!rFireS) {
-					ActKey(KEYON+DOWN+SecondaryFire); } } }										// Secondary Only = STANDARD FIRE (Releases Repeating Fire)
-		if(!Joystick[S3]) {
-			if(RepeaterAutoRelease) {															// Auto Secondary Release ENABLED
-				if(rFireS & rAutoS) {
-					DeferCall(RepeaterTimer, 	&ActKey, KEYON+UP+SecondaryFire); 				// Automatic timer delay to release Secondary Fire after a 6 second hold
-					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rFireS = 0;"));		// Slight offset timing of +200ms to ensure triggering after event
-					DeferCall(RepeaterTimerOff, &ActKey, KEYON+PULSE+EXEC("rAutoS = 0;"));
-					DeferCall(RepeaterTimer, 	&ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: AUTO OFF (SECONDARY)\\x0a\");")); }
-				if(!rFireS) {
-					ActKey(KEYON+UP+SecondaryFire); } }				
-			if(!RepeaterAutoRelease) {															// Manual Secondary Release ENABLED
-				if(!rFireS & !rAutoS) {															// Checks if Repeater Fire was enabled, if NO, only release secondary fire button
-					ActKey(KEYON+UP+SecondaryFire); }
-				if(rFireS & !rAutoS) {															// Checks if Repeater Fire was enabled, if YES, also reset flag & print
-					ActKey(KEYON+UP+SecondaryFire);
-					rFireS = 0;
-					printf("Repeater Fire: AUTO OFF (SECONDARY)\x0a"); } } } }
+
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -162,44 +102,6 @@
 		Sleep(250); DeferCall(ChatKeyRepeatTime * (pos + 2), &ActKey, KEYON+PULSE+CommsPanel);	// CLOSE Comms Panel (+UI Delay - Default: 250ms)
 		printf("Comms Auto-Text  :SENT:  \"");		printf(&string);		printf("\" \x0a"); }// Display Full Chat String to TARGET Output Panel
 
-																								// FUNCTION: Multi-Channel Ship Comms System Integration (Comms Panel, Wing & SLF) (Controls ALL the non-audio Comm Channels)
-																								//           [NOTE: Each Preset Group has 8 mappings (4 directions + modifier alt.]
-	int initDirectCommControls() {																// 3 Comms Preset Groups for Trim Hat Switch are based on Pinky Throttle Switch Position
-		if(!StartupLock) {
-			if(CommsPreset == 0) {																// COMMS: WING/PVP COMMANDS				[Pinky Throttle Switch MIDDLE]
-				if(Joystick[S4]) {
-					if(Joystick[H1U]) ActKey(KEYON+PULSE+mReportCrimesToggle);
-					if(Joystick[H1D]) ActKey(KEYON+PULSE+WingmanNavlock);
-					if(Joystick[H1L]) ActKey(KEYON+PULSE+mNAVBeaconOff);
-					if(Joystick[H1R]) ActKey(KEYON+PULSE+mNAVBeaconWing); }
-				else {
-					if(Joystick[H1U]) ActKey(KEYON+PULSE+WingmanTarget);
-					if(Joystick[H1D]) ActKey(KEYON+PULSE+SelectWingman2);
-					if(Joystick[H1L]) ActKey(KEYON+PULSE+SelectWingman1);
-					if(Joystick[H1R]) ActKey(KEYON+PULSE+SelectWingman3); } }
-			if(CommsPreset == 1) {																// COMMS: AUTO-TEXT CHAT COMMANDS		[Pinky Throttle Switch FORWARD]
-				if(Joystick[S4]) {																//		      (COMMS PANEL)
-					if(Joystick[H1U]) initSendChatString(chat_Modifier_UP);
-					if(Joystick[H1D]) initSendChatString(chat_Modifier_DOWN);
-					if(Joystick[H1L]) initSendChatString(chat_Modifier_LEFT);
-					if(Joystick[H1R]) initSendChatString(chat_Modifier_RIGHT); }
-				else {
-					if(Joystick[H1U]) initSendChatString(chat_Basic_UP);
-					if(Joystick[H1D]) initSendChatString(chat_Basic_DOWN);
-					if(Joystick[H1L]) initSendChatString(chat_Basic_LEFT);
-					if(Joystick[H1R]) initSendChatString(chat_Basic_RIGHT);	} }
-			if(CommsPreset == 2) {																// COMMS: SHIP LAUNCH FIGHTER COMMANDS	[Pinky Throttle Switch BACKWARD]
-				if(Joystick[S4]) {
-					if(Joystick[H1U]) ActKey(KEYON+PULSE+FighterFocusAttack);
-					if(Joystick[H1D]) ActKey(KEYON+PULSE+FighterDock);
-					if(Joystick[H1L]) ActKey(KEYON+PULSE+FighterHoldPosition);
-					if(Joystick[H1R]) ActKey(KEYON+PULSE+FighterHoldFire); }
-				else {
-					if(Joystick[H1U]) ActKey(KEYON+PULSE+FighterAggressive);
-					if(Joystick[H1D]) ActKey(KEYON+PULSE+FighterOrders);
-					if(Joystick[H1L]) ActKey(KEYON+PULSE+FighterDefensive);
-					if(Joystick[H1R]) ActKey(KEYON+PULSE+FighterFollow); } } } }
-
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 3. FUNCTIONS: SPECIALISED FEATURES //
@@ -237,14 +139,6 @@
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));	Sleep(20);
 			ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));	} }				// set LED 2 ON 	[Rotational Correction]
 																								// End of Forward Sequence
-
-
-	int initShiftKeyStartUp() {																	// FUNCTION: Set Pinky Toggle Switch Position on Start-up
-		if(StartupLock) {
-			if(Throttle[PSF]) RepeaterAutoRelease = 0; CommsPreset = 1;  
-			if(Throttle[PSM]) RepeaterAutoRelease = 1; CommsPreset = 0;  
-			if(Throttle[PSB]) RepeaterAutoRelease = 2; CommsPreset = 2; } }
-
 
 
 	int initNightVisionEnhancer(int toggleValue) { 												// FUNCTION: Calculate Night Vision state.
@@ -710,8 +604,8 @@
 		printf(":....USER PREFERENCES....:\x0a");
 		printf("[Run Software @ Start = %d]  [Custom Slider Curve = %d]  [PIP Mgt. Preset = %d]  [MFD Active  = %d]\x0a", StartSoftware, CustomDXSliderCurve, UserPIPPref, UseMFD);
 		printf("[Cargo Precision Mode = %d]  [S/Cruise @ Throttle = %d]  [Chaff @ Escape  = %d]  [Boost @ Esc = %d]\x0a", CargoPrecisionMode, CruiseOnThrottle, AutoChaffOnEscape, AutoBoostOnEscape);
-		printf("[Combine External Mic = %d]  [AUTO Repeater Fire  = %d]  [Sec Fire O/ride = %d]  [Ext Mic+Mic = %d]\x0a", ExternalMicCombined, RepeaterAutoRelease, SecFirePinkyPref, ExternalMicCombined);
-		printf("[Headtrak Center Mode = %d]  [Ship Utility Mode   = %d]  [LED Backlight = %d]  [LED Bling!  = %d]\x0a", HeadtrackPref, ShipUtilityPref, SetLED, BlingLEDBling);
+		printf("[Combine External Mic = %d]  [Sec. Fire Override  = %d]  [NightVision HUD = %d]  [Ext Mic+Mic = %d]\x0a", ExternalMicCombined, SecFirePinkyPref, NightVisionHUD, ExternalMicCombined);
+		printf("[Headtrak Center Mode = %d]  [Ship Utility Mode   = %d]  [LED Backlight = %d]  [LED ¡Bling! = %d]\x0a", HeadtrackPref, ShipUtilityPref, SetLED, BlingLEDBling);
 		printf("\x0a"); 
 		printf(":..DEFAULT TOGGLE STATE..:\x0a");
 		printf("[Combine Pri+Sec Fire = %d]  [Rot. Correction = %d]  [C/ Scoop = %d]  [L/ Gear = %d]  [Lights  = %d]\x0a", combinePriSecFire, RCorrection, CargoSc, Gears, Lights);

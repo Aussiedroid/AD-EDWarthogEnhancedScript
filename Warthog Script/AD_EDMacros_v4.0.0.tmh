@@ -148,9 +148,9 @@
 			PULSE+mNAVBeaconOff);																// (Unmapped by Default)
 			
 		mChatPanelGrab = CHAIN(																	// MACRO: Reset GUI in preparation of Auto-Chat Response Text String (Used in initSendChatString())
-			LOCK+PULSE+UIBack,			D(100),													// Lock and Exit any current GUI windows (x3).
-			PULSE+UIBack,				D(100),													//	NOTE: If no GUI is selected, these commands will do nothing.
-			PULSE+UIBack,				D(100),
+			LOCK+PULSE+UIBack,			D(50),													// Lock and Exit any current GUI windows (x3).
+			PULSE+UIBack,				D(50),													//	NOTE: If no GUI is selected, these commands will do nothing.
+			PULSE+UIBack,				D(50),
 			PULSE+CommsPanel,			D(250),													// Open Full Comms Panel (+GUI Delay - Default: 250ms) (Delay ensures panel is Open and Text Box Active before entering characters)
 			PULSE+QuickCommsPanel,		D(150),													// Select/Enter Text Chat Box
 			LOCK); }																			// Unlock Ready for Text String Input

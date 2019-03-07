@@ -23,14 +23,14 @@
 														//	[NOTE: Please ensure both UseRuddersT16000 & UseRuddersTPR are NOT = 1. Only enable your device plugged in or function will error]
 
 	define HeadtrackPref		1						// Choose your preferred Headtracking hardware preset for mapping of the Center/Reset Orientation to Engine Operate Ign/Norm LEFT UP:
-														// 	Options: 	Mouse Headlook Center 	= 0 (default)	(Choose if you have no dedicated headtracking hardware)
+														// 	Options: 	Mouse Headlook Center 	= 0 (default)	(Choose if you have NO dedicated headtracking hardware)
 														//				TrackIR Center			= 1				(Choose if you use TrackIR head tracking system or related hardware like Tobi Eye Tracker)
-														//				Reset HMD Orientation	= 2 			(Choose if you are a VR User)
+														//				Reset HMD Orientation	= 2 			(Choose if you are a VR User with a Head Mounted Display)
 		// THROTTLE AXIS //
 	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% = 1 (default). Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%]
 
-	define ThrottlePresetUP 	mThrottleNonLinear		// 6 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottlePrecision	[-50 -> 50] (This should be in the DOWN position when mapped)
-	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleTrimmed	[-75 -> 75]
+	define ThrottlePresetUP 	mThrottleNonLinear		// 6 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottlePrecision	[ -50 -> 50 ] (This should be in the DOWN position when mapped)
+	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleTrimmed	[ -75 -> 75 ]
 	define ThrottlePresetDOWN 	mThrottlePrecision		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]	mThrottleNonLinear	[-100 ~> 100]
 														// 				[Note: Full Range Trimmed by ~5% when CruiseOnThrottle active]
 
@@ -96,8 +96,8 @@
 	define UserDTPinkyKeyBind	SwitchHUDMode			// Choose a FAV action you want for	->	COMBAT	-	FlightAssist, mJumpPrevSubSys, InternalVoiceCommsPTT, WingmanTarget, UseShieldCell, mReportCrimesToggle
 														// "Double Tap" on Pinky Trigger. 	->	SHIP	-	ShipLights, SetSpeed75, CargoScoop, SilentRunning, QuickCommsPanel, mRequestDock, BalancePower
 														// 			Some suggestions ->	->	->	OTHER	-	mTextBasicHello, SelectNextSystemInRoute, FighterOrders, UIEscape, TakeSteamScreenshot, GalNetAudioPlayPause, LookToggle
-														// [NOTE 1:	Most other keys in AD_EDKeyMap file not listed in suggestions should also work. Else see around line 190-200 in AD_EDFunctions file to program some thing different/complex]
-														// [NOTE 2:	If your FAV action requires a Hold action instead of a Pulse, edit the line 677 accordingly in AD_EDFunctions & line 150 in AD_ED_v4.x.x files]
+														// [NOTE 1:	Most other keys in AD_EDKeyMap file not listed in suggestions should also work. Else see AD_EDMacros file to program some thing different/complex]
+														// [NOTE 2:	If your FAV action requires a Hold action instead of a Pulse, edit the line 220 accordingly in AD_EDFunctions & line 168 in AD_ED_v4.x.x files]
 
 														// User Defined Overrides for the Autopilot Engage Button (APENG): Choose Your Own Short & Long presses/macros
 		// AUTOPILOT BUTTON OVERRIDES //				// [NOTE:	Most other keys in AD_EDKeyMap file should also work as well as the Macros!]
@@ -108,8 +108,8 @@
 	define APEngageCMSShort		mNAVBeaconWing			//	CMS Modifier   + Short Press	= mNAVBeaconWing 	(default)
 	define APEngageCMSLong		mNAVBeaconOff			//	CMS Modifier   + Long Press		= mNAVBeaconOff 	(default)
 
-																									// NOTE: ONLY Change the text between the "quotes" (in Red) below.	(SEE JOYSTICK REFERENCE MAP FOR HATSWITCH LAYOUT)
-		// AUTO-TEXT CHAT PRESETS //					// Define your custom chat variables here	// 		 DO NOT Modify macro names (that means everything starting with "chat_").
+																									// NOTE: ONLY Change the text between the "quotes" (in RED) below.	(SEE JOYSTICK REFERENCE MAP FOR HATSWITCH & SHIFT KEY LAYOUT)
+		// AUTO-TEXT CHAT PRESETS //					// Define your custom chat variables here:	// 		 DO NOT Modify macro names (that means everything starting with "chat_").
 	define chat_Basic_UP		"o7"																					// Default: Hello		(Non-Modifier Chat Mode)
 	define chat_Basic_DOWN		"Fly safe CMDR"																			// Default: Farewell	(Non-Modifier Chat Mode)
 	define chat_Basic_LEFT		"Thank you for your assistance! o7"														// Default: Thank		(Non-Modifier Chat Mode)
@@ -129,7 +129,7 @@
 
 		// PIPs on DMS Hat Switch //
 	define PUP 						H3U					// *EXPERIMENTAL*  Moves the PIP Hat Switch (DMS) to the UI Hat Switch (CMS) for high frequency combat/bounty hunting usage. These values set the correct MapKey key mappings as per user preference.
-	define PDN						H3D					//	 Instructions: Remove the comments '//' for the 4 lines (132-135) below for the H4 Hat Switch (CMS) & then comment out '//' the 4 lines for the H3 Hat Switch (DMS) for lines (126-129). !~Remember to Save~!
+	define PDN						H3D					//	 Instructions: Remove the comments '//' for the 4 lines (137-140) below for the H4 Hat Switch (CMS) & then comment out '//' the 4 lines for the H3 Hat Switch (DMS) for lines (131-134). !~Remember to Save~!
 	define PLT						H3L					// 	[NOTE 1: CMS Push Button, including Modifier 2, remains unchanged regardless of option chosen]
 	define PRT						H3R					//	[NOTE 2: If you decide to swap mappings, you will need to manually re-map ALL commands previously mapped on the UI/CMS Hat Switch via the bindings section in ED; see list below:]
 														//	(		 U NEED TO REMAP->	UI Up/Down/Left/Right,							)

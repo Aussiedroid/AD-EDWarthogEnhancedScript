@@ -8,10 +8,10 @@
 
 	int    profile =			1					   ;// Set initial joystick profile global variable for joystick curves	(Options 0, 1, 2) (default = 1)
 
-	define SYS					1						// Used in initPIPMapper for managing System  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT modify!)
-	define ENG					2						// Used in initPIPMapper for managing Engine  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT modify!)
-	define WEP					3						// Used in initPIPMapper for managing Weapon  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT modify!)
-	define MID					4						// Used in initPIPMapper for managing Balance PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT modify!)
+	define SYS					1						// Used in initPIPMapper() for managing System  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT modify!)
+	define ENG					2						// Used in initPIPMapper() for managing Engine  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT modify!)
+	define WEP					3						// Used in initPIPMapper() for managing Weapon  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT modify!)
+	define MID					4						// Used in initPIPMapper() for managing Balance PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT modify!)
 
 	char   ca_pulseChar[] 	 = "0"					   ;// Used in Auto-Text Chat Presets		(DO NOT modify!)
 
@@ -28,8 +28,7 @@
 	define DTPressDelay			365						// Timing for Pinky Double Tap	(ms)									(default = 365ms)
 	define LongPressDelay 		500						// Standard Delay 				(ms)									(default = 500ms)
 	define ExtraPressDelay 		1500					// Longest Delay (Safety Press) (ms)									(default = 1500ms)
-	define RepeaterTimer		6000					// Set the Delay Timer for the Repeater Fire feature to auto-disengage	(default = 6000ms) [Note: Should only need to change this if you use Engineered Fast Scanners or Using Wake Scanners which need 9000ms]
-	define RepeaterTimerOff		6200					// Set the Delay Timer Offset for the Repeater Fire feature 			(default = 6200ms) [Note: Set this +200ms to the main timer]
+	define RepeaterTimer		6000					// Set the Delay Timer for the Repeater Fire feature to auto-disengage	(default = 6000ms)	[Note: Should only need to change this if you use Engineered Fast Scanners or Using Wake Scanners which need up to 9000ms]
 
 	define ChatKeyRepeatTime	70						// Auto-Text Chat Preset time	(ms)									(default = 70ms)
 
@@ -38,9 +37,9 @@
 // DEFAULT STATES    		(1 = Yes, 0 = No) //		// VARIABLE DESCRIPTION & USAGE
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 														// *[Set your toggles before you start Elite Dangerous to align default toggle states]*
-														//  NOTE: If your switches aren't set to match, then you'll need to use a toggle override, or have to do an extra key toggle/key press to "catch up"
+														//  NOTE: If your switches aren't set to match, then you may need to use a toggle override, or have to do an extra key toggle/key press to "catch up"
 
-	int AxisCurveMod;									// 
+	int AxisCurveMod;									// Initiates variable to be used for custom axis curve preset on Throttle.		(used in initSetThrottleCurves())
 	int StartupLock			  = 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes)
 	int RCorrection 		  = 1;						// Rotational Correction ON		(Press 'F4' to align as required in-game) 		(used in initToggleRotationCorrection())
 	int SRunning			  = 0;						// Silent Running OFF			(Press 'DEL' to toggle manually if misaligned)	(used in initToggleSilentRunning())
@@ -52,14 +51,9 @@
 	int FAOFFToggle			  = 0;						// Tracks Flight Assist Off Controls Toggle Status  OFF	(used in initEnhancedFAOFF())
 	int FAOFFHold			  = 0;						// Tracks Flight Assist Off Controls Hold Status  OFF	(used in initEnhancedFAOFF())
 	int CargoSc 			  = 0;						// Cargo Scoop Deployed OFF								(used in initToggleCargoScoop())
-	int rFireP 				  = 0;						// Repeating Primary Fire	(Auto-fire)					(used in initAdvancedFireModule())
-	int rFireS 				  = 0;						// Repeating Secondary Fire	(Auto-fire)					(used in initAdvancedFireModule())
-	int rAutoP				  = 0;						// Primary Fire Flag to check if Repeater Fire was triggered last press		(used in initAdvancedFireModule())
-	int rAutoS				  = 0;						// Secondary Fire Flag to check if Repeater Fire was triggered last press	(used in initAdvancedFireModule())
 	int HPoints 			  = 0;						// Hardpoints Deployed OFF								(used in initEscapeVector())
-	int APSeqLong			  = 0;						// Tracks if long press was triggered for Autopilot Engage Button			(used in initAPEngageEnhancer())
-	int APSeqShort			  = 0;						// Tracks if short press was triggered for Autopilot Engage Button		  	(used in initAPEngageEnhancer())
-	int CommsPreset			  = 0;						// Set Text Chat Set (Default 0 - Pinky Toggle CENTER)	(used in initTextChatPresets())
+	int APSeqLong			  = 0;						// Tracks if long press was triggered for Autopilot Engage Button				(used in initAPEngageEnhancer())
+	int APSeqShort			  = 0;						// Tracks if short press was triggered for Autopilot Engage Button		  		(used in initAPEngageEnhancer())
 	int MicCheckHold		  = 0;						// Tracks if Microphone PTT Hold is engaged				(used in initMicCommander())
 	int MicCheckToggle		  = 0;						// Tracks if Microphone Toggle is engaged 				(used in initMicCommander())
 	int MicExtPulseCheck	  = 0;						// Tracks state of PTT Microphone Pulse action			(used in initMicCommander())
@@ -72,7 +66,9 @@
 	int DoubleTapPT			  = 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
 	int ReportCrimeState	  = 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v4.x.x.tmc)
 	int ShowGameStatState	  = 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v4.x.x.tmc)
-	int RepeaterAutoRelease	  = 1;						// Track the Autofire behaviour mode on Primary & Secondary Fire Buttons; 	 (used in initAdvancedFireModule()). Value set automatically via Pinky Toggle Switch on Throttle.
+
+
+//	int RepeaterAutoRelease	  = 1;						// Track the Autofire behaviour mode on Primary & Secondary Fire Buttons; 	 (used in initAdvancedFireModule()). Value set automatically via Pinky Toggle Switch on Throttle.
 														// 	Values: 	Manual	= 0			   -COMBAT-  Best for Weapons (eg. Beams)(Hold Fire: Remains ON endlessly until you press the fire button again to disengage)
 														//				Auto	= 1	(default) -EXPLORER- Best for Scanners			 (Repeater Fire: Holds the Trigger for a fixed interval (6 secs) before automatically disengaging) [Can modify duration by changing RepeaterTimer & RepeaterTimerOff above]
 														//				Pulse	= 2			   -MINING-	 Best for Pulse Wave Scanner (Pulse Fire: Activates a Trigger press every 7 secs. Press again to disable. [Disable before Supercruise/Instance Change to keep alignment]
