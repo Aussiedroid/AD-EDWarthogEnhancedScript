@@ -21,11 +21,11 @@ AD_EDFunctions_v4.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 ## ##
 
 ## User Preferences : Table of Contents ##
-[How To Use](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#user-preferences--ad_eduserprefs_v4xxtmh "Getting Started") | [Start-Up](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--start-up "Start-Up User Preferences") | [Core Hardware](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--core-hardware "Core Hardware User Preferences") | [Throttle Axis](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--throttle-axis "Throttle Axis User Preferences") | [Ship/SRV PIP Config](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--shipsrv-pip-config "Ship & SRV PIP Config User Preferences") | [Ship Radar/Vision](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--ship-radarvision "Ship's Radar & Night Vision User Preferences") | [Pri-Sec Fire Control](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--primarysecondary-fire-control "Primary & Secondary Fire Control User Preferences")
+[How To Use](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#user-preferences--ad_eduserprefs_v4xxtmh "Getting Started") | [Start-Up](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--start-up "Start-Up Customisation") | [Core Hardware](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--core-hardware "Core Hardware User Preferences") | [Throttle Axis](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--throttle-axis "Throttle Axis Customisation") | [Ship/SRV PIP Config](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--shipsrv-pip-config "Ship & SRV PIP Config User Preferences") | [Ship Radar/Vision](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--ship-radarvision "Ship's Radar & Night Vision Customisation") | [Pri-Sec Fire Control](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--primarysecondary-fire-control "Primary & Secondary Fire Control Customisation")
 
-[Utility Slot Control]() | [Microphone Behaviour]() | [Cargo Scoop Tweaks]() | [Escape Vector Macro]() | [Pinky 'Double Tap' Override]()
+[Utility Slot Control](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--utility-slot-control "Utility Slot Control Customisation") | [Microphone Behaviour](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--microphone-behaviour "Microphone Behaviour") | [Cargo Scoop Tweaks](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--cargo-scoop-tweaks "Cargo Scoop Tweaks") | [Escape Vector Macro](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--escape-vector-macro "Escape Vector Macro Options") | [Pinky 'Double Tap' Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--pinky-double-tap-override "Pinky 'Double Tap' Override Customisation")
 
-[Autopilot Button Override]() | [Auto-Text Chat Presets]() | [Acknowledgements]()
+[Autopilot Button Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--autopilot-button-overrides "Autopilot Button Override Customisation") | [Auto-Text Chat Presets](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--auto-text-chat-presets "Auto-Text Chat Presets Customisation") | [Acknowledgements](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#script-acknowledgements "Acknowledgements")
 ## ##
 
 ## User Preferences : AD_EDUserPrefs_v.4._x_._x_.tmh ##
@@ -36,7 +36,7 @@ In the following sections below, I will explain what each setting does & what op
 
 ___How to Use:__ Loading the script into Target Script Editor, you can access the User Preference section in the AD_EDUserPrefs_v4.x.x.tmh file. Once open you will see a screen similar to the example below. The area highlighed in Red is where you make changes:_
 
-![User Prefs](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/User-Prefs.png)
+![User Prefs](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/User-Prefs.png "Example of User Preferences")
 
 On the right, the text in _green_ offers further comments/instruction on how these work.
 
@@ -75,7 +75,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - English (KB_ENG), German (KB_GER) & French (KB_FR) available.
 
 ### UseMFD [Values: 2, 1 or 0] ###
-- [Thrustmaster MFD Cougar Panels](www.thrustmaster.com) are multifunctional, customisable panels for use in Cockpits. The script supports up to 2 devices being connected. Select value 2 for both Right & Left panels or 1 for only the Right panel. If you do not use these panels leave the value as 0.
+- [Thrustmaster MFD Cougar Panels](www.thrustmaster.com "MFD Cougar Control Panels") are multifunctional, customisable panels for use in Cockpits. The script supports up to 2 devices being connected. Select value 2 for both Right & Left panels or 1 for only the Right panel. If you do not use these panels leave the value as 0.
 
 - The base code for these panels has been added to the AD_ED_v3.x.x.tmc file, but remain UNMAPPED by default (unfortunately I do not own these to test out). To enable, copy the KeyMap code you wish to use to the Right or Left button mapping & remove the '//' at the start of line.
 
@@ -279,7 +279,7 @@ Setting value to 0 will simplify this to a single tier of responses (4 in total)
 >>
 >>I would also like to recognise __jgm__ whose site was super helpful to export a base line reference map which I used as a basis to create my custom reference maps above, as well as the keyboard button mappings list. As of Aug 17, __jgm__ has stepped down on maintaining the website, which is now maintained by __VerticalBlank__.
 >>
->>Their fantastic tool can be found [here](https://edrefcard.info/).
+>>Their fantastic tool can be found [here](https://edrefcard.info/ "EDRefCard.info").
 
 ` `
 
