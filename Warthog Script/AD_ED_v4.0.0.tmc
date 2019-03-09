@@ -1,5 +1,5 @@
 // =============================================================================================================================================================//
-// Version 4.0.0									\\ Released Sept 2016	|	Updated ??? 2019 //									Public Release #21			//
+// Version 4.0.0									\\ Released Sept 2016	|	Updated March 2019 //								Public Release #21			//
 // =============================================================================================================================================================//
 // AUSSIEDROID'S ACKNOWLEDGEMENTS //																															//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -11,10 +11,11 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // Created by Aussiedroid:				(http://steamcommunity.com/id/aussiedroid | https://forums.frontier.co.uk/member.php/21601-Aussiedroid)					//
 // Full Guide:							(http://steamcommunity.com/sharedfiles/filedetails/?id=769637037)														//
+// GitHub Resource:						(https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript)																//
 // Frontier Forums Discussion Thread:	(https://forums.frontier.co.uk/showthread.php/293027-Aussiedroid-s-Enhanced-Thrustmaster-Warthog-Script)				//
 // Some Previous Ver. Reference Maps:	(https://aussiedroid.imgur.com/)																						//
 //																																								//
-// What's New?  Release Notes?				-> Scroll to End-of-File OR Changelog/History <-																	//
+// What's New?  Release Notes?				-> Scroll to End-of-File OR read Changelog/History <-																//
 //																																								//
 // Need help understanding this script?		-> Click the (?) HELP button in top right corner of Target Script Editor OR ask a question in the Forum/Guide <-	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -71,7 +72,7 @@
 // CORE SETTINGS: INITIALISATION //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	AxisCurveMod = LIST(0,0, 33,25, 66,50, 80,75, 100,100);									// Creates a custom axis curve for Throttle & Radar. (See AD_EDHardware.tmh)
+	AxisCurveMod = LIST(0,0, 33,25, 66,50, 80,75, 100,100);									// Creates a custom axis curve for Throttle & Radar. [Fast->Slow Curve] (See AD_EDHardware.tmh) *LIST(Axis physical position, Axis output Value)
 
 	SetKBRate(PulseTime, DelayTime);														// Base Settings 	(See AD_EDDefaults.tmh)
 	SetKBLayout(KBLayout);
@@ -96,8 +97,9 @@
 	initUserHotSlotPinkyTrigger();															// Initiate Double Tap Functionality on the Joystick Pinky Trigger (See AD_EDFunctions.tmh)
 	initLEDController(0);																	// Initiate Short LED Flashing Sequence on Toggle Flip & a Pattern on Startup. (LED Support) (See AD_EDFunctions.tmh)
 	initAPEngageEnhancer();																	// Initiate Autopilot Engage button customisation				   (See AD_EDFunctions.tmh) (includes Auto-Dock & Signal Light Macros)
+	initExplorerScannerDisengage();															// Initiate Repeater Fire Explorer-Scanner Disengage/Off Console Printout
 
-	StartupLock = 0;																		// Startup Pre-checks: "Releases" the Startup Lock (which is in place while initialising the Macros/Functions above)
+	StartupLock = 0;																		// Startup Pre-checks: "Releases" the Startup Lock post initialising the Macros/Functions above.
 
 
 	// HARDWARE CONFIG //
@@ -110,13 +112,13 @@
 	if(UseRuddersT16000 == 1) initTFRPRudder();												// Enables T.Flight TFRP T16000 Rudder Intialisation.	(Note: T.Flight Rudder Axes are Configured below in EVENT HANDLER)
 	if(UseRuddersTPR == 1)	  initTFRPHARudder();											// Enables T.Flight TPR Pedal Intialisation. 			(Note: T.Flight Rudder Axes are Configured below in EVENT HANDLER)
 
-	if(CruiseOnThrottle == 1) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,99,100),		// Supercruise on Throttle 100%		// [Note: Throttle Axis 'Full Range' Curves adjusted -10% when active]
+	if(CruiseOnThrottle == 1) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,99,100),		// Supercruise on Throttle 100%	 [Note: Throttle Axis 'Full Range' Curves adjusted -10% when active]
 								EXEC("if(Joystick[S4])  ActKey(KEYON+PULSE+FrameShiftDrive);"// IF Pinky Modifier Held, Activate Hyperspace Jump
 									 "if(Joystick[H4P]) ActKey(KEYON+PULSE+Supercruise);"	 // IF CMS Modifier Held, Activate Supercruise
 								), 0));														// ELSE do nothing
 
 
-	// PRESET TOGGLES // 																	// Map Flaps Select Toggle to Throttle Axis Presets
+	// AXIS PRESET TOGGLES // 																// Map Flaps Select Toggle to Throttle Axis Presets
 	MapKey(&Throttle, FLAPU,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetUP);"));  // Flaps UP  	 	(Safety: Only Activate When Throttle IDLE is not Locked ON)
 	MapKey(&Throttle, FLAPM,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetMID);"));  // Flaps MIDDLE	(Safety: Only Activate When Throttle IDLE is not Locked ON)
 	MapKey(&Throttle, FLAPD,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetDOWN);"));  // Flaps DOWN	(Safety: Only Activate When Throttle IDLE is not Locked ON)
@@ -133,23 +135,23 @@
 	// PRIMARY FIRE //
 	SetShiftButton(&Joystick, S4, &Throttle, PSF, PSB);																// Set Shift Button (Pinky Toggle Switch) for MapKeyIOUMD	(With UDTOGGLE = Toggle, Without = Hold -> See Page 22 of manual)	
 
-	MapKeyIOUMD(&Joystick,  TG1,																					// Trigger 1 [Primary Trigger]
-								SEQ( EXEC(				"ActKey(KEYON+DOWN+PrimaryFire);							printf(\"Repeater Fire: COMBAT ENDLESS	MODE ON	.^^^^^.		(PRIMARY) ^^\\x0a\");"),			// IU
-									 EXEC(				"ActKey(KEYON+UP+PrimaryFire); 								printf(\"Repeater Fire: COMBAT ENDLESS	MODE OFF	._____.		(PRIMARY)\\x0a\");")),
-								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"),																															// OU
-								EXEC("if(!Joystick[H4P]) ActKey(KEYON+DOWN+PrimaryFire);				 			printf(\"Repeater Fire: EXPLORER SCANNER	MODE ON	.^...^.		(PRIMARY) ^^\\x0a\");"			// IM
-									 "if(!Joystick[H4P]) DeferCall(RepeaterTimer, &ActKey, KEYON+UP+PrimaryFire);	printf(\"Repeater Fire: EXPLORER SCANNER	MODE OFF	._..._.		(PRIMARY)\\x0a\");"
+	MapKeyIOUMD(&Joystick,  TG1,																					// Trigger 1			[Primary Trigger]
+								SEQ( EXEC(				"ActKey(KEYON+DOWN+PrimaryFire);	EndlessStatePri = 1;	printf(\"Repeater Fire: COMBAT-ENDLESS    [ON]     [.^^^^^.]	(PRIMARY)\\x0a\");"),							// IU
+									 EXEC(				"ActKey(KEYON+UP+PrimaryFire); 		EndlessStatePri = 0;	printf(\"Repeater Fire: COMBAT-ENDLESS    [OFF]			(PRIMARY)\\x0a\");")),
+								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"),																																			// OU
+								EXEC("if(!Joystick[H4P]) ActKey(KEYON+DOWN+PrimaryFire);				 			printf(\"Repeater Fire: EXPLORER-SCANNER  [ON]     [.^...^.]	(PRIMARY) -> AUTO-DISABLE in 6 secs\\x0a\");"	// IM
+									 "if(!Joystick[H4P]) DeferCall(RepeaterTimer, &ActKey, KEYON+UP+PrimaryFire);	DeferCall(RepeaterTimer, &ActKey, initExplorerScannerDisengage());"
 									 "if(Joystick[H4P])	 initSetCombinedFire(1);"),
-								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"),																															// OM
-								SEQ(REXEC(0, 7000,		"ActKey(KEYON+PULSE+PrimaryFire);							printf(\"Repeater Fire: AUTO-PULSE WAVE	^FIRED^	.^.^.^.		(PRIMARY) ^^\\x0a\");", RNOSTOP),	// ID
-									 EXEC(				"StopAutoRepeat(0); 										printf(\"Repeater Fire: AUTO-PULSE WAVE	DISABLE	._._._.		(PRIMARY)\\x0a\");")),
-								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"));																														// OD
-	MapKeyRIOUMD(&Joystick, TG1, 																					// Release Trigger 1 [Primary Trigger]
-								0, 	 EXEC(				"ActKey(KEYON+UP+PrimaryFire);"),	// IU, OU
-								0,	 EXEC(				"ActKey(KEYON+UP+PrimaryFire);"),	// IM, OM
-								0,	 EXEC(				"ActKey(KEYON+UP+PrimaryFire);"));	// ID, OD
-//	MapKey(&Joystick,   	TG2, 	 SecondaryFire);																// Trigger 2 [Second Stage Trigger] (Mapped in initHardpointManagement())
-	MapKeyR(&Joystick,  	TG2, 	 EXEC("ActKey(KEYON+UP+SecondaryFire);"));										// Release Trigger 2 [Second Stage Trigger] (Keeps Primary firing after releasing Secondary Tier)
+								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"),																																			// OM
+								SEQ(REXEC(0, 7000,		"ActKey(KEYON+PULSE+PrimaryFire);							printf(\"Repeater Fire: MINING-AUTO-PULSE [^FIRED^][.^.^.^.]	(PRIMARY)\\x0a\");", RNOSTOP),					// ID
+									 EXEC(				"StopAutoRepeat(0); 										printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE]		(PRIMARY)\\x0a\");")),
+								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"));																																		// OD
+	MapKeyRIOUMD(&Joystick, TG1, 																					// Release Trigger 1	[Primary Trigger]
+								0, 	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"),		// IU, OU	// Only Releases if Combat-Endless Mode is NOT enabled (keeps sequence in sync)
+								0,	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"),		// IM, OM
+								0,	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"));		// ID, OD
+//	MapKey(&Joystick,   	TG2, 	 SecondaryFire);																// Trigger 2			[Second Stage Trigger] (Mapped in initHardpointManagement())
+	MapKeyR(&Joystick,  	TG2, 	 EXEC("ActKey(KEYON+UP+SecondaryFire);"));										// Release Trigger 2	[Second Stage Trigger] (Keeps Primary firing after releasing Secondary Tier)
 
 
 	// UTILITY SLOTS //
@@ -163,8 +165,20 @@
 
 	// SECONDARY FIRE //
 	if(SecFirePinkyPref == 0) {
-		MapKey(&Joystick,  S3,  EXEC("ActKey(KEYON+DOWN+SecondaryFire);"));											// Pinky Button 		[Secondary Fire]
-		MapKeyR(&Joystick, S3,  EXEC("ActKey(KEYON+UP+SecondaryFire);"));	}										// Release Pinky Button	[Secondary Fire]
+		MapKeyIOUMD(&Joystick,  S3,																					// Pinky Button 		[Secondary Fire]
+								SEQ( EXEC(				"ActKey(KEYON+DOWN+SecondaryFire);	EndlessStateSec = 1;	printf(\"Repeater Fire: COMBAT-ENDLESS    [ON]     [.^^^^^.]	(SECONDARY)\\x0a\");"),							// IU
+									 EXEC(				"ActKey(KEYON+UP+SecondaryFire); 	EndlessStateSec = 0;	printf(\"Repeater Fire: COMBAT-ENDLESS    [OFF]			(SECONDARY)\\x0a\");")),
+								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"),																																		// OU
+								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);				 			printf(\"Repeater Fire: EXPLORER-SCANNER  [ON]     [.^...^.]	(SECONDARY) -> AUTO-DISABLE in 6 secs\\x0a\");"	// IM
+									 					"DeferCall(RepeaterTimer, &ActKey, KEYON+UP+SecondaryFire);	DeferCall(RepeaterTimer, &ActKey, initExplorerScannerDisengage());"),
+								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"),																																		// OM
+								SEQ(REXEC(0, 7000,		"ActKey(KEYON+PULSE+SecondaryFire);							printf(\"Repeater Fire: MINING-AUTO-PULSE [^FIRED^][.^.^.^.]	(SECONDARY)\\x0a\");", RNOSTOP),				// ID
+									 EXEC(				"StopAutoRepeat(0); 										printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE]		(SECONDARY)\\x0a\");")),
+								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"));																																		// OD
+		MapKeyRIOUMD(&Joystick, S3, 																				// Release Pinky Button	[Secondary Fire]
+								0, 	 EXEC("if(!EndlessStateSec) ActKey(KEYON+UP+SecondaryFire);"),		// IU, OU	// Only Releases if Combat-Endless Mode is NOT enabled (keeps sequence in sync)
+								0,	 EXEC("if(!EndlessStateSec) ActKey(KEYON+UP+SecondaryFire);"),		// IM, OM
+								0,	 EXEC("if(!EndlessStateSec) ActKey(KEYON+UP+SecondaryFire);")); }	// ID, OD
 	if(SecFirePinkyPref == 1) {
 		MapKey(&Joystick,  S3,	TEMPO(PULSE+PinkyBtnDefaultShort, PULSE+PinkyBtnDefaultLong, LongPressDelay)); }	// Pinky Button			[USER DEFINED] [Short/Long: Set in User Preference]
 
@@ -362,14 +376,14 @@
 	MapKey(&Throttle,  PSF,  EXEC(																					// Pinky Throttle Switch FORWARD
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpNextSubSys);"
 								"if(Joystick[S4])  initSendChatString(chat_ClearChatBox);"
-								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY:	>> Set FORWARD  >>		[Comms Channel [%d]: AUTO-TEXT]	[Repeater Fire Mode [%d]: COMBAT ENDLESS]\\x0a\", CommsPreset, RepeaterAutoRelease);"));
+								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY:	>> Set FORWARD  >>  [Comms Channel: AUTO-TEXT] [Repeater Mode: COMBAT-ENDLESS]\\x0a\");"));
 	MapKey(&Throttle,  PSM,  EXEC( 																					// Pinky Throttle Switch MIDDLE
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpMidSubSys);"
-								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY:	-- Set MIDDLE   --		[Comms Channel [%d]: WINGS]	[Repeater Fire Mode [%d]: EXPLORER SCANNER]\\x0a\", CommsPreset, RepeaterAutoRelease);"));
+								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY:	-- Set MIDDLE   --  [Comms Channel: WINGS]	  [Repeater Mode: EXPLORER-SCANNER]\\x0a\");"));
 	MapKey(&Throttle,  PSB,  EXEC(																					// Pinky Throttle Switch BACK
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpPrevSubSys);"
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"
-								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY:	<< Set BACKWARD <<		[Comms Channel [%d]: FIGHTER]	[Repeater Fire Mode [%d]: MINING AUTO-PULSE WAVE]\\x0a\", CommsPreset, RepeaterAutoRelease);"));
+								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY:	<< Set BACKWARD <<  [Comms Channel: FIGHTER]	  [Repeater Mode: MINING-AUTO-PULSE]\\x0a\");"));
 	MapKeyR(&Throttle, PSB,  EXEC(																					// Pinky Throttle Switch BACK RELEASE
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"));
 
@@ -446,7 +460,7 @@
 //	MapKey(&Throttle,  APDIS,	 0); 																				// Autopilot Disengage Button
 
 
-	// IDLE LOCK ADDITIONAL CONFIG //
+	// IDLE LOCK CONFIG //
 	MapKey(&Throttle,  IDLELON,	 EXEC("initIDLEMaster();" "printf(\"THROTTLE IDLE LOCK: ^^ACTIVE^^\\x0a\");"));		// Throttle Idle Detents LEFT ON	[Locking (Down): Stationary]
 	MapKeyR(&Throttle, IDLELON,  EXEC("initIDLEMaster();" "printf(\"THROTTLE IDLE LOCK: *DISABLED*\\x0a\");"));		// Throttle Idle Detents LEFT ON RELEASE
 //	MapKey(&Throttle,  IDLELOFF, 0);																				// Throttle Idle Detents LEFT OFF

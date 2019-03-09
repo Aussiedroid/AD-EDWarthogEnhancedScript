@@ -63,10 +63,15 @@
 								"SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);"
 								"printf(\"Throttle Profile: TRIMMED [-75 -> 75]\\x0a\");"
 								"SetThrottle();");
-		mThrottleNonLinear = EXEC(																// Initialising Throttle 
+		mThrottleFullNonLinear = EXEC(																// Initialising Throttle 
 								"TrimDXAxis(DX_Z_AXIS, SET(0));"
-								"SetCustomCurve(&Throttle, THR_FC, AxisCurveMod);"				// DX-SLIDER Non-Linear progression Curve
+								"SetCustomCurve(&Throttle, THR_RIGHT, AxisCurveMod);"				// DX-SLIDER Non-Linear progression Curve
 								"printf(\"Throttle Profile: NON-LINEAR [-100 ~> 100]\\x0a\");"
+								"SetThrottle();");
+		mThrottleFwdNonLinear = EXEC(															// Initialising Throttle 
+								"TrimDXAxis(DX_Z_AXIS, SET(-1024));"
+								"SetCustomCurve(&Throttle, THR_RIGHT, AxisCurveMod);"				// DX-SLIDER Non-Linear progression Curve
+								"printf(\"Throttle Profile: NON-LINEAR FORWARD ONLY [0 ~> 100]\\x0a\");"
 								"SetThrottle();");
 		mThrottleFullScaleCustom = EXEC(  														// Initialising Throttle Full Scale - Max Shorter @ 80% Preset (ALTERNATIVE)
 								"TrimDXAxis(DX_Z_AXIS, SET(0));" 								// Slightly Shorter Forward travel distance for my RSeat RS1 Cockpit setup. :)
@@ -91,8 +96,8 @@
 		MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
 			SetSCurve(&Throttle, SCY, 0, 20, 0, 2, -1);
 		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling)
-			if(CustomDXSliderCurve == 0) SetSCurve(&Throttle, THR_FC, 0, 0, 0, 0, 0);									// (Default)
-			if(CustomDXSliderCurve == 1) SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100)); 	// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
+			if(CustomDXSliderCurve == 0) SetSCurve(&Throttle, THR_FC, 0, 0, 0, 0, 0);			// (DEFAULT)
+			if(CustomDXSliderCurve == 1) SetCustomCurve(&Throttle, THR_FC, AxisCurveMod); 		// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a"); }
 
 

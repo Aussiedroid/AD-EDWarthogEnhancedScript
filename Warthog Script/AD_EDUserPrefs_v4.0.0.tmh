@@ -29,10 +29,11 @@
 		// THROTTLE AXIS //
 	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% = 1 (default). Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%]
 
-	define ThrottlePresetUP 	mThrottleNonLinear		// 6 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottlePrecision	[ -50 -> 50 ] (This should be in the DOWN position when mapped)
-	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleTrimmed	[ -75 -> 75 ]
-	define ThrottlePresetDOWN 	mThrottleFwdOnly		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]	mThrottleNonLinear	[-100 ~> 100]
-														// 				[Note: Full Range Trimmed by ~5% when CruiseOnThrottle active]
+	define ThrottlePresetUP 	mThrottleFwdOnly		// 7 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottleFwdNonLinear [   0 ~> 100]
+	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleFullNonLinear[-100 ~> 100]
+	define ThrottlePresetDOWN 	mThrottlePrecision		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]	mThrottlePrecision	  [ -50 -> 50 ] (This should be in the DOWN position when mapped)
+														//															mThrottleTrimmed	  [ -75 -> 75 ]
+														// 	[Note: Full Range Trimmed by ~5% when CruiseOnThrottle active]
 
 
 		// SHIP/SRV PIP CONFIG //
@@ -43,7 +44,7 @@
 	define CustomDXSliderCurve 	1						// Enable an Offset Curve Arc for DX Slider (Radar Zoom) (Smooths the movement a little)
 														//  Options:	Compensate for non-linear acceleration = 1 (default).	Default ED linear acceleration = 0.
 	
-	define NightVisionHUD		1						// Disables the Ship/SRV HUD GUI when Night Vision is Enabled (or Visa-Versa).
+	define NightVisionHUD		0						// Disables the Ship/SRV HUD GUI when Night Vision is Enabled (and Visa-Versa).
 														//	Options:	Hide HUD in Night Vision = 1.				Show HUD in Night Vision = 0 (default).
 
 

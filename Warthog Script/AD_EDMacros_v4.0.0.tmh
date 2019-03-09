@@ -4,7 +4,7 @@
 
 	int mRequestDock, mShowGameStats, mFastModeSwitch, mChatPanelGrab, mSignalLights, mSignalLightsLong, mReportCrimesToggle;
 	int mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys;
-	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleNonLinear, mThrottleFullScaleCustom;	// Configured in AD_EDHardware.tmh
+	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear, mThrottleFullScaleCustom;	// Configured in AD_EDHardware.tmh
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MACROS: SPECIALISED SEQUENCES //																// MACROS Include a series of automated key presses to perform a specific task.
@@ -97,7 +97,7 @@
 		mNAVBeaconWing = CHAIN(																	// MACRO: Toggle 'NAV Beacon' ON 
 			LOCK+PULSE+SystemPanel, 	D(250),
 			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if Target Panel cursor in
-			PULSE+UINextPanel,			D(),													//			   Default/Orig position, else will be misaligned.
+			PULSE+UINextPanel,			D(),													//			   Default/Orig position, else will be misaligned. Need to be in a Wing.
 			PULSE+UINextPanel,			D(),
 			PULSE+UIRight,				D(),
 			PULSE+UIDown,				D(),
@@ -122,7 +122,7 @@
 		mNAVBeaconOff = CHAIN(																	// MACRO: Toggle 'NAV Beacon' OFF
 			LOCK+PULSE+SystemPanel, 	D(250),
 			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if Target Panel cursor in
-			PULSE+UINextPanel,			D(),													//			   Default/Orig position, else will be misaligned.
+			PULSE+UINextPanel,			D(),													//			   Default/Orig position, else will be misaligned. Need to be in a Wing.
 			PULSE+UINextPanel,			D(),
 			PULSE+UIRight,				D(),
 			PULSE+UIDown,				D(),
@@ -143,8 +143,8 @@
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIBack,				LOCK);
 			
-		mNAVBeaconToggle = SEQ(																	// SEQUENCE: Wing NAV Beacon Toggle that allows both On & Off macros to be mapped to one button.
-			PULSE+mNAVBeaconWing,																// Alternates between turning On & Off Wing NAV Beacon each press.
+		mNAVBeaconToggle = SEQ(																	// SEQUENCE: Alternate 'NAV Beacon' ON + OFF [Allows both Nav Beacon Macros to be mapped to one button]
+			PULSE+mNAVBeaconWing,																// Alternates between turning On & Off Wing NAV Beacon each press. Need to be in a Wing.
 			PULSE+mNAVBeaconOff);																// (Unmapped by Default)
 			
 		mChatPanelGrab = CHAIN(																	// MACRO: Reset GUI in preparation of Auto-Chat Response Text String (Used in initSendChatString())

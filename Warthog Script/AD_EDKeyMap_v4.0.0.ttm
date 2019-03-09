@@ -3,7 +3,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 		// WEAPON CONTROL //
-	define PrimaryFire 							USB[0x12]//DX1						// JOY 1 (Also mapped to Mouse 1 in ED Bindings)
+	define PrimaryFire 							DX1//USB[0x12]//						// JOY 1 (Also mapped to Mouse 1 in ED Bindings)
 	define SecondaryFire 						DX3						// JOY 3 (Also mapped to Mouse 2 in ED Bindings)
 	define DeployHardpoints 					USB[0x18] 				// U
 //	define NextFireGroup 						DX12					// <Disabled> 

@@ -1,15 +1,15 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FUNCTIONS: TABLE OF CONTENTS //						// FUNCTIONS Include logic to customise specific Button/Toggle functionality.							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 206)]	[4. TOGGLE CONTROLS (line 328)]			[5. REPORT STATES (line 701)]	//
+//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 593)]	//
 //		- initHardpointManagement					- initLEDController						- initEnhancedFAOFF						- initPrintState			//
-//		- initSetCombinedFire						- initShiftKeyStartUp					- initToggleRotationCorrection										//
-//		- initAdvancedFireModule					- initNightVisionEnhancer				- initToggleSilentRunning											//
-//													- initAPEngageEnhancer					- initToggleCargoScoop												//
-//	[2. PIP & TEXT CHAT CONTROLS (line 112)]		- initIDLEMaster						- initToggleLandingGear												//
-//		- initPIPMapper								- initUserHotSlotPinkyTrigger		 	- initToggleShipLights												//
+//		- initSetCombinedFire						- initNightVisionEnhancer				- initToggleRotationCorrection										//
+//		- initExplorerScannerDisengage				- initAPEngageEnhancer					- initToggleSilentRunning											//
+//													- initIDLEMaster						- initToggleCargoScoop												//
+//	[2. PIP & TEXT CHAT CONTROLS (line 55)]			- initUserHotSlotPinkyTrigger			- initToggleLandingGear												//
+//		- initPIPMapper																	 	- initToggleShipLights												//
 //		- initSendChatString																- initHeadlookModeSelect											//
-//		- initCommsPresets																	- initMicCommander													//
+//																							- initMicCommander													//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //
@@ -44,7 +44,10 @@
 			MapKey(&Joystick, TG2, 0); } }
 
 
-
+	int initExplorerScannerDisengage() {														// FUNCTION: Simply Defers Print Out of Explorer-Scanner Release
+		if(!StartupLock) {																		//	[Gets around the no EXEC in EXEC limitation]
+			if(Joystick[TG1]) DeferCall(RepeaterTimer, &ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER-SCANNER  [OFF]			(PRIMARY)\\x0a\");"));
+			if(Joystick[S3])  DeferCall(RepeaterTimer, &ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER-SCANNER  [OFF]			(SECONDARY)\\x0a\");")); } }
 
 
 
@@ -85,13 +88,6 @@
 		length = strlen(&string);																// Determine Length of the Chat String (used to set number of loops needed in while statement below)
 
 		ActKey(KEYON+PULSE+mChatPanelGrab);														// PANEL RESET
-
-//		ActKey(KEYON+PULSE+UIBack);					Sleep(50);									// PANEL RESET: UIBack Sequence is to ensure that no UI is active/open before running SendChatString loop.
-//		ActKey(KEYON+PULSE+UIBack);					Sleep(50);									//	NOTE: If no UI is selected anyways, these commands will do nothing.
-//		ActKey(KEYON+PULSE+UIBack);					Sleep(50);
-//		ActKey(KEYON+PULSE+CommsPanel);				Sleep(250);									// OPEN New Comms Panel (+UI Delay - Default: 250ms) (Delay ensures panel is Open and Text Box Active before entering characters)
-//		ActKey(KEYON+PULSE+QuickCommsPanel);		Sleep(50);									//	Select Text Box/Quick Comms (Enter) ready for auto-text input..
-
 		strsub(&ca_pulseChar, &string, pos, pos);												// FIRST CHAR:		Before Entering Loop, Set String Value and..
 		ActKey(KEYON+PULSE+ca_pulseChar[0]); 		pos = pos + 1;								// 					..Pulse First Keypress without Delay (Prevents issues with Capitals 'sticking' for first letters)
 		while (pos < length) {																	// REMAINING CHARS:	WHILE there are characters to output, loop.

@@ -15,7 +15,7 @@
 
 	char   ca_pulseChar[] 	 = "0"					   ;// Used in Auto-Text Chat Presets		(DO NOT modify!)
 
-	
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // DEFAULT TIMINGS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -66,11 +66,8 @@
 	int DoubleTapPT			  = 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
 	int ReportCrimeState	  = 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v4.x.x.tmc)
 	int ShowGameStatState	  = 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v4.x.x.tmc)
+	int EndlessStatePri		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Pri(used in AD_ED_v4.x.x.tmc)
+	int EndlessStateSec		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Sec(used in AD_ED_v4.x.x.tmc)
 
-
-//	int RepeaterAutoRelease	  = 1;						// Track the Autofire behaviour mode on Primary & Secondary Fire Buttons; 	 (used in initAdvancedFireModule()). Value set automatically via Pinky Toggle Switch on Throttle.
-														// 	Values: 	Manual	= 0			   -COMBAT-  Best for Weapons (eg. Beams)(Hold Fire: Remains ON endlessly until you press the fire button again to disengage)
-														//				Auto	= 1	(default) -EXPLORER- Best for Scanners			 (Repeater Fire: Holds the Trigger for a fixed interval (6 secs) before automatically disengaging) [Can modify duration by changing RepeaterTimer & RepeaterTimerOff above]
-														//				Pulse	= 2			   -MINING-	 Best for Pulse Wave Scanner (Pulse Fire: Activates a Trigger press every 7 secs. Press again to disable. [Disable before Supercruise/Instance Change to keep alignment]
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
