@@ -1,56 +1,9 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// JOYSTICK AXIS CURVES //
+// KEY BINDINGS 	(Note: Not all Bindings are used in this script directly (these will be commented out below) Instead, they're mapped directly in ED Config.)//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//					      Up,MVR,DN
-	short	JS_CURVE[]	= {0, 1, 2};					// Set via the Autopilot Switch	(Up is most aggresive, down is least aggressive)
-	short	JS_ZOOM[]	= {0, 0,-1};
-	short	YAW_CURVE[]	= {0, 2, 3};
 
-	define	JS_DEADZONE 1								// Set the JS Deadzone 		(Use the Device Analyzer to validate)
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// DEFAULT STATES    		(1 = Yes, 0 = No) //		// VARIABLE DESCRIPTION & USAGE
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-														// *[Set your toggles before you start Elite Dangerous to align default toggle states]*
-														//  if your switches aren't set to match, then you'll need to use a toggle override, or have to do an extra key toggle/key press to "catch up"
-
-	int StartupLock			= 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes)
-	int RCorrection 		= 1;						// Rotational Correction ON		(Press 'F4' to align as required in-game) 		(used in initToggleRotationCorrection())
-	int SRunning			= 0;						// Silent Running OFF			(Press 'DEL' to toggle manually if misaligned)	(used in initToggleSilentRunning())
-	int Gears 				= 0;						// Landing Gears set to ON 		(Assumes docked in station on Start. Press 'L' to align as required) (used in initToggleLandingGear())
-	int Lights 				= 0;						// Ship Lights OFF				(Press 'INSERT' to align if SRV takes out of alignment) (used in initToggleShipLights())
-	int NightVisionStatus	= 0;						// Tracks if Night Vision is enabled (for LED backlight)(used in initNightVisionEnhancer())
-	int AltFlightToggle		= 0;						// Tracks Alternative Flight Controls Toggle Status OFF	(used in initEnhancedFAOFF())
-	int AltFlightHold		= 0;						// Tracks Alternative Flight Controls Hold Status OFF	(used in initEnhancedFAOFF())
-	int FAOFFToggle			= 0;						// Tracks Flight Assist Off Controls Toggle Status  OFF	(used in initEnhancedFAOFF())
-	int FAOFFHold			= 0;						// Tracks Flight Assist Off Controls Hold Status  OFF	(used in initEnhancedFAOFF())
-	int CargoSc 			= 0;						// Cargo Scoop Deployed OFF								(used in initToggleCargoScoop())
-	int rFireP 				= 0;						// Repeating Primary Fire	(Auto-fire)					(used in initAdvancedFireModule())
-	int rFireS 				= 0;						// Repeating Secondary Fire	(Auto-fire)					(used in initAdvancedFireModule())
-	int rAutoP				= 0;						// Primary Fire Flag to check if Repeater Fire was triggered last press		(used in initAdvancedFireModule())
-	int rAutoS				= 0;						// Secondary Fire Flag to check if Repeater Fire was triggered last press	(used in initAdvancedFireModule())
-	int HPoints 			= 0;						// Hardpoints Deployed OFF								(used in initEscapeVector())
-	int APSeqLong			= 0;						// Tracks if long press was triggered for Autopilot Engage Button			(used in initAPEngageEnhancer())
-	int APSeqShort			= 0;						// Tracks if short press was triggered for Autopilot Engage Button		  	(used in initAPEngageEnhancer())
-	int ChatPreset			= 0;						// Set Text Chat Set (Default 0 - Pinky Toggle CENTER)	(used in initTextChatPresets())
-	int MicCheckHold		= 0;						// Tracks if Microphone PTT Hold is engaged				(used in initMicCommander())
-	int MicCheckToggle		= 0;						// Tracks if Microphone Toggle is engaged 				(used in initMicCommander())
-	int MicExtPulseCheck	= 0;						// Tracks state of PTT Microphone Pulse action			(used in initMicCommander())
-	int MicExtHoldCheck		= 0;						// Tracks state of PTT Microphone Down/Up action		(used in initMicCommander())
-	int MicExtPulseCheckALT	= 0;						// Tracks state of Alt. PTT Microphone Pulse action		(used in initMicCommander())
-	int MicExtHoldCheckALT	= 0;						// Tracks state of Alt. PTT Microphone Down/Up action	(used in initMicCommander())
-	int MicExtToggleCheck	= 0;						// Tracks state of Toggle Microphone action				(used in initMicCommander())
-	int MicExtToggleCheckALT= 0;						// Tracks state of Alt. Toggle Microphone action		(used in initMicCommander())
-	int MicExtToggleCombo	= 0;						// Tracks state of Toggle Microphone Combo action		(used in initMicCommander())
-	int DoubleTapPT			= 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
-	int ReportCrimeState	= 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v3.x.x.tmc)
-	int ShowGameStatState	= 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v3.x.x.tmc)
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// BINDINGS 	(Note: Not all Bindings are used directly in this script, even though they are listed below. Where applicable, they're mapped directly in ED.)	//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 		// WEAPON CONTROL //
-	define PrimaryFire 							DX1						// JOY 1 (Also mapped to Mouse 1 in ED Bindings)
+	define PrimaryFire 							DX1//USB[0x12]//						// JOY 1 (Also mapped to Mouse 1 in ED Bindings)
 	define SecondaryFire 						DX3						// JOY 3 (Also mapped to Mouse 2 in ED Bindings)
 	define DeployHardpoints 					USB[0x18] 				// U
 //	define NextFireGroup 						DX12					// <Disabled> 
