@@ -5,10 +5,10 @@
 
 ` ` | Supported
 ------------ | -------------
-![Logo](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/master/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/master/Maps/Supported.png)
+![Logo](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Supported.png)
 
 
-### LATEST BUILD | [v4.0.0](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/releases/latest) | Updated for [Elite Dangerous](https://www.elitedangerous.com/) Beyond 3.3 "Chapter 4" Patch ###
+### LATEST BUILD | [v4.0.0](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/releases/latest) | Updated for [Elite Dangerous](https://www.elitedangerous.com/) Beyond 3.3 "Chapter 4" Patch ###
 
 ### REQUIREMENTS | TARGET Software, Drivers & Firmware, 2018 Update ([v3.0.18.328](https://support.thrustmaster.com/en/product/hotaswarthog-en/) _or higher_) ###
 
@@ -16,7 +16,7 @@
 
 ## Table of Contents ##
 
-[Latest Release](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/releases/latest) | [Feature List](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Readme.md#enhanced-features) | [Legend]() | [Layout Maps]() | [Installation]() | [User Preferences]() | [Acknowledgements]()
+[Latest Release](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest) | [Feature List](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/beta/Readme.md#enhanced-features) | [Legend]() | [Layout Maps]() | [Installation]() | [User Preferences]() | [Acknowledgements]()
 
 [Steam Guide](https://steamcommunity.com/sharedfiles/filedetails/?id=769637037) | [Frontier Forums](https://forums.frontier.co.uk/showthread.php/293027-Aussiedroid-s-Enhanced-Thrustmaster-Warthog-Script) | [ModDB](https://www.moddb.com/games/elite-dangerous/downloads/aussiedroids-enhanced-warthog-script) | [Imgur](https://aussiedroid.imgur.com/) | [Script Files](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/tree/master/Warthog%20Script) | [Binding Files](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/tree/master/ED%20Bindings) | [TrackIR Profile](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/tree/master/TrackIR) | [ED-BAT Launcher](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/tree/master/ED%20Startup%20Batch%20Script%20File)
 
