@@ -14,4 +14,8 @@ Collection of Graphical Reference Maps showing all the button/toggle/axis layout
 ## Keyboard Map ##
 ![Keyboard](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Keyboard.jpg "Keyboard Mappings")
 
+## Printable Joystick ##
+![Print Joystick](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Printable-Joystick.jpg "Printable Joystick")
 
+## Printable Throttle ##
+![Print Throttle](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Printable-Throttle.jpg "Printable Throttle")
