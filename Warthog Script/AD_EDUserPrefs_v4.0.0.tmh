@@ -31,7 +31,7 @@
 
 	define ThrottlePresetUP 	mThrottleNonLinear		// 6 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottlePrecision	[ -50 -> 50 ] (This should be in the DOWN position when mapped)
 	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleTrimmed	[ -75 -> 75 ]
-	define ThrottlePresetDOWN 	mThrottlePrecision		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]	mThrottleNonLinear	[-100 ~> 100]
+	define ThrottlePresetDOWN 	mThrottleFwdOnly		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]	mThrottleNonLinear	[-100 ~> 100]
 														// 				[Note: Full Range Trimmed by ~5% when CruiseOnThrottle active]
 
 
