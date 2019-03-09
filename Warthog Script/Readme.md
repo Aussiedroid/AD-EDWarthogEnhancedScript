@@ -16,12 +16,12 @@ AD_EDFunctions_v4.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 
 ` `
 
-[HOME] [Thrustmaster Warthog HOTAS](https://support.thrustmaster.com/en/product/hotaswarthog-en/ "TM Warthog HOTAS")
+[HOME] [Thrustmaster Warthog HOTAS](https://support.thrustmaster.com/en/product/hotaswarthog-en/ "Official TM Warthog HOTAS Support Website")
 
 ## ##
 
 ## User Preferences : Table of Contents ##
-[How To Use]() | [Start-Up]() | [Core Hardware]() | [Throttle Axis]() | [Ship/SRV PIP Config]() | [Ship Radar/Vision]() | [Pri-Sec Fire Control]()
+[How To Use](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#user-preferences--ad_eduserprefs_v4xxtmh "Getting Started") | [Start-Up](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--start-up "Start-Up User Preferences") | [Core Hardware](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--core-hardware "Core Hardware User Preferences") | [Throttle Axis](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--throttle-axis "Throttle Axis User Preferences") | [Ship/SRV PIP Config](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--shipsrv-pip-config "Ship & SRV PIP Config User Preferences") | [Ship Radar/Vision](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--ship-radarvision "Ship's Radar & Night Vision User Preferences") | [Pri-Sec Fire Control](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--primarysecondary-fire-control "Primary & Secondary Fire Control User Preferences")
 
 [Utility Slot Control]() | [Microphone Behaviour]() | [Cargo Scoop Tweaks]() | [Escape Vector Macro]() | [Pinky 'Double Tap' Override]()
 
@@ -36,7 +36,7 @@ In the following sections below, I will explain what each setting does & what op
 
 ___How to Use:__ Loading the script into Target Script Editor, you can access the User Preference section in the AD_EDUserPrefs_v4.x.x.tmh file. Once open you will see a screen similar to the example below. The area highlighed in Red is where you make changes:_
 
-![User Prefs](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/beta/Maps/User-Prefs.png)
+![User Prefs](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/User-Prefs.png)
 
 On the right, the text in _green_ offers further comments/instruction on how these work.
 
