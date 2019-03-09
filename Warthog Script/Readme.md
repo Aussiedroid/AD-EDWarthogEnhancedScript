@@ -80,7 +80,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - The base code for these panels has been added to the AD_ED_v4.x.x.tmc file, but remain UNMAPPED by default (unfortunately I do not own these to test out). To enable, copy the KeyMap code you wish to use to the Right or Left button mapping & remove the '//' at the start of line.
 
 ### UseRuddersT16000 + UseRuddersTPR [Value 1 or 0] ###
-- This value should not require modification from 1 in most use cases. Even if you do not use [TM TFRP/T16000 Rudder Pedals](http://www.thrustmaster.com/en_US/products/tflight-rudder-pedals "Official T.Flight TFRP Rudder Website") or [TM Pendular Rudder](http://www.thrustmaster.com/en_US/products/tpr-thrustmaster-pendular-rudder "Official Pendular Rudder Website"), the code will not fire unless they are plugged in. 
+- This value should not require modification from 1 in most use cases. Even if you do not use [TM TFRP/T16000 Rudder Pedals](http://www.thrustmaster.com/en_US/products/tflight-rudder-pedals "Official T.Flight TFRP Rudder Website") or [TM Pendular Rudder Pedals](http://www.thrustmaster.com/en_US/products/tpr-thrustmaster-pendular-rudder "Official Pendular Rudder Website"), the code will not fire unless they are plugged in. 
 
 - FILTERED (Value 1) applies differential toe brake configuration, combining the toe brakes into a single axis for correct mapping in ED.
 
