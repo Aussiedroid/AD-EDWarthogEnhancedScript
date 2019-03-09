@@ -1,9 +1,8 @@
-Update 4.0.0:  LONG HYPERSPACE JUMP TO 2020...
-
+Update 4.0.0:  THE SHIFTY RESTRUCTURE UPDATE
 
 -> Big code clean-up! Along with file name changes and restructure, there has also been a SHIFT Key (on Pinky Toggle Switch on Throttle) introduced to handle both Non-Voice Comms Channels & Repeater Fire Mode (which can now be changed on-the-fly) changes. As a result, the entire AdvancedFireModule managing the fire buttons has now been replaced with IOUMD configurations. Script is now also available on GitHub too.
 
--> Hope you all enjoy the improvements. This will likely be my last major update for a while given the long delay to the next major game release. Feel the script is in good running order, and really more in a final status at any rate, but you may find small changes or fixes on GitHub from time to time. Any bugs reported, will look at addressing sooner off course. Thanks!
+-> Hope you all enjoy the improvements. This will likely be my last major update for a while given the long delay to the next major game release. Feel the script is in good running order, and really more in a 'final status' at any rate, but you may find small changes or fixes on GitHub from time to time. Any bugs reported, will look at addressing sooner off course. Thanks!
 
 
 New to the script? Be sure to also check out the Beginners Reference Map in the download pack to get started.
@@ -13,10 +12,10 @@ List of Changes:
 
 NEW: Pulse Repeater Fire Preset for Miners!
 NEW: Customisable Auto-Text Chat Responses (You can now edit these via the User Preferences). (Thx CMDR Clicker & ySfte)
-NEW: Enable/Disable Ship/SRV HUD when Toggling Night Vision (enable via the User Preferences).
-NEW: Throttle Axis Preset (NonLinear) can now be enabled via the User Preferences. This new preset will modify the absolute 1-1 axis used in other modes and make it curve so the outside regions are slightly compressed, while slightly more movement in the center. (Thx CMDR Clicker)
+NEW: Enable/Disable Ship(SRV) HUD when Toggling Night Vision (enable via the User Preferences).
+NEW: Throttle Axis Presets (FullNonLinear & FwdNonLinear) can now be enabled via the User Preferences. This new preset will modify the absolute 1-1 axis used in other modes and make it curve so the axis starts out faster then slows down as you move to 100%. (Thx CMDR Clicker)
 
-NEW: SHIFT Key Added to Pinky Throttle Switch. This now enables multiple layouts (layers) currently configured for Comms Panel & Repeater Fire Modes. Each position enable a different mapping on Trim Hat Switch & what Repeater Fire Mode is active on Joystick Trigger.
+NEW: SHIFT Key Added to Pinky Throttle Switch. This now enables multiple layouts (layers) currently configured for Non-Voice Comms Panel & Repeater Fire Modes. Each position of the Pinky Switch enable a different mapping on Trim Hat Switch & determines what Repeater Fire Mode is active on Joystick Trigger.
 NEW: SHIFT Key: Trim Hat Switch on Joystick - Change Non-Voice Comms Panel Mode. See Reference Maps for new layout. (This gives the Trim Hat Switch a total of 8 commands mapped per Toggle Position - both with and without Pinky modifier).
      Mode Selection:
 	UP:   Auto-Text Responses

@@ -9,6 +9,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // Created by Aussiedroid:		(http://steamcommunity.com/id/aussiedroid | https://forums.frontier.co.uk/member.php/21601-Aussiedroid)			//
 // Full Guide:				(http://steamcommunity.com/sharedfiles/filedetails/?id=769637037)							//
+// GitHub Resource:			(https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript)								//
 // Frontier Forums Discussion Thread:	(https://forums.frontier.co.uk/showthread.php/293027-Aussiedroid-s-Enhanced-Thrustmaster-Warthog-Script)		//
 // Some Previous Ver. Reference Maps:	(https://aussiedroid.imgur.com/)											//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -18,9 +19,10 @@
 //							  ** RECOMMENDED RUNNING SCRIPT IN TARGET GUI **							//
 //						** REMINDER: CUSTOMISE/SET YOUR USER PREFERENCES IN AD_EDUSERPREFS FILE **					//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// VERSION HISTORY //	Version 4.0.0			\\ Released Sept 2016	|	Updated ??? 2019 //		\\		Public Release #21	//
+// VERSION HISTORY //	Version 4.0.0			\\ Released Sept 2016	|	Updated March 2019 //		\\		Public Release #21	//
 // =============================================================================================================================================================//
-// v4.0 - NEW: Customisable Chat Presets! FIX: LEDs on Launch Sequence. //
+// v4.0 - NEW: Pulse Repeater Fire! Customisable Auto-Chat Presets, 2 Non-Linear Throttle Presets, SHIFT Key & Hide HUD on NightVision. FIX: LEDs on Launch Seq.//
+// v4.0 - IMPROVED: New File Structure, Categorised User Prefs, Table of Contents, Toggle Seq. for Nav Beacon. REMOVED: ChatPresetMode+RepeaterFireMode Presets.//
 // v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord keymap resolved.//
 // v3.3 - BEYOND CH.4: ALL New Keys mapped! NEW: ED-BAT App Launcher, TM TPR Rudder Support, Swap PIP Hat, Report Crimes Macro & LED 'Blinking' Controller.	//
 // v3.3 - NEW: User Override on Sec. Fire Pinky. IMPROVED: initPrintState formatting & Merged Ship/SRV Cam. FIX: Autodock Macro, C.Scoop LED & ECM duration. 	//
