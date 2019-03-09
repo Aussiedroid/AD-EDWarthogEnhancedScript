@@ -12,7 +12,6 @@
 // HARDWARE: JOYSTICK AXIS MAPPINGS //															// Define All Axis Curves/Trim/Deadzones for Device
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-
 	int initSetJoystickCurves() {																// Autopilot Select Switch position sets Joystick Curve Profile
 		profile = 1;																			// Three different presets are selectable On-The-Fly
 		if(Throttle[APPAT]) profile = 0;
@@ -38,7 +37,6 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // HARDWARE: THROTTLE AXIS MAPPINGS //															// Define All Axis Curves/Trim/Deadzones for Device
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
 																								// FLAP position sets Throttle Curve Profile
 	int initSetThrottleCurves() {																// Three different presets are selectable On-The-Fly
 		mThrottleFwdOnly = EXEC(  																// Initialising Throttle Forward Only Preset (SRV etc)
@@ -109,7 +107,6 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // HARDWARE: RUDDER PEDAL AXIS MAPPINGS //														// Define All Axis Curves/Trim/Deadzones for Device
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
 
 	int initTFRPRudder() {																		// Initialise Thrustmaster TFRP (T.Flight T16000) Toe Pedal Axes (When enabled in AD_EDSettings)
     	SetSCurve(&TFRPRudder, TRPRIGHT, 0, 0, 20, 0, 0);										// Right Toe Brake

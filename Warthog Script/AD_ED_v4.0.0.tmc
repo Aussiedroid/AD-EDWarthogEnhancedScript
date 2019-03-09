@@ -579,9 +579,10 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // =============================================================================================================================================================//
-// VERSION HISTORY //			Version 4.0.0			\\ Released Sept 2016	|	Updated ??? 2019 //					\\		Public Release #21				//
+// VERSION HISTORY //			Version 4.0.0			\\ Released Sept 2016	|	Updated March 2019 //				\\		Public Release #21				//
 // =============================================================================================================================================================//
-// v4.0 - NEW: Customisable Chat Presets & Hide HUD on NightVision. FIX: LEDs on Launch Sequence. IMPROVED: New File Structure. //
+// v4.0 - NEW: Pulse Repeater Fire! Customisable Auto-Chat Presets, 2 Non-Linear Throttle Presets, SHIFT Key & Hide HUD on NightVision. FIX: LEDs on Launch Seq.//
+// v4.0 - IMPROVED: New File Structure, Categorised User Prefs, Table of Contents, Toggle Seq. for Nav Beacon. REMOVED: ChatPresetMode+RepeaterFireMode Presets.//
 // v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord keymap resolved.//
 // v3.3 - BEYOND CH.4: ALL New Keys mapped! NEW: ED-BAT App Launcher, TM TPR Rudder Support, Swap PIP Hat, Report Crimes Macro & LED 'Blinking' Controller.		//
 // v3.3 - NEW: User Override on Sec. Fire Pinky. IMPROVED: initPrintState formatting & Merged Ship/SRV Cam. FIX: Autodock Macro, C.Scoop LED & ECM duration. 	//
