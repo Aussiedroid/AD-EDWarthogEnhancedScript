@@ -75,12 +75,12 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - English (KB_ENG), German (KB_GER) & French (KB_FR) available.
 
 ### UseMFD [Values: 2, 1 or 0] ###
-- [Thrustmaster MFD Cougar Panels](www.thrustmaster.com "MFD Cougar Control Panels") are multifunctional, customisable panels for use in Cockpits. The script supports up to 2 devices being connected. Select value 2 for both Right & Left panels or 1 for only the Right panel. If you do not use these panels leave the value as 0.
+- [Thrustmaster MFD Cougar Panels](http://www.thrustmaster.com/en_US/products/mfd-cougar-pack "Official MFD Cougar Control Panels Website") are multifunctional, customisable panels for use in Cockpits. The script supports up to 2 devices being connected. Select value 2 for both Right & Left panels or 1 for only the Right panel. If you do not use these panels leave the value as 0.
 
-- The base code for these panels has been added to the AD_ED_v3.x.x.tmc file, but remain UNMAPPED by default (unfortunately I do not own these to test out). To enable, copy the KeyMap code you wish to use to the Right or Left button mapping & remove the '//' at the start of line.
+- The base code for these panels has been added to the AD_ED_v4.x.x.tmc file, but remain UNMAPPED by default (unfortunately I do not own these to test out). To enable, copy the KeyMap code you wish to use to the Right or Left button mapping & remove the '//' at the start of line.
 
 ### UseRuddersT16000 + UseRuddersTPR [Value 1 or 0] ###
-- This value should not require modification from 1 in most use cases. Even if you do not use TM TFRP/T16000 Rudder Pedals[www.thrustmaster.com] or TM Pendular Rudder[www.thrustmaster.com], the code will not fire unless they are plugged in. 
+- This value should not require modification from 1 in most use cases. Even if you do not use [TM TFRP/T16000 Rudder Pedals](http://www.thrustmaster.com/en_US/products/tflight-rudder-pedals "Official T.Flight TFRP Rudder Website) or [TM Pendular Rudder](http://www.thrustmaster.com/en_US/products/tpr-thrustmaster-pendular-rudder "Official Pendular Rudder Website"), the code will not fire unless they are plugged in. 
 
 - FILTERED (Value 1) applies differential toe brake configuration, combining the toe brakes into a single axis for correct mapping in ED.
 
@@ -98,7 +98,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 ### HeadtrackPref [Value 2, 1 or 0] ###
 - Elite Dangerous offers built in headtracking via a Mouse, but via this script you can also include correct integration for TrackIR or VR (HMD) headsets. Changing this value will change the mapping for the Engine Operate Ign/Norm LEFT UP toggle.
 
-- Note: You may need to align the external mapping keys via AD_EDKeyMap_v3.x.x under External Bindings.
+- Note: You may need to align the external mapping keys via AD_EDKeyMap_v4.x.x under External Bindings.
 
 ` `
 ## -> THROTTLE AXIS ##
@@ -110,13 +110,15 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 ### ThrottlePresetUP/ThrottlePresetMID/ThrottlePresetDOWN [Values See Below] ###
 - This maps the Throttle 3-Way Toggle Switch for UP, MIDDLE & DOWN so you can change on-the-fly your main Throttle axis. For example, you could use Forward Only for SRV, but Full Range for Ships or set to Precision for movement around structures in space!
 
-- Each can be set to one of five preset axis values including: mThrottleFwdOnly, mThrottlePrecision, mThrottleFullScale, mThrottleFullScaleCustom, mThrottleTrimmed.
+- Each can be set to one of seven preset axis values including: mThrottleFwdOnly, mThrottlePrecision, mThrottleFullScale, mThrottleFullScaleCustom, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear.
 
 - mThrottleFwdOnly [0 -> 100] enabled Forward Only Axis. This will use the full range of the Throttle in the Forward direction. (Press digital reverse thrust to move backwards)
 - mThrottlePrecision [-50 -> 50] reduces sensitivity of the Throttle by 50%. This means at 100% you will be flying in the 'blue zone' on your speed dial where this would normally be at 50%. 
 - mThrottleFullScale [-100 -> 100] allows full range movement, with Throttle centered as 0 thrust. Move to bottom half you go in reverse, move to the top half you go forward. There is small deadzone in center.
 - mThrottleFullScaleCustom [-100 -> 80] is same as above but trims the range to 80% for less movement in the forward direction.
 - mThrottleTrimmed [-75 -> 75] reduces the movement range required to hit 100% by 25% in both directions.
+- mThrottleFullNonLinear [-100 ~> 100] allows full range movement, with a custom axis curve. Fast->Slow curve.
+- mThrottleFwdNonLinear [0 ~> 100] enabled Forward Only Axis, with a custom axis curve. Fast->Slow curve.
 
 ` `
 ## -> SHIP/SRV PIP CONFIG ##
@@ -228,7 +230,7 @@ Rings of Haze
 ### UserDTPinkyKeyBind [Value Variable] ###
 - Define what you want to map to the "Double Tap" feature on the Joystick Pinky Trigger. Squeeze trigger twice quickly to activate. Single press remains the Pinky Modifier key. Choose something you would frequently use or would like easy access to.
 
-- **From 3.3.0, the default action for the Double Tap is SwitchHUDMode. If you choose to change this to something else, then SwitchHUDMode will need to be mapped elsewhere to use Analysis Mode.**
+- **From 3.3.0, the default action for the Double Tap is 'SwitchHUDMode'. If you choose to change this to something else, then 'SwitchHUDMode' will need to be mapped elsewhere to use Analysis Mode.**
 
 - You can choose any standard key to map to the Double Tap. Some suggestions below (or your own choice from the EDKeyMap file!):
 
@@ -255,7 +257,7 @@ Rings of Haze
 ### chat_Basic_LEFT/chat_Basic_RIGHT [Value Character] ###
 ### chat_Modifier_UP/chat_Modifier_DOWN [Value Character] ###
 ### chat_Modifier_LEFT/chat_Modifier_RIGHT [Value Character] ###
-Chat Preset feature offers a way for VR users or those without easy access to a keyboard a way to communicate via the comms panel in game. These pre-defined responses can be edited in the script in the AD_EDFunctions_v3.x.x.tmh file to suit your personality/playstyle.
+Chat Preset feature offers a way for VR users or those without easy access to a keyboard a way to communicate via the comms panel in game. These pre-defined responses can be edited in the script in the AD_EDFunctions_v4.x.x.tmh file to suit your personality/playstyle.
 
 Setting value to 1 will give access to 3 tiers of responses (12 in total) depending on the position of the Pinky Throttle Switch (as seen in the reference maps).
 
