@@ -57,7 +57,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 - Application paths & your own software selection can be configured in the AD_ED_v4.x.x.tmc file under START-UP: SOFTWARE section. By default these are commented out '//'. Remove the '//' at the start of the line to enable. Ensure the path written matches your install location.
 
-- Will not work on Windows 10 _(See ED-BAT File)_ :(
+- Will not work on Windows 10 _(See [ED-BAT File](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Startup%20Batch%20Script "ED-BAT Batch File"))_ :(
 
 ### SetLED [Values: 0-255] ###
 - Sets the initial LED Backlight brightness on the Throttle. (default = 172)
