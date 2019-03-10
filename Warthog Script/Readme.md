@@ -2,6 +2,10 @@
 
 The Thrustmaster TARGET Warthog Script is split into several files. Each houses different functionality. __AD_ED_v4._x_._x_.tmc__ calls on all the other included files. __Target.tmh__ will generate on script Run.
 
+Scripting files are properly formatted & contain full comments to help understand what the code is doing. Best viewed in TARGET SCRIPT EDITOR & best run in TARGET GUI. Additional keys & content are present if you want to modify further, including additional Throttle presets, PIP presets, Next/Prev Subsystem presets & all the commands not currently mapping in the script (but mapped in ED).
+
+DX Mapping & Conversion table also included in the Key Mapping file to help with changes.
+
 ### File List: ###
 
 Filename | Function
