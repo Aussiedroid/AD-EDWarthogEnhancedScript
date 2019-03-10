@@ -31,6 +31,8 @@ Note 4: Creating a shortcut of your .bat file will allow you to change its icon 
 Note 5: Will never delete a backup. Backups are small, but remember to delete old versions periodically as required.
 
 
+Run as Administrator, else some programs may not start.
+
 
 WHAT APPS DOES THE SCRIPT SUPPORT?
 

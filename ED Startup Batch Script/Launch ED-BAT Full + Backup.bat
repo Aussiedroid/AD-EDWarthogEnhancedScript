@@ -14,6 +14,7 @@
 : - Each bat run, will create unique backup copy with date/time as sub-folder name.
 : - Bat will never delete any backups created - Please remember to manually delete periodically.
 : - Create the 'Empty' Backup Folder (BINDS-BACKUP-FOLDER) before running Batch Script (else will error).
+: - Run as Administrator, else some programs may not start.
 :
 : Known Issues:
 : =============
@@ -22,21 +23,21 @@
 : FOLDER PATHS:   <- Update these paths for the Apps you use. "Take note where quotations " " are/aren't used"
 : =============
 SET BINDS-BACKUP-FOLDER="D:\Backups\ED-BINDS-BACKUP\Bindings"
-SET BINDINGS-PATH="C:\Users\<USERNAME>\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings\*.*"
-SET EDLAUNCHER-PATH="C:\Program Files (x86)\Steam\steamapps\common\Elite Dangerous"
-SET TARGET-GUI-PATH="C:\Program Files (x86)\Thrustmaster\TARGET\x64"
-SET TARGET-SCRIPT-FILE="C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-3.3.3\Warthog Script\AD_ED_v3.3.3.tmc"
-SET REFERENCE-MAP-PATH=C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-3.3.3\Maps\Advanced-Map.jpg
-SET TRACKIR-PATH="C:\Program Files (x86)\NaturalPoint\TrackIR5"
-SET VOICEATTACK-PATH="C:\Program Files (x86)\VoiceAttack"
-SET EDP-PATH="C:\Users\<USERNAME>\AppData\Local\Apps\2.0\XNL477CX.MQX\5V68MEY7.N22\edpr..tion_8fee7e9965259bee_0003.0002_4c8d6a102e806080"
-SET EDDI-PATH="C:\Program Files (x86)\VoiceAttack\Apps\EDDI"
-SET EDMC-PATH="C:\Program Files (x86)\EDMarketConnector"
+SET BINDINGS-PATH="%LOCALAPPDATA%\Frontier Developments\Elite Dangerous\Options\Bindings\*.*"
+SET EDLAUNCHER-PATH="%PROGRAMFILES(X86)%\Steam\steamapps\common\Elite Dangerous"
+SET TARGET-GUI-PATH="%PROGRAMFILES(X86)%\Thrustmaster\TARGET\x64"
+SET TARGET-SCRIPT-FILE="C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-4.0.0\Warthog Script\AD_ED_v4.0.0.tmc"
+SET REFERENCE-MAP-PATH=C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-4.0.0\Maps\Advanced-Map.jpg
+SET TRACKIR-PATH="%PROGRAMFILES(X86)%\NaturalPoint\TrackIR5"
+SET VOICEATTACK-PATH="%PROGRAMFILES(X86)%\VoiceAttack"
+SET EDP-PATH="%LOCALAPPDATA%\Apps\2.0\XNL477CX.MQX\5V68MEY7.N22\edpr..tion_8fee7e9965259bee_0003.0002_4c8d6a102e806080"
+SET EDDI-PATH="%PROGRAMFILES(X86)%\VoiceAttack\Apps\EDDI"
+SET EDMC-PATH="%PROGRAMFILES(X86)%\EDMarketConnector"
 SET EDDISCOVERY-PATH="C:\GAME TOOLS\Elite Dangerous\EDDiscovery Portable"
-SET EDENGINEER-PATH="C:\Users\<USERNAME>\AppData\Local\Apps\2.0\XNL477CX.MQX\5V88MEY7.N22\eden..tion_b9c6e2d0baf2eae5_0001.0001_63002251ea744c22"
+SET EDENGINEER-PATH="%LOCALAPPDATA%\Apps\2.0\XNL477CX.MQX\5V88MEY7.N22\eden..tion_b9c6e2d0baf2eae5_0001.0001_63002251ea744c22"
 SET TCE-MKII-PATH="C:\GAME TOOLS\Elite Dangerous\TCE"
 SET TCE-EXE="Trade Computer Extension MK.II.exe"
-SET BROWSER-PATH="C:\Program Files\Opera\55.0.2994.61"
+SET BROWSER-PATH="%LOCALAPPDATA%\Programs\Opera\58.0.3135.79"
 SET BROWSER-EXE=Opera.exe
 
 : VARIABLES:
@@ -55,7 +56,7 @@ SET "DIR-DATE_TIME=%YYYY%-%MM%-%DD%_%HH%.%Min%"
 
 ECHO.
 ECHO ----------------------------------------------------------------
-ECHO AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER FULL + BACKUP v0.2:
+ECHO AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER FULL + BACKUP v0.3:
 ECHO ----------------------------------------------------------------
 ECHO.
 ECHO Creating Immersion Platform... Please wait..

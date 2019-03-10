@@ -10,16 +10,17 @@
 : - Update 'Folder Paths' below for the Apps you personally use before launching the bat. Ensure they are found.
 : - No need to delete unused apps below. Simply clear the folder path, or leave incorrect path and it will 'bypass'.
 : - Can also automatically open the Warthog Reference Map Pictures to view on batch run, by setting the correct path below.
+: - Run as Administrator, else some programs may not start.
 
 : FOLDER PATHS:   <- Update these paths for the Apps you use. "Take note where quotations " " are/aren't used"
 : =============
-SET EDLAUNCHER-PATH="C:\Program Files (x86)\Steam\steamapps\common\Elite Dangerous"
-SET TARGET-GUI-PATH="C:\Program Files (x86)\Thrustmaster\TARGET\x64"
-SET TARGET-SCRIPT-FILE="C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-3.3.3\Warthog Script\AD_ED_v3.3.3.tmc"
-SET REFERENCE-MAP-PATH=C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-3.3.3\Maps\Beginners-Map.jpg
-SET TRACKIR-PATH="C:\Program Files (x86)\NaturalPoint\TrackIR5"
-SET VOICEATTACK-PATH="C:\Program Files (x86)\VoiceAttack"
-SET EDMC-PATH="C:\Program Files (x86)\EDMarketConnector"
+SET EDLAUNCHER-PATH="%PROGRAMFILES(X86)%\Steam\steamapps\common\Elite Dangerous"
+SET TARGET-GUI-PATH="%PROGRAMFILES(X86)%\Thrustmaster\TARGET\x64"
+SET TARGET-SCRIPT-FILE="C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-4.0.0\Warthog Script\AD_ED_v4.0.0.tmc"
+SET REFERENCE-MAP-PATH=C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-4.0.0\Maps\Beginners-Map.jpg
+SET TRACKIR-PATH="%PROGRAMFILES(X86)%\NaturalPoint\TrackIR5"
+SET VOICEATTACK-PATH="%PROGRAMFILES(X86)%\VoiceAttack"
+SET EDMC-PATH="%PROGRAMFILES(X86)%\EDMarketConnector"
 
 : VARIABLES:
 : ==========
@@ -28,7 +29,7 @@ SET /A AppCount=5
 
 ECHO.
 ECHO --------------------------------------------------------
-ECHO AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER BASIC v0.2:
+ECHO AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER BASIC v0.3:
 ECHO --------------------------------------------------------
 ECHO.
 ECHO Creating Immersion Platform... Please wait..
