@@ -35,7 +35,6 @@
 														//															mThrottleTrimmed	  [ -75 -> 75 ]
 														// 	[Note: Full Range Trimmed by ~5% when CruiseOnThrottle active]
 
-
 		// SHIP/SRV PIP CONFIG //
 	define UserPIPPref 			2						// Choose your preferred PIP configuration [0 -> 3]: 
 														// 	Options:	Triple Tier = 3 (Tap/Short Hold/Long Hold)	Double Tier = 2 (default)  (Tap/Short Hold)
@@ -51,11 +50,6 @@
 		// PRI-SEC FIRE CONTROL //
 	int    combinePriSecFire  = 1					   ;// Set the default behaviour for the main Dual Stage Trigger	(how full depression of trigger will work)  (Note: You can still toggle this behaviour in-game)
 														//	Options:	Combine Primary+Secondary Fire on Trigger 2 = 1	(default)		No Mapping on Trigger 2 = 0 (ie. main Trigger dedicated to Primary Fire)
-
-
-
-
-
 
 	define SecFirePinkyPref		0						// User Defined Override for Secondary Fire (Pinky Button) (S3) (!*Removes Sec. Fire from Pinky Button*!)
 														//   Options:		Use Standard Secondary Fire Mapping (OFF) = 0 (default),		 User Defined Configuration (ON) = 1 (Map via PinkyBtnDefaultShort & PinkyBtnDefaultLong values below)
@@ -90,7 +84,6 @@
 		// ESCAPE VECTOR MACRO //
 	define AutoChaffOnEscape 	0						// During Escape Vector Macro, fire a Chaff automatically to cover your escape! 		= 1 	Disable = 0 (default)
 	define AutoBoostOnEscape 	1						// During Escape Vector Macro, fire an Engine Boost automatically to align your escape! = 1		Disable = 0 (default)
-
 
 
 		// PINKY 'DOUBLE TAP' OVERRIDE //				// Recommended (default) = SwitchHUDMode  			(** if you remap to something else, then SwitchHUDMode will need to be mapped elsewhere to use Analysis Mode! **)
@@ -141,4 +134,3 @@
 //	define PRT						H4R					//	(							Camera Blur -/+									)
 														//  (			 (see reference maps on guide for hat switch layout)			)
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-

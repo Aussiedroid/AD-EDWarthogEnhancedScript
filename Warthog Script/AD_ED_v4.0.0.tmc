@@ -114,7 +114,7 @@
 
 	if(CruiseOnThrottle == 1) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,99,100),		// Supercruise on Throttle 100%	 [Note: Throttle Axis 'Full Range' Curves adjusted -10% when active]
 								EXEC("if(Joystick[S4])  ActKey(KEYON+PULSE+FrameShiftDrive);"// IF Pinky Modifier Held, Activate Hyperspace Jump
-									 "if(Joystick[H4P]) ActKey(KEYON+PULSE+Supercruise);"	 // IF CMS Modifier Held, Activate Supercruise
+									 "if(Joystick[H4P]) ActKey(KEYON+PULSE+Supercruise);"	// IF CMS Modifier Held, Activate Supercruise
 								), 0));														// ELSE do nothing
 
 
@@ -127,6 +127,7 @@
 	MapKey(&Throttle, APPAT,  EXEC("initSetJoystickCurves();"));							// Autopilot PATH UP
 	MapKey(&Throttle, APAH,   EXEC("initSetJoystickCurves();"));							// Autopilot ALT/HDG MIDDLE (Default)
 	MapKey(&Throttle, APALT,  EXEC("initSetJoystickCurves();"));							// Autopilot ALT DOWN
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MAP JOYSTICK CONTROLS //
@@ -311,6 +312,7 @@
 //			MapKey(&Joystick, H4R, 0); 																				// Countermeasures Management Switch (CMS) RIGHT (Mapped in ED Bindings File)
 //			MapKey(&Joystick, H4P, 0); 																				// Countermeasures Management Switch (CMS) PUSH	 (Mapped in ED Bindings File)
 
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MAP THROTTLE ARM CONTROLS
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -386,6 +388,7 @@
 								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY:	<< Set BACKWARD <<  [Comms Channel: FIGHTER]	  [Repeater Mode: MINING-AUTO-PULSE]\\x0a\");"));
 	MapKeyR(&Throttle, PSB,  EXEC(																					// Pinky Throttle Switch BACK RELEASE
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"));
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MAP THROTTLE BASE CONTROLS
@@ -470,8 +473,8 @@
 
 	printf("Done... Enhanced ED Script Engineered by Aussiedroid is now running...    Fly Safe CMDR!	      <|>\x0a");
 	printf("-----------------------------------------------------------------------------------------------------------------------------------------------");
-
 } 																													// end main()
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MAP MFD CONTROLS
@@ -508,6 +511,7 @@
 //		MapKey(&RMFD, SYMD,  0);
 		printf("Right MFD Configured\x0a"); }
 
+
 	int initLeftMFD() {																		// Set Left MFD
 //		MapKey(&LMFD, OSB01, 0);
 //		MapKey(&LMFD, OSB02, 0);
@@ -538,6 +542,7 @@
 //		MapKey(&LMFD, SYMU,  0);
 //		MapKey(&LMFD, SYMD,  0);
 		printf("Left MFD Configured\x0a"); }
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // EVENT HANDLER //
