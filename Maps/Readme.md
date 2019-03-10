@@ -12,6 +12,9 @@ Collection of Graphical Reference Maps showing all the button/toggle/axis layout
 ![LED Designation](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/LEDs.jpg "Throttle LED Configuration")
 
 ## Keyboard Map ##
+These keyboard commands are used to map to both HOTAS and to Voice Attack.
+
+They should not have to be used directly, but listed here for easy reference:
 ![Keyboard](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Keyboard.jpg "Keyboard Mappings")
 
 ## Printable Joystick ##
