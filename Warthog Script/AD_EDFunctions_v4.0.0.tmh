@@ -6,10 +6,10 @@
 //		- initSetCombinedFire						- initNightVisionEnhancer				- initToggleRotationCorrection										//
 //		- initExplorerScannerDisengage				- initAPEngageEnhancer					- initToggleSilentRunning											//
 //													- initIDLEMaster						- initToggleCargoScoop												//
-//	[2. PIP & TEXT CHAT CONTROLS (line 54)]			- initUserHotSlotPinkyTrigger			- initToggleLandingGear												//
-//		- initPIPMapper																	 	- initToggleShipLights												//
-//		- initSendChatString																- initHeadlookModeSelect											//
-//																							- initMicCommander													//
+//													- initUserHotSlotPinkyTrigger			- initToggleLandingGear												//
+//	[2. PIP & TEXT CHAT CONTROLS (line 54)]													- initToggleShipLights												//
+//		- initPIPMapper																		- initHeadlookModeSelect											//
+//		- initSendChatString																- initMicCommander													//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //
@@ -46,8 +46,8 @@
 
 	int initExplorerScannerDisengage() {														// FUNCTION: Simply Defers Print Out of Explorer-Scanner Release
 		if(!StartupLock) {																		//	[Gets around the no EXEC in EXEC limitation]
-			if(Joystick[TG1]) DeferCall(RepeaterTimer, &ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER-SCANNER  [OFF]			(PRIMARY)\\x0a\");"));
-			if(Joystick[S3])  DeferCall(RepeaterTimer, &ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER-SCANNER  [OFF]			(SECONDARY)\\x0a\");")); } }
+			if(Joystick[TG1]) DeferCall(ScanTimer, &ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER-SCANNER [OFF] (PRIMARY)\\x0a\");"));
+			if(Joystick[S3])  DeferCall(ScanTimer, &ActKey, KEYON+PULSE+EXEC("printf(\"Repeater Fire: EXPLORER-SCANNER [OFF] (SECONDARY)\\x0a\");")); } }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

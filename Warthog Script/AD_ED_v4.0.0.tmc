@@ -137,16 +137,16 @@
 	SetShiftButton(&Joystick, S4, &Throttle, PSF, PSB);																// Set Shift Button (Pinky Toggle Switch) for MapKeyIOUMD	(With UDTOGGLE = Toggle, Without = Hold -> See Page 22 of manual)	
 
 	MapKeyIOUMD(&Joystick,  TG1,																					// Trigger 1			[Primary Trigger]
-								SEQ( EXEC(				"ActKey(KEYON+DOWN+PrimaryFire);	EndlessStatePri = 1;	printf(\"Repeater Fire: COMBAT-ENDLESS    [ON]     [.^^^^^.]	(PRIMARY)\\x0a\");"),							// IU
-									 EXEC(				"ActKey(KEYON+UP+PrimaryFire); 		EndlessStatePri = 0;	printf(\"Repeater Fire: COMBAT-ENDLESS    [OFF]			(PRIMARY)\\x0a\");")),
-								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"),																																			// OU
-								EXEC("if(!Joystick[H4P]) ActKey(KEYON+DOWN+PrimaryFire);				 			printf(\"Repeater Fire: EXPLORER-SCANNER  [ON]     [.^...^.]	(PRIMARY) -> AUTO-DISABLE in 6 secs\\x0a\");"	// IM
-									 "if(!Joystick[H4P]) DeferCall(RepeaterTimer, &ActKey, KEYON+UP+PrimaryFire);	DeferCall(RepeaterTimer, &ActKey, initExplorerScannerDisengage());"
+								SEQ( EXEC(				"ActKey(KEYON+DOWN+PrimaryFire);	EndlessStatePri = 1;	printf(\"Repeater Fire: COMBAT-ENDLESS [ON]  (PRIMARY)\\x0a\");"),					// IU
+									 EXEC(				"ActKey(KEYON+UP+PrimaryFire); 		EndlessStatePri = 0;	printf(\"Repeater Fire: COMBAT-ENDLESS [OFF] (PRIMARY)\\x0a\");")),
+								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"),																												// OU
+								EXEC("if(!Joystick[H4P]) ActKey(KEYON+DOWN+PrimaryFire);				 			printf(\"Repeater Fire: EXPLORER-SCANNER [ON]  (PRIMARY)\\x0a\");"					// IM
+									 "if(!Joystick[H4P]) DeferCall(ScanTimer, &ActKey, KEYON+UP+PrimaryFire);		DeferCall(ScanTimer, &ActKey, initExplorerScannerDisengage());"
 									 "if(Joystick[H4P])	 initSetCombinedFire(1);"),
-								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"),																																			// OM
-								SEQ(REXEC(0, 7000,		"ActKey(KEYON+PULSE+PrimaryFire);							printf(\"Repeater Fire: MINING-AUTO-PULSE [^FIRED^][.^.^.^.]	(PRIMARY)\\x0a\");", RNOSTOP),					// ID
-									 EXEC(				"StopAutoRepeat(0); 										printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE]		(PRIMARY)\\x0a\");")),
-								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"));																																		// OD
+								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"),																												// OM
+								SEQ(REXEC(0, MineTimer,	"ActKey(KEYON+PULSE+PrimaryFire);							printf(\"Repeater Fire: MINING-AUTO-PULSE [^FIRED^] (PRIMARY)\\x0a\");", RNOSTOP),	// ID
+									 EXEC(				"StopAutoRepeat(0); 										printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE] (PRIMARY)\\x0a\");")),
+								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"));																											// OD
 	MapKeyRIOUMD(&Joystick, TG1, 																					// Release Trigger 1	[Primary Trigger]
 								0, 	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"),		// IU, OU	// Only Releases if Combat-Endless Mode is NOT enabled (keeps sequence in sync)
 								0,	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"),		// IM, OM
@@ -167,15 +167,15 @@
 	// SECONDARY FIRE //
 	if(SecFirePinkyPref == 0) {
 		MapKeyIOUMD(&Joystick,  S3,																					// Pinky Button 		[Secondary Fire]
-								SEQ( EXEC(				"ActKey(KEYON+DOWN+SecondaryFire);	EndlessStateSec = 1;	printf(\"Repeater Fire: COMBAT-ENDLESS    [ON]     [.^^^^^.]	(SECONDARY)\\x0a\");"),							// IU
-									 EXEC(				"ActKey(KEYON+UP+SecondaryFire); 	EndlessStateSec = 0;	printf(\"Repeater Fire: COMBAT-ENDLESS    [OFF]			(SECONDARY)\\x0a\");")),
-								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"),																																		// OU
-								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);				 			printf(\"Repeater Fire: EXPLORER-SCANNER  [ON]     [.^...^.]	(SECONDARY) -> AUTO-DISABLE in 6 secs\\x0a\");"	// IM
-									 					"DeferCall(RepeaterTimer, &ActKey, KEYON+UP+SecondaryFire);	DeferCall(RepeaterTimer, &ActKey, initExplorerScannerDisengage());"),
-								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"),																																		// OM
-								SEQ(REXEC(0, 7000,		"ActKey(KEYON+PULSE+SecondaryFire);							printf(\"Repeater Fire: MINING-AUTO-PULSE [^FIRED^][.^.^.^.]	(SECONDARY)\\x0a\");", RNOSTOP),				// ID
-									 EXEC(				"StopAutoRepeat(0); 										printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE]		(SECONDARY)\\x0a\");")),
-								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"));																																		// OD
+								SEQ( EXEC(				"ActKey(KEYON+DOWN+SecondaryFire);	EndlessStateSec = 1;	printf(\"Repeater Fire: COMBAT-ENDLESS [ON]  (SECONDARY)\\x0a\");"),						// IU
+									 EXEC(				"ActKey(KEYON+UP+SecondaryFire); 	EndlessStateSec = 0;	printf(\"Repeater Fire: COMBAT-ENDLESS [OFF] (SECONDARY)\\x0a\");")),
+								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"),																													// OU
+								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);				 			printf(\"Repeater Fire: EXPLORER-SCANNER [ON]  (SECONDARY)\\x0a\");"						// IM
+									 					"DeferCall(ScanTimer, &ActKey, KEYON+UP+SecondaryFire);		DeferCall(ScanTimer, &ActKey, initExplorerScannerDisengage());"),
+								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"),																													// OM
+								SEQ(REXEC(0, MineTimer,	"ActKey(KEYON+PULSE+SecondaryFire);							printf(\"Repeater Fire: MINING-AUTO-PULSE [^FIRED^] (SECONDARY)\\x0a\");", RNOSTOP),		// ID
+									 EXEC(				"StopAutoRepeat(0); 										printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE] (SECONDARY)\\x0a\");")),
+								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"));																													// OD
 		MapKeyRIOUMD(&Joystick, S3, 																				// Release Pinky Button	[Secondary Fire]
 								0, 	 EXEC("if(!EndlessStateSec) ActKey(KEYON+UP+SecondaryFire);"),		// IU, OU	// Only Releases if Combat-Endless Mode is NOT enabled (keeps sequence in sync)
 								0,	 EXEC("if(!EndlessStateSec) ActKey(KEYON+UP+SecondaryFire);"),		// IM, OM
@@ -378,14 +378,14 @@
 	MapKey(&Throttle,  PSF,  EXEC(																					// Pinky Throttle Switch FORWARD
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpNextSubSys);"
 								"if(Joystick[S4])  initSendChatString(chat_ClearChatBox);"
-								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY:	>> Set FORWARD  >>  [Comms Channel: AUTO-TEXT] [Repeater Mode: COMBAT-ENDLESS]\\x0a\");"));
+								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY FORWARD  >>> [Comms Channel: AUTO-TEXT]\\x0a\"); printf(\"SHIFT KEY FORWARD  >>> [Repeater Mode: COMBAT-ENDLESS]\\x0a\");"));
 	MapKey(&Throttle,  PSM,  EXEC( 																					// Pinky Throttle Switch MIDDLE
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpMidSubSys);"
-								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY:	-- Set MIDDLE   --  [Comms Channel: WINGS]	  [Repeater Mode: EXPLORER-SCANNER]\\x0a\");"));
+								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY MIDDLE  ---- [Comms Channel: WINGS]\\x0a\"); printf(\"SHIFT KEY MIDDLE  ---- [Repeater Mode: EXPLORER-SCANNER]\\x0a\");"));
 	MapKey(&Throttle,  PSB,  EXEC(																					// Pinky Throttle Switch BACK
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpPrevSubSys);"
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"
-								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY:	<< Set BACKWARD <<  [Comms Channel: FIGHTER]	  [Repeater Mode: MINING-AUTO-PULSE]\\x0a\");"));
+								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY BACKWARD <<< [Comms Channel: FIGHTER]\\x0a\"); printf(\"SHIFT KEY BACKWARD <<< [Repeater Mode: MINING-AUTO-PULSE]\\x0a\");"));
 	MapKeyR(&Throttle, PSB,  EXEC(																					// Pinky Throttle Switch BACK RELEASE
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"));
 
