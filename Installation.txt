@@ -22,4 +22,5 @@ Installation:
 
    Always make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
 
+
 "I am a leaf on the wind!"
