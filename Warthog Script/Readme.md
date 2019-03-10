@@ -44,6 +44,8 @@ ___How to Use:__ Loading the script into Target Script Editor, you can access th
 
 On the right, the text in _green_ offers further comments/instruction on how these work.
 
+If you are a new user, please ensure you have set the User Preferences under __'Core Hardware'__ to match your hardware setup. The other User Preferences can be left as default values and changed later as you learn the game & layout.
+
 ___Remember:__ After making any changes to these values to press the Save icon in the top left of the Target Script Editor window. Press the Compile button to ensure there are no errors._
 
 ## ##
