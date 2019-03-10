@@ -9,6 +9,9 @@ Collection of Graphical Reference Maps showing all the button/toggle/axis layout
 ![Advanced Map](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Advanced-Map.jpg "Advanced Map (Full)")
 
 ## LED Map ##
+Full LED Lighting implemented for core Ship Systems, plus full LED Backlight manual control for the Throttle, and an initialisation sequence on startup.
+
+You can also Dim your Throttle Backlights automatically when you enable your Ship/SRV Lights or Night Vision. 
 ![LED Designation](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/LEDs.jpg "Throttle LED Configuration")
 
 ## Keyboard Map ##
