@@ -1,5 +1,5 @@
 -----------------------------------------------------------
-AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER + BACKUP v0.2:
+AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER + BACKUP v0.3:
 -----------------------------------------------------------
 
 WHAT DOES IT DO?
