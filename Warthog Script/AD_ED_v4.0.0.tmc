@@ -72,7 +72,7 @@
 // CORE SETTINGS: INITIALISATION //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	AxisCurveMod = LIST(0,0, 33,25, 66,50, 80,75, 100,100);									// Creates a custom axis curve for Throttle & Radar. [Fast->Slow Curve] (See AD_EDHardware.tmh) *LIST(Axis physical position, Axis output Value)
+	AxisCurveMod = LIST(0,0, 33,25, 66,50, 80,75, 100,100);									// Creates a custom axis curve for Throttle & Radar. [Faster->Slower Curve] (See AD_EDHardware.tmh) *LIST(Axis physical position, Axis output Value)
 
 	SetKBRate(PulseTime, DelayTime);														// Base Settings 	(See AD_EDDefaults.tmh)
 	SetKBLayout(KBLayout);
@@ -81,7 +81,7 @@
 	// FUNCTION START //
 	initCustomMacroCommands();																// Initiate Custom Macros & Functions (See AD_EDMacros.tmh)
 	initEscapeVector();																		// Initiate Advanced Macro to perform a tactical withdraw from combat (Retract Hardpoints, Set Defensive PIPs, Auto Boost/Chaff, Engage Supercruise) (See AD_EDMacros.tmh)
-	initSetThrottleCurves();																// Initiate Mapping of Custom Throttle Curves (3 Presets configurable in AD_EDSettings.tmh)
+	initSetThrottleCurves();																// Initiate Mapping of Custom Throttle Curves (3 Presets configurable in AD_EDUserPrefs.tmh)
 	initPrintState();																		// Initiate Display Script Settings to Output Window in Script/GUI (See AD_EDFunctions.tmh)
 	initPIPMapper();																		// Initiate PIP Configuration Mapper (See AD_EDFunctions.tmh)
 	initSetCombinedFire(0);																	// Initiate Mapping Logic to enable/disable the Dual-Stage Primary Trigger with either Primary & Secondary Fire Combined OR Primary Fire Only (Nothing mapped to 2nd stage). (See AD_EDFunctions.tmh)
@@ -113,9 +113,9 @@
 	if(UseRuddersTPR == 1)	  initTFRPHARudder();											// Enables T.Flight TPR Pedal Intialisation. 			(Note: T.Flight Rudder Axes are Configured below in EVENT HANDLER)
 
 	if(CruiseOnThrottle == 1) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,99,100),		// Supercruise on Throttle 100%	 [Note: Throttle Axis 'Full Range' Curves adjusted -10% when active]
-								EXEC("if(Joystick[S4])  ActKey(KEYON+PULSE+FrameShiftDrive);"// IF Pinky Modifier Held, Activate Hyperspace Jump
-									 "if(Joystick[H4P]) ActKey(KEYON+PULSE+Supercruise);"	// IF CMS Modifier Held, Activate Supercruise
-								), 0));														// ELSE do nothing
+							   EXEC("if(Joystick[S4])  ActKey(KEYON+PULSE+FrameShiftDrive);"// IF Pinky Modifier Held, Activate Hyperspace Jump
+									"if(Joystick[H4P]) ActKey(KEYON+PULSE+Supercruise);"	// IF CMS Modifier Held, Activate Supercruise
+							   ), 0));														// ELSE do nothing
 
 
 	// AXIS PRESET TOGGLES // 																// Map Flaps Select Toggle to Throttle Axis Presets
@@ -190,7 +190,7 @@
 //	MapKeyR(&Joystick, S4,		UP+UserDTPinkyKeyBind);																// Release ALT (enable by removing the //, if Double Tap Pinky Trigger mapping needs a 'Hold' action)
 
 
-	// COMMS CONTROL PANEL HAT SWITCH //
+	// COMMS CONTROL PANEL HAT SWITCH (NON-VOICE) //
 	MapKeyIOUMD(&Joystick,  H1U,																					// Trim Switch UP
 								EXEC("initSendChatString(chat_Modifier_UP);"),				// IU
 								EXEC("initSendChatString(chat_Basic_UP);"),					// OU
@@ -226,7 +226,7 @@
 //	MapKey(&Joystick, H2R, 0); 																						// Target Management Switch (TMS) RIGHT	(Mapped in ED Bindings File)
 
 																													// Data Management Switch (DMS): Advanced PIP Selection (4 Configurations)
-	// PIP CONFIG //																								//    [NOTE: Set UserPIPPref in the AD_EDSettings file]
+	// PIP CONFIG //																								//    [NOTE: Set UserPIPPref in the AD_EDUserPrefs.tmh file]
 	if(UserPIPPref == 0) {																							// DOUBLE-TIER (INVERTED) [Inc. short & long press, no modifier]
 		MapKey(&Joystick, PUP, TEMPO(EXEC("if(!Joystick[S4]) initPIPMapper(ENG,SYS);"								// DMS UP (H3U)	  [Short: 4xENG 2xSYS]
 										  "if(Joystick[S4])  ActKey(KEYON+PULSE+GalNetAudioPlayPause);"),			// [Short+Pinky: GalNet Audio Play/Pause]
@@ -331,7 +331,6 @@
 								  	    "if(!Joystick[H4P] & !Joystick[S4]) HPoints=!HPoints;"),					// Hardpoint Flag Override IF Escape Vector gets out of alignment.
 							 LongPressDelay));																		// [Have System selected prior to High Wake]
 	MapKeyR(&Throttle, LTB,  EXEC(       "ActKey(KEYON+UP+ShowCQCScoreboard);"));									// Release CQC Scoreboard display
-
 
 //	MapKey(&Throttle,  MSU,  0); 																					// Mic Switch UP	(Mapped in ED Bindings File)
 //	MapKey(&Throttle,  MSD,  0); 																					// Mic Switch DOWN	(Mapped in ED Bindings File)

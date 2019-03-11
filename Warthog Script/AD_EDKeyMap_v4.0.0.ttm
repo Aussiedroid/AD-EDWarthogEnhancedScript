@@ -9,6 +9,7 @@
 //	define NextFireGroup 						DX12					// <Disabled> 
 //	define PrevFireGroup 						DX14					// <Disabled> 
 
+
 		// TARGET CONTROL //
 	define SelectTargetAhead 					USB[0x17] 				// T
 	define SelectNextShip 						USB[0x0A] 				// G
@@ -19,6 +20,7 @@
 	define SelectNextSubsystem 					USB[0x0C]				// I
 	define SelectPrevSubsystem 					USB[0x0E]				// K
 	define SelectNextSystemInRoute 				USB[0x10] 				// M
+
 
 		// FLIGHT CONTROL //
 	define ThrustUp 							USB[0x15]				// R
@@ -48,11 +50,13 @@
 	define AlternativeFlightMode 				USB[0x40]				// F7
 //	define ThrustForwardOnlyReverse				L_CTL+USB[0x15]			// CTRL+R
 
+
 		// SRV CONTROLS //
 	define SRVHandbrake 						L_CTL+USB[0x2D]			// CTRL+-
 	define SRVTurret 							L_SHIFT+USB[0x18]		// SHIFT+U
 	define SRVVerticalThrust 					USB[0x12]				// O
 //	define SRVRecallDismissShip					L_ALT+USB[0x1B]			// ALT+X <Disabled>
+
 
 		// SHIP SYSTEMS //
 	define CargoScoop 							USB[0x4A] 				// HOME
@@ -68,12 +72,14 @@
 	define DecreaseSensorZoom 					USB[0x4E] 				// PAGE DOWN
 	define SwitchHUDMode						USB[0x24]				// 7		
 
+
 		// COOLING & COUNTERMEASURES //
 	define SilentRunning 						USB[0x4C] 				// DELETE
 	define DeployHeatSink 						USB[0x19] 				// V
 	define FireChaffLauncher 					USB[0x06] 				// C
 	define UseShieldCell 						L_SHIFT+USB[0x20]		// SHIFT+3
 	define ChargeECM 							L_SHIFT+USB[0x18]		// SHIFT+U
+
 
 		// SCANNERS //							(Note: These are mapped in ED Bindings directly)
 //	define DSSToggleFrontBackView				USB[0x05] 				// B
@@ -94,12 +100,14 @@
 //	define FSSTargetCurrentSignal				USB[0x17] 				// T
 //	define FSSShowHelp							USB[0x06] 				// C
 
+
 		// WINGS //
 	define SelectWingman1 						USB[0x25] 				// 8
 	define SelectWingman2 						USB[0x26] 				// 9
 	define SelectWingman3 						USB[0x27] 				// 0
 	define WingmanTarget 						R_CTL					// CTRL
 	define WingmanNavlock 						R_SHIFT					// SHIFT
+
 
 		// SHIP LAUNCHED FIGHTERS //
 	define FighterDock 							L_ALT+USB[0x05]			// ALT+B
@@ -110,6 +118,7 @@
 	define FighterHoldPosition 					L_ALT+USB[0x16]			// ALT+S
 	define FighterFollow 						L_ALT+USB[0x09]			// ALT+F
 	define FighterOrders 						L_ALT+USB[0x12]			// ALT+O
+
 
 		// UI NAVIGATION //
 	define UISelect 							USB[0x2C] 				// Space
@@ -133,6 +142,7 @@
 //	define CodexOpenDiscovery					USB[0x23]				// 6  <Disabled>
 //	define FriendsView							USB[0x22]				// 5  <Disabled>
 
+
 		// MULTICREW //							(Note: These are mapped in ED Bindings directly)
 //	define MultiCrewModeToggle					
 //	define MultiCrewPrimaryFire											// Also mapped to Mouse 1 in ED Bindings
@@ -142,17 +152,20 @@
 //	define MultiCrewCycleUIForward				
 //	define MultiCrewCycleUIBack					
 
+
 		// HOLO-ME //							(Note: These are mapped in ED Bindings directly)
 //	define HoloMEUndo							USB[0x26] 				// 9
 //	define HoloMERedo							R_CTL					// CTRL
 //	define HoloMEMouseRotation											// Also mapped to Mouse 3 in ED Bindings
+
 
 		// PLAYLIST //
 	define GalNetAudioPlayPause					L_ALT+USB[0x22]			// ALT+5
 	define GalNetAudioPrev						L_ALT+USB[0x23]			// ALT+6
 	define GalNetAudioNext						L_ALT+USB[0x24]			// ALT+7
 	define GalNetAudioClearQueue				L_ALT+USB[0x25]			// ALT+8
-	
+
+
 		// GALAXY MAP //						(Note: These are mapped in ED Bindings directly)
 //	define GalaxyMapPitchUp						L_CTL+USB[0x17]			// CTRL+T
 //	define GalaxyMapPitchDown					L_CTL+USB[0x0A]			// CTRL+G
@@ -167,6 +180,7 @@
 //	define GalaxyMapZoomIn						L_CTL+USB[0x1D]			// CTRL+Z
 //	define GalaxyMapZoomOut						L_CTL+USB[0x1B]			// CTRL+X
 
+
 		// HEADLOOK //
 //	define LookUp 								DXHATUP					// <Disabled>
 //	define LookDown 							DXHATDOWN				// <Disabled>
@@ -174,6 +188,7 @@
 //	define LookRight 							DXHATRIGHT				// <Disabled>
 	define LookToggle							USB[0x3E]				// F5
 	define LookCenter 							L_CTL+USB[0x4D]			// CTRL+END
+
 
 		// CAMERA SUITE //						(Note: These are mapped in ED Bindings directly)
 //	define PreviousCamera						L_ALT+USB[0x1E]			// ALT+1
@@ -210,6 +225,7 @@
 //	define CameraDecreaseFocus					
 //	define AttachDetachCamera					L+CTL+USB[0x06]			// CTRL+C
 
+
 		// MISCELLANEOUS //
 	define InternalVoiceCommsPTT 				USB[0x31]				// \
 //	define ClassifiedCamera 					USB[0x3A] 				// F1 <Disabled>
@@ -223,6 +239,7 @@
 	define HighResScreenshot 					L_ALT+USB[0x43]			// ALT+F10
 	define ChangeWeaponColor 					L_ALT+USB[0x1E]			// ALT+1
 	define ChangeEngineColor 					L_ALT+USB[0x1F]			// ALT+2
+
 
 		// EXTERNAL BINDINGS //
 	define ResetHeadOrientation 				L_CTL+USB[0x4A] 		// CTRL+HOME
