@@ -1,0 +1,137 @@
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// USER PREFERENCES //			(1 = Yes, 0 = No)		// ** CHANGE THESE SETTINGS TO YOUR PERSONAL PREFERENCES **
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+														// User Prefs allow easy modification of some alternative/optional script features without editing the code.
+		// START-UP //
+	define StartSoftware		0						// Start ED Launcher (&/or other 3rd Party Apps) when you Run the Script (Software List & Paths can be customised in AD_ED_v3.x.x.tmc)
+														//  [NOTE: Doesn't work under Win10 - Please use ED-BAT File included in download pack.]	
+
+	int	   SetLED =				172					   ;// Set LED Backlight Level on Throttle	(Value 0-255) (off = 0, default = 172) [Note: This can be adjusted On-The-Fly by using the Friction Control Axis + Pinky Trigger]
+	define BlingLEDBling		1						// Enables a Short Flashing LED Sequence when you flip a Toggle & will also enable a short start-up sequence pattern. Bling Bling!
+														// 	Options:		Enable = 1 (default),		Disable = 0
+
+		// CORE HARDWARE //
+	define KBLayout 			KB_ENG					// Default Keyboard Layout	(Change this to your local keyboard layout (KB_GER for German | KB_FR for French) otherwise some keys may not function correctly!)
+
+	define UseMFD 				0 						// No MFD = 0 (default).	One MFD = 1 (Right MFD).	Two MFDs = 2 (Right & Left MFD).  **UNMAPPED** **UNTESTED**
+	
+	define UseRuddersT16000		1						// TM TFRP/T16000 Rudders (EXCLUDED) = 0, TM TFRP/T16000 Rudders (FILTERED) = 1 (default)	[NOTE : If TFRP Rudder pedals are NOT connected, or you run different brand pedals, neither user preference will run (Eventhandler code will never fire)]
+	define UseRuddersTPR		1						// TM TFRPPHA/TPR Rudders (EXCLUDED) = 0, TM TFRPHA/TPR Rudders	 (FILTERED) = 1 (default)	[NOTE : If TFRP TPR Rudder pedals are NOT connected, or you run different brand pedals, neither user preference will run (Eventhandler code will never fire)]
+														// 				EXCLUDED = Doesn't Apply Any Specific Configuration (Standard)
+														//				FILTERED = Applies Differential Toe Brake Configuration (Combines Toe Pedals for correct axis mapping in ED)
+	define UseRudderAxisCurves	0						// For All TM Rudder Pedals Users.	Linear Curve = 0 (default)	Use Joystick Curve Toggle = 1	[If enabled, this will set the custom axis curve on your Rudder axis based on Joystick curve toggle position]
+														//	[NOTE: Please ensure both UseRuddersT16000 & UseRuddersTPR are NOT = 1. Only enable your device plugged in, and disable the other, or this function will error]
+
+	define HeadtrackPref		1						// Choose your preferred Headtracking hardware preset for mapping of the Center/Reset Orientation to Engine Operate Ign/Norm LEFT UP:
+														// 	Options: 	Mouse Headlook Center 	= 0 (default)	(Choose if you have NO dedicated headtracking hardware)
+														//				TrackIR Center			= 1				(Choose if you use TrackIR head tracking system or related hardware like Tobi Eye Tracker)
+														//				Reset HMD Orientation	= 2 			(Choose if you are a VR User with a Head Mounted Display)
+		// THROTTLE AXIS //
+	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% = 1 (default). Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%]
+
+	define ThrottlePresetUP 	mThrottleFwdOnly		// 7 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottleFwdNonLinear [   0 ~> 100]
+	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleFullNonLinear[-100 ~> 100]
+	define ThrottlePresetDOWN 	mThrottlePrecision		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]	mThrottlePrecision	  [ -50 -> 50 ] (This should be in the DOWN position when mapped)
+														//															mThrottleTrimmed	  [ -75 -> 75 ]
+														// 	[Note: Full Range Trimmed by ~5% when CruiseOnThrottle active]
+
+		// SHIP/SRV PIP CONFIG //
+	define UserPIPPref 			2						// Choose your preferred PIP configuration	[0 -> 3]: 
+														// 	Options:	Triple Tier = 3 (Tap/Short Hold/Long Hold)	Double Tier = 2 (default)  (Tap/Short Hold)
+														//				Single Tier = 1 (ED Standard) (Tap)	 		Double Tier = 0 (Inverted) (Short Hold/Tap) (ie. Hold = One PIP, Tap = Full PIPs)
+		// SHIP RADAR/VISION //
+	define CustomDXSliderCurve 	1						// Enable an Offset Curve Arc for DX Slider (Radar Zoom) (Smooths the movement a little)
+														//  Options:	Compensate for non-linear acceleration = 1 (default).	Default ED linear acceleration = 0.
+
+	define NightVisionHUD		1						// Disables the Ship/SRV HUD GUI when Night Vision is Enabled (and Visa-Versa).
+														//	Options:	Hide HUD in Night Vision = 1.				Show HUD in Night Vision = 0 (default).
+
+
+		// PRI-SEC FIRE CONTROL //
+	int    combinePriSecFire  = 1					   ;// Set the default behaviour for the main Dual Stage Trigger	(how full depression of trigger will work)  (Note: You can still toggle this behaviour in-game)
+														//	Options:	Combine Primary+Secondary Fire on Trigger 2 = 1	(default)		No Mapping on Trigger 2 = 0 (ie. main Trigger dedicated to Primary Fire)
+
+	define SecFirePinkyPref		0						// User Defined Override for Secondary Fire (Pinky Button) (S3) 	(!*Removes Sec. Fire from Pinky Button*!)
+														//   Options:		Use Standard Secondary Fire Mapping (OFF) = 0 	(default),		 User Defined Configuration (ON) = 1 (Map via PinkyBtnDefaultShort & PinkyBtnDefaultLong values below)
+														// 	[NOTE: Changing this from default '0' will mean you can only access Secondary Fire via the Dual-Stage Trigger, assuming combinePriSecFire = 1 -> Set your firegroups accordingly!]
+	define PinkyBtnDefaultShort ShipLights				// User Defined Override: Set Short Pinky Button Press (if above SecFirePinkyPref = 1)	(NOTE: Other commands can be found in the AD_EDKeyMap file, plus a few others listed a few lines above)
+	define PinkyBtnDefaultLong	NightVision				// User Defined Override: Set Long  Pinky Button Press (if above SecFirePinkyPref = 1)	(NOTE: Other commands can be found in the AD_EDKeyMap file, plus a few others listed a few lines above)
+
+
+		// UTILITY SLOT CONTROL //
+	define ShipUtilityPref		0						// Set your preferred Short/Long press for S1/S2 Buttons on Joystick. (Swaps Short & Long Presses based on your play style)
+														// EXPLORER/TRADER Preset = 0 (default)	->	S1 [Short: Chaff, Long: Heat Sink], S2 [Short: ECM/SRV Turret, Long: Shield Cell]
+														// 			COMBAT Preset = 1			->	S1 [Short: Heat Sink, Long: Chaff], S2 [Short: Shield Cell, Long: ECM/SRV Turret]
+		// MICROPHONE BEHAVIOUR //
+	define ExternalMicCombined	0						// For OPEN Mic Toggle Switch on Throttle Base; combine 2 External Voice Channels to One Toggle action: 
+														//	Options:		Separate Channels = 0 (default),	Combined Channels = 1 	(Remember: Set your Keyboard PTT/Toggle Mappings in your External Programs)
+	define ExternalMicInverse	0						// For PUSH-TO-TALK Mic Button on Throttle Arm; changes behavior to inverse the external channels on PTT button between VoiceAttack & Discord (or your preferred external comms). When enabled '1' and button pressed, VoiceAttack will mute and Discord channel will open, ensuring no voice commands are sent while conversing with friends. When button is released, VoiceAttack is activated again & Discord channel is muted.
+														//	Options:		Two Independant Ext. Channels = 0 (default),	Inverse VA <-> Discord Activation = 1
+														// 	[NOTE 1: To ensure proper alignment, ensure Listening is enabled in VoiceAttack before your first Mic press.]
+														//	[NOTE 2: Set 'MicExternalAction' to 0 and enable PTT in Discord/Comms (map to 'NUMPAD *')]
+														//	[NOTE 3: Enabling this option will also inverse the Internal Comms Channel with VoiceAttack]
+
+	define MicExternalAction	1						// Define Main External Voice Software Behaviour: 			(If your software is Toggle action (On/Off) = 1 (default), If it's Hold action (PTT) = 0)
+	define MicExternalActionALT	1						// Define Alternative External Voice Software Behaviour: 	(If your software is Toggle action (On/Off) = 1 (default), If it's Hold action (PTT) = 0)
+
+
+		// CARGO SCOOP TWEAKS //
+	int    CargoPrecisionMode =	0					   ;// Enable Automatically Changing to Throttle Mode 'Precision' when you Deploy Cargo Scoop = 1		Disable = 0 (default) 
+														// 	[NOTE: Holding CMS Hat Switch Modifier + Engaging Cargo Scoop will Toggle Precision Mode ON/OFF On-The-Fly]
+	define CargoReturnMode		1						// When CargoPrecisionMode is ENABLED & Deployed Cargo Scoop is RETRACTED, Choose your preferred Throttle Mode to Exit/Return to:
+														//	Options:		Forward Only = 0, Full Range = 1 (default), Full Range Custom = 2, Trimmed = 3 	[Hint: Set this to your usual throttle mode]
+
+		// ESCAPE VECTOR MACRO //
+	define AutoChaffOnEscape 	0						// During Escape Vector Macro, fire a Chaff automatically to cover your escape! 		= 1 	Disable = 0 (default)
+	define AutoBoostOnEscape 	1						// During Escape Vector Macro, fire an Engine Boost automatically to align your escape! = 1		Disable = 0 (default)
+
+
+		// PINKY 'DOUBLE TAP' OVERRIDE //				// Recommended = SwitchHUDMode  (default) 			(** if you remap to something else, then SwitchHUDMode will need to be mapped elsewhere to use Analysis Mode! **)
+	define UserDTPinkyKeyBind	SwitchHUDMode			// Choose a FAV action you want for	->	COMBAT	-	FlightAssist, mJumpPrevSubSys, InternalVoiceCommsPTT, WingmanTarget, UseShieldCell, mReportCrimesToggle
+														// "Double Tap" on Pinky Trigger. 	->	SHIP	-	ShipLights, SetSpeed75, CargoScoop, SilentRunning, QuickCommsPanel, mRequestDock, BalancePower
+														// 			Some suggestions ->	->	->	OTHER	-	mTextBasicHello, SelectNextSystemInRoute, FighterOrders, UIEscape, TakeSteamScreenshot, GalNetAudioPlayPause, LookToggle
+														// [NOTE 1:	Most other keys in AD_EDKeyMap file not listed in suggestions should also work. Else see AD_EDMacros file to program some thing different/complex]
+														// [NOTE 2:	If your FAV action requires a Hold action instead of a Pulse, edit the line 216 accordingly in AD_EDFunctions & line 190 in AD_ED_v4.x.x files]
+
+														// User Defined Overrides for the Autopilot Engage Button (APENG): Choose Your Own Short & Long presses/macros
+		// AUTOPILOT BUTTON OVERRIDES //				// [NOTE:	Most other keys in AD_EDKeyMap file should also work as well as the Macros!]
+	define APEngageShort		mSignalLights			//	Standard Short Press (No Mods)	= mSignalLights 	(default)
+	define APEngageLong			mSignalLightsLong		//	Standard Long Press  (No Mods)	= mSignalLightsLong (default)
+	define APEngagePinkyShort	mRequestDock			//	Pinky Modifier + Short Press	= mRequestDock 		(default)
+	define APEngagePinkyLong	mRequestDock			//	Pinky Modifier + Long Press		= mRequestDock 		(default)
+	define APEngageCMSShort		mNAVBeaconWing			//	CMS Modifier   + Short Press	= mNAVBeaconWing 	(default)
+	define APEngageCMSLong		mNAVBeaconOff			//	CMS Modifier   + Long Press		= mNAVBeaconOff 	(default)
+
+																									// NOTE: ONLY Change the text between the "quotes" (in RED) below.	(SEE JOYSTICK REFERENCE MAP FOR HATSWITCH & SHIFT KEY LAYOUT)
+		// AUTO-TEXT CHAT PRESETS //					// Define your custom chat variables here:	// 		 DO NOT Modify macro names (that means everything starting with "chat_").
+	define chat_Basic_UP		"o7"																					// Default: Hello		(Non-Modifier Chat Mode)
+	define chat_Basic_DOWN		"Fly safe CMDR"																			// Default: Farewell	(Non-Modifier Chat Mode)
+	define chat_Basic_LEFT		"Thank you for your assistance! o7"														// Default: Thank		(Non-Modifier Chat Mode)
+	define chat_Basic_RIGHT		"Can I help you with something CMDR?"													// Default: Query		(Non-Modifier Chat Mode)
+
+	define chat_Modifier_UP		"You're a disgrace! Die! Time to see the Rebuy!"										// Default: Attack		(Modifier Chat Mode) 
+	define chat_Modifier_DOWN	"Stay calm, cut your engines and prepare to be scanned. Move and you will be fired upon"// Default: Scan		(Modifier Chat Mode)
+	define chat_Modifier_LEFT	"CMDR is coming through the mailslot"													// Default: Announce	(Modifier Chat Mode)
+	define chat_Modifier_RIGHT	"Easy! Watch where you are going CMDR"													// Default: Warn		(Modifier Chat Mode)
+
+	define chat_ClearChatBox	"/clear"				// (DO NOT modify!)							// Clears the Comms Panel of all previous text chats. 
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// EXPERIMENTAL PREFERENCES //
+//-------------------------//
+
+		// PIPs on DMS Hat Switch //
+	define PUP 						H3U					// *EXPERIMENTAL*  Moves the PIP Hat Switch (DMS) to the UI Hat Switch (CMS) for high frequency combat/bounty hunting usage. These values set the correct MapKey key mappings as per user preference.
+	define PDN						H3D					//	 Instructions: Remove the comments '//' for the 4 lines (131-134) below for the H4 Hat Switch (CMS) & then comment out '//' the 4 lines for the H3 Hat Switch (DMS) for lines (125-128). !~Remember to Save~!
+	define PLT						H3L					// 	[NOTE 1: CMS Push Button, including Modifier 2, remains unchanged regardless of option chosen]
+	define PRT						H3R					//	[NOTE 2: If you decide to swap mappings, you will need to manually re-map ALL commands previously mapped on the UI/CMS Hat Switch via the bindings section in ED; see list below:]
+														//	(		 U NEED TO REMAP->	UI Up/Down/Left/Right,							)
+		// PIPs on CMS Hat Switch //					//	(							Next/Prev Sub-System,							)
+//	define PUP						H4U 				//	(							Next/Prev Fire Group,							)
+//	define PDN						H4D 				//	(							Headlook Center,								)
+//	define PLT						H4L 				//	(							Camera Zoom Focus -/+,							)
+//	define PRT						H4R					//	(							Camera Blur -/+									)
+														//  (			 (see reference maps on guide for hat switch layout)			)
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
