@@ -1,8 +1,6 @@
-Update 4.0.0:  SUPERCRUISE TO THE NEXT ERA
+Update 4.0.x:  ???
 
--> Big code clean-up! Along with file name changes and restructure, there has also been a SHIFT Key (on Pinky Toggle Switch on Throttle) introduced to handle both Non-Voice Comms Channels & Repeater Fire Mode (which can now be changed on-the-fly). As a result, the entire AdvancedFireModule managing the fire buttons has now been replaced with more efficient IOUMD configurations. Code for Auto-Text has completely been replaced as well, with a far more elegant solution. Script is now available on GitHub too :).
-
--> Hope you all enjoy the improvements. Outside of any immediate bug fixes/issues reported, this will likely be my last major update for a while, considering the long delay to the 'next era'/'next major game release' is in 2020, I'm not expecting anything to significantly change till then. Feel the script has matured and is in good running order; but at any rate you may find small changes or fixes on GitHub from time to time. Thanks!
+-> ???
 
 
 New to the script? Be sure to also check out the Beginners Reference Map in the download pack to get started.
@@ -10,40 +8,21 @@ New to the script? Be sure to also check out the Beginners Reference Map in the 
 
 List of Changes:
 
-NEW: Pulse Wave Repeater Fire Preset for Miners!
-NEW: Customisable Auto-Text Chat Responses (You can now edit these as plain text via the User Preferences). (Thx CMDR Clicker & ySfte)
-NEW: Enable/Disable Ship(SRV) HUD when Toggling Night Vision (enable via the User Preferences).
-NEW: Throttle Axis Presets (FullNonLinear & FwdNonLinear) can now be enabled via the User Preferences. This new preset will modify the absolute 1:1 axis used in other modes and make it curve so the axis starts out faster then slows down as you move to 100%. Total of 7 presets now available. (Thx CMDR Clicker)
+NEW: 
+NEW: 
+NEW: 
 
-NEW: SHIFT KEY Added to Pinky Throttle Switch. This now enables multiple layouts (layers) currently configured for 'Non-Voice' Comms Panel & Repeater Fire Modes. Each position of the Pinky Switch enable a different mapping on Trim Hat Switch & determines what Repeater Fire Mode is active on Joystick Trigger.
+IMPROVEMENT: 
+IMPROVEMENT: 
+IMPROVEMENT: 
 
-NEW: SHIFT KEY: Trim Hat Switch on Joystick - Change 'Non-Voice' Comms Panel Mode. See Reference Maps for new layout. (This gives the Trim Hat Switch a total of 8 commands mapped per Toggle Position - both with and without Pinky modifier).
-     Mode Selection:
-		 UP:  Auto-Text Responses
-	        MID:  Wing Squadron Commands
-	       DOWN:  Ship Launch Fighter Commands 
-NEW: SHIFT KEY: Trigger(s) on Joystick - Change Repeater Fire Mode on Primary/Sec. (Note: Pinky Modifier still required to activate). See Reference Map for new layout.
-     Mode Selection:
-		 UP:  Combat-Endless
-		MID:  Explorer-Scanner
-	       DOWN: *NEW* Mining-Auto-Pulse
+MOVED: 
+MOVED: 
 
-NEW: Script Package now available on Github! (https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript)
+FIXED: 
 
-IMPROVEMENT: Formalised & Cleaned up Script File Structure (each section now has its own separate file & code properly re-sorted).
-IMPROVEMENT: Categorised User Preferences section + Others (make it easier to find the right setting).
-IMPROVEMENT: Added Secondary Fire Override, LED Blink, NightVision HUD & Combined Microphone User Preferences to Script Run Print Out on load.
-IMPROVEMENT: Added Table of Contents in AD_EDFunctions file (to help find correct function quicker).
-IMPROVEMENT: Added Toggle Option (mNAVBeaconToggle) to merge Wing Nav Beacon Enable & Disable into a single button instead of two. (not currently mapped/used)
-IMPROVEMENT: Updated ED-BAT to use Window Environment Variables in path locations. (Thx CMDR ptimale)
-
-MOVED: Free Camera Zoom Increase/Decrease to Coolie Hat Switch on Throttle Right/Left (due to changes on the Trim Hat Switch).
-MOVED: HoloMe Undo/Redo to Coolie Hat Switch on Throttle Right/Left (due to changes on the Trim Hat Switch).
-
-FIXED: LEDs on Launch Sequence not working (typo). (Thx CMDR Clicker)
-
-REMOVED: Redundant ChatPresetMode in User Preference (due to changes on the Chat Toggle).
-REMOVED: Redundant RepeaterFireMode in User Preference (this is now manually changed via Pinky Throttle Shift Switch in-game).
+REMOVED: 
+REMOVED: 
 
 
 Fly Safe CMDRs!
