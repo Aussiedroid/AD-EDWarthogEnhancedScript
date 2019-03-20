@@ -22,6 +22,10 @@
 	define UseRudderAxisCurves	0						// For All TM Rudder Pedals Users.	Linear Curve = 0 (default)	Use Joystick Curve Toggle = 1	[If enabled, this will set the custom axis curve on your Rudder axis based on Joystick curve toggle position]
 														//	[NOTE: Please ensure both UseRuddersT16000 & UseRuddersTPR are NOT = 1. Only enable your device plugged in, and disable the other, or this function will error]
 
+	define TR_DEADZONE			5						// Set the Rudder Main Axis Deadzone %		(default = 5)	(Use the Device Analyzer to validate)
+	define TOE_DEADZONE			20						// Set the Rudder Toe Brake Axis Deadzone %	(default = 20)	(Use the Device Analyzer to validate)
+	define JS_DEADZONE			1						// Set the Joystick Axes Deadzone %			(default = 1)	(Use the Device Analyzer to validate)
+	
 	define HeadtrackPref		1						// Choose your preferred Headtracking hardware preset for mapping of the Center/Reset Orientation to Engine Operate Ign/Norm LEFT UP:
 														// 	Options: 	Mouse Headlook Center 	= 0 (default)	(Choose if you have NO dedicated headtracking hardware)
 														//				TrackIR Center			= 1				(Choose if you use TrackIR head tracking system or related hardware like Tobi Eye Tracker)

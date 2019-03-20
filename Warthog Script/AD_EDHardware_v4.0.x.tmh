@@ -6,8 +6,6 @@
 	short	JS_ZOOM[]	= {0, 0,-1};
 	short	YAW_CURVE[]	= {0, 2, 3};
 
-	define	JS_DEADZONE    1							// Set the Joystick Deadzone %	(default = 1) (Use the Device Analyzer to validate)
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // HARDWARE: JOYSTICK AXIS MAPPINGS //															// Define All Axis Curves/Trim/Deadzones for Device
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -16,10 +14,10 @@
 		profile = 1;																			// Three different presets are selectable On-The-Fly
 		if(Throttle[APPAT]) profile = 0;
 		if(Throttle[APALT]) profile = 2;
-			SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[profile], JS_ZOOM[profile]);
-			SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[profile], JS_ZOOM[profile]);
-			if(UseRuddersTPR & UseRudderAxisCurves)		SetSCurve(&TFRPHARudder, TRUDDER, 0, 10, 0, YAW_CURVE[profile], JS_ZOOM[profile]);
-			if(UseRuddersT16000 & UseRudderAxisCurves)	SetSCurve(&TFRPRudder, TFRPHA_RUDDER, 0, 10, 0, YAW_CURVE[profile], JS_ZOOM[profile]);
+		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[profile], JS_ZOOM[profile]);
+		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[profile], JS_ZOOM[profile]);
+		if(UseRuddersT16000 & UseRudderAxisCurves)	SetSCurve(&TFRPRudder, 	 TRUDDER, 		0, TR_DEADZONE, 0, YAW_CURVE[profile], JS_ZOOM[profile]);
+		else if(UseRuddersTPR & UseRudderAxisCurves)SetSCurve(&TFRPHARudder, TFRPHA_RUDDER, 0, TR_DEADZONE, 0, YAW_CURVE[profile], JS_ZOOM[profile]);
 		if(!FAOFFToggle) {
 			if(UseRudderAxisCurves) printf("Joystick Profile[%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
 			else					printf("Joystick Profile[%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]); } }
@@ -105,18 +103,20 @@
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// HARDWARE: RUDDER PEDAL AXIS MAPPINGS //														// Define All Axis Curves/Trim/Deadzones for Device
+// HARDWARE: RUDDER AXIS MAPPINGS //															// Define All Axis Curves/Trim/Deadzones for Device
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initTFRPRudder() {																		// Initialise Thrustmaster TFRP (T.Flight T16000) Toe Pedal Axes (When enabled in AD_EDSettings)
-    	SetSCurve(&TFRPRudder, TRPRIGHT, 0, 0, 20, 0, 0);										// Right Toe Brake
-		SetSCurve(&TFRPRudder, TRPLEFT, 0, 0, 20, 0, 0); }										// Left  Toe Brake
+		SetSCurve(&TFRPRudder, TRUDDER,  0, TR_DEADZONE,  0, 0, 0);								// Rudder Axis
+		SetSCurve(&TFRPRudder, TRPRIGHT, 0, TOE_DEADZONE, 0, 0, 0);								// Right Toe Brake
+		SetSCurve(&TFRPRudder, TRPLEFT,  0, TOE_DEADZONE, 0, 0, 0); }							// Left  Toe Brake
 
 
 
 	int initTFRPHARudder() {																	// Initialise Thrustmaster TFRPHA (T.Flight TPR) Toe Pedal Axes (When enabled in AD_EDSettings)
-    	SetSCurve(&TFRPHARudder, TFRPHA_RIGHT, 0, 0, 20, 0, 0);									// Right Toe Brake
-		SetSCurve(&TFRPHARudder, TFRPHA_LEFT, 0, 0, 20, 0, 0); }								// Left  Toe Brake
+		SetSCurve(&TFRPHARudder, TFRPHA_RUDDER,	0, TR_DEADZONE,  0, 0, 0);						// Rudder Axis
+		SetSCurve(&TFRPHARudder, TFRPHA_RIGHT,	0, TOE_DEADZONE, 0, 0, 0);						// Right Toe Brake
+		SetSCurve(&TFRPHARudder, TFRPHA_LEFT,	0, TOE_DEADZONE, 0, 0, 0); }					// Left  Toe Brake
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
