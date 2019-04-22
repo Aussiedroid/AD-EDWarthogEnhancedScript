@@ -4,7 +4,7 @@
 
 	int mRequestDock, mShowGameStats, mFastModeSwitch, mChatPanelGrab, mSignalLights, mSignalLightsLong, mReportCrimesToggle;
 	int mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys;
-	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear, mThrottleFullScaleCustom; // Configured/Used in AD_EDHardware.tmh
+	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear, mThrottleFullScaleCustom; 	// Configured/Used in AD_EDHardware.tmh
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MACROS: SPECIALISED SEQUENCES //																// MACROS Include a series of automated key presses to perform a specific task.

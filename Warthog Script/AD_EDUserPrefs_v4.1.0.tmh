@@ -4,9 +4,9 @@
 														// User Prefs allow easy modification of some alternative/optional script features without editing the code.
 		// START-UP //
 	define StartSoftware		0						// Start ED Launcher (&/or other 3rd Party Apps) when you Run the Script (Software List & Paths can be customised in AD_ED_v3.x.x.tmc)
-														//  [NOTE: Doesn't work under Win10 - Please use ED-BAT File included in download pack.]
+														//  [NOTE: Doesn't work under Win10 -> Please use ED-BAT File included in download pack]
 														
-	define VerboseOutput		1						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
+	define VerboseOutput		0						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
 														//	Options:		Enable = 1 (default),		Disable = 0
 
 	int	   SetLED =				172					   ;// Set LED Backlight Level on Throttle	(Value 0-255) (off = 0, default = 172) [Note: This can be adjusted On-The-Fly by using the Friction Control Axis + Pinky Trigger]
@@ -30,10 +30,10 @@
 														//				TrackIR Center			= 1				(Choose if you use TrackIR head tracking system or related hardware like Tobi Eye Tracker)
 														//				Reset HMD Orientation	= 2 			(Choose if you are a VR User with a Head Mounted Display)
 		// AXIS DEADZONES //
-	define TR_DEADZONE			5						// Set the Rudder Main Axis Deadzone %		(default = 5)	(Use the Device Analyzer to validate) (Note: This value is used for both TFRP & TPR devices)
-	define TOE_DEADZONE			20						// Set the Rudder Toe Brake Deadzone %		(default = 20)	(Use the Device Analyzer to validate) (Note: This value is used for both TFRP & TPR devices)
-	define JS_DEADZONE			1						// Set the Joystick X/Y Axis Deadzone %		(default = 1)	(Use the Device Analyzer to validate)
-	define TFULL_DEADZONE		5						// Set the Throttle Full Range Deadzone %	(default = 5)	(Use the Device Analyzer to validate) (Note: Do not set this too high! [Max ~15%] It will intefer with the FSS tuning)
+	define TR_DEADZONE			5						// Set the Rudder Main Z-Axis Deadzone %	  (default = 5)	(Use the Device Analyzer to validate) (Note: This value is used for both TFRP & TPR devices)
+	define TOE_DEADZONE			20						// Set the Rudder Toe Brake X-Axis Deadzone % (default = 20)(Use the Device Analyzer to validate) (Note: This value is used for both TFRP & TPR devices)
+	define JS_DEADZONE			1						// Set the Joystick X/Y Axis Deadzone %		  (default = 1)	(Use the Device Analyzer to validate)
+	define TFULL_DEADZONE		5						// Set the Throttle 'Full Range' Deadzone %	  (default = 5)	(Use the Device Analyzer to validate) (Note: Don't set this too high! [Max ~15%] It will intefer with the FSS tuning)
 
 		// THROTTLE AXIS //
 	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% = 1 (default). Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%]

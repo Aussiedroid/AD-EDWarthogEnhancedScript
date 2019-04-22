@@ -1,7 +1,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FUNCTIONS: TABLE OF CONTENTS //						// FUNCTIONS Include logic to customise specific Button/Toggle functionality							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 593)]	//
+//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 592)]	//
 //		- initHardpointManagement					- initLEDController						- initEnhancedFAOFF						- initPrintState			//
 //		- initSetCombinedFire						- initNightVisionEnhancer				- initToggleRotationCorrection										//
 //		- initExplorerScannerDisengage				- initAPEngageEnhancer					- initToggleSilentRunning											//
@@ -596,7 +596,7 @@
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
 		printf(">> ENHANCEMENTS LOADING:	v%d.%d.%d	  TARGET Mappings, Macros & Functions Decrypted	      <|>\x0a", ADVersionMajor, ADVersionMinor, ADVersionPoint);
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
-		printf(":....USER PREFERENCES....:\x0a");
+		if(VerboseOutput) printf(":....USER PREFERENCES....:\x0a");
 		printf("[Run Software @ Start = %d]  [Custom Slider Curve = %d]  [PIP Mgt. Preset = %d]  [MFD Active  = %d]\x0a", StartSoftware, CustomDXSliderCurve, UserPIPPref, UseMFD);
 		printf("[Cargo Precision Mode = %d]  [S/Cruise @ Throttle = %d]  [Chaff @ Escape  = %d]  [Boost @ Esc = %d]\x0a", CargoPrecisionMode, CruiseOnThrottle, AutoChaffOnEscape, AutoBoostOnEscape);
 		printf("[Combine External Mic = %d]  [Sec. Fire Override  = %d]  [NightVision HUD = %d]  [Ext Mic+Mic = %d]\x0a", ExternalMicCombined, SecFirePinkyPref, NightVisionHUD, ExternalMicCombined);

@@ -57,7 +57,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	if(StartSoftware == 1) {															// Auto-Load on Script Run (Customise Example Paths below OR Add Your Own)
-		if(VerboseOutput) printf("Booting external software suite for Elite Dangerous...Done\x0a");		//	   (Note: All path '\' need to be '\\' for it to work)
+		printf("Booting external software suite for Elite Dangerous...Done\x0a");		//	  					   (Note: All path '\' need to be '\\' for it to work)
 //		system("spawn -w \"C:\\Program Files (x86)\\NaturalPoint\\TrackIR5\" \"C:\\Program Files (x86)\\NaturalPoint\\TrackIR5\\TrackIR5.exe\"");			// TRACKIR			(URL= http://www.naturalpoint.com/trackir/)
 //		system("spawn -w \"C:\\Program Files (x86)\\VoiceAttack\" \"C:\\Program Files (x86)\\VoiceAttack\\VoiceAttack.exe\"");								// VOICE ATTACK		(URL= https://voiceattack.com/)
 //		system("spawn -w \"C:\\Program Files (x86)\\VoiceAttack\\Apps\\EDDI\" \"C:\\Program Files (x86)\\VoiceAttack\\Apps\\EDDI\\EDDI.exe"");				// EDDI				(URL= https://github.com/EDCD/EDDI/wiki)
@@ -508,7 +508,7 @@
 //		MapKey(&RMFD, GAIND, 0);
 //		MapKey(&RMFD, SYMU,  0);
 //		MapKey(&RMFD, SYMD,  0);
-		if(VerboseOutput) printf("Right MFD Configured\x0a"); }
+		printf("Right MFD Configured\x0a"); }
 
 
 	int initLeftMFD() {																		// Set Left MFD
@@ -540,7 +540,7 @@
 //		MapKey(&LMFD, GAIND, 0);
 //		MapKey(&LMFD, SYMU,  0);
 //		MapKey(&LMFD, SYMD,  0);
-		if(VerboseOutput) printf("Left MFD Configured\x0a"); }
+		printf("Left MFD Configured\x0a"); }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -585,8 +585,8 @@
 // =============================================================================================================================================================//
 // VERSION HISTORY //			Version 4.1.0			\\ Released Sept 2016	|	Updated Apr 2019 //					\\		Public Release #22				//
 // =============================================================================================================================================================//
-// v4.1.0-NEW: Customisation of Rudder/Joystick Deadzones via User Prefs + Adding missing Rudder Curve settings. FIXED: UseRudderAxisCurves axis configs. //
-// v4.1.0-NEW: Disable Message Text Output in TARGET Window.  //
+// v4.1.0-NEW: Axis Deadzone Customisation + Disable Message Text Output in TARGET Window via User Prefs. FIXED: UseRudderAxisCurves axis configs.				//
+// v4.1.0-NEW: April Update Mappings ???  //
 // v4.0 - NEW: Pulse Repeater Fire! Customisable Auto-Chat Presets, 2 Non-Linear Throttle Presets, SHIFT Key & Hide HUD on NightVision. FIX: LEDs on Launch Seq.//
 // v4.0 - IMPROVED: New File Structure, Categorised User Prefs, Table of Contents, Toggle Seq. for Nav Beacon. REMOVED: ChatPresetMode+RepeaterFireMode Presets.//
 // v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord keymap resolved.//
