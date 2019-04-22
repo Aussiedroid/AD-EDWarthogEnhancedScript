@@ -8,7 +8,7 @@
 ![Logo](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Supported.png)
 
 
-### LATEST BUILD | [v4.0.0](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/releases/latest "Latest Official Build") | Updated for [Elite Dangerous](https://www.elitedangerous.com/ "Official Website") Beyond 3.3 "Chapter 4" Patch ###
+### LATEST BUILD | [v4.1.0](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/releases/latest "Latest Official Build") | Updated for [Elite Dangerous](https://www.elitedangerous.com/ "Official Website") Beyond 3.4 "April _'Beginners'_ Update" ###
 
 ### REQUIREMENTS | TARGET Software, Drivers & Firmware, 2018 Update ([v3.0.18.328](https://support.thrustmaster.com/en/product/hotaswarthog-en/ "Official Thrustmaster Warthog Support Portal") _or higher_) ###
 
