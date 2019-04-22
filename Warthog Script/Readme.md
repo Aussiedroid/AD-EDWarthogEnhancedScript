@@ -10,13 +10,13 @@ DX Mapping & Conversion table also included in the Key Mapping file to help with
 
 Filename | Function
 ------------ | -------------
-AD_ED_v4.0.0.tmc | Main Script File, Maps Combined Device & Includes Files Below
-AD_EDDefaults_v4.0.0.tmh | Global Variable Settings, States & Timings/Delays
-AD_EDUserPrefs_v4.0.0.tmh | User Preferences & Script Customisation Options
-AD_EDKeyMap_v4.0.0.ttm | Variable Key Mapping & Reference Tables
-AD_EDHardware_v4.0.0.tmh | Joystick, Throttle & Rudder Axes/Curves Configuration
-AD_EDMacros_v4.0.0.tmh | Macro Definitions _(Custom Sequences)_
-AD_EDFunctions_v4.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Toggles & Ship Controls)_
+AD_ED_v4.1.0.tmc | Main Script File, Maps Combined Device & Includes Files Below
+AD_EDDefaults_v4.1.0.tmh | Global Variable Settings, States & Timings/Delays
+AD_EDUserPrefs_v4.1.0.tmh | User Preferences & Script Customisation Options
+AD_EDKeyMap_v4.1.0.ttm | Variable Key Mapping & Reference Tables
+AD_EDHardware_v4.1.0.tmh | Joystick, Throttle & Rudder Axes/Curves Configuration
+AD_EDMacros_v4.1.0.tmh | Macro Definitions _(Custom Sequences)_
+AD_EDFunctions_v4.1.0.tmh | Function Definitions _(Custom Logic for Buttons, Toggles & Ship Controls)_
 
 ` `
 
@@ -25,11 +25,11 @@ AD_EDFunctions_v4.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 ## ##
 
 ## User Preferences : Table of Contents ##
-[How To Use](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#user-preferences--ad_eduserprefs_v4xxtmh "Getting Started") | [Start-Up](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--start-up "Start-Up Customisation") | [Core Hardware](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--core-hardware "Core Hardware User Preferences") | [Throttle Axis](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--throttle-axis "Throttle Axis Customisation") | [Ship/SRV PIP Config](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--shipsrv-pip-config "Ship & SRV PIP Config User Preferences") | [Ship Radar/Vision](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--ship-radarvision "Ship's Radar & Night Vision Customisation") | [Pri-Sec Fire Control](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--primarysecondary-fire-control "Primary & Secondary Fire Control Customisation")
+[How To Use](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#user-preferences--ad_eduserprefs_v4xxtmh "Getting Started") | [Start-Up](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--start-up "Start-Up Customisation") | [Core Hardware](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--core-hardware "Core Hardware User Preferences") | [Axis Deadzones]() | [Throttle Axis](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--throttle-axis "Throttle Axis Customisation") | [Ship/SRV PIP Config](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--shipsrv-pip-config "Ship & SRV PIP Config User Preferences") | [Ship Radar/Vision](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--ship-radarvision "Ship's Radar & Night Vision Customisation")
 
-[Utility Slot Control](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--utility-slot-control "Utility Slot Control Customisation") | [Microphone Behaviour](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--microphone-behaviour "Microphone Behaviour") | [Cargo Scoop Tweaks](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--cargo-scoop-tweaks "Cargo Scoop Tweaks") | [Escape Vector Macro](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--escape-vector-macro "Escape Vector Macro Options") | [Pinky 'Double Tap' Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--pinky-double-tap-override "Pinky 'Double Tap' Override Customisation")
+[Pri-Sec Fire Control](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--primarysecondary-fire-control "Primary & Secondary Fire Control Customisation") | [Utility Slot Control](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--utility-slot-control "Utility Slot Control Customisation") | [Microphone Behaviour](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--microphone-behaviour "Microphone Behaviour") | [Cargo Scoop Tweaks](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--cargo-scoop-tweaks "Cargo Scoop Tweaks") | [Escape Vector Macro](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--escape-vector-macro "Escape Vector Macro Options")
 
-[Autopilot Button Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--autopilot-button-overrides "Autopilot Button Override Customisation") | [Auto-Text Chat Presets](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--auto-text-chat-presets "Auto-Text Chat Presets Customisation") | [Acknowledgements](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#script-acknowledgements "Acknowledgements")
+[Pinky 'Double Tap' Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--pinky-double-tap-override "Pinky 'Double Tap' Override Customisation") | [Autopilot Button Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--autopilot-button-overrides "Autopilot Button Override Customisation") | [Auto-Text Chat Presets](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--auto-text-chat-presets "Auto-Text Chat Presets Customisation") | [Acknowledgements](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#script-acknowledgements "Acknowledgements")
 ## ##
 
 ## User Preferences : AD_EDUserPrefs_v.4._x_._x_.tmh ##
@@ -80,10 +80,10 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 ` `
 ## -> CORE HARDWARE ##
-### KBLayout [Values: KB_ENG, KB_GER & KB_FR] ###
+### KBLayout [Values: KB_ENG, KB_GER or KB_FR] ###
 - Sets your keyboard button layout based off international standards. _(Wrong selection can break some commands)_
 
-- English (KB_ENG), German (KB_GER) & French (KB_FR) available.
+- English (KB_ENG), German (KB_GER) or French (KB_FR) available.
 
 ### UseMFD [Values: 2, 1 or 0] ###
 - [Thrustmaster MFD Cougar Panels](http://www.thrustmaster.com/en_US/products/mfd-cougar-pack "Official MFD Cougar Control Panels Website") are multifunctional, customisable panels for use in Cockpits. The script supports up to 2 devices being connected. Select value 2 for both Right & Left panels or 1 for only the Right panel. If you do not use these panels leave the value as 0.
@@ -115,13 +115,17 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 ## AXIS DEADZONES ##
 ### TR_DEADZONE [Value 0-100] ###
 - Set the Thrustmaster Rudder Main Z-Axis Deadzone percentage. This is applicable to both TFRP & TPR devices.
+- Default is 5%.
 ### TOE_DEADZONE [Value 0-100] ###
 - Set the Thrustmaster Rudder Toe Brake Axis Deadzone percentage. This is applicable to both TFRP & TPR devices.
+- Default is 20%.
 ### JS_DEADZONE [Value 0-100] ###
 - Set the Warthog Joystick Axes Deadzone percentage.
+- Default is 1%.
 ### TFULL_DEADZONE [Value 0-100] ###
 - Set the Warthog Throttle 'Full Range' Deadzone percentage. 
 - _Note:_ Do not set this too high! [Max ~15%] as it will intefer with the FSS tuning.
+- Default is 5%.
 
 ` `
 ## -> THROTTLE AXIS ##
