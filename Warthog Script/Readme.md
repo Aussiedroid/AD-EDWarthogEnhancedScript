@@ -65,6 +65,11 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 - Will not work on Windows 10 _(See [ED-BAT File](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Startup%20Batch%20Script "ED-BAT Batch File"))_ :(
 
+### VerboseOutput [Values: 1 or 0] ###
+- Changes the script messaging behaviour on keypress actions to determine if it will Print Output to the TARGET Window.
+
+- Enabled by default 1, disable by changing value to 0. (Disabling will stop all 'printf' statements from firing)
+
 ### SetLED [Values: 0-255] ###
 - Sets the initial LED Backlight brightness on the Throttle. (default = 172)
 
@@ -105,6 +110,18 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - Elite Dangerous offers built in headtracking via a Mouse, but via this script you can also include correct integration for TrackIR or VR (HMD) headsets. Changing this value will change the mapping for the Engine Operate Ign/Norm LEFT UP toggle.
 
 - Note: You may need to align the external mapping keys via AD_EDKeyMap_v4.x.x under External Bindings.
+
+` `
+## AXIS DEADZONES ##
+### TR_DEADZONE [Value 0-100] ###
+- Set the Thrustmaster Rudder Main Z-Axis Deadzone percentage. This is applicable to both TFRP & TPR devices.
+### TOE_DEADZONE [Value 0-100] ###
+- Set the Thrustmaster Rudder Toe Brake Axis Deadzone percentage. This is applicable to both TFRP & TPR devices.
+### JS_DEADZONE [Value 0-100] ###
+- Set the Warthog Joystick Axes Deadzone percentage.
+### TFULL_DEADZONE [Value 0-100] ###
+- Set the Warthog Throttle 'Full Range' Deadzone percentage. 
+- _Note:_ Do not set this too high! [Max ~15%] as it will intefer with the FSS tuning.
 
 ` `
 ## -> THROTTLE AXIS ##
