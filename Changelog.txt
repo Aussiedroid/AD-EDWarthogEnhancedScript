@@ -12,7 +12,7 @@ NEW: April Update Keybind: Galaxy Map Return to Current System added & mapped to
 NEW: Easy Axis Deadzone customisation for Thrustmaster Rudder, Joystick & Throttle (via User Preferences).
 NEW: Disable/Enable Verbose Messaging Output (via User Preference). This allows changes to the script status messaging behaviour on keypress actions to determine if it will Print Output to the TARGET Window (For example: A Throttle Preset Change or Toggle Landing Gear confirmations).
 
-IMPROVEMENT: Aligned timing & sequence for the Fast Mode Switching macro to the new April Update Main Menu layout.
+IMPROVEMENT: Aligned timing & sequence for the Fast Mode Switching, NAV Beacon On/Off & Report Crimes macro to the new April Update UI Panel & Main Menu layout.
 
 FIXED: UseRudderAxisCurves axis configs & small error with Throttle Axis code.
 FIXED: Erroneous Print Outs for Rotational Correction & Throttle Preset on Startup.
