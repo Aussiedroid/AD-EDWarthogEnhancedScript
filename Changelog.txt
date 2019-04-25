@@ -1,6 +1,6 @@
 Update 4.1.0:  Highway to the Deadzone .. (Dadaddada!)
 
--> Compatibility update to align to the April 'Beginners' 2019 Update, plus some fixes/enhancements to Axis Deadzone management & text output in TARGET.
+-> Compatibility update to align to the v3.4 April 'Beginners' Update 2019, plus some fixes/enhancements to Axis Deadzone management & text output in TARGET.
 
 
 New to the script? Be sure to also check out the Beginners Reference Map in the download pack to get started.
@@ -8,22 +8,14 @@ New to the script? Be sure to also check out the Beginners Reference Map in the 
 
 List of Changes:
 
-NEW: Easy Axis Deadzone customisation for Thrustmaster Rudder, Joystick & Throttle via User Preferences.
-NEW: Disable/Enable Verbose Output via User Preference. This allows changes to the script status messaging behaviour on keypress actions to determine if it will Print Output to the TARGET Window (For example: Throttle Preset Change or Toggle Landing Gear).
-NEW: April Update Keybind Changes???????
+NEW: April Update Keybind: Galaxy Map Return to Current System added & mapped to Master Mode Control button on side of Joystick (S1).
+NEW: Easy Axis Deadzone customisation for Thrustmaster Rudder, Joystick & Throttle (via User Preferences).
+NEW: Disable/Enable Verbose Messaging Output (via User Preference). This allows changes to the script status messaging behaviour on keypress actions to determine if it will Print Output to the TARGET Window (For example: A Throttle Preset Change or Toggle Landing Gear confirmations).
 
-IMPROVEMENT: 
-IMPROVEMENT: 
-IMPROVEMENT: 
-
-MOVED: 
-MOVED: 
+IMPROVEMENT: Aligned timing & sequence for the Fast Mode Switching macro to the new April Update Main Menu layout.
 
 FIXED: UseRudderAxisCurves axis configs & small error with Throttle Axis code.
 FIXED: Erroneous Print Outs for Rotational Correction & Throttle Preset on Startup.
-
-REMOVED: 
-REMOVED: 
 
 
 Fly Safe CMDRs!
