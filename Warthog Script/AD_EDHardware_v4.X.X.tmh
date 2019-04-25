@@ -1,0 +1,122 @@
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// HARDWARE: JOYSTICK AXIS CURVES //
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//					      Up,MVR,DN
+	short	JS_CURVE[]	= {0, 1, 2};					// Set via the Autopilot Switch	(Up is most aggresive, down is least aggressive)
+	short	JS_ZOOM[]	= {0, 0,-1};
+	short	YAW_CURVE[]	= {0, 2, 3};
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// HARDWARE: JOYSTICK AXIS MAPPINGS //															// Define All Axis Curves/Trim/Deadzones for Device
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int initSetJoystickCurves() {																// Autopilot Select Switch position sets Joystick Curve Profile
+		profile = 1;																			// Three different presets are selectable On-The-Fly
+		if(Throttle[APPAT]) profile = 0;
+		if(Throttle[APALT]) profile = 2;
+		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[profile], JS_ZOOM[profile]);
+		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[profile], JS_ZOOM[profile]);
+		if(UseRuddersT16000 & UseRudderAxisCurves)	SetSCurve(&TFRPRudder, 	 TRUDDER, 		0, TR_DEADZONE, 0, YAW_CURVE[profile], JS_ZOOM[profile]);
+		else if(UseRuddersTPR & UseRudderAxisCurves)SetSCurve(&TFRPHARudder, TFRPHA_RUDDER, 0, TR_DEADZONE, 0, YAW_CURVE[profile], JS_ZOOM[profile]);
+		if(!FAOFFToggle) {
+			if(UseRudderAxisCurves & VerboseOutput) printf("Joystick Profile[%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
+			else if(VerboseOutput) 					printf("Joystick Profile[%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]); } }
+
+
+
+	int initJoystickAxis() { 																	// Set Default Joystick Axis
+		if(VerboseOutput) printf("Initialising Joystick Axis... ");
+		MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+			SetSCurve(&Joystick, JOYX, 0, 0, 0, 0, 0);
+		MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+			SetSCurve(&Joystick, JOYY, 0, 0, 0, 0, 0); }
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// HARDWARE: THROTTLE AXIS MAPPINGS //															// Define All Axis Curves/Trim/Deadzones for Device
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+																								// FLAP position sets Throttle Curve Profile
+	int initSetThrottleCurves() {																// Three different presets are selectable On-The-Fly
+		mThrottleFwdOnly		 = EXEC(  														// Initialising Throttle Forward Only Preset (SRV etc)
+								"TrimDXAxis(DX_Z_AXIS, SET(-1024));"							// *TrimDXAxis(axis, +/-1024) trim is additive, SET forces trim value, CURRENT reads axis.pos
+								"if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);" 			// *SetSCurve(&Device, axis, left_deadzone%, center_deadzone%, right_deadzone%, curve(-20...20), scale)
+								"if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -95, 0, 0);"				// Trims Axis 5% when Supercruise On Throttle Active
+								"if(VerboseOutput) printf(\"Throttle Profile: FORWARD ONLY [0 -> 100]\\x0a\");"
+								"SetThrottle();");
+		mThrottleFullScale		 = EXEC(  														// Make Throttle Linear & Full Scale	(Default: Full Range)
+								"TrimDXAxis(DX_Z_AXIS, SET(0));"								// Initialising Throttle Full Scale Preset 
+								"if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, TFULL_DEADZONE, 0, 0);"	// ..(Alternative= "SetJCurve(&Throttle, THR_RIGHT, 50, 50);")
+								"if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, TFULL_DEADZONE, 5, 0);"	// Trims Axis 5% when Supercruise On Throttle Active
+								"if(VerboseOutput) printf(\"Throttle Profile: FULL SCALE [-100 -> 100]\\x0a\");"
+								"SetThrottle();");												// *SetJCurve(&device, axis, physical axis value%, DirectX output value%)
+		mThrottlePrecision		 = EXEC( 														// Initialising Throttle Precision Preset (Docking etc)
+								"TrimDXAxis(DX_Z_AXIS, SET(0));" 								// Allows Throttle Movement ONLY to the middle of blue zone
+								"SetSCurve(&Throttle, THR_RIGHT, 0, 2, 0, 2, -2);"
+								"if(VerboseOutput) printf(\"Throttle Profile: PRECISION [-50 -> 50]\\x0a\");"
+								"SetThrottle();");
+		mThrottleTrimmed		 = EXEC(  														// Initialising Throttle Trimmed 25% @ Beginning/End Preset (ALTERNATIVE)
+								"TrimDXAxis(DX_Z_AXIS, SET(0));" 								// <Unmapped by Default> (See User Preferences to Set)
+								"SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);"
+								"if(VerboseOutput) printf(\"Throttle Profile: TRIMMED [-75 -> 75]\\x0a\");"
+								"SetThrottle();");
+		mThrottleFullNonLinear	 = EXEC(														// Initialising Throttle 
+								"TrimDXAxis(DX_Z_AXIS, SET(0));"
+								"SetCustomCurve(&Throttle, THR_RIGHT, AxisCurveMod);"			// DX-SLIDER Non-Linear progression Curve
+								"if(VerboseOutput) printf(\"Throttle Profile: NON-LINEAR [-100 ~> 100]\\x0a\");"
+								"SetThrottle();");
+		mThrottleFwdNonLinear	 = EXEC(														// Initialising Throttle 
+								"TrimDXAxis(DX_Z_AXIS, SET(-1024));"
+								"SetCustomCurve(&Throttle, THR_RIGHT, AxisCurveMod);"			// DX-SLIDER Non-Linear progression Curve
+								"if(VerboseOutput) printf(\"Throttle Profile: NON-LINEAR FORWARD ONLY [0 ~> 100]\\x0a\");"
+								"SetThrottle();");
+		mThrottleFullScaleCustom = EXEC(  														// Initialising Throttle Full Scale - Max Shorter @ 80% Preset (ALTERNATIVE)
+								"TrimDXAxis(DX_Z_AXIS, SET(0));" 								// Slightly Shorter Forward travel distance for my RSeat RS1 Cockpit setup. :)
+								"SetJCurve(&Throttle, THR_RIGHT, 80, 100);"						// <Unmapped by Default> (See User Preferences to Set)
+								"if(VerboseOutput) printf(\"Throttle Profile: FULL SCALE CUSTOM [-100 -> 80]\\x0a\");"
+								"SetThrottle();"); }
+
+
+
+	int initThrottleAxis() { 																	// Set Default Throttle Axis
+		if(VerboseOutput) printf("Initialising Throttle Axis..\x0a");
+		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
+			SetJCurve(&Throttle, THR_RIGHT, 50, 50);
+			if(VerboseOutput) printf("Setting ");
+			if		(Throttle[FLAPU]) ActKey(KEYON+PULSE+ThrottlePresetUP); 					// Configure Throttle FLAP Switch Position on Script Run
+    		else if	(Throttle[FLAPM]) ActKey(KEYON+PULSE+ThrottlePresetMID);
+    		else 					  ActKey(KEYON+PULSE+ThrottlePresetDOWN);
+		MapAxis(&Throttle, THR_LEFT, DX_ZROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Left Throttle
+			SetSCurve(&Throttle, THR_LEFT, 0, 0, 0, 0, 0);
+		MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
+			SetSCurve(&Throttle, SCX, 0, 20, 0, 2, -1);
+		MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
+			SetSCurve(&Throttle, SCY, 0, 20, 0, 2, -1);
+		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling)
+			if(CustomDXSliderCurve == 0) SetSCurve(&Throttle, THR_FC, 0, 0, 0, 0, 0);			// (DEFAULT)
+			if(CustomDXSliderCurve == 1) SetCustomCurve(&Throttle, THR_FC, AxisCurveMod); 		// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
+		if(VerboseOutput) printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a"); }
+
+
+
+	int SetThrottle() {																			// Prevents Throttle jumping around on mode changes
+		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata)); }
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// HARDWARE: RUDDER AXIS MAPPINGS //															// Define All Axis Curves/Trim/Deadzones for Device
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int initTFRPRudder() {																		// Initialise Thrustmaster TFRP (T.Flight T16000) Toe Pedal Axes (When enabled in AD_EDSettings)
+		SetSCurve(&TFRPRudder, TRUDDER,  0, TR_DEADZONE,  0, 0, 0);								// Rudder Axis
+		SetSCurve(&TFRPRudder, TRPRIGHT, 0, TOE_DEADZONE, 0, 0, 0);								// Right Toe Brake
+		SetSCurve(&TFRPRudder, TRPLEFT,  0, TOE_DEADZONE, 0, 0, 0); }							// Left  Toe Brake
+
+
+
+	int initTFRPHARudder() {																	// Initialise Thrustmaster TFRPHA (T.Flight TPR) Toe Pedal Axes (When enabled in AD_EDSettings)
+		SetSCurve(&TFRPHARudder, TFRPHA_RUDDER,	0, TR_DEADZONE,  0, 0, 0);						// Rudder Axis
+		SetSCurve(&TFRPHARudder, TFRPHA_RIGHT,	0, TOE_DEADZONE, 0, 0, 0);						// Right Toe Brake
+		SetSCurve(&TFRPHARudder, TFRPHA_LEFT,	0, TOE_DEADZONE, 0, 0, 0); }					// Left  Toe Brake
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
