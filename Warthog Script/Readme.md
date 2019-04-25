@@ -112,7 +112,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - Note: You may need to align the external mapping keys via AD_EDKeyMap_v4.x.x under External Bindings.
 
 ` `
-## AXIS DEADZONES ##
+## -> AXIS DEADZONES ##
 ### TR_DEADZONE [Value 0-100] ###
 - Set the Thrustmaster Rudder Main Z-Axis Deadzone percentage. This is applicable to both TFRP & TPR devices.
 - Default is 5%.
