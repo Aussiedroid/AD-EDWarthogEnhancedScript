@@ -6,8 +6,8 @@
 	define StartSoftware		0						// Start ED Launcher (&/or other 3rd Party Apps) when you Run the Script (Software List & Paths can be customised in AD_ED_v3.x.x.tmc)
 														//  [NOTE: Doesn't work under Win10 -> Please use ED-BAT File included in download pack]
 														
-	define VerboseOutput		0						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
-														//	Options:		Enable = 1 (default),		Disable = 0
+	define VerboseOutput		1						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
+														//	Options:		Enable = 1 (default) (On),	Disable = 0 (Silent Mode / Off)
 
 	int	   SetLED =				172					   ;// Set LED Backlight Level on Throttle	(Value 0-255) (off = 0, default = 172) [Note: This can be adjusted On-The-Fly by using the Friction Control Axis + Pinky Trigger]
 	define BlingLEDBling		1						// Enables a Short Flashing LED Sequence when you flip a Toggle & will also enable a short start-up sequence pattern. Bling Bling!
@@ -22,10 +22,11 @@
 	define UseRuddersTPR		1						// TM TFRPPHA/TPR Rudders (EXCLUDED) = 0, TM TFRPHA/TPR Rudders	 (FILTERED) = 1 (default)	[NOTE : If TFRP TPR Rudder pedals are NOT connected, or you run different brand pedals, neither user preference will run (Eventhandler code will never fire)]
 														// 				EXCLUDED = Doesn't Apply Any Specific Configuration (Standard)
 														//				FILTERED = Applies Differential Toe Brake Configuration (Combines Toe Pedals for correct axis mapping in ED)
-	define UseRudderAxisCurves	0						// For All TM Rudder Pedals Users.	Linear Curve = 0 (default)	Use Joystick Curve Toggle = 1	[If enabled, this will set the custom axis curve on your Rudder axis based on Joystick curve toggle position]
+	define UseRudderAxisCurves	0						// Match axis curve profiles by setting your Rudder axis curve based off your current Joystick axis curve.
+														// For All TM Rudder Pedals Users.	Linear Curve = 0 (default)	Use Joystick Curve Toggle = 1
 														//	[NOTE: Please ensure both UseRuddersT16000 & UseRuddersTPR are NOT = 1. Only enable your device plugged in, and disable the other, or this function will error]
 
-	define HeadtrackPref		1						// Choose your preferred Headtracking hardware preset for mapping of the Center/Reset Orientation to Engine Operate Ign/Norm LEFT UP:
+	define HeadtrackPref		0						// Choose your preferred Headtracking hardware preset for mapping of the Center/Reset Orientation to Engine Operate Ign/Norm LEFT UP:
 														// 	Options: 	Mouse Headlook Center 	= 0 (default)	(Choose if you have NO dedicated headtracking hardware)
 														//				TrackIR Center			= 1				(Choose if you use TrackIR head tracking system or related hardware like Tobi Eye Tracker)
 														//				Reset HMD Orientation	= 2 			(Choose if you are a VR User with a Head Mounted Display)
@@ -52,7 +53,7 @@
 	define CustomDXSliderCurve 	1						// Enable an Offset Curve Arc for DX Slider (Radar Zoom) (Smooths the movement a little)
 														//  Options:	Compensate for non-linear acceleration = 1 (default).	Default ED linear acceleration = 0.
 
-	define NightVisionHUD		1						// Disables the Ship/SRV HUD GUI when Night Vision is Enabled (and Visa-Versa).
+	define NightVisionHUD		0						// Disables the Ship/SRV HUD GUI when Night Vision is Enabled (and Visa-Versa).
 														//	Options:	Hide HUD in Night Vision = 1.				Show HUD in Night Vision = 0 (default).
 
 
@@ -92,7 +93,7 @@
 
 		// ESCAPE VECTOR MACRO //
 	define AutoChaffOnEscape 	0						// During Escape Vector Macro, fire a Chaff automatically to cover your escape! 		= 1 	Disable = 0 (default)
-	define AutoBoostOnEscape 	1						// During Escape Vector Macro, fire an Engine Boost automatically to align your escape! = 1		Disable = 0 (default)
+	define AutoBoostOnEscape 	0						// During Escape Vector Macro, fire an Engine Boost automatically to align your escape! = 1		Disable = 0 (default)
 
 
 		// PINKY 'DOUBLE TAP' OVERRIDE //				// Recommended = SwitchHUDMode  (default) 			(** if you remap to something else, then SwitchHUDMode will need to be mapped elsewhere to use Analysis Mode! **)

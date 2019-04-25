@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS: TABLE OF CONTENTS //						// FUNCTIONS Include logic to customise specific Button/Toggle functionality							//
+// FUNCTIONS: TABLE OF CONTENTS //					// FUNCTIONS Include logic to customise specific Button/Toggle functionality								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 592)]	//
 //		- initHardpointManagement					- initLEDController						- initEnhancedFAOFF						- initPrintState			//
@@ -594,7 +594,7 @@
 
 	int initPrintState() {																		// Display the status of the macro toggles & user prefs on run.
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
-		printf(">> ENHANCEMENTS LOADING:	v%d.%d.%d	  TARGET Mappings, Macros & Functions Decrypted	      <|>\x0a", ADVersionMajor, ADVersionMinor, ADVersionPoint);
+		printf(">> ENHANCEMENTS LOADING:	v%d.%d.%d	  TARGET Mappings, Macros & Functions Decrypted			<|>\x0a", ADVersionMajor, ADVersionMinor, ADVersionPoint);
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
 		if(VerboseOutput) printf(":....USER PREFERENCES....:\x0a");
 		printf("[Run Software @ Start = %d]  [Custom Slider Curve = %d]  [PIP Mgt. Preset = %d]  [MFD Active  = %d]\x0a", StartSoftware, CustomDXSliderCurve, UserPIPPref, UseMFD);
@@ -605,7 +605,7 @@
 		if(VerboseOutput) printf(":..DEFAULT TOGGLE STATE..:\x0a");
 		if(VerboseOutput) printf("[Combine Pri+Sec Fire = %d]  [Rot. Correction = %d]  [C/ Scoop = %d]  [L/ Gear = %d]  [Lights  = %d]\x0a", combinePriSecFire, RCorrection, CargoSc, Gears, Lights);
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
-		printf("Starting Macros... "); }
+		if(VerboseOutput) printf("Starting Macros... Compiling Functions... "); }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

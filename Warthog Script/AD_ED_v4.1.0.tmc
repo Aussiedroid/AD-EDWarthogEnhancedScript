@@ -57,7 +57,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	if(StartSoftware == 1) {															// Auto-Load on Script Run (Customise Example Paths below OR Add Your Own)
-		printf("Booting external software suite for Elite Dangerous...Done\x0a");		//	  					   (Note: All path '\' need to be '\\' for it to work)
+		if(VerboseOutput) printf("Booting external software suite for Elite Dangerous...Done\x0a");		//	   (Note: All path '\' need to be '\\' for it to work)
 //		system("spawn -w \"C:\\Program Files (x86)\\NaturalPoint\\TrackIR5\" \"C:\\Program Files (x86)\\NaturalPoint\\TrackIR5\\TrackIR5.exe\"");			// TRACKIR			(URL= http://www.naturalpoint.com/trackir/)
 //		system("spawn -w \"C:\\Program Files (x86)\\VoiceAttack\" \"C:\\Program Files (x86)\\VoiceAttack\\VoiceAttack.exe\"");								// VOICE ATTACK		(URL= https://voiceattack.com/)
 //		system("spawn -w \"C:\\Program Files (x86)\\VoiceAttack\\Apps\\EDDI\" \"C:\\Program Files (x86)\\VoiceAttack\\Apps\\EDDI\\EDDI.exe"");				// EDDI				(URL= https://github.com/EDCD/EDDI/wiki)
@@ -113,9 +113,9 @@
 	if(UseRuddersTPR == 1)	  initTFRPHARudder();											// Enables T.Flight TPR Pedal Intialisation. 			(Note: T.Flight Rudder Axes are Configured below in EVENT HANDLER)
 
 	if(CruiseOnThrottle == 1) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,99,100),		// Supercruise on Throttle 100%	 [Note: Throttle Axis 'Full Range' Curves adjusted -10% when active]
-							   EXEC("if(Joystick[S4])  ActKey(KEYON+PULSE+FrameShiftDrive);"// IF Pinky Modifier Held, Activate Hyperspace Jump
-									"if(Joystick[H4P]) ActKey(KEYON+PULSE+Supercruise);"	// IF CMS Modifier Held, Activate Supercruise
-							   ), 0));														// ELSE do nothing
+							  EXEC("if(Joystick[S4])  ActKey(KEYON+PULSE+FrameShiftDrive);"	// IF Pinky Modifier Held, Activate Hyperspace Jump
+								   "if(Joystick[H4P]) ActKey(KEYON+PULSE+Supercruise);"		// IF CMS Modifier Held, Activate Supercruise
+							  	  ), 0));													// ELSE do nothing
 
 
 	// AXIS PRESET TOGGLES // 																// Map Flaps Select Toggle to Throttle Axis Presets
@@ -470,7 +470,7 @@
 //	MapKeyR(&Throttle, IDLERON,  0);																				// Throttle Idle Detents RIGHT ON RELEASE	(Not used)
 //	MapKey(&Throttle,  IDLEROFF, 0); 																				// Throttle Idle Detents RIGHT OFF			(Not used)
 
-	printf("Done... Enhanced ED Script Engineered by Aussiedroid is now running...    Fly Safe CMDR!	      <|>\x0a");
+	printf("Done... Enhanced ED Script Engineered by Aussiedroid is now running...    Fly Safe CMDR!	       <|>\x0a");
 	printf("-----------------------------------------------------------------------------------------------------------------------------------------------");
 } 																													// end main()
 
@@ -508,7 +508,7 @@
 //		MapKey(&RMFD, GAIND, 0);
 //		MapKey(&RMFD, SYMU,  0);
 //		MapKey(&RMFD, SYMD,  0);
-		printf("Right MFD Configured\x0a"); }
+		if(VerboseOutput) printf("Right MFD Configured\x0a"); }
 
 
 	int initLeftMFD() {																		// Set Left MFD
@@ -540,7 +540,7 @@
 //		MapKey(&LMFD, GAIND, 0);
 //		MapKey(&LMFD, SYMU,  0);
 //		MapKey(&LMFD, SYMD,  0);
-		printf("Left MFD Configured\x0a"); }
+		if(VerboseOutput) printf("Left MFD Configured\x0a"); }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -585,8 +585,8 @@
 // =============================================================================================================================================================//
 // VERSION HISTORY //			Version 4.1.0			\\ Released Sept 2016	|	Updated Apr 2019 //					\\		Public Release #22				//
 // =============================================================================================================================================================//
-// v4.1.0-NEW: Axis Deadzone Customisation + Disable Message Text Output in TARGET Window via User Prefs. FIXED: UseRudderAxisCurves axis configs.				//
-// v4.1.0-NEW: April Update Mappings ???  //
+// v4.1.0-APRIL UPDATE NEW: Axis Deadzone Customisation + Disable Message Text Output in TARGET Window via User Prefs. FIXED: UseRudderAxisCurves axis configs.	//
+// v4.1.0-NEW: Galaxy Map Keybind for returning to Current System added. FIXED: FastModeSwitch, NAV Beacon & Report Crimes macro timings 4 new Main Menu layout.//
 // v4.0 - NEW: Pulse Repeater Fire! Customisable Auto-Chat Presets, 2 Non-Linear Throttle Presets, SHIFT Key & Hide HUD on NightVision. FIX: LEDs on Launch Seq.//
 // v4.0 - IMPROVED: New File Structure, Categorised User Prefs, Table of Contents, Toggle Seq. for Nav Beacon. REMOVED: ChatPresetMode+RepeaterFireMode Presets.//
 // v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord keymap resolved.//

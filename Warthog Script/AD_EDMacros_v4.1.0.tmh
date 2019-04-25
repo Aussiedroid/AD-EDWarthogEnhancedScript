@@ -31,9 +31,8 @@
 			PULSE+UIUp,					D(400),
 			PULSE+UIUp,					D(400),
 			PULSE+UISelect,				D(500),
-			PULSE+UIRight,				D(250),
-			PULSE+UISelect,				D(6000),												// ** Depending on the load times of your PC, this value may need to be changed/increased (6000ms is default)
-			PULSE+UIDown,				D(500),
+			PULSE+UIRight,				D(350),
+			PULSE+UISelect,				D(8333),												// ** Depending on the load times of your PC, this value may need to be changed/increased (6000ms is default)
 			PULSE+UISelect,				LOCK);
 
 	    mSignalLights = CHAIN(																	// MACRO: Flash Ship/SRV Lights (Standard)
@@ -82,13 +81,15 @@
 			PULSE+UINextPanel,			D(),
 			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if Target Panel cursor in
 			PULSE+UINextPanel,			D(),													//			   default/orig position (On Galaxy Map), else will be misaligned.
-			PULSE+UIDown,				D(),
+			PULSE+UIDown,				D(250),
+			PULSE+UIDown,				D(250),
 			PULSE+UIRight,				D(250),
 			PULSE+UIRight,				D(500),
-			PULSE+UISelect,				D(250),
-			PULSE+UILeft,				D(),
-			PULSE+UILeft,				D(),
-			PULSE+UIUp,					D(),
+			PULSE+UISelect,				D(150),
+			PULSE+UILeft,				D(250),
+			PULSE+UILeft,				D(250),
+			PULSE+UIUp,					D(250),
+			PULSE+UIUp,					D(250),
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIPrevPanel,			D(),
@@ -99,21 +100,19 @@
 			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if Target Panel cursor in
 			PULSE+UINextPanel,			D(),													//			   Default/Orig position, else will be misaligned. Need to be in a Wing.
 			PULSE+UINextPanel,			D(),
-			PULSE+UIRight,				D(),
-			PULSE+UIDown,				D(),
-			PULSE+UIDown,				D(),
-			PULSE+UIDown,				D(),
-			PULSE+UIDown,				D(),
-			PULSE+UIDown,				D(),
+			PULSE+UIRight,				D(250),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
 			PULSE+UISelect,				D(250),
-			PULSE+UIDown,				D(),
+			PULSE+UIDown,				D(150),
 			PULSE+UISelect,				D(250),
-			PULSE+UIUp,					D(),		 											// Send selector back to home position when done
-			PULSE+UIUp,					D(),
-			PULSE+UIUp,					D(),			
-			PULSE+UIUp,					D(),
-			PULSE+UIUp,					D(),			
-			PULSE+UILeft,				D(),
+			PULSE+UIUp,					D(150),		 											// Send selector back to home position when done
+			PULSE+UIUp,					D(150),			
+			PULSE+UIUp,					D(150),
+			PULSE+UIUp,					D(250),			
+			PULSE+UILeft,				D(250),
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIPrevPanel,			D(),
@@ -124,20 +123,18 @@
 			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if Target Panel cursor in
 			PULSE+UINextPanel,			D(),													//			   Default/Orig position, else will be misaligned. Need to be in a Wing.
 			PULSE+UINextPanel,			D(),
-			PULSE+UIRight,				D(),
-			PULSE+UIDown,				D(),
-			PULSE+UIDown,				D(),
-			PULSE+UIDown,				D(),
-			PULSE+UIDown,				D(),
-			PULSE+UIDown,				D(),
+			PULSE+UIRight,				D(250),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
 			PULSE+UISelect,				D(250),
-			PULSE+UISelect,				D(250),
-			PULSE+UIUp,					D(),													// Send selector back to home position when done
-			PULSE+UIUp,					D(),
-			PULSE+UIUp,					D(),			
-			PULSE+UIUp,					D(),
-			PULSE+UIUp,					D(),			
-			PULSE+UILeft,				D(),
+			PULSE+UISelect,				D(150),
+			PULSE+UIUp,					D(150),													// Send selector back to home position when done
+			PULSE+UIUp,					D(150),
+			PULSE+UIUp,					D(150),
+			PULSE+UIUp,					D(150),			
+			PULSE+UILeft,				D(250),
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIPrevPanel,			D(),

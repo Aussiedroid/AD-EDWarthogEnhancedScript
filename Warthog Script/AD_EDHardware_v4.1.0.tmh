@@ -25,7 +25,7 @@
 
 
 	int initJoystickAxis() { 																	// Set Default Joystick Axis
-		printf("Initialising Joystick Axis ... ");
+		if(VerboseOutput) printf("Initialising Joystick Axis... ");
 		MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
 			SetSCurve(&Joystick, JOYX, 0, 0, 0, 0, 0);
 		MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
@@ -78,7 +78,7 @@
 
 
 	int initThrottleAxis() { 																	// Set Default Throttle Axis
-		printf("Initialising Throttle Axis ...\x0a");
+		if(VerboseOutput) printf("Initialising Throttle Axis..\x0a");
 		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
 			SetJCurve(&Throttle, THR_RIGHT, 50, 50);
 			if(VerboseOutput) printf("Setting ");
@@ -94,7 +94,7 @@
 		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling)
 			if(CustomDXSliderCurve == 0) SetSCurve(&Throttle, THR_FC, 0, 0, 0, 0, 0);			// (DEFAULT)
 			if(CustomDXSliderCurve == 1) SetCustomCurve(&Throttle, THR_FC, AxisCurveMod); 		// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
-		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a"); }
+		if(VerboseOutput) printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a"); }
 
 
 
