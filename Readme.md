@@ -94,7 +94,7 @@ To further enhance the Modifier button system, some buttons have also been desig
 
 ## Reference Maps: ##
 
-![Joystick](https://steamuserimages-a.akamaihd.net/ugc/980002135582649779/9C9D3449426CD4FF2085B6AB95ECE0BF5EB8EDDE/ "Joystick")
+![Joystick](https://steamuserimages-a.akamaihd.net/ugc/814499055605975953/038DB3B4E1B37F6E6F1B2841334BD405283FCEC6/ "Joystick")
 
 ![Throttle Base](https://steamuserimages-a.akamaihd.net/ugc/980002135582653970/604A396AD537FADA0CF4D5CF68CD1064A94A3765/ "Throttle Base")
 
