@@ -1,5 +1,5 @@
 // =============================================================================================================================================================//
-// Version 4.0.0									\\ Released Sept 2016	|	Updated March 2019 //								Public Release #21			//
+// Version 4.1.0									\\ Released Sept 2016	|	Updated April 2019 //								Public Release #22			//
 // =============================================================================================================================================================//
 // AUSSIEDROID'S ACKNOWLEDGEMENTS //																															//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -28,12 +28,12 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	include "Target.tmh" 												// Default System Import (Thrustmaster TARGET Functions)
-	include "AD_EDDefaults_v4.0.0.tmh"									// Global Variable Settings, States & Timings/Delays
-	include "AD_EDUserPrefs_v4.0.0.tmh" 								// User Preferences & Script Customisation Options
-	include "AD_EDKeyMap_v4.0.0.ttm" 									// Variable Key Mapping & Reference Tables
-	include "AD_EDHardware_v4.0.0.tmh"									// Joystick, Throttle & Rudder Axes/Curves Configuration
-	include "AD_EDMacros_v4.0.0.tmh"									// Macro Definitions	 (Custom Sequences)
-	include "AD_EDFunctions_v4.0.0.tmh" 								// Function Definitions	 (Custom Logic for Buttons, Toggles & Ship Controls)
+	include "AD_EDDefaults_v4.1.0.tmh"									// Global Variable Settings, States & Timings/Delays
+	include "AD_EDUserPrefs_v4.1.0.tmh" 								// User Preferences & Script Customisation Options
+	include "AD_EDKeyMap_v4.1.0.ttm" 									// Variable Key Mapping & Reference Tables
+	include "AD_EDHardware_v4.1.0.tmh"									// Joystick, Throttle & Rudder Axes/Curves Configuration
+	include "AD_EDMacros_v4.1.0.tmh"									// Macro Definitions	 (Custom Sequences)
+	include "AD_EDFunctions_v4.1.0.tmh" 								// Function Definitions	 (Custom Logic for Buttons, Toggles & Ship Controls)
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // START-UP: DEVICE CHECK / MAIN //
@@ -57,7 +57,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	if(StartSoftware == 1) {															// Auto-Load on Script Run (Customise Example Paths below OR Add Your Own)
-		printf("Booting external software suite for Elite Dangerous...Done\x0a");		//						   (Note: All path '\' need to be '\\' for it to work)
+		if(VerboseOutput) printf("Booting external software suite for Elite Dangerous...Done\x0a");		//	   (Note: All path '\' need to be '\\' for it to work)
 //		system("spawn -w \"C:\\Program Files (x86)\\NaturalPoint\\TrackIR5\" \"C:\\Program Files (x86)\\NaturalPoint\\TrackIR5\\TrackIR5.exe\"");			// TRACKIR			(URL= http://www.naturalpoint.com/trackir/)
 //		system("spawn -w \"C:\\Program Files (x86)\\VoiceAttack\" \"C:\\Program Files (x86)\\VoiceAttack\\VoiceAttack.exe\"");								// VOICE ATTACK		(URL= https://voiceattack.com/)
 //		system("spawn -w \"C:\\Program Files (x86)\\VoiceAttack\\Apps\\EDDI\" \"C:\\Program Files (x86)\\VoiceAttack\\Apps\\EDDI\\EDDI.exe"");				// EDDI				(URL= https://github.com/EDCD/EDDI/wiki)
@@ -113,9 +113,9 @@
 	if(UseRuddersTPR == 1)	  initTFRPHARudder();											// Enables T.Flight TPR Pedal Intialisation. 			(Note: T.Flight Rudder Axes are Configured below in EVENT HANDLER)
 
 	if(CruiseOnThrottle == 1) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,99,100),		// Supercruise on Throttle 100%	 [Note: Throttle Axis 'Full Range' Curves adjusted -10% when active]
-							   EXEC("if(Joystick[S4])  ActKey(KEYON+PULSE+FrameShiftDrive);"// IF Pinky Modifier Held, Activate Hyperspace Jump
-									"if(Joystick[H4P]) ActKey(KEYON+PULSE+Supercruise);"	// IF CMS Modifier Held, Activate Supercruise
-							   ), 0));														// ELSE do nothing
+							  EXEC("if(Joystick[S4])  ActKey(KEYON+PULSE+FrameShiftDrive);"	// IF Pinky Modifier Held, Activate Hyperspace Jump
+								   "if(Joystick[H4P]) ActKey(KEYON+PULSE+Supercruise);"		// IF CMS Modifier Held, Activate Supercruise
+							  	  ), 0));													// ELSE do nothing
 
 
 	// AXIS PRESET TOGGLES // 																// Map Flaps Select Toggle to Throttle Axis Presets
@@ -137,15 +137,15 @@
 	SetShiftButton(&Joystick, S4, &Throttle, PSF, PSB);																// Set Shift Button (Pinky Toggle Switch) for MapKeyIOUMD	(With UDTOGGLE = Toggle, Without = Hold -> See Page 22 of manual)	
 
 	MapKeyIOUMD(&Joystick,  TG1,																					// Trigger 1			[Primary Trigger]
-								SEQ( EXEC(				"ActKey(KEYON+DOWN+PrimaryFire);	EndlessStatePri = 1;	printf(\"Repeater Fire: COMBAT-ENDLESS [ON]  (PRIMARY)\\x0a\");"),					// IU
-									 EXEC(				"ActKey(KEYON+UP+PrimaryFire); 		EndlessStatePri = 0;	printf(\"Repeater Fire: COMBAT-ENDLESS [OFF] (PRIMARY)\\x0a\");")),
+								SEQ( EXEC(				"ActKey(KEYON+DOWN+PrimaryFire);	EndlessStatePri = 1;	if(VerboseOutput) printf(\"Repeater Fire: COMBAT-ENDLESS [ON]  (PRIMARY)\\x0a\");"),					// IU
+									 EXEC(				"ActKey(KEYON+UP+PrimaryFire); 		EndlessStatePri = 0;	if(VerboseOutput) printf(\"Repeater Fire: COMBAT-ENDLESS [OFF] (PRIMARY)\\x0a\");")),
 								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"),																												// OU
-								EXEC("if(!Joystick[H4P]) ActKey(KEYON+DOWN+PrimaryFire);				 			printf(\"Repeater Fire: EXPLORER-SCANNER [ON]  (PRIMARY)\\x0a\");"					// IM
+								EXEC("if(!Joystick[H4P]) ActKey(KEYON+DOWN+PrimaryFire);				 			if(VerboseOutput) printf(\"Repeater Fire: EXPLORER-SCANNER [ON]  (PRIMARY)\\x0a\");"					// IM
 									 "if(!Joystick[H4P]) DeferCall(ScanTimer, &ActKey, KEYON+UP+PrimaryFire);		DeferCall(ScanTimer, &ActKey, initExplorerScannerDisengage());"
 									 "if(Joystick[H4P])	 initSetCombinedFire(1);"),
 								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"),																												// OM
-								SEQ(REXEC(0, MineTimer,	"ActKey(KEYON+PULSE+PrimaryFire);							printf(\"Repeater Fire: MINING-AUTO-PULSE [^FIRED^] (PRIMARY)\\x0a\");", RNOSTOP),	// ID
-									 EXEC(				"StopAutoRepeat(0); 										printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE] (PRIMARY)\\x0a\");")),
+								SEQ(REXEC(0, MineTimer,	"ActKey(KEYON+PULSE+PrimaryFire);							if(VerboseOutput) printf(\"Repeater Fire: MINING-AUTO-PULSE [^FIRED^] (PRIMARY)\\x0a\");", RNOSTOP),	// ID
+									 EXEC(				"StopAutoRepeat(0); 										if(VerboseOutput) printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE] (PRIMARY)\\x0a\");")),
 								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"));																											// OD
 	MapKeyRIOUMD(&Joystick, TG1, 																					// Release Trigger 1	[Primary Trigger]
 								0, 	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"),		// IU, OU	// Only Releases if Combat-Endless Mode is NOT enabled (keeps sequence in sync)
@@ -167,14 +167,14 @@
 	// SECONDARY FIRE //
 	if(SecFirePinkyPref == 0) {
 		MapKeyIOUMD(&Joystick,  S3,																					// Pinky Button 		[Secondary Fire]
-								SEQ( EXEC(				"ActKey(KEYON+DOWN+SecondaryFire);	EndlessStateSec = 1;	printf(\"Repeater Fire: COMBAT-ENDLESS [ON]  (SECONDARY)\\x0a\");"),						// IU
-									 EXEC(				"ActKey(KEYON+UP+SecondaryFire); 	EndlessStateSec = 0;	printf(\"Repeater Fire: COMBAT-ENDLESS [OFF] (SECONDARY)\\x0a\");")),
+								SEQ( EXEC(				"ActKey(KEYON+DOWN+SecondaryFire);	EndlessStateSec = 1;	if(VerboseOutput) printf(\"Repeater Fire: COMBAT-ENDLESS [ON]  (SECONDARY)\\x0a\");"),						// IU
+									 EXEC(				"ActKey(KEYON+UP+SecondaryFire); 	EndlessStateSec = 0;	if(VerboseOutput) printf(\"Repeater Fire: COMBAT-ENDLESS [OFF] (SECONDARY)\\x0a\");")),
 								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"),																													// OU
-								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);				 			printf(\"Repeater Fire: EXPLORER-SCANNER [ON]  (SECONDARY)\\x0a\");"						// IM
+								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);				 			if(VerboseOutput) printf(\"Repeater Fire: EXPLORER-SCANNER [ON]  (SECONDARY)\\x0a\");"						// IM
 									 					"DeferCall(ScanTimer, &ActKey, KEYON+UP+SecondaryFire);		DeferCall(ScanTimer, &ActKey, initExplorerScannerDisengage());"),
 								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"),																													// OM
-								SEQ(REXEC(0, MineTimer,	"ActKey(KEYON+PULSE+SecondaryFire);							printf(\"Repeater Fire: MINING-AUTO-PULSE [^FIRED^] (SECONDARY)\\x0a\");", RNOSTOP),		// ID
-									 EXEC(				"StopAutoRepeat(0); 										printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE] (SECONDARY)\\x0a\");")),
+								SEQ(REXEC(0, MineTimer,	"ActKey(KEYON+PULSE+SecondaryFire);							if(VerboseOutput) printf(\"Repeater Fire: MINING-AUTO-PULSE [^FIRED^] (SECONDARY)\\x0a\");", RNOSTOP),		// ID
+									 EXEC(				"StopAutoRepeat(0); 										if(VerboseOutput) printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE] (SECONDARY)\\x0a\");")),
 								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"));																													// OD
 		MapKeyRIOUMD(&Joystick, S3, 																				// Release Pinky Button	[Secondary Fire]
 								0, 	 EXEC("if(!EndlessStateSec) ActKey(KEYON+UP+SecondaryFire);"),		// IU, OU	// Only Releases if Combat-Endless Mode is NOT enabled (keeps sequence in sync)
@@ -377,14 +377,14 @@
 	MapKey(&Throttle,  PSF,  EXEC(																					// Pinky Throttle Switch FORWARD
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpNextSubSys);"
 								"if(Joystick[S4])  initSendChatString(chat_ClearChatBox);"
-								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY FORWARD  >>> [Comms Channel: AUTO-TEXT]\\x0a\"); printf(\"SHIFT KEY FORWARD  >>> [Repeater Mode: COMBAT-ENDLESS]\\x0a\");"));
+								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput) { printf(\"SHIFT KEY FORWARD  >>> [Comms Channel: AUTO-TEXT]\\x0a\"); printf(\"SHIFT KEY FORWARD  >>> [Repeater Mode: COMBAT-ENDLESS]\\x0a\"); }"));
 	MapKey(&Throttle,  PSM,  EXEC( 																					// Pinky Throttle Switch MIDDLE
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpMidSubSys);"
-								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY MIDDLE  ---- [Comms Channel: WINGS]\\x0a\"); printf(\"SHIFT KEY MIDDLE  ---- [Repeater Mode: EXPLORER-SCANNER]\\x0a\");"));
+								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput) { printf(\"SHIFT KEY MIDDLE  ---- [Comms Channel: WINGS]\\x0a\"); printf(\"SHIFT KEY MIDDLE  ---- [Repeater Mode: EXPLORER-SCANNER]\\x0a\"); }"));
 	MapKey(&Throttle,  PSB,  EXEC(																					// Pinky Throttle Switch BACK
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpPrevSubSys);"
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"
-								"if(!Joystick[S4] & !Joystick[H4P]) printf(\"SHIFT KEY BACKWARD <<< [Comms Channel: FIGHTER]\\x0a\"); printf(\"SHIFT KEY BACKWARD <<< [Repeater Mode: MINING-AUTO-PULSE]\\x0a\");"));
+								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput) { printf(\"SHIFT KEY BACKWARD <<< [Comms Channel: FIGHTER]\\x0a\"); printf(\"SHIFT KEY BACKWARD <<< [Repeater Mode: MINING-AUTO-PULSE]\\x0a\"); }"));
 	MapKeyR(&Throttle, PSB,  EXEC(																					// Pinky Throttle Switch BACK RELEASE
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"));
 
@@ -408,9 +408,9 @@
 
 
 	// VOICE COMMS CHANNEL SELECTION //
-	MapKey(&Throttle,  EFRNORM,  EXEC("printf(\"Voice Comms: !!  EXTERNAL CHANNELS SELECTED  !!\\x0a\");")); 		// Engine Fuel Flow Norm/Override Switches RIGHT 		[Mic Toggle ON (External/3rd Party)]
+	MapKey(&Throttle,  EFRNORM,  EXEC("if(VerboseOutput) printf(\"Voice Comms: !!  EXTERNAL CHANNELS SELECTED  !!\\x0a\");")); 		// Engine Fuel Flow Norm/Override Switches RIGHT 		[Mic Toggle ON (External/3rd Party)]
 //	MapKeyR(&Throttle, EFRNORM,  0); 																				// Engine Fuel Flow Norm/Override Switches RIGHT RELEASE 
-	MapKey(&Throttle,  EFROVER,  EXEC("printf(\"Voice Comms: !!  E:D INTERNAL CHANNEL SELECTED  !!\\x0a\");"));		// Engine Fuel Flow Norm/Override Switches RIGHT OFF 	[Mic Toggle OFF (Internal/Default)]
+	MapKey(&Throttle,  EFROVER,  EXEC("if(VerboseOutput) printf(\"Voice Comms: !!  E:D INTERNAL CHANNEL SELECTED  !!\\x0a\");"));	// Engine Fuel Flow Norm/Override Switches RIGHT OFF 	[Mic Toggle OFF (Internal/Default)]
 
 
 	// AUX. HEADLOOK & OPEN MIC GAME CONTROLS //
@@ -463,14 +463,14 @@
 
 
 	// IDLE LOCK CONFIG //
-	MapKey(&Throttle,  IDLELON,	 EXEC("initIDLEMaster();" "printf(\"THROTTLE IDLE LOCK: ^^ACTIVE^^\\x0a\");"));		// Throttle Idle Detents LEFT ON	[Locking (Down): Stationary]
-	MapKeyR(&Throttle, IDLELON,  EXEC("initIDLEMaster();" "printf(\"THROTTLE IDLE LOCK: *DISABLED*\\x0a\");"));		// Throttle Idle Detents LEFT ON RELEASE
+	MapKey(&Throttle,  IDLELON,	 EXEC("initIDLEMaster();" "if(VerboseOutput) printf(\"THROTTLE IDLE LOCK: ^^ACTIVE^^\\x0a\");"));		// Throttle Idle Detents LEFT ON	[Locking (Down): Stationary]
+	MapKeyR(&Throttle, IDLELON,  EXEC("initIDLEMaster();" "if(VerboseOutput) printf(\"THROTTLE IDLE LOCK: *DISABLED*\\x0a\");"));		// Throttle Idle Detents LEFT ON RELEASE
 //	MapKey(&Throttle,  IDLELOFF, 0);																				// Throttle Idle Detents LEFT OFF
 //	MapKey(&Throttle,  IDLERON,  0); 																				// Throttle Idle Detents RIGHT ON			(Not used)
 //	MapKeyR(&Throttle, IDLERON,  0);																				// Throttle Idle Detents RIGHT ON RELEASE	(Not used)
 //	MapKey(&Throttle,  IDLEROFF, 0); 																				// Throttle Idle Detents RIGHT OFF			(Not used)
 
-	printf("Done... Enhanced ED Script Engineered by Aussiedroid is now running...    Fly Safe CMDR!	      <|>\x0a");
+	printf("Done... Enhanced ED Script Engineered by Aussiedroid is now running...    Fly Safe CMDR!	       <|>\x0a");
 	printf("-----------------------------------------------------------------------------------------------------------------------------------------------");
 } 																													// end main()
 
@@ -508,7 +508,7 @@
 //		MapKey(&RMFD, GAIND, 0);
 //		MapKey(&RMFD, SYMU,  0);
 //		MapKey(&RMFD, SYMD,  0);
-		printf("Right MFD Configured\x0a"); }
+		if(VerboseOutput) printf("Right MFD Configured\x0a"); }
 
 
 	int initLeftMFD() {																		// Set Left MFD
@@ -540,7 +540,7 @@
 //		MapKey(&LMFD, GAIND, 0);
 //		MapKey(&LMFD, SYMU,  0);
 //		MapKey(&LMFD, SYMD,  0);
-		printf("Left MFD Configured\x0a"); }
+		if(VerboseOutput) printf("Left MFD Configured\x0a"); }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -583,8 +583,10 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // =============================================================================================================================================================//
-// VERSION HISTORY //			Version 4.0.0			\\ Released Sept 2016	|	Updated March 2019 //				\\		Public Release #21				//
+// VERSION HISTORY //			Version 4.1.0			\\ Released Sept 2016	|	Updated Apr 2019 //					\\		Public Release #22				//
 // =============================================================================================================================================================//
+// v4.1.0-APRIL UPDATE NEW: Axis Deadzone Customisation + Disable Message Text Output in TARGET Window via User Prefs. FIXED: UseRudderAxisCurves axis configs.	//
+// v4.1.0-NEW: Galaxy Map Keybind for returning to Current System added. FIXED: FastModeSwitch, NAV Beacon & Report Crimes macro timings 4 new Main Menu layout.//
 // v4.0 - NEW: Pulse Repeater Fire! Customisable Auto-Chat Presets, 2 Non-Linear Throttle Presets, SHIFT Key & Hide HUD on NightVision. FIX: LEDs on Launch Seq.//
 // v4.0 - IMPROVED: New File Structure, Categorised User Prefs, Table of Contents, Toggle Seq. for Nav Beacon. REMOVED: ChatPresetMode+RepeaterFireMode Presets.//
 // v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord keymap resolved.//

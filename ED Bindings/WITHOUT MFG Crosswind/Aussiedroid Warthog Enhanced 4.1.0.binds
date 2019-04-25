@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Root PresetName="Aussiedroid Warthog Enhanced 4.0.0" MajorVersion="3" MinorVersion="0">
+<Root PresetName="Aussiedroid Warthog Enhanced 4.1.0" MajorVersion="3" MinorVersion="0">
 	<KeyboardLayout>en-US</KeyboardLayout>
 	<MouseXMode Value="" />
 	<MouseXDecay Value="0" />
@@ -17,7 +17,7 @@
 	<YawAxisRaw>
 		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_XAxis" />
 		<Inverted Value="0" />
-		<Deadzone Value="0.00000000" />
+		<Deadzone Value="0.04000000" />
 	</YawAxisRaw>
 	<YawLeftButton>
 		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_25" />
@@ -38,7 +38,7 @@
 	<RollAxisRaw>
 		<Binding Device="{NoDevice}" Key="Joy_RZAxis" />
 		<Inverted Value="1" />
-		<Deadzone Value="0.17999999" />
+		<Deadzone Value="0.20000000" />
 	</RollAxisRaw>
 	<RollLeftButton>
 		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_23">
@@ -55,7 +55,7 @@
 	<PitchAxisRaw>
 		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_YAxis" />
 		<Inverted Value="1" />
-		<Deadzone Value="0.04000000" />
+		<Deadzone Value="0.03000000" />
 	</PitchAxisRaw>
 	<PitchUpButton>
 		<Primary Device="{NoDevice}" Key="" />
@@ -145,7 +145,7 @@
 		<Secondary Device="Keyboard" Key="Key_R">
 			<Modifier Device="Keyboard" Key="Key_LeftControl" />
 		</Secondary>
-		<ToggleOn Value="1" />
+		<ToggleOn Value="0" />
 	</ToggleReverseThrottleInput>
 	<ForwardKey>
 		<Primary Device="{NoDevice}" Key="" />
@@ -586,6 +586,14 @@
 		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="Keyboard" Key="Key_7" />
 	</PlayerHUDModeToggle>
+	<ExplorationFSSEnter>
+		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_28">
+			<Modifier Device="ThrustMasterWarthogCombined" Key="Joy_4" />
+		</Primary>
+		<Secondary Device="Keyboard" Key="Key_F">
+			<Modifier Device="Keyboard" Key="Key_LeftAlt" />
+		</Secondary>
+	</ExplorationFSSEnter>
 	<UI_Up>
 		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_15" />
 		<Secondary Device="Keyboard" Key="Key_W" />
@@ -750,7 +758,7 @@
 	</CamTranslateRight>
 	<CamTranslateZAxis>
 		<Binding Device="{NoDevice}" Key="Joy_XAxis" />
-		<Inverted Value="0" />
+		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</CamTranslateZAxis>
 	<CamTranslateUp>
@@ -787,6 +795,10 @@
 		<Secondary Device="{NoDevice}" Key="" />
 		<ToggleOn Value="0" />
 	</CamTranslateZHold>
+	<GalaxyMapHome>
+		<Primary Device="Keyboard" Key="Key_C" />
+		<Secondary Device="Keyboard" Key="Key_V" />
+	</GalaxyMapHome>
 	<ToggleDriveAssist>
 		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="Keyboard" Key="Key_Z" />
@@ -1449,14 +1461,6 @@
 			<Modifier Device="Keyboard" Key="Key_LeftAlt" />
 		</Secondary>
 	</GalnetAudio_ClearQueue>
-	<ExplorationFSSEnter>
-		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_28">
-			<Modifier Device="ThrustMasterWarthogCombined" Key="Joy_4" />
-		</Primary>
-		<Secondary Device="Keyboard" Key="Key_F">
-			<Modifier Device="Keyboard" Key="Key_LeftAlt" />
-		</Secondary>
-	</ExplorationFSSEnter>
 	<ExplorationFSSCameraPitch>
 		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_YAxis" />
 		<Inverted Value="0" />

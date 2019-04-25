@@ -179,6 +179,7 @@
 //	define GalaxyMapTranslateDown				L_CTL+USB[0x0B]			// CTRL+H
 //	define GalaxyMapZoomIn						L_CTL+USB[0x1D]			// CTRL+Z
 //	define GalaxyMapZoomOut						L_CTL+USB[0x1B]			// CTRL+X
+//	define GalaxyCurrentSystem					L_CTL+USB[0x06]			// CTRL+C (Not currently mapped in bindings - currently C & V)
 
 
 		// HEADLOOK //

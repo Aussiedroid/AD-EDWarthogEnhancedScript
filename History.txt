@@ -19,8 +19,10 @@
 //							  ** RECOMMENDED RUNNING SCRIPT IN TARGET GUI **							//
 //						** REMINDER: CUSTOMISE/SET YOUR USER PREFERENCES IN AD_EDUSERPREFS FILE **					//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// VERSION HISTORY //	Version 4.0.0			\\ Released Sept 2016	|	Updated March 2019 //		\\		Public Release #21	//
+// VERSION HISTORY //	Version 4.1.0			\\ Released Sept 2016	|	Updated April 2019 //		\\		Public Release #22	//
 // =============================================================================================================================================================//
+// v4.1.0-APRIL UPDATE NEW: Axis Deadzone Customisation + Disable Message Text Output in TARGET Window via User Prefs. FIXED: UseRudderAxisCurves axis configs.	//
+// v4.1.0-NEW: Galaxy Map Keybind for returning to Current System added. FIXED: FastModeSwitch, NAV Beacon & Report Crimes macro timings 4 new Main Menu layout.//
 // v4.0 - NEW: Pulse Repeater Fire! Customisable Auto-Chat Presets, 2 Non-Linear Throttle Presets, SHIFT Key & Hide HUD on NightVision. FIX: LEDs on Launch Seq.//
 // v4.0 - IMPROVED: New File Structure, Categorised User Prefs, Table of Contents, Toggle Seq. for Nav Beacon. REMOVED: ChatPresetMode+RepeaterFireMode Presets.//
 // v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord keymap resolved.//
