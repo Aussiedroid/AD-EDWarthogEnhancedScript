@@ -38,41 +38,41 @@
 																								// FLAP position sets Throttle Curve Profile
 	int initSetThrottleCurves() {																// Three different presets are selectable On-The-Fly
 		mThrottleFwdOnly		 = EXEC(  														// Initialising Throttle Forward Only Preset (SRV etc)
-								"TrimDXAxis(DX_Z_AXIS, SET(-1024));"							// *TrimDXAxis(axis, +/-1024) trim is additive, SET forces trim value, CURRENT reads axis.pos
-								"if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);" 			// *SetSCurve(&Device, axis, left_deadzone%, center_deadzone%, right_deadzone%, curve(-20...20), scale)
-								"if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -95, 0, 0);"				// Trims Axis 5% when Supercruise On Throttle Active
+								"TrimDXAxis(DX_Z_AXIS, SET(-1024));" "TrimDXAxis(DX_ZROT_AXIS, SET(-1024));"	// *TrimDXAxis(axis, +/-1024) trim is additive, SET forces trim value, CURRENT reads axis.pos
+								"if(CruiseOnThrottle == 0) { SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0); SetSCurve(&Throttle, THR_LEFT, 0, -100, 0, 0); }" 	// *SetSCurve(&Device, axis, left_deadzone%, center_deadzone%, right_deadzone%, curve(-20...20), scale)
+								"if(CruiseOnThrottle == 1) { SetSCurve(&Throttle, THR_RIGHT, 0, -95, 0, 0); SetSCurve(&Throttle, THR_LEFT, 0, -95, 0, 0); }" 	// Trims Axis 5% when Supercruise On Throttle Active
 								"if(VerboseOutput) printf(\"Throttle Profile: FORWARD ONLY [0 -> 100]\\x0a\");"
 								"SetThrottle();");
-		mThrottleFullScale		 = EXEC(  														// Make Throttle Linear & Full Scale	(Default: Full Range)
-								"TrimDXAxis(DX_Z_AXIS, SET(0));"								// Initialising Throttle Full Scale Preset 
-								"if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, TFULL_DEADZONE, 0, 0);"	// ..(Alternative= "SetJCurve(&Throttle, THR_RIGHT, 50, 50);")
-								"if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, TFULL_DEADZONE, 5, 0);"	// Trims Axis 5% when Supercruise On Throttle Active
-								"if(VerboseOutput) printf(\"Throttle Profile: FULL SCALE [-100 -> 100]\\x0a\");"
-								"SetThrottle();");												// *SetJCurve(&device, axis, physical axis value%, DirectX output value%)
-		mThrottlePrecision		 = EXEC( 														// Initialising Throttle Precision Preset (Docking etc)
-								"TrimDXAxis(DX_Z_AXIS, SET(0));" 								// Allows Throttle Movement ONLY to the middle of blue zone
-								"SetSCurve(&Throttle, THR_RIGHT, 0, 2, 0, 2, -2);"
-								"if(VerboseOutput) printf(\"Throttle Profile: PRECISION [-50 -> 50]\\x0a\");"
-								"SetThrottle();");
-		mThrottleTrimmed		 = EXEC(  														// Initialising Throttle Trimmed 25% @ Beginning/End Preset (ALTERNATIVE)
-								"TrimDXAxis(DX_Z_AXIS, SET(0));" 								// <Unmapped by Default> (See User Preferences to Set)
-								"SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);"
-								"if(VerboseOutput) printf(\"Throttle Profile: TRIMMED [-75 -> 75]\\x0a\");"
-								"SetThrottle();");
-		mThrottleFullNonLinear	 = EXEC(														// Initialising Throttle 
-								"TrimDXAxis(DX_Z_AXIS, SET(0));"
-								"SetCustomCurve(&Throttle, THR_RIGHT, AxisCurveMod);"			// DX-SLIDER Non-Linear progression Curve
-								"if(VerboseOutput) printf(\"Throttle Profile: NON-LINEAR [-100 ~> 100]\\x0a\");"
-								"SetThrottle();");
 		mThrottleFwdNonLinear	 = EXEC(														// Initialising Throttle 
-								"TrimDXAxis(DX_Z_AXIS, SET(-1024));"
-								"SetCustomCurve(&Throttle, THR_RIGHT, AxisCurveMod);"			// DX-SLIDER Non-Linear progression Curve
+								"TrimDXAxis(DX_Z_AXIS, SET(-1024));" "TrimDXAxis(DX_ZROT_AXIS, SET(-1024));"
+								"SetCustomCurve(&Throttle, THR_RIGHT, AxisCurveMod);" "SetCustomCurve(&Throttle, THR_LEFT, AxisCurveMod);"			// DX-SLIDER Non-Linear progression Curve
 								"if(VerboseOutput) printf(\"Throttle Profile: NON-LINEAR FORWARD ONLY [0 ~> 100]\\x0a\");"
 								"SetThrottle();");
+		mThrottleFullScale		 = EXEC(  														// Make Throttle Linear & Full Scale	(Default: Full Range)
+								"TrimDXAxis(DX_Z_AXIS, SET(0));" "TrimDXAxis(DX_ZROT_AXIS, SET(0));"			// Initialising Throttle Full Scale Preset
+								"if(CruiseOnThrottle == 0) { SetSCurve(&Throttle, THR_RIGHT, 0, TFULL_DEADZONE, 0, 0); SetSCurve(&Throttle, THR_LEFT, 0, TFULL_DEADZONE, 0, 0); }"	// ..(Alternative= "SetJCurve(&Throttle, THR_RIGHT, 50, 50);")
+								"if(CruiseOnThrottle == 1) { SetSCurve(&Throttle, THR_RIGHT, 0, TFULL_DEADZONE, 5, 0); SetSCurve(&Throttle, THR_LEFT, 0, TFULL_DEADZONE, 5, 0); }"	// Trims Axis 5% when Supercruise On Throttle Active
+								"if(VerboseOutput) printf(\"Throttle Profile: FULL SCALE [-100 -> 100]\\x0a\");"
+								"SetThrottle();");												// *SetJCurve(&device, axis, physical axis value%, DirectX output value%)
+		mThrottleFullNonLinear	 = EXEC(														// Initialising Throttle 
+								"TrimDXAxis(DX_Z_AXIS, SET(0));" "TrimDXAxis(DX_ZROT_AXIS, SET(0));"
+								"SetCustomCurve(&Throttle, THR_RIGHT, AxisCurveMod);" "SetCustomCurve(&Throttle, THR_LEFT, AxisCurveMod);"	// DX-SLIDER Non-Linear progression Curve
+								"if(VerboseOutput) printf(\"Throttle Profile: NON-LINEAR [-100 ~> 100]\\x0a\");"
+								"SetThrottle();");
 		mThrottleFullScaleCustom = EXEC(  														// Initialising Throttle Full Scale - Max Shorter @ 80% Preset (ALTERNATIVE)
-								"TrimDXAxis(DX_Z_AXIS, SET(0));" 								// Slightly Shorter Forward travel distance for my RSeat RS1 Cockpit setup. :)
-								"SetJCurve(&Throttle, THR_RIGHT, 80, 100);"						// <Unmapped by Default> (See User Preferences to Set)
+								"TrimDXAxis(DX_Z_AXIS, SET(0));" "TrimDXAxis(DX_ZROT_AXIS, SET(0));"			// Slightly Shorter Forward travel distance for my RSeat RS1 Cockpit setup. :)
+								"SetJCurve(&Throttle, THR_RIGHT, 80, 100);"	"SetJCurve(&Throttle, THR_LEFT, 80, 100);"	// <Unmapped by Default> (See User Preferences to Set)
 								"if(VerboseOutput) printf(\"Throttle Profile: FULL SCALE CUSTOM [-100 -> 80]\\x0a\");"
+								"SetThrottle();");
+		mThrottleTrimmed		 = EXEC(  														// Initialising Throttle Trimmed 25% @ Beginning/End Preset (ALTERNATIVE)
+								"TrimDXAxis(DX_Z_AXIS, SET(0));" "TrimDXAxis(DX_ZROT_AXIS, SET(0));"			// <Unmapped by Default> (See User Preferences to Set)
+								"SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);" "SetSCurve(&Throttle, THR_LEFT, -25, 0, -25, 0);"
+								"if(VerboseOutput) printf(\"Throttle Profile: TRIMMED [-75 -> 75]\\x0a\");"
+								"SetThrottle();");
+		mThrottlePrecision		 = EXEC( 														// Initialising Throttle Precision Preset (Docking etc)
+								"TrimDXAxis(DX_Z_AXIS, SET(0));" "TrimDXAxis(DX_ZROT_AXIS, SET(0));"			// Allows Throttle Movement ONLY to the middle of blue zone
+								"SetSCurve(&Throttle, THR_RIGHT, 0, 2, 0, 2, -2);" "SetSCurve(&Throttle, THR_LEFT, 0, 2, 0, 2, -2);"
+								"if(VerboseOutput) printf(\"Throttle Profile: PRECISION [-50 -> 50]\\x0a\");"
 								"SetThrottle();"); }
 
 
@@ -99,7 +99,8 @@
 
 
 	int SetThrottle() {																			// Prevents Throttle jumping around on mode changes
-		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata)); }
+		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata));
+		DXAxis(DX_ZROT_AXIS, -AxisVal(Throttle[THR_LEFT], &axdata)); }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
