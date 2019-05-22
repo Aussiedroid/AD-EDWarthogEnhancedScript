@@ -1,7 +1,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FUNCTIONS: TABLE OF CONTENTS //					// FUNCTIONS Include logic to customise specific Button/Toggle functionality								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 592)]	//
+//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 590)]	//
 //		- initHardpointManagement					- initLEDController						- initEnhancedFAOFF						- initPrintState			//
 //		- initSetCombinedFire						- initNightVisionEnhancer				- initToggleRotationCorrection										//
 //		- initExplorerScannerDisengage				- initAPEngageEnhancer					- initToggleSilentRunning											//
@@ -474,8 +474,8 @@
 			if(Throttle[EFROVER]) {																// If Mic Toggle OFF:	Use Internal PTT Voice Comms/Open Comms
 				if(ExternalMicInverse) {														// Will Invert VoiceAttack listening when Internal Comms are used
 						ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal);
-						ActKey(KEYON+DOWN+InternalVoiceCommsPTT); }
-				else {	ActKey(KEYON+DOWN+InternalVoiceCommsPTT); } }
+						ActKey(KEYON+PULSE+InternalVoiceCommsPTT); }
+				else {	ActKey(KEYON+PULSE+InternalVoiceCommsPTT); } }
 			if(Throttle[EFRNORM]) {																// If Mic Toggle ON:	Use External PTT Voice Comms/Open Comms
 			  if(ExternalMicInverse) {															// Enables Inversed External PTT Channels (Enabling Discord will Disable VoiceAttack)
 				if(!MicExternalAction) {														// Check if user preference match requirements for 'ExternalMicInverse' functionality (See NOTE 2 in AD_EDSettings.tmh file)
@@ -499,9 +499,7 @@
 			MicCheckHold=!MicCheckHold;															// Release PTT Buttons
 			if(Throttle[EFROVER]) {																// If Mic Toggle OFF:	Release Internal PTT Voice Comms Open Comms
 				if(ExternalMicInverse) {														// Will Invert VoiceAttack listening when Internal Comms are used
-						ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal);
-						ActKey(KEYON+UP+InternalVoiceCommsPTT); }
-				else {	ActKey(KEYON+UP+InternalVoiceCommsPTT); } }
+					ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); } }
 			if(Throttle[EFRNORM]) {																
 				if(MicExtPulseCheck) {															// Check if Internal, External or Alt. External was pressed, then release accordingly.
 					ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);									// If Mic Toggle ON:	Release External PTT Voice Comms Open Comms
@@ -520,7 +518,7 @@
 			MicCheckToggle = 1;																	// Enable Toggle
 			if(Throttle[EFROVER]) {
 				if(VerboseOutput) printf("Voice Comms: ^^  INTERNAL MIC OPEN  ^^\x0a");
-				ActKey(KEYON+DOWN+InternalVoiceCommsPTT); }										// If Mic Toggle OFF:	Use Internal PTT Voice Comms Open Comms
+				ActKey(KEYON+PULSE+InternalVoiceCommsPTT); }									// If Mic Toggle OFF:	Use Internal PTT Voice Comms Open Comms
 			if(Throttle[EFRNORM]) {
 				if(!Joystick[S4]) {
 					if(VerboseOutput) printf("Voice Comms: ^^  MAIN EXTERNAL MIC OPEN  ^^\x0a");
@@ -552,7 +550,7 @@
 			MicCheckToggle=!MicCheckToggle;														// Release Toggle
 			if(Throttle[EFROVER]) {
 				if(VerboseOutput) printf("Voice Comms: <<  INTERNAL MIC CLOSED  <<\x0a");
-				ActKey(KEYON+UP+InternalVoiceCommsPTT); }										// If Mic Toggle OFF:	Release Internal PTT Voice Comms Open Comms
+				ActKey(KEYON+PULSE+InternalVoiceCommsPTT); }									// If Mic Toggle OFF:	Release Internal PTT Voice Comms Open Comms
 			if(Throttle[EFRNORM]) {
 				if(ExternalMicCombined) {														// Check if user preference for External Voice Comms is Combined
 					if(MicExtToggleCombo) {														// If Mic Toggle ON + Combined External:	Release External PTT Voice Comms Open Comms
