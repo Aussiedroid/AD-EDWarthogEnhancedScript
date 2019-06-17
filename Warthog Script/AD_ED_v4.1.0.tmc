@@ -152,7 +152,7 @@
 								0,	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"),		// IM, OM
 								0,	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"));		// ID, OD
 //	MapKey(&Joystick,   	TG2, 	 SecondaryFire);																// Trigger 2			[Second Stage Trigger] (Mapped in initHardpointManagement())
-	MapKeyR(&Joystick,  	TG2, 	 EXEC("ActKey(KEYON+UP+SecondaryFire); if(combinePriSecFire) ActKey(KEYON+DOWN+PrimaryFire);"));										// Release Trigger 2	[Second Stage Trigger] (Keeps Primary firing after releasing Secondary Tier)
+	MapKeyR(&Joystick,  	TG2, 	 EXEC("ActKey(KEYON+UP+SecondaryFire); if(combinePriSecFire) ActKey(KEYON+DOWN+PrimaryFire);"));						// Release Trigger 2	[Second Stage Trigger] (Keeps Primary firing after releasing Secondary Tier)
 
 
 	// UTILITY SLOTS //
