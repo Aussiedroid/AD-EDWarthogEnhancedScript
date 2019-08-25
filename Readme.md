@@ -7,7 +7,7 @@
 ------------ | -------------
 ![Logo](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Supported.png)
 
-### LATEST BUILD | [v4.2.0](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest "Latest Official Build") | Updated for [Elite Dangerous](https://www.elitedangerous.com/ "Frontier's Official Website"): Beyond 3.4 "April Update" ###
+### LATEST BUILD | [v4.2.0](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest "Latest Official Build") | Updated for [Elite Dangerous](https://www.elitedangerous.com/ "Frontier's Official Website"):  Beyond 3.4+  "April Update" ###
 
 ### REQUIREMENTS | TARGET Software, Drivers & Firmware, 2018 Update ([v3.0.18.328](https://support.thrustmaster.com/en/product/hotaswarthog-en/ "Official Thrustmaster Warthog Support Portal") _or higher_) ###
 
@@ -105,8 +105,8 @@ To further enhance the Modifier button system, some buttons have also been desig
 ## Installation: ##
 
     1. Download & Extract the latest zip file pack. The Warthog Script can be run from any location. 
-       All files need to be in the same folder though.
-    2. Open TARGET Script Editor, Compile & then Edit AD_EDUserPrefs_v4.x.x.tmh. (Can also be Run from TARGET GUI)
+       All script files need to be in the same folder though.
+    2. Open TARGET Script Editor, Open & Compile AD_ED_v4.x.x & then Edit AD_EDUserPrefs_v4.x.x.tmh. (Can be Run from TARGET GUI later)
     3. Edit User Preferences file, primarily the 'Core Hardware' variables (rest can be reconfigured on later runs)
        Save & Close TARGET Script Editor when done editing.
          Note: Most commands can be tested prior to starting the game using the Event Tester & Device Analyzer.
@@ -114,12 +114,12 @@ To further enhance the Modifier button system, some buttons have also been desig
          C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
     5. Copy the TrackIR Profile to:
          C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
-    6. Set the Hotkeys in TrackIR; Pause Key to PAUSE, and Center to END. (Tick 'Exclusive' in TrackIR to autoload) 
+    6. Set the Hotkeys in TrackIR; Pause Key to PAUSE, and Center to END. (Tick 'Exclusive' in TrackIR to autoload if you want) 
     7. Set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required). (Default causes conflict)
-    8. Map any other 3rd Party Keys such as Voice Comms (as required). (Setup Microphone Behaviour User Prefs)
-    9. Edit ED-BAT Batch File and update path/locations (if using auto-start batch sequence, else skip).
-    10.Open TARGET GUI & Run, and then Start ED Launcher or ED-BAT file.
-    11.Remember to select the AD Enhanced Warthog 4.x.x profile in Elite Dangerous Config Menu & Apply.
+    8. Map any other 3rd Party Keys such as Voice Comm Apps (as required). (Setup Microphone Behaviour User Prefs)
+    9. Optional: Edit ED-BAT Batch File and update path/locations.
+    10.Open TARGET GUI & Run, and then Start ED Launcher or alternatively run it automatically via the ED-BAT file.
+    11.Play, and remember to select the AD Enhanced Warthog 4.x.x profile in Elite Dangerous Config Menu & Apply.
     12.*If you are not running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
        the Legend in ED Config Menu, once loaded.*
     
