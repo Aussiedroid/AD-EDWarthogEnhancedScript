@@ -119,13 +119,13 @@ To further enhance the Modifier button system, some buttons have also been desig
        Tick 'Exclusive' in TrackIR to autoload if you want. 
     7. Set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required). (Default causes conflict)
     8. Map any other 3rd Party Keys such as Voice Comm Apps (as required). (Setup Microphone Behaviour User Prefs)
-    9. Optional: Edit ED-BAT Batch File and update path/locations.
-    10.Open TARGET GUI & Run, and then Start ED Launcher or alternatively run it automatically via the ED-BAT file.
+    9. Edit ED-BAT Batch File and update path/locations (as required).
+    10.Open TARGET GUI & Run, and then Start ED Launcher OR alternatively run it automatically via the ED-BAT file.
     11.Play, and remember to select the AD Enhanced Warthog 4.x.x profile in Elite Dangerous Config Menu & Apply.
-    12.*If you are not running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
-       the Legend in ED Config Menu, once loaded.*
+    12.*If you are NOT running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
+       the Legend in ED Controls Config, once loaded.*
     
-       Always make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
+       ALWAYS make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
 
 
 #### Example of Successful Script Run: ####
