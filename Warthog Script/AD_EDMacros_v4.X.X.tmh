@@ -3,7 +3,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int mRequestDock, mShowGameStats, mFastModeSwitch, mChatPanelGrab, mSignalLights, mSignalLightsLong, mReportCrimesToggle, mBoostBrake;
-	int mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys;
+	int mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys, mNextTurretModeX1, mNextTurretModeX2;
 	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear, mThrottleFullScaleCustom; 	// Configured/Used in AD_EDHardware.tmh
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -79,8 +79,8 @@
 		mReportCrimesToggle = CHAIN(															// MACRO: [PVP] Toggles 'Report Crimes Against Me' from the System Panel (if cooldown timer is not active)
 			LOCK+PULSE+SystemPanel,		D(250),													// Toggle Pinky Trigger + Engine Fuel Flow Norm/Override Switches LEFT to activate
 			PULSE+UINextPanel,			D(),
-			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if Target Panel cursor in
-			PULSE+UINextPanel,			D(),													//			   default/orig position (On Galaxy Map), else will be misaligned.
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if System Panel cursor in
+			PULSE+UINextPanel,			D(),													//			   default/orig position, else will be misaligned.
 			PULSE+UIDown,				D(250),
 			PULSE+UIDown,				D(250),
 			PULSE+UIRight,				D(250),
@@ -97,7 +97,7 @@
 			
 		mNAVBeaconWing = CHAIN(																	// MACRO: Toggle 'NAV Beacon' ON 
 			LOCK+PULSE+SystemPanel, 	D(250),
-			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if Target Panel cursor in
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if System Panel cursor in
 			PULSE+UINextPanel,			D(),													//			   Default/Orig position, else will be misaligned. Need to be in a Wing.
 			PULSE+UINextPanel,			D(),
 			PULSE+UIRight,				D(250),
@@ -120,7 +120,7 @@
 			
 		mNAVBeaconOff = CHAIN(																	// MACRO: Toggle 'NAV Beacon' OFF
 			LOCK+PULSE+SystemPanel, 	D(250),
-			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if Target Panel cursor in
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if System Panel cursor in
 			PULSE+UINextPanel,			D(),													//			   Default/Orig position, else will be misaligned. Need to be in a Wing.
 			PULSE+UINextPanel,			D(),
 			PULSE+UIRight,				D(250),
@@ -139,7 +139,42 @@
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIBack,				LOCK);
-			
+
+		mNextTurretModeX1 = CHAIN(																// MACRO: Auto-Select Next Turret Mode (Cycle x1) from the System Panel
+			LOCK+PULSE+SystemPanel,		D(250),													//  (Unmapped by Default)
+			PULSE+UINextPanel,			D(),
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if System Panel cursor in
+			PULSE+UINextPanel,			D(),													//			   default/orig position, else will be misaligned.
+			PULSE+UIRight,				D(250),
+			PULSE+UIRight,				D(250),
+			PULSE+UIDown,				D(150),
+			PULSE+UISelect,				D(300),													//  Select Turrent Mode 1x times
+			PULSE+UIUp,					D(300),
+			PULSE+UILeft,				D(250),
+			PULSE+UILeft,				D(250),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIBack, 				LOCK);
+
+		mNextTurretModeX2 = CHAIN(																// MACRO: Auto-Select Next Turret Mode (Cycle x2) from the System Panel
+			LOCK+PULSE+SystemPanel,		D(250),													//  (Unmapped by Default)
+			PULSE+UINextPanel,			D(),
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if System Panel cursor in
+			PULSE+UINextPanel,			D(),													//			   default/orig position, else will be misaligned.
+			PULSE+UIRight,				D(250),
+			PULSE+UIRight,				D(250),
+			PULSE+UIDown,				D(150),
+			PULSE+UISelect,				D(300),
+			PULSE+UISelect,				D(500),													// Select Turrent Mode 2x times
+			PULSE+UIUp,					D(300),
+			PULSE+UILeft,				D(250),
+			PULSE+UILeft,				D(250),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIBack, 				LOCK);
+
 		mNAVBeaconToggle = SEQ(																	// SEQUENCE: Alternate 'NAV Beacon' ON <-> OFF [Allows both Nav Beacon Macros to be mapped to one button]
 			PULSE+mNAVBeaconWing,																// Alternates between turning On & Off Wing NAV Beacon each press. Need to be in a Wing.
 			PULSE+mNAVBeaconOff);																// (Unmapped by Default)
@@ -150,13 +185,12 @@
 			PULSE+UIBack,				D(50),
 			PULSE+CommsPanel,			D(250),													// Open Full Comms Panel (+GUI Delay - Default: 250ms) (Delay ensures panel is Open and Text Box Active before entering characters)
 			PULSE+QuickCommsPanel,		D(150),													// Select/Enter Text Chat Box
-			LOCK); 																			// Unlock Ready for Text String Input
+			LOCK); 																				// Unlock Ready for Text String Input
 
-		mBoostBrake = CHAIN(																	// P34vP Boost Brake Test
-			PULSE+EngineBoost,			D(360),
-			PULSE+LandingGear,			D(3600),
-			PULSE+LandingGear);	}																// End P34vP BB Test
-
+		mBoostBrake = CHAIN(																	// MACRO: [PVP] Engine Boost + Auto-Brake
+			PULSE+EngineBoost,			D(400),													// Boost for a short period, then..
+			PULSE+LandingGear,			D(3600),												// Toggle Landing Gear as 'Air Brake', then..
+			PULSE+LandingGear);	}																// Close Landing Gear
 
 
 	int initEscapeVector() {																	// MACRO: Disengage Defensively + Emergency Escape Vector (Hold Pinky Trigger)

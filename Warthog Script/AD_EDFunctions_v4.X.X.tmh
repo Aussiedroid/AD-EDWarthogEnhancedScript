@@ -599,6 +599,7 @@
 		printf("[Cargo Precision Mode = %d]  [S/Cruise @ Throttle = %d]  [Chaff @ Escape  = %d]  [Boost @ Esc = %d]\x0a", CargoPrecisionMode, CruiseOnThrottle, AutoChaffOnEscape, AutoBoostOnEscape);
 		printf("[Combine External Mic = %d]  [Sec. Fire Override  = %d]  [NightVision HUD = %d]  [Ext Mic+Mic = %d]\x0a", ExternalMicCombined, SecFirePinkyPref, NightVisionHUD, ExternalMicCombined);
 		printf("[Headtrak Center Mode = %d]  [Ship Utility Mode   = %d]  [LED Backlight = %d]  [LED ¡Bling! = %d]\x0a", HeadtrackPref, ShipUtilityPref, SetLED, BlingLEDBling);
+		printf("[Throttle Axis O/ride = %d]  [Joystik Axis O/ride = %d]  [Throttle D/zone = %d]  [Joys D/zone = %d]\x0a", ThrottleOverride, JoystickOverride, TFULL_DEADZONE, JS_DEADZONE);
 		if(VerboseOutput) printf("\x0a"); 
 		if(VerboseOutput) printf(":..DEFAULT TOGGLE STATE..:\x0a");
 		if(VerboseOutput) printf("[Combine Pri+Sec Fire = %d]  [Rot. Correction = %d]  [C/ Scoop = %d]  [L/ Gear = %d]  [Lights  = %d]\x0a", combinePriSecFire, RCorrection, CargoSc, Gears, Lights);

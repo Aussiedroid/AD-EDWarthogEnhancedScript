@@ -1,10 +1,10 @@
 // =============================================================================================================================================================//
-// Version 4.X.X									\\ Released Sept 2016	|	Updated ???? 2019 //								Public Release #23			//
+// Version 4.2.0									\\ Released Sept 2016	|	Updated Aug 2019 //									Public Release #23			//
 // =============================================================================================================================================================//
 // AUSSIEDROID'S ACKNOWLEDGEMENTS //																															//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // Standing on the Shoulders of Giants! Creation of this TARGET Script would not have been possible without amazing ED Scripts I found online created by:		//
-// Alexandr Zhevedenko, Michael Lehman (WraithMG11235), DarKcyde & Thomas Duployez (CMDR Touille). The script continues to evolve with the fantastic community  //
+// Alexandr Zhevedenko, Michael Lehman (WraithMG11235), CMDR Clicker, DarKcyde & Thomas Duployez (CMDR Touille). Script continues to evolve with all the great  //
 // feedback, ideas, bug reports & sharing of code... the help & support shown on the forums/guide has been been amazing!	 !! You ALL Rock! Thank you !!		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // GENERAL INFO & LINKS //																																		//
@@ -53,7 +53,7 @@
 	if(Init(&EventHandle)) return 1;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// START-UP: SOFTWARE //												// *system("spawn -w \"software main folder" \"exe shortcut"");  (*May not work on Win 10*)
+// START-UP: SOFTWARE //												// *system("spawn -w \"software main folder" \"exe shortcut"");  (*May not work on Win 10* - Use EDBAT instead)
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	if(StartSoftware == 1) {															// Auto-Load on Script Run (Customise Example Paths below OR Add Your Own)
@@ -99,7 +99,6 @@
 	initAPEngageEnhancer();																	// Initiate Autopilot Engage button customisation				   (See AD_EDFunctions.tmh) (includes Auto-Dock & Signal Light Macros)
 	initExplorerScannerDisengage();															// Initiate Repeater Fire Explorer-Scanner Disengage/Off Console Printout
 
-	StartupLock = 0;																		// Startup Pre-checks: "Releases" the Startup Lock post initialising the Macros/Functions above.
 
 
 	// HARDWARE CONFIG //
@@ -119,15 +118,28 @@
 
 
 	// AXIS PRESET TOGGLES // 																// Map Flaps Select Toggle to Throttle Axis Presets
-	MapKey(&Throttle, FLAPU,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetUP);"));  // Flaps UP  	 	(Safety: Only Activate When Throttle IDLE is not Locked ON)
-	MapKey(&Throttle, FLAPM,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetMID);"));  // Flaps MIDDLE	(Safety: Only Activate When Throttle IDLE is not Locked ON)
-	MapKey(&Throttle, FLAPD,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetDOWN);"));  // Flaps DOWN	(Safety: Only Activate When Throttle IDLE is not Locked ON)
+	if(ThrottleOverride == 0) {
+		MapKey(&Throttle, FLAPU,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetUP);"));  // Flaps UP  	 	(Safety: Only Activate When Throttle IDLE is not Locked ON)
+		MapKey(&Throttle, FLAPM,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetMID);"));  // Flaps MIDDLE	(Safety: Only Activate When Throttle IDLE is not Locked ON)
+		MapKey(&Throttle, FLAPD,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetDOWN);")); }// Flaps DOWN	(Safety: Only Activate When Throttle IDLE is not Locked ON)
+	if(ThrottleOverride == 1) {
+		MapKey(&Throttle, FLAPU,  EXEC("ActKey(KEYON+PULSE+ThrottlePresetUPALT);"));  		// Flaps UP  	(Safety: Only Activate When Throttle IDLE is not Locked ON)
+		MapKey(&Throttle, FLAPM,  0); 														// Flaps MIDDLE	(Default: Not mapped to avoid conflicts)
+		MapKey(&Throttle, FLAPD,  EXEC("ActKey(KEYON+PULSE+ThrottlePresetDWNALT);")); }		// Flaps DOWN	(Safety: Only Activate When Throttle IDLE is not Locked ON)
 
-																							// Map Throttle Autopilot to Joystick Curve Presets
-	MapKey(&Throttle, APPAT,  EXEC("initSetJoystickCurves();"));							// Autopilot PATH UP
-	MapKey(&Throttle, APAH,   EXEC("initSetJoystickCurves();"));							// Autopilot ALT/HDG MIDDLE (Default)
-	MapKey(&Throttle, APALT,  EXEC("initSetJoystickCurves();"));							// Autopilot ALT DOWN
+	if(JoystickOverride == 0) {																// Map Throttle Autopilot to Joystick Curve Presets
+		MapKey(&Throttle, APPAT,  EXEC("initSetJoystickCurves();"));						// Autopilot PATH UP
+		MapKey(&Throttle, APAH,   EXEC("initSetJoystickCurves();"));						// Autopilot ALT/HDG MIDDLE (Default)
+		MapKey(&Throttle, APALT,  EXEC("initSetJoystickCurves();")); }						// Autopilot ALT DOWN
+	if(JoystickOverride == 1) { 															// Map Throttle Autopilot to Custom Mappings (set in the User Prefs)
+		if(StartupLock) { 																	// On Startup only, set the default Joystick Behaviour (set in the User Prefs)
+			SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[JoystickPresetDEF], JS_ZOOM[JoystickPresetDEF]);	 // 
+			SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[JoystickPresetDEF], JS_ZOOM[JoystickPresetDEF]);	}// 
+		MapKey(&Throttle, APPAT,  EXEC("ActKey(KEYON+PULSE+JoystickPresetUPALT);"));		// Autopilot PATH UP
+		MapKey(&Throttle, APAH,   0);														// Autopilot ALT/HDG MIDDLE (Default: Not mapped to avoid conflicts)
+		MapKey(&Throttle, APALT,  EXEC("ActKey(KEYON+PULSE+JoystickPresetDWNALT);")); }		// Autopilot ALT DOWN
 
+	StartupLock = 0;																		// Startup Pre-checks: "Releases" the Startup Lock post initialising the Macros/Functions/Hardware above.
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MAP JOYSTICK CONTROLS //
@@ -148,12 +160,13 @@
 									 EXEC(				"StopAutoRepeat(0); 										if(VerboseOutput) printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE] (PRIMARY)\\x0a\");")),
 								EXEC(					"ActKey(KEYON+DOWN+PrimaryFire);"));																											// OD
 	MapKeyRIOUMD(&Joystick, TG1, 																					// Release Trigger 1	[Primary Trigger]
-								0, 	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"),		// IU, OU	// Only Releases if Combat-Endless Mode is NOT enabled (keeps sequence in sync)
-								0,	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"),		// IM, OM
-								0,	 EXEC("if(!EndlessStatePri) ActKey(KEYON+UP+PrimaryFire);"));		// ID, OD
+								0, 	 EXEC("if(!EndlessStatePri)  ActKey(KEYON+UP+PrimaryFire);"),		// IU, OU	// Only Releases if Combat-Endless Mode is NOT enabled (keeps sequence in sync)
+								0,	 EXEC("if(!EndlessStatePri)  ActKey(KEYON+UP+PrimaryFire);"),		// IM, OM
+								0,	 EXEC("if(!EndlessStatePri)  ActKey(KEYON+UP+PrimaryFire);"));		// ID, OD
 //	MapKey(&Joystick,   	TG2, 	 SecondaryFire);																// Trigger 2			[Second Stage Trigger] (Mapped in initHardpointManagement())
-MapKeyR(&Joystick,  	TG2, 	 EXEC("ActKey(KEYON+UP+SecondaryFire); if(combinePriSecFire) ActKey(KEYON+DOWN+PrimaryFire);"));						// Release Trigger 2	[Second Stage Trigger] (Keeps Primary firing after releasing Secondary Tier)										// Release Trigger 2	[Second Stage Trigger] (Keeps Primary firing after releasing Secondary Tier)
-
+//	MapKeyR(&Joystick,  	TG2, 	 EXEC("ActKey(KEYON+UP+SecondaryFire);"));										// Release Trigger 2	[Second Stage Trigger] (Keeps Primary firing after releasing Secondary Tier)
+	MapKeyR(&Joystick,  	TG2, 	 EXEC("if(combinePriSecFire) ActKey(KEYON+UP+SecondaryFire);" 					// Release Trigger 2	[Second Stage Trigger]
+										  "if(combinePriSecFire) ActKey(KEYON+DOWN+PrimaryFire);"));				//	(Keeps Primary Fire firing after releasing Secondary Tier Trigger)
 
 	// UTILITY SLOTS //
 	if(ShipUtilityPref == 0) {
@@ -177,9 +190,9 @@ MapKeyR(&Joystick,  	TG2, 	 EXEC("ActKey(KEYON+UP+SecondaryFire); if(combinePriS
 									 EXEC(				"StopAutoRepeat(0); 										if(VerboseOutput) printf(\"Repeater Fire: MINING-AUTO-PULSE [DISABLE] (SECONDARY)\\x0a\");")),
 								EXEC(					"ActKey(KEYON+DOWN+SecondaryFire);"));																													// OD
 		MapKeyRIOUMD(&Joystick, S3, 																				// Release Pinky Button	[Secondary Fire]
-								0, 	 EXEC("if(!EndlessStateSec) ActKey(KEYON+UP+SecondaryFire);"),		// IU, OU	// Only Releases if Combat-Endless Mode is NOT enabled (keeps sequence in sync)
-								0,	 EXEC("if(!EndlessStateSec) ActKey(KEYON+UP+SecondaryFire);"),		// IM, OM
-								0,	 EXEC("if(!EndlessStateSec) ActKey(KEYON+UP+SecondaryFire);")); }	// ID, OD
+								0, 	 EXEC("if(!EndlessStateSec)  ActKey(KEYON+UP+SecondaryFire);"),		// IU, OU	// Only Releases if Combat-Endless Mode is NOT enabled (keeps sequence in sync)
+								0,	 EXEC("if(!EndlessStateSec)  ActKey(KEYON+UP+SecondaryFire);"),		// IM, OM
+								0,	 EXEC("if(!EndlessStateSec)  ActKey(KEYON+UP+SecondaryFire);")); }	// ID, OD
 	if(SecFirePinkyPref == 1) {
 		MapKey(&Joystick,  S3,	TEMPO(PULSE+PinkyBtnDefaultShort, PULSE+PinkyBtnDefaultLong, LongPressDelay)); }	// Pinky Button			[USER DEFINED] [Short/Long: Set in User Preference]
 
@@ -319,14 +332,15 @@ MapKeyR(&Joystick,  	TG2, 	 EXEC("ActKey(KEYON+UP+SecondaryFire); if(combinePriS
 
 	// BOOST & HARDPOINT BUTTONS //
 	MapKey(&Throttle,  SC,   TEMPO(0, EXEC(																			// Slew Control Button
-										"if(!Throttle[FLAPD] & !Throttle[IDLELON]) ActKey(KEYON+DOWN+SRVVerticalThrust);" // [Hold]
-										"if(!Throttle[FLAPD] & !Throttle[IDLELON]) ActKey(KEYON+PULSE+EngineBoost);"),	 // [Press]
+										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON]) ActKey(KEYON+DOWN+SRVVerticalThrust);" //   [Hold]
+										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON]) ActKey(KEYON+PULSE+EngineBoost);"	 //   [Press]
+										"if(Joystick[S4]  & !Throttle[FLAPD] & !Throttle[IDLELON]) ActKey(KEYON+PULSE+mBoostBrake);"),	// [Modifier]
 						     MiniPressDelay));																		// Safety: Won't Boost when in Precise Throttle or IDLE! Plus 150ms Delay :)
 	MapKeyR(&Throttle, SC,   EXEC(		"ActKey(KEYON+UP+SRVVerticalThrust);"));									// Release the SRV Vertical Thrust
 
 
 	MapKey(&Throttle,  LTB,  TEMPO(EXEC( "initHardpointManagement();"),												// Left Throttle Button (RED)
-								  EXEC(
+								   EXEC(
 								  	    "if(!Joystick[H4P] & !Joystick[S4]) ActKey(KEYON+DOWN+ShowCQCScoreboard);" 	// If in CQC: Show Scoreboard (Hold) | If NOT in CQC: Reset Hardpoint Flag (fix alignment issues with Escape Vector Macro)
 								  	    "if(!Joystick[H4P] & !Joystick[S4]) HPoints=!HPoints;"),					// Hardpoint Flag Override IF Escape Vector gets out of alignment.
 							 LongPressDelay));																		// [Have System selected prior to High Wake]
@@ -583,9 +597,10 @@ MapKeyR(&Joystick,  	TG2, 	 EXEC("ActKey(KEYON+UP+SecondaryFire); if(combinePriS
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // =============================================================================================================================================================//
-// VERSION HISTORY //			Version 4.X.X			\\ Released Sept 2016	|	Updated ???? 2019 //					\\		Public Release #23			//
+// VERSION HISTORY //			Version 4.2.0			\\ Released Sept 2016	|	Updated Aug 2019 //						\\		Public Release #23			//
 // =============================================================================================================================================================//
-// v4.X.X-  //
+// v4.2.0-NEW: Throttle/Joystick Axis Preset Toggles can now be user defined. NEW: Boost Brake & Turret Mode Switch Macros. NEW: Left Throttle Axis user pref.	//
+// v4.2.0-FIXED: Throttle Modes Enforced on both axes, Combined Fire mode now utilises 2-stage trigger properly & Mic Push-To-Talk invert fix. //
 // v4.1.0-APRIL UPDATE NEW: Axis Deadzone Customisation + Disable Message Text Output in TARGET Window via User Prefs. FIXED: UseRudderAxisCurves axis configs.	//
 // v4.1.0-NEW: Galaxy Map Keybind for returning to Current System added. FIXED: FastModeSwitch, NAV Beacon & Report Crimes macro timings 4 new Main Menu layout.//
 // v4.0 - NEW: Pulse Repeater Fire! Customisable Auto-Chat Presets, 2 Non-Linear Throttle Presets, SHIFT Key & Hide HUD on NightVision. FIX: LEDs on Launch Seq.//
