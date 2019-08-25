@@ -25,14 +25,14 @@ AD_EDFunctions_v4.2.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 ## ##
 
 ## User Preferences : Table of Contents ##
-[How To Use](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#user-preferences--ad_eduserprefs_v4xxtmh "Getting Started") | [Start-Up](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--start-up "Start-Up Customisation") | [Core Hardware](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--core-hardware "Core Hardware User Preferences") | [Axis Deadzones](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--axis-deadzones "Axis Deadzones") | [Throttle Axis](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--throttle-axis "Throttle Axis Customisation") | [Ship/SRV PIP Config](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--shipsrv-pip-config "Ship & SRV PIP Config User Preferences") | [Ship Radar/Vision](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--ship-radarvision "Ship's Radar & Night Vision Customisation")
+[How To Use](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#user-preferences--ad_eduserprefs_v4xxtmh "Getting Started") | [Start-Up](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--start-up "Start-Up Customisation") | [Core Hardware](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--core-hardware "Core Hardware User Preferences") | [Axis Deadzones](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--axis-deadzones "Axis Deadzones") | [Throttle Axis](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--throttle-axis "Throttle Axis Customisation") | [Joy Axis](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--joystick-axis "Joystick Axis Customisation") | [Ship/SRV PIP Config](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--shipsrv-pip-config "Ship & SRV PIP Config User Preferences") | [Ship Radar/Vision](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--ship-radarvision "Ship's Radar & Night Vision Customisation")
 
 [Pri-Sec Fire Control](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--primarysecondary-fire-control "Primary & Secondary Fire Control Customisation") | [Utility Slot Control](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--utility-slot-control "Utility Slot Control Customisation") | [Microphone Behaviour](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--microphone-behaviour "Microphone Behaviour") | [Cargo Scoop Tweaks](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--cargo-scoop-tweaks "Cargo Scoop Tweaks") | [Escape Vector Macro](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--escape-vector-macro "Escape Vector Macro Options")
 
 [Pinky 'Double Tap' Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--pinky-double-tap-override "Pinky 'Double Tap' Override Customisation") | [Autopilot Button Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--autopilot-button-overrides "Autopilot Button Override Customisation") | [Auto-Text Chat Presets](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--auto-text-chat-presets "Auto-Text Chat Presets Customisation") | [Acknowledgements](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#script-acknowledgements "Acknowledgements")
 ## ##
 
-## User Preferences : AD_EDUserPrefs_v.4._x_._x_.tmh ##
+## User Preferences : AD_EDUserPrefs_v.4.2.0.tmh ##
 
 Although it is not practical to have everything as a user preference, for key features & play styles I have tried to cover as many as possible in a simple to use User Preference section with the goal to make the script accessible to as many players as possible. This will help those who do not know the scripting programming language make quick changes to suite their needs.
 
@@ -146,6 +146,44 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - mThrottleTrimmed [-75 -> 75] reduces the movement range required to hit 100% by 25% in both directions.
 - mThrottleFullNonLinear [-100 ~> 100] allows full range movement, with a custom axis curve. Fast->Slow curve.
 - mThrottleFwdNonLinear [0 ~> 100] enabled Forward Only Axis, with a custom axis curve. Fast->Slow curve.
+
+### ThrottleOverride [Value 1 or 0] ###
+- Allows replacement of the Throttle Axis Preset Toggle to custom mappings, set in the user preferences.
+- If you find you do use the Throttle presets very often, then you can replace them with your own custom commands. Both Up and Down directions can be mapped to any 'Pulse' command, with Middle considered Off.
+- If you enable this option, you will not be able to change your Throttle Axis Curve during gameplay.
+- Default is 0.
+
+### ThrottlePresetDEF [Values See Above] ###
+- When ThrottleOverride is enabled, this will determine what Default Throttle Behaviour will be applied on script startup.
+- Example: mThrottleFullScale
+
+### ThrottlePresetUPALT/ThrottlePresetDWNALT [Value Variable] ###
+- When ThrottleOverride is enabled, this value will determine what custom 'Pulse' mapping is applied to the UP/DOWN directions of the Throttle Preset Toggle.
+- These variables have no pre-defined defaults.
+- Note: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.
+
+### DisableLEFTTHRAxis [Value 1 or 0] ###
+- This setting will disable the Left Throttle Axis, leaving only the Right Throttle Axis enabled for ED.
+- By Default, whenever a Throttle Preset is applied, it is applied to both the Left & Right Throttle Axes.
+- ED only requires one axis to be mapped.
+- Freeing Up the Left Throttle Axis potential could allow another axis from another device to be included in the virtual device.
+
+` `
+## -> JOYSTICK AXIS ##
+### JoystickOverride [Value 1 or 0] ###
+- Allows replacement of the Joystick Axis Preset Toggle to custom mappings, set in the user preferences.
+- If you find you do use the Joystick presets very often, then you can replace them with your own custom commands. Both Up and Down directions can be mapped to any 'Pulse' command, with Middle considered Off.
+- If you enable this option, you will not be able to change your Joystick Axis Curves during gameplay.
+- Default is 0.
+
+### JoystickPresetDEF [Value 2, 1 or 0] ###
+- When JoystickOverride is enabled, this will determine what Default Joystick Behaviour will be applied on script startup.
+- Joystick Curve Presets are ->		Fast = 0		Standard = 1 (default)	 		Slow = 2
+
+### JoystickPresetUPALT/JoystickPresetDWNALT [Value Variable] ###
+- When JoystickOverride is enabled, this value will determine what custom 'Pulse' mapping is applied to the UP/DOWN directions of the Joystick Preset Toggle.
+- These variables have no pre-defined defaults.
+- Note: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.
 
 ` `
 ## -> SHIP/SRV PIP CONFIG ##
@@ -302,7 +340,7 @@ Setting value to 0 will simplify this to a single tier of responses (4 in total)
 >>
 >>I was supremely strugging to get my head around the coding, and seeing practical script examples really helped unravel it all. Sections of all their scripts have been incorporated into my design along with some other odds and ends I learned searching online _(so if I missed calling out your name, sorry!)_.
 >>
->>Special mention to CMDR Clicker for all his help squashing those bugs & code improvements in general across on the Frontier Forums.
+>>Special mentions to CMDR Clicker for all his help squashing those bugs & code improvements in general across on the Frontier Forums & also to Tekadept for his Fantastic [Custom Warthog Plates](https://www.tekcreations.space/product/custom-elite-dangerous-plates-warthog/?currency=USD "www.tekcreations.space") he created for this script!
 >>
 >>The script continues to evolve with the fantastic community feedback, ideas, bug reports & sharing of code... the help & support shown on the forums/guide has been been amazing!
 >>
