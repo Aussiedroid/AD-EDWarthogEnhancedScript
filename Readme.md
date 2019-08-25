@@ -15,7 +15,7 @@
 
 ## Table of Contents ##
 
-[Latest Release](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest "Latest Official Build & Release Notes") | [Feature List](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/beta/Readme.md#enhanced-features "Full Profile Feature List") | [Legend](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript#legend "Legend Table") | [Layout Maps](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Maps "Reference Maps") | [Installation](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript#installation "Installation Guide") | [User Preferences](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#user-preferences--table-of-contents "User Preferences Guide") | [Custom Panels](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Maps#led-map "Custom Warthog Throttle Panels") | [Acknowledgements](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#script-acknowledgements "Acknowledgements")
+[Latest Release](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest "Latest Official Build & Release Notes") | [Feature List](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/beta/Readme.md#enhanced-features "Full Profile Feature List") | [Legend](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript#legend "Legend Table") | [Layout Maps](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Maps "Reference Maps") | [Installation](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript#installation "Installation Guide") | [User Preferences](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#user-preferences--table-of-contents "User Preferences Guide") | [Custom Panels](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Maps#led-map "Custom Warthog Throttle HOTAS Panels") | [Acknowledgements](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#script-acknowledgements "Acknowledgements")
 
 [Steam Guide](https://steamcommunity.com/sharedfiles/filedetails/?id=769637037 "Comprehensive Steam Guide") | [Frontier Forums](https://forums.frontier.co.uk/showthread.php/293027-Aussiedroid-s-Enhanced-Thrustmaster-Warthog-Script "Official Frontier Forums Thread") | [ModDB](https://www.moddb.com/games/elite-dangerous/downloads/aussiedroids-enhanced-warthog-script "ModDB.com") | [Imgur](https://aussiedroid.imgur.com/ "Imgur.com Gallery") | [Script Files](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script "Warthog Script Files") | [Binding Files](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Bindings "ED Bindings Files") | [TrackIR Profile](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/TrackIR "TrackIR Settings") | [ED-BAT Launcher](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Startup%20Batch%20Script "ED-BAT Launcher")
 
@@ -119,9 +119,9 @@ To further enhance the Modifier button system, some buttons have also been desig
        Tick 'Exclusive' in TrackIR to autoload if you want. 
     7. Set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required). (Default causes conflict)
     8. Map any other 3rd Party Keys such as Voice Comm Apps (as required). (Setup Microphone Behaviour User Prefs)
-    9. Edit ED-BAT Batch File and update path/locations (as required).
+    9. Edit ED-BAT Batch File and update path/locations for any apps you use (as required).
     10.Open TARGET GUI & Run, and then Start ED Launcher OR alternatively run it automatically via the ED-BAT file.
-    11.Play, and remember to select the AD Enhanced Warthog 4.x.x profile in Elite Dangerous Config Menu & Apply.
+    11.PLAY, and remember to select the AD Enhanced Warthog 4.x.x bindings in Elite Dangerous Config Menu, & Apply.
     12.*If you are NOT running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
        the Legend in ED Controls Config, once loaded.*
     
