@@ -106,7 +106,8 @@ To further enhance the Modifier button system, some buttons have also been desig
 
     1. Download & Extract the latest zip file pack. The Warthog Script can be run from any location. 
        All script files need to be in the same folder though.
-    2. Open TARGET Script Editor, Open & Compile AD_ED_v4.x.x & then Edit AD_EDUserPrefs_v4.x.x.tmh. (Can be Run from TARGET GUI later)
+    2. Open TARGET Script Editor, Open & Compile AD_ED_v4.x.x & then Edit AD_EDUserPrefs_v4.x.x.tmh.
+       Can be Run from TARGET GUI later.
     3. Edit User Preferences file, primarily the 'Core Hardware' variables (rest can be reconfigured on later runs)
        Save & Close TARGET Script Editor when done editing.
          Note: Most commands can be tested prior to starting the game using the Event Tester & Device Analyzer.
@@ -114,7 +115,8 @@ To further enhance the Modifier button system, some buttons have also been desig
          C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
     5. Copy the TrackIR Profile to:
          C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
-    6. Set the Hotkeys in TrackIR; Pause Key to PAUSE, and Center to END. (Tick 'Exclusive' in TrackIR to autoload if you want) 
+    6. Set the Hotkeys in TrackIR; Pause Key to PAUSE, and Center to END.
+       Tick 'Exclusive' in TrackIR to autoload if you want. 
     7. Set NVidia/AMD Capture Last 20mins hotkey to ALT+F11 (as required). (Default causes conflict)
     8. Map any other 3rd Party Keys such as Voice Comm Apps (as required). (Setup Microphone Behaviour User Prefs)
     9. Optional: Edit ED-BAT Batch File and update path/locations.
