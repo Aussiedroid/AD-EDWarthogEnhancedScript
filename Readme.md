@@ -111,9 +111,9 @@ To further enhance the Modifier button system, some buttons have also been desig
     3. Edit User Preferences file, primarily the 'Core Hardware' variables (rest can be reconfigured on later runs)
        SAVE & Close TARGET Script Editor when done editing.
          Note: Most commands can be tested prior to starting the game using the Event Tester & Device Analyzer.
-    4. Copy the Elite Dangerous Profile to:
+    4. Copy the Elite Dangerous Profile (.binds) from ED Bindings folder to:
          C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
-    5. Copy the TrackIR Profile to:
+    5. Copy the TrackIR Profile from the TrackIR folder to:
          C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
     6. Set the Hotkeys in TrackIR; Pause Key to PAUSE, and Center to END.
          Tick 'Exclusive' in TrackIR to autoload if you want. 
