@@ -113,7 +113,7 @@ To further enhance the Modifier button system, some buttons have also been desig
          Note: Most commands can be tested prior to starting the game using the Event Tester & Device Analyzer.
     4. Copy the Elite Dangerous Profile (.binds) from ED Bindings folder to:
          C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
-    5. Copy the TrackIR Profile from the TrackIR folder to:
+    5. Copy the TrackIR Profile (Elite.Dangerous.4.x.AD.xml) from the TrackIR folder to:
          C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
     6. Set the Hotkeys in TrackIR; Pause Key to PAUSE, and Center to END.
          Tick 'Exclusive' in TrackIR to autoload if you want. 
@@ -123,7 +123,7 @@ To further enhance the Modifier button system, some buttons have also been desig
     10.Open TARGET GUI & Run, and then Start ED Launcher OR alternatively run it automatically via the ED-BAT file.
     11.PLAY, and remember to select the AD Enhanced Warthog 4.x.x bindings in Elite Dangerous Config Menu, & APPLY.
     12.*If you are NOT running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
-       the Legend in ED Controls Config, once loaded. Remember to Test!*
+       the Legend in ED Controls Config to your own devices. Remember to Test!*
     
        ALWAYS make sure the script is running as-well-as any other 3rd party tools prior to starting Elite Dangerous.
 
