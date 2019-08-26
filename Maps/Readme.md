@@ -18,18 +18,18 @@ Full LED Lighting implemented for core Ship Systems, plus full LED Backlight man
 You can also Dim your Throttle Backlights automatically when you enable your Ship/SRV Lights or Night Vision. 
 ![LED Designation](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/LEDs.jpg "Throttle LED Configuration")
 
-## Custom Warthog HOTAS Plates ##
+## Custom Warthog Throttle Facia Plates ##
 If Elite Dangerous is your main game used on your Thrustmaster Warthog/Pit, the conventional 21st Century A10 Warthog markings on the throttle facia plate may not seem like the best fit for a modern 35th Century space sim. 
 
 Thanks to the fantasticly creative community member __Tekadept__, you can replace these default plates with ones specifically designed for this script! These are made of a black on white engraving material which diffuses the LEDs nicely.
 
-I'm sharing it here for visibility for CMDRS using the script as I think it is simply an awesome mod!
+I'm sharing it here for visibility for all CMDRs using this script, as I think it is simply an awesome mod! :)
 
 Please direct any queries to __Tekadept__ via his [website](https://www.tekcreations.space/contact-us/ "Contact TekCreations"). Individual tweaks & customisations are also available.
 
 Further information can also be found [here](https://www.tekcreations.space/product/custom-elite-dangerous-plates-warthog/ "Custom Plates for Thrustmaster Warthog Elite Dangerous HOTAS Throttle").
 
-__PLEASE NOTE:__ Aussiedroid is not part of, or affiliated with TekCreations. This project is __not__ created/maintained by Aussiedroid, but it is based off Aussiedroid's script design found here on GitHub. 
+__DISCLAIMER:__ Aussiedroid is not part of, or affiliated with TekCreations. This project is __not__ created/maintained by Aussiedroid, but it is based off Aussiedroid's script design found here on GitHub. 
 
 ![Custom Plates Sample](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/ongoing-beta-v4.x.x/Maps/Custom-HOTAS-Plates-Sample.png "Copyright TekCreations.")
 
