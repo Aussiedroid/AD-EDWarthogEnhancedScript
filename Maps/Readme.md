@@ -18,7 +18,7 @@ Full LED Lighting implemented for core Ship Systems, plus full LED Backlight man
 You can also Dim your Throttle Backlights automatically when you enable your Ship/SRV Lights or Night Vision. 
 ![LED Designation](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/LEDs.jpg "Throttle LED Configuration")
 
-## Custom Plates ##
+## Custom Warthog HOTAS Plates ##
 If Elite Dangerous is your main game used on your Thrustmaster Warthog/Pit, the conventional 21st Century A10 Warthog markings on the throttle facia plate may not seem like the best fit for a modern 35th Century space sim. 
 
 Thanks to the fantasticly creative community member __Tekadept__, you can replace these default plates with ones specifically designed for this script! These are made of a black on white engraving material which diffuses the LEDs nicely.
