@@ -250,7 +250,7 @@
 //	define ShowSteamOverlay 					L_SHIFT+USB[0x2B] 		// SHIFT+TAB	(Map this to your Steam Client Overlay hotkey - used to open/close Steam Game Overlay interface)
 //	define ShowDiscordOverlay					L_ALT+USB[0x3C]			// ALT+F3		(Map this to your Discord Overlay hotkey - used to open/close Discord Overlay interface)
 //	define ShowDiscordChatViaOverlay			L_ALT+USB[0x3D]			// ALT+F4		(Map this to your Discord Chat Overlay hotkey - used to open Chat from within the Overlay interface))
-	define GPUCaptureVideoAuto 					L_ALT+USB[0x44] 		// ALT+F11		(Note: Default NVidia Capture of ALT+F10 conflicts with HiRes Screenshots - This NEEDS to be updated in Geforce Experience/Overlay)
+	define GPUCaptureVideoAuto 					L_ALT+USB[0x44] 		// ALT+F11		(Note: Default NVidia Capture of ALT+F10 conflicts with Hi-Res Screenshots - This NEEDS to be updated in Geforce Experience/Overlay)
 	define GPUCaptureManual 					L_ALT+USB[0x42]			// ALT+F9		(Map this & above to your NVidia/AMD/Fraps capture software)
 	define ExternalVoiceCommsPTT 				USB[0x55]				// NUMPAD *		(Map this to your Discord/Ventrilo/Mumble/Skype PTT Key)
 	define ExternalVoiceCommsPTT_ALT			USB[0x35]				// ~			(Map this to your Twitch/OBS/Youtube -> Secondary External PTT Key used with Modifier, mainly to support Streamers)

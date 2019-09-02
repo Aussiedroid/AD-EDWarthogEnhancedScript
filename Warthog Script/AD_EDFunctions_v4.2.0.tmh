@@ -1,7 +1,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FUNCTIONS: TABLE OF CONTENTS //					// FUNCTIONS Include logic to customise specific Button/Toggle functionality								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 592)]	//
+//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 590)]	//
 //		- initHardpointManagement					- initLEDController						- initEnhancedFAOFF						- initPrintState			//
 //		- initSetCombinedFire						- initNightVisionEnhancer				- initToggleRotationCorrection										//
 //		- initExplorerScannerDisengage				- initAPEngageEnhancer					- initToggleSilentRunning											//
@@ -499,9 +499,7 @@
 			MicCheckHold=!MicCheckHold;															// Release PTT Buttons
 			if(Throttle[EFROVER]) {																// If Mic Toggle OFF:	Release Internal PTT Voice Comms Open Comms
 				if(ExternalMicInverse) {														// Will Invert VoiceAttack listening when Internal Comms are used
-						ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal);
-						ActKey(KEYON+PULSE+InternalVoiceCommsPTT); }
-				else {	ActKey(KEYON+PULSE+InternalVoiceCommsPTT); } }
+					ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); } }
 			if(Throttle[EFRNORM]) {																
 				if(MicExtPulseCheck) {															// Check if Internal, External or Alt. External was pressed, then release accordingly.
 					ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);									// If Mic Toggle ON:	Release External PTT Voice Comms Open Comms
@@ -601,6 +599,7 @@
 		printf("[Cargo Precision Mode = %d]  [S/Cruise @ Throttle = %d]  [Chaff @ Escape  = %d]  [Boost @ Esc = %d]\x0a", CargoPrecisionMode, CruiseOnThrottle, AutoChaffOnEscape, AutoBoostOnEscape);
 		printf("[Combine External Mic = %d]  [Sec. Fire Override  = %d]  [NightVision HUD = %d]  [Ext Mic+Mic = %d]\x0a", ExternalMicCombined, SecFirePinkyPref, NightVisionHUD, ExternalMicCombined);
 		printf("[Headtrak Center Mode = %d]  [Ship Utility Mode   = %d]  [LED Backlight = %d]  [LED ¡Bling! = %d]\x0a", HeadtrackPref, ShipUtilityPref, SetLED, BlingLEDBling);
+		printf("[Throttle Axis O/ride = %d]  [Joystik Axis O/ride = %d]  [Throttle D/zone = %d]  [Joys D/zone = %d]\x0a", ThrottleOverride, JoystickOverride, TFULL_DEADZONE, JS_DEADZONE);
 		if(VerboseOutput) printf("\x0a"); 
 		if(VerboseOutput) printf(":..DEFAULT TOGGLE STATE..:\x0a");
 		if(VerboseOutput) printf("[Combine Pri+Sec Fire = %d]  [Rot. Correction = %d]  [C/ Scoop = %d]  [L/ Gear = %d]  [Lights  = %d]\x0a", combinePriSecFire, RCorrection, CargoSc, Gears, Lights);

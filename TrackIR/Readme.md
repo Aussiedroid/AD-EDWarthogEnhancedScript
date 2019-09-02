@@ -9,4 +9,4 @@ Offers a more realistic feel with head movement in Elite Dangerous.
 
 ` `
 
-[Home] [NaturePoint TrackIR](https://naturalpoint.com/trackir/ "TrackIR")
+[Home] [NaturalPoint TrackIR](https://naturalpoint.com/trackir/ "TrackIR")

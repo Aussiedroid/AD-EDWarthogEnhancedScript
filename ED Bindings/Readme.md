@@ -11,6 +11,8 @@ Do you own/play with one of these rudder pedals _(pictured below)_?
 `Copy Bindings To:`
 `C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings`
 
+_Note:_ When you first load the binding file in ED after copying across, it will create a new copy of the binds with additional number designation added to the end of the filename (this is expected). This ensures original downloaded bindings remain untouched and any modifications will go under the newly named Aussiedroid Warthog Enhanced 4.x.x.3.0.binds.
+
 ![MFG Crosswind](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/master/ED%20Bindings/WITH%20MFG%20Crosswind/folder.jpg "MFG Crosswind Rudder Pedals") 
 
 

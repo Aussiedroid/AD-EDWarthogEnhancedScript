@@ -7,16 +7,16 @@
 														//  [NOTE: Doesn't work under Win10 -> Please use ED-BAT File included in download pack]
 														
 	define VerboseOutput		1						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
-														//	Options:		Enable = 1 (default) (On),	Disable = 0 (Silent Mode / Off)
+														//	Options:	Enable = 1 (default) (On)					Disable = 0 (Silent Mode / Off)
 
-	int	   SetLED =				172					   ;// Set LED Backlight Level on Throttle	(Value 0-255) (off = 0, default = 172) [Note: This can be adjusted On-The-Fly by using the Friction Control Axis + Pinky Trigger]
+	int	   SetLED =				172					   ;// Set LED Backlight Level on Throttle	(Value 0-255) (Off = 0, default = 172) [Note: This can be adjusted On-The-Fly by using the Friction Control Axis + Pinky Trigger]
 	define BlingLEDBling		1						// Enables a Short Flashing LED Sequence when you flip a Toggle & will also enable a short start-up sequence pattern. Bling Bling!
-														// 	Options:		Enable = 1 (default),		Disable = 0
+														// 	Options:	Enable = 1 (default)						Disable = 0
 
 		// CORE HARDWARE //
 	define KBLayout 			KB_ENG					// Default Keyboard Layout	(Change this to your local keyboard layout (KB_GER for German | KB_FR for French) otherwise some keys may not function correctly!)
 
-	define UseMFD 				0 						// No MFD = 0 (default).	One MFD = 1 (Right MFD).	Two MFDs = 2 (Right & Left MFD).  **UNMAPPED** **UNTESTED**
+	define UseMFD 				0 						// No MFD = 0 (default)		One MFD = 1 (Right MFD)			Two MFDs = 2 (Right & Left MFD)		**UNMAPPED** **UNTESTED**
 	
 	define UseRuddersT16000		1						// TM TFRP/T16000 Rudders (EXCLUDED) = 0, TM TFRP/T16000 Rudders (FILTERED) = 1 (default)	[NOTE : If TFRP Rudder pedals are NOT connected, or you run different brand pedals, neither user preference will run (Eventhandler code will never fire)]
 	define UseRuddersTPR		1						// TM TFRPPHA/TPR Rudders (EXCLUDED) = 0, TM TFRPHA/TPR Rudders	 (FILTERED) = 1 (default)	[NOTE : If TFRP TPR Rudder pedals are NOT connected, or you run different brand pedals, neither user preference will run (Eventhandler code will never fire)]
@@ -37,13 +37,29 @@
 	define TFULL_DEADZONE		5						// Set the Throttle 'Full Range' Deadzone %	  (default = 5)	(Use the Device Analyzer to validate) (Note: Don't set this too high! [Max ~15%] It will intefer with the FSS tuning)
 
 		// THROTTLE AXIS //
-	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% = 1 (default). Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%]
+	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% = 1 (default)		Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%]
 
 	define ThrottlePresetUP 	mThrottleFwdOnly		// 7 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottleFwdNonLinear [   0 ~> 100]
 	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleFullNonLinear[-100 ~> 100]
 	define ThrottlePresetDOWN 	mThrottlePrecision		// 	 Choose! 	mThrottleFullScaleCustom	[-100 -> 80 ]	mThrottlePrecision	  [ -50 -> 50 ] (This should be in the DOWN position when mapped)
 														//															mThrottleTrimmed	  [ -75 -> 75 ]
 														// 	[Note: Full Range is Trimmed by ~5% when CruiseOnThrottle active]
+
+	define ThrottleOverride		0						// Allows replacement of the Throttle Axis Preset Toggle to custom mappings. (NOTE: This will mean you will NOT be able to change your Throttle Axis Behaviour in-game)		
+														//   Options:	Use Throttle Presets = 0 (default)			Use Custom Toggle Mappings = 1
+	define ThrottlePresetDEF	mThrottleFullScale		// If ThrottleOverride = 1, this setting will determine what Default Throttle Behaviour to be applied on script startup (Choose your preferred Throttle Preset)
+	define ThrottlePresetUPALT	mNextTurretModeX1		// If ThrottleOverride = 1, this will determine what custom 'Pulse' mapping is applied to the UP direction of the Throttle Toggle.   (NOTE: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.)
+	define ThrottlePresetDWNALT mNextTurretModeX2		// If ThrottleOverride = 1, this will determine what custom 'Pulse' mapping is applied to the DOWN direction of the Throttle Toggle. (NOTE: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.)
+
+	define DisableLEFTTHRAxis	0						// Whenever a Throttle Preset is applied, it is applied to both the Left & Right Throttle Axes. ED only requires one to be mapped. This option allows you to disable the Left Throttle Axis if you require the mappings for another device axis in the virtual device.
+														// 	 Options:	Enable Left Axis = 0 (default)				Disable Left Axis = 1	
+		// JOYSTICK AXIS //
+	define JoystickOverride		0						// Allows replacement of the Joystick Axis Preset Toggle to custom mappings. (NOTE: This will mean you will NOT be able to change your Joystick Axes Behaviour in-game & will remove any custom axis behaviour found in initSetJoystickCurves())		
+														//   Options:	Use Joystick Presets = 0 (default)			Use Custom Toggle Mappings = 1 
+	define JoystickPresetDEF	1						// If JoystickOverride = 1, this setting will determine what Default Joystick Behaviour to be applied on script startup (Choose your preferred Joystick Preset)
+														//	 Joystick Curve Preset:		Fast = 0		Standard = 1 (default)	 		Slow = 2
+	define JoystickPresetUPALT	mSignalLights			// If JoystickOverride = 1, this will determine what custom 'Pulse' mapping is applied to the UP direction of the Joystick Toggle.   (NOTE: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.)
+	define JoystickPresetDWNALT mSignalLightsLong		// If JoystickOverride = 1, this will determine what custom 'Pulse' mapping is applied to the DOWN direction of the Joystick Toggle. (NOTE: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.)
 
 		// SHIP/SRV PIP CONFIG //
 	define UserPIPPref 			2						// Choose your preferred PIP configuration	[0 -> 3]: 
@@ -62,7 +78,7 @@
 														//	Options:	Combine Primary+Secondary Fire on Trigger 2 = 1	(default)		No Mapping on Trigger 2 = 0 (ie. main Trigger dedicated to Primary Fire)
 
 	define SecFirePinkyPref		0						// User Defined Override for Secondary Fire (Pinky Button) (S3) 	(!*Removes Sec. Fire from Pinky Button*!)
-														//   Options:		Use Standard Secondary Fire Mapping (OFF) = 0 	(default),		 User Defined Configuration (ON) = 1 (Map via PinkyBtnDefaultShort & PinkyBtnDefaultLong values below)
+														//   Options:	Use Standard Secondary Fire Mapping (OFF) = 0 	(default),		User Defined Configuration (ON) = 1 (Map via PinkyBtnDefaultShort & PinkyBtnDefaultLong values below)
 														// 	[NOTE: Changing this from default '0' will mean you can only access Secondary Fire via the Dual-Stage Trigger, assuming combinePriSecFire = 1 -> Set your firegroups accordingly!]
 	define PinkyBtnDefaultShort ShipLights				// User Defined Override: Set Short Pinky Button Press (if above SecFirePinkyPref = 1)	(NOTE: Other commands can be found in the AD_EDKeyMap file, plus a few others listed a few lines above)
 	define PinkyBtnDefaultLong	NightVision				// User Defined Override: Set Long  Pinky Button Press (if above SecFirePinkyPref = 1)	(NOTE: Other commands can be found in the AD_EDKeyMap file, plus a few others listed a few lines above)
@@ -74,9 +90,9 @@
 														// 			COMBAT Preset = 1			->	S1 [Short: Heat Sink, Long: Chaff], S2 [Short: Shield Cell, Long: ECM/SRV Turret]
 		// MICROPHONE BEHAVIOUR //
 	define ExternalMicCombined	0						// For OPEN Mic Toggle Switch on Throttle Base; combine 2 External Voice Channels to One Toggle action: 
-														//	Options:		Separate Channels = 0 (default),	Combined Channels = 1 	(Remember: Set your Keyboard PTT/Toggle Mappings in your External Programs)
+														//	Options:	Separate Channels = 0 (default),				Combined Channels = 1 	(Remember: Set your Keyboard PTT/Toggle Mappings in your External Programs)
 	define ExternalMicInverse	0						// For PUSH-TO-TALK Mic Button on Throttle Arm; changes behavior to inverse the external channels on PTT button between VoiceAttack & Discord (or your preferred external comms). When enabled '1' and button pressed, VoiceAttack will mute and Discord channel will open, ensuring no voice commands are sent while conversing with friends. When button is released, VoiceAttack is activated again & Discord channel is muted.
-														//	Options:		Two Independant Ext. Channels = 0 (default),	Inverse VA <-> Discord Activation = 1
+														//	Options:	Two Independant Ext. Channels = 0 (default)		Inverse VA <-> Discord Activation = 1
 														// 	[NOTE 1: To ensure proper alignment, ensure Listening is enabled in VoiceAttack before your first Mic press.]
 														//	[NOTE 2: Set 'MicExternalAction' to 0 and enable PTT in Discord/Comms (map to 'NUMPAD *')]
 														//	[NOTE 3: Enabling this option will also inverse the Internal Comms Channel with VoiceAttack]
@@ -89,7 +105,7 @@
 	int    CargoPrecisionMode =	0					   ;// Enable Automatically Changing to Throttle Mode 'Precision' when you Deploy Cargo Scoop = 1		Disable = 0 (default) 
 														// 	[NOTE: Holding CMS Hat Switch Modifier + Engaging Cargo Scoop will Toggle Precision Mode ON/OFF On-The-Fly]
 	define CargoReturnMode		1						// When CargoPrecisionMode is ENABLED & Deployed Cargo Scoop is RETRACTED, Choose your preferred Throttle Mode to Exit/Return to:
-														//	Options:		Forward Only = 0, Full Range = 1 (default), Full Range Custom = 2, Trimmed = 3 	[Hint: Set this to your usual throttle mode]
+														//	Options:	Forward Only = 0	Full Range = 1 (default)	Full Range Custom = 2	Trimmed = 3 	[Hint: Set this to your usual throttle mode]
 
 		// ESCAPE VECTOR MACRO //
 	define AutoChaffOnEscape 	0						// During Escape Vector Macro, fire a Chaff automatically to cover your escape! 		= 1 	Disable = 0 (default)
@@ -133,7 +149,7 @@
 
 		// PIPs on DMS Hat Switch //
 	define PUP 						H3U					// *EXPERIMENTAL*  Moves the PIP Hat Switch (DMS) to the UI Hat Switch (CMS) for high frequency combat/bounty hunting usage. These values set the correct MapKey key mappings as per user preference.
-	define PDN						H3D					//	 Instructions: Remove the comments '//' for the 4 lines (131-134) below for the H4 Hat Switch (CMS) & then comment out '//' the 4 lines for the H3 Hat Switch (DMS) for lines (125-128). !~Remember to Save~!
+	define PDN						H3D					//	 Instructions: Remove the comments '//' for the 4 lines (157-160) below for the H4 Hat Switch (CMS) & then comment out '//' the 4 lines for the H3 Hat Switch (DMS) for lines (151-154). !~Remember to Save~!
 	define PLT						H3L					// 	[NOTE 1: CMS Push Button, including Modifier 2, remains unchanged regardless of option chosen]
 	define PRT						H3R					//	[NOTE 2: If you decide to swap mappings, you will need to manually re-map ALL commands previously mapped on the UI/CMS Hat Switch via the bindings section in ED; see list below:]
 														//	(		 U NEED TO REMAP->	UI Up/Down/Left/Right,							)
