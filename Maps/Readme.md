@@ -31,7 +31,7 @@ Further information can also be found [here](https://www.tekcreations.space/prod
 
 __DISCLAIMER:__ Aussiedroid is not part of, or affiliated with TekCreations. This project is __not__ created/maintained by Aussiedroid, but it is based off Aussiedroid's script design found here on GitHub. 
 
-![Custom Plates Sample](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/ongoing-beta-v4.x.x/Maps/Custom-HOTAS-Plates-Sample.png "Copyright TekCreations.")
+![Custom Plates Sample](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Custom-HOTAS-Plates-Sample.png "Copyright TekCreations.")
 
 
 ## Keyboard Map ##
