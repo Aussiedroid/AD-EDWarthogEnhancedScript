@@ -2,7 +2,7 @@
 // AUSSIEDROID'S ACKNOWLEDGEMENTS //																//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // Standing on the Shoulders of Giants! Creation of this TARGET Script would not have been possible without amazing ED Scripts I found online created by:	//
-// Alexandr Zhevedenko, Michael Lehman (WraithMG11235), DarKcyde & Thomas Duployez (CMDR Touille). The script continues to evolve with the fantastic community  //
+// Alexandr Zhevedenko, Michael Lehman (WraithMG11235), CMDR Clicker, DarKcyde & Thomas Duployez (CMDR Touille). Script continues to evolve with all the great  //
 // feedback, ideas, bug reports & sharing of code... the help & support shown on the forums/guide has been been amazing!	 !! You ALL Rock! Thank you !!	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // GENERAL INFO & LINKS //																	//
@@ -19,8 +19,10 @@
 //							  ** RECOMMENDED RUNNING SCRIPT IN TARGET GUI **							//
 //						** REMINDER: CUSTOMISE/SET YOUR USER PREFERENCES IN AD_EDUSERPREFS FILE **					//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// VERSION HISTORY //	Version 4.1.0			\\ Released Sept 2016	|	Updated April 2019 //		\\		Public Release #22	//
+// VERSION HISTORY //		Version 4.2.0		\\ Released Sept 2016	|	Updated Sept 2019 //		\\		Public Release #23	//
 // =============================================================================================================================================================//
+// v4.2.0-NEW: Throttle/Joystick Axis Preset Toggles can now be user defined. NEW: Boost Brake & Turret Mode Cycle Macros. NEW: Disable Left Throttle Axis pref.//
+// v4.2.0-FIXED: Throttle Modes enforced on both axes, Combined Fire mode now utilises 2-Stage Trigger properly & Mic Push-To-Talk invert fix. 			//
 // v4.1.0-APRIL UPDATE NEW: Axis Deadzone Customisation + Disable Message Text Output in TARGET Window via User Prefs. FIXED: UseRudderAxisCurves axis configs.	//
 // v4.1.0-NEW: Galaxy Map Keybind for returning to Current System added. FIXED: FastModeSwitch, NAV Beacon & Report Crimes macro timings 4 new Main Menu layout.//
 // v4.0 - NEW: Pulse Repeater Fire! Customisable Auto-Chat Presets, 2 Non-Linear Throttle Presets, SHIFT Key & Hide HUD on NightVision. FIX: LEDs on Launch Seq.//
@@ -63,4 +65,4 @@ Need help understanding this script?
 Upgrading from a previous version?	
 
 	Simply copy the new files to the appropriate locations below. Each major version update is numbered to ensure you don't override older settings.
-	Minor updates may be overridden. If you have made any custom modifications, always make a backup copy of your existing profile just to be safe. :)
+	Minor updates may be overridden. If you have made custom modifications, always make a backup copy (see ED-BAT) of your existing profile just to be safe. :)
