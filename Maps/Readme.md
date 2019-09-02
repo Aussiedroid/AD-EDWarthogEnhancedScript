@@ -19,9 +19,9 @@ You can also Dim your Throttle Backlights automatically when you enable your Shi
 ![LED Designation](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/LEDs.jpg "Throttle LED Configuration")
 
 ## Custom Warthog Throttle Plates ##
-If Elite Dangerous is your main game used on your Thrustmaster Warthog/Pit, the conventional 21st Century A10 Warthog markings on the throttle facia plate may not seem like the best fit for a futuristic 34th Century space sim. 
+If Elite Dangerous is your main game used on your Thrustmaster Warthog/Pit, the conventional 21st Century A10 Warthog markings on the throttle plates may not seem like the best fit for a futuristic 34th Century space sim. 
 
-Thanks to the fantasticly creative community member __Tekadept__, you can replace these default plates with ones specifically designed for this script! These are made of a black on white engraving material which diffuses the LEDs nicely.
+Thanks to the fantastically creative community member __Tekadept__, you can replace these default plates with ones specifically designed for this script! These are made of a matte black on white engraving ABS material which diffuses the backlit LEDs nicely.
 
 I'm sharing it here for visibility for all CMDRs using this script, as I think it is simply an awesome mod! :)
 
