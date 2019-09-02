@@ -97,7 +97,7 @@ To further enhance the Modifier button system, some buttons have also been desig
 
 ![Throttle Base](https://steamuserimages-a.akamaihd.net/ugc/980002135582653970/604A396AD537FADA0CF4D5CF68CD1064A94A3765/ "Throttle Base")
 
-![Throttle Arm](https://steamuserimages-a.akamaihd.net/ugc/980002135582654810/130BAA7CD975EB055437884C303A59CA157DE689/ "Throttle Arm")
+![Throttle Arm](https://steamuserimages-a.akamaihd.net/ugc/771726115414976689/421594AD1B8AE2033BA1E1D3C44F235E1C852CA3/ "Throttle Arm")
 
 
 ## ##
