@@ -1,6 +1,6 @@
 # ED-BAT: Elite Dangerous Startup Batch File #
 
-## VERSION 0.3 ##
+## VERSION 0.4 ##
 
 
 Simplify & speed up loading of Elite Dangerous, and setting up your hardware & apps. Allows you to run many 3rd party apps plus the ED Launcher in a single shortcut.
@@ -43,11 +43,13 @@ _[Note 4]_ Creating a shortcut of your .bat file will allow you to change its ic
 
 _[Note 5]_ Will never delete a backup. Backups are small, but remember to delete old versions periodically as required.
 
+_[Note 6]_ If you use Steam version of the EDLauncher, some modification is required to swap launcher versions in script. Please read instructions in BAT.
+
 
 
 ## WHAT APPS DOES ED-BAT SUPPORT? ##
 
-- EDLauncher
+- EDLauncher _(Both Steam and Standalone)_
 - Thrustmaster Target GUI + Will Open/Run Script
 - TrackIR
 - VoiceAttack
