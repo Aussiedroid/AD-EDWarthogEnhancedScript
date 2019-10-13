@@ -10,13 +10,13 @@ DX Mapping & Conversion table also included in the Key Mapping file to help with
 
 Filename | Function
 ------------ | -------------
-AD_ED_v4.2.0.tmc | Main Script File, Maps Combined Device & Includes Files Below
-AD_EDDefaults_v4.2.0.tmh | Global Variable Settings, States & Timings/Delays
-AD_EDUserPrefs_v4.2.0.tmh | User Preferences & Script Customisation Options
-AD_EDKeyMap_v4.2.0.ttm | Variable Key Mapping & Reference Tables
-AD_EDHardware_v4.2.0.tmh | Joystick, Throttle & Rudder Axes/Curves Configuration
-AD_EDMacros_v4.2.0.tmh | Macro Definitions _(Custom Sequences)_
-AD_EDFunctions_v4.2.0.tmh | Function Definitions _(Custom Logic for Buttons, Toggles & Ship Controls)_
+AD_ED_v4.2.1.tmc | Main Script File, Maps Combined Device & Includes Files Below
+AD_EDDefaults_v4.2.1.tmh | Global Variable Settings, States & Timings/Delays
+AD_EDUserPrefs_v4.2.1.tmh | User Preferences & Script Customisation Options
+AD_EDKeyMap_v4.2.1.ttm | Variable Key Mapping & Reference Tables
+AD_EDHardware_v4.2.1.tmh | Joystick, Throttle & Rudder Axes/Curves Configuration
+AD_EDMacros_v4.2.1.tmh | Macro Definitions _(Custom Sequences)_
+AD_EDFunctions_v4.2.1.tmh | Function Definitions _(Custom Logic for Buttons, Toggles & Ship Controls)_
 
 ` `
 
@@ -34,7 +34,7 @@ AD_EDFunctions_v4.2.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 [Pinky 'Double Tap' Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--pinky-double-tap-override "Pinky 'Double Tap' Override Customisation") | [Autopilot Button Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--autopilot-button-overrides "Autopilot Button Override Customisation") | [Auto-Text Chat Presets](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--auto-text-chat-presets "Auto-Text Chat Presets Customisation") | [Acknowledgements](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#script-acknowledgements "Acknowledgements")
 ## ##
 
-## User Preferences : AD_EDUserPrefs_v.4.2.0.tmh ##
+## User Preferences : AD_EDUserPrefs_v.4.2.1.tmh ##
 
 Although it is not practical to have everything as a user preference, for key features & play styles I have tried to cover as many as possible in a simple to use User Preference section with the goal to make the script accessible to as many players as possible. This will help those who do not know the scripting programming language make quick changes to suite their needs.
 
@@ -342,7 +342,7 @@ Setting value to 0 will simplify this to a single tier of responses (4 in total)
 >>
 >>I was supremely strugging to get my head around the coding, and seeing practical script examples really helped unravel it all. Sections of all their scripts have been incorporated into my design along with some other odds and ends I learned searching online _(so if I missed calling out your name, sorry!)_.
 >>
->>Special mentions to CMDR Clicker for all his help squashing those bugs & code improvements in general across on the Frontier Forums & also to Tekadept for his Fantastic [Custom Warthog Plates](https://www.tekcreations.space/product/custom-elite-dangerous-plates-warthog/?currency=USD "www.tekcreations.space") he created for this script!
+>>Special mentions to CMDR Clicker for all his help squashing those bugs & code improvements in general across on the Frontier Forums. Also a special mention to Tekadept for his Exceptional [Custom Warthog Plates](https://www.tekcreations.space/product/custom-elite-dangerous-plates-warthog/?currency=USD "www.tekcreations.space") he created for this script!
 >>
 >>The script continues to evolve with the fantastic community feedback, ideas, bug reports & sharing of code... the help & support shown on the forums/guide has been been amazing!
 >>

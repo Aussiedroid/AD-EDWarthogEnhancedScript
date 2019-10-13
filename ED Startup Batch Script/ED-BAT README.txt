@@ -1,5 +1,5 @@
 -----------------------------------------------------------
-AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER + BACKUP v0.3:
+AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER + BACKUP v0.4:
 -----------------------------------------------------------
 
 WHAT DOES IT DO?
@@ -30,13 +30,16 @@ Note 4: Creating a shortcut of your .bat file will allow you to change its icon 
 
 Note 5: Will never delete a backup. Backups are small, but remember to delete old versions periodically as required.
 
+Note 6: If you use Steam version of the EDLauncher, some modification is required to swap launcher versions in script. Please read instructions in BAT.
+
+
 
 Run as Administrator, else some programs may not start.
 
 
 WHAT APPS DOES THE SCRIPT SUPPORT?
 
-EDLauncher
+EDLauncher (Both Steam and Standalone)
 Thrustmaster Target GUI + Will Open/Run Script
 TrackIR
 VoiceAttack
