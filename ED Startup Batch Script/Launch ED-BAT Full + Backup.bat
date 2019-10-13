@@ -22,9 +22,16 @@
 
 : FOLDER PATHS:   <- Update these paths for the Apps you use. "Take note where quotations " " are/aren't used"
 : =============
+: Steam User Instructions (Swapping ED-LAUNCHER to STEAM Version):   
+: - If you use Steam version of ED, you will need to REMOVE the comments ':' for STEAM-PATH below.
+: - If you do not update path comments, the Screenshot & other Steam features may not work when launching via the BAT.
+: - REMOVE the comments for app launch section towards the end of the BAT for STEAM (Steam.exe). 
+: - Then, ADD the comments to EDLAUNCHER-PATH section, and EDLaunch.exe in the app launch section towards the end of the BAT. Save.
+
 SET BINDS-BACKUP-FOLDER="D:\Backups\ED-BINDS-BACKUP\Bindings"
 SET BINDINGS-PATH="%LOCALAPPDATA%\Frontier Developments\Elite Dangerous\Options\Bindings\*.*"
 SET EDLAUNCHER-PATH="%PROGRAMFILES(X86)%\Steam\steamapps\common\Elite Dangerous"
+:SET STEAM-PATH="%PROGRAMFILES(X86)%\Steam"
 SET TARGET-GUI-PATH="%PROGRAMFILES(X86)%\Thrustmaster\TARGET\x64"
 SET TARGET-SCRIPT-FILE="C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-4.0.0\Warthog Script\AD_ED_v4.0.0.tmc"
 SET REFERENCE-MAP-PATH=C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-4.0.0\Maps\Advanced-Map.jpg
@@ -56,7 +63,7 @@ SET "DIR-DATE_TIME=%YYYY%-%MM%-%DD%_%HH%.%Min%"
 
 ECHO.
 ECHO ----------------------------------------------------------------
-ECHO AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER FULL + BACKUP v0.3:
+ECHO AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER FULL + BACKUP v0.4:
 ECHO ----------------------------------------------------------------
 ECHO.
 ECHO Creating Immersion Platform... Please wait..
@@ -196,6 +203,17 @@ If NOT ERRORLEVEL 1 SET /A AppSuccessCount+=1
 If ERRORLEVEL 1 ECHO ...ERROR!!!  ~Check EDLaunch.exe path/installed/already running~
 PING -n 2 localhost>nul
 ECHO.
+
+:ECHO LAUNCHING: STEAM
+:CD %STEAM-PATH%
+:If NOT ERRORLEVEL 1 START /d %STEAM-PATH% Steam.exe steam://rungameid/359320
+:PING -n 2 localhost>nul
+:TASKLIST | FIND /I "Steam.exe"
+:If NOT ERRORLEVEL 1 ECHO ...SUCCESS!
+:If NOT ERRORLEVEL 1 SET /A AppSuccessCount+=1
+:If ERRORLEVEL 1 ECHO ...ERROR!!!  ~Check Steam.exe path/installed/already running~
+:PING -n 2 localhost>nul
+:ECHO.
 
 ECHO.
 ECHO STATUS UPDATE: (%AppSuccessCount% of %AppCount% Apps Loaded Successfully)
