@@ -1,6 +1,6 @@
-Update 4.2.0:  CARRIER ME HOME   (Update #23)
+Update 4.2.1:  VOID ALIGNMENT PROTOCOL  (Update #24)
 
--> This month's update marks 3 years since I first shared my script with the ED Community. Who would have known I would still be working on it.. LOL! This installment addresses a few minor issues from the previous release, few general improvements & some further user customisation options for you to play with. Thanks as always to all the CMDRs feedback and help reporting & fixing issues.
+-> Some small improvements based on user feedback, plus some remaining 'missed' VoiceAttack keybinds have now been added.
 
 
 New to the script? Be sure to also check out the Beginners Reference Map in the download pack to get started.
@@ -8,17 +8,13 @@ New to the script? Be sure to also check out the Beginners Reference Map in the 
 
 List of Changes:
 
-SPECIAL: Amazing Custom Warthog Throttle Facia Plates (designed by Tekadept) are now available! Please visit GitHub or Frontier Forums for more info. (Thx Tekadept!)
+IMPROVEMENT: CruiseOnThrottle now works in both directions! When holding a Modifier and hitting 0% throttle you can engage or disengage Supercruise, just like you could previously at 100%.
+IMPROVEMENT: ED-BAT updated to v0.4, now has an alternative startup link for Steam based EDLauncher, to allow use of Steam Overlay & Screenshot Capture. (This needs to be manually edited per instructions in BAT if you use Steam) (Thx SpinCykle)
 
-NEW: The 3-Way Throttle & Joystick Axis Preset Toggles can now be customised. If you find you do use the Throttle or Joystick presets very often, you can replace them with your own custom commands. Both Up and Down directions can be mapped to any Pulse commands, with Middle considered Off. (Thx scottdruck for the idea!)
-NEW: Added Boost Brake Macro! This will fire on the boost button when also holding the Pinky Trigger Modifier. Acting somewhat like an Air brake, this will push your ship by boosting then engaging your landing gear, quickly decreasing your speed, and allowing for some tight tactics (with or without FAOff).. or perhaps for some more extreme docking :) (Thx sw33tp34!)
+FIXED: Reset HMD Orientation now mapped correctly in binding file to CTRL+HOME. (Thx T4k3shi47)
+FIXED: VoiceAttack Update: Added explicit mapping for SRV Throttle Reverse (CTRL+R), same as Ship. (Thx SpinCykle)
+FIXED: VoiceAttack Update: Added keybind mapping for Primary/Secondary Fire (SHIFT+1/SHIFT+2). (Note, this removes the Mouse 1/2 bindings) (Thx SpinCykle)
+FIXED: VoiceAttack Update: Added keybind mapping for Exit FSS (SHIFT+F). (Note, this removes the Exit FSS mapped (Joy28+Joy4) on the Enter FSS button) (Thx SpinCykle)
 
-NEW <BETA>: Turret Mode Macros added under mNextTurretModeX1 & mNextTurretModeX2. Due to the way the panel works, you cannot select a specific Turret Mode, instead the macro will select the next mode in the cyclable list (1 or 2 positions forward). *Currently Unmapped by Default* The timings/alignment may still require work & as with other macros dependent on the panels, these will not work if you manually move the cursor postion in the panels during flight or a fight. Recommend using to set Turret behaviour prior to engagement. Feedback appreciated.
-
-IMPROVEMENT: Enforce both Throttle axes being mapped to Throttle presets, plus an option in user preferences to disable the secondary Throttle LEFT axis to free it up another device. (Thx dtdionne for the idea!)
-IMPROVEMENT: Added Throttle & Joystick Override values, plus Throttle & Joystick Deadzone values to the Script Startup Printout.
-
-FIXED: Combined Fire mode will now ensure Primary fire remains active when releasing Secondary fire stage (when combinePriSecFire = 1). (Thx sw33tp34!)
-FIXED: Mic Push-To-Talk fix for the controls becoming inverted using multiple channels (I think?!) (please report back if its still an issue).
 
 Fly Safe CMDRs!
