@@ -1,5 +1,5 @@
 // =============================================================================================================================================================//
-// Version 4.2.1									\\ Released Sept 2016	|	Updated Sept 2019 //									Public Release #24		//
+// Version 4.2.1									\\ Released Sept 2016	|	Updated Oct 2019 //										Public Release #24		//
 // =============================================================================================================================================================//
 // AUSSIEDROID'S ACKNOWLEDGEMENTS //																															//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -602,8 +602,9 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // =============================================================================================================================================================//
-// VERSION HISTORY //			Version 4.2.0			\\ Released Sept 2016	|	Updated Sept 2019 //						\\		Public Release #23		//
+// VERSION HISTORY //			Version 4.2.1			\\ Released Sept 2016	|	Updated Oct 2019 //							\\		Public Release #24		//
 // =============================================================================================================================================================//
+// v4.2.1-IMPROVED: CruiseOnThrottle now works @ 0% position. FIX: VA Keymappings for Reset HMD Orientation, SRV Throttle Reverse, Exit FSS & Pri/Sec. Fire.    //
 // v4.2.0-NEW: Throttle/Joystick Axis Preset Toggles can now be user defined. NEW: Boost Brake & Turret Mode Cycle Macros. NEW: Disable Left Throttle Axis pref.//
 // v4.2.0-FIXED: Throttle Modes enforced on both axes, Combined Fire mode now utilises 2-Stage Trigger properly & Mic Push-To-Talk invert fix. 					//
 // v4.1.0-APRIL UPDATE NEW: Axis Deadzone Customisation + Disable Message Text Output in TARGET Window via User Prefs. FIXED: UseRudderAxisCurves axis configs.	//

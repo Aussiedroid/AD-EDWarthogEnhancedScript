@@ -3,7 +3,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 														// User Prefs allow easy modification of some alternative/optional script features without editing the code.
 		// START-UP //
-	define StartSoftware		0						// Start ED Launcher (&/or other 3rd Party Apps) when you Run the Script (Software List & Paths can be customised in AD_ED_v3.x.x.tmc)
+	define StartSoftware		0						// Start ED Launcher (&/or other 3rd Party Apps) when you Run the Script (Software List & Paths can be customised in AD_ED_v4.x.x.tmc)
 														//  [NOTE: Doesn't work under Win10 -> Please use ED-BAT File included in download pack]
 														
 	define VerboseOutput		1						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
@@ -37,7 +37,7 @@
 	define TFULL_DEADZONE		5						// Set the Throttle 'Full Range' Deadzone %	  (default = 5)	(Use the Device Analyzer to validate) (Note: Don't set this too high! [Max ~15%] It will intefer with the FSS tuning)
 
 		// THROTTLE AXIS //
-	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% = 1 (default)		Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%]
+	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% and 0% = 1 (default)	Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%/0%]
 
 	define ThrottlePresetUP 	mThrottleFwdOnly		// 7 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottleFwdNonLinear [   0 ~> 100]
 	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleFullNonLinear[-100 ~> 100]

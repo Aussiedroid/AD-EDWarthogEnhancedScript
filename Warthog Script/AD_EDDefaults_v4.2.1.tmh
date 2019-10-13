@@ -4,7 +4,7 @@
 
 	define ADVersionMajor 		4						// Script Version Major Value			ie. 3.x.x
 	define ADVersionMinor 		2						// Script Version Minor Value			ie. x.4.x
-	define ADVersionPoint		0						// Script Version Point Update			ie. x.x.5
+	define ADVersionPoint		1						// Script Version Point Update			ie. x.x.5
 
 	int    profile =			1					   ;// Set initial joystick profile global variable for joystick curves	(Options: 0, 1, 2)	(default = 1)
 

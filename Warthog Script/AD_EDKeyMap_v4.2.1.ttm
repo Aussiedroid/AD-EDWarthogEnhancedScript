@@ -86,7 +86,7 @@
 //	define DSSExitMode							USB[0x2A]				// Backspace
 //	define FSSDiscoveryScan						DX1						// JOY 1
 //	define FSSModeON							L_ALT+USB[0x09]			// ALT+F
-//	define FSSModeOFF							USB[0x2A]				// Backspace
+//	define FSSModeOFF							L_SHIFT+USB[0x09]		// SHIFT+F
 //	define FSSCameraPitchIncrease				USB[0x1A] 				// W
 //	define FSSCameraPitchDecrease				USB[0x16] 				// S
 //	define FSSCameraYawIncrease					USB[0x07] 				// D

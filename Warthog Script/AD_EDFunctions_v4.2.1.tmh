@@ -96,7 +96,7 @@
 			pos = pos + 1;   }																	// 					Next character/key
 		DeferCall(ChatKeyRepeatTime * (pos + 2), &ActKey, KEYON+PULSE+QuickCommsPanel);			// Prepare to Close Text Box/Comms
 		Sleep(250); DeferCall(ChatKeyRepeatTime * (pos + 2), &ActKey, KEYON+PULSE+CommsPanel);	// CLOSE Comms Panel (+UI Delay - Default: 250ms)
-		if(VerboseOutput) { printf("Comms Auto-Text  :SENT:  \"");		printf(&string);		printf("\" \x0a"); } }// Display Full Chat String to TARGET Output Panel
+		if(VerboseOutput) { printf("Comms Auto-Text  :SENT:  \"");		printf(&string);		printf("\" \x0a"); } } // Display Full Chat String to TARGET Output Panel
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -213,7 +213,7 @@
 			else if(DoubleTapPT == 1) {															// IF Double (Second) Press
 				DoubleTapPT = 2;																// Increment DoubleTapPT counter (prevents further triggers until DoubleTapPT delay timer cycle completes)
 				ActKey(KEYON+PULSE+UserDTPinkyKeyBind); } } }									// Trigger User Hot Slot Preference (*see User Preferences to set*)
-//				ActKey(KEYON+DOWN+UserDTPinkyKeyBind); } } }									// ALT Config (enable if Double Tap Pinky Trigger needs a Hold action - remember to disable the line above!)
+//				ActKey(KEYON+DOWN+UserDTPinkyKeyBind); } } }									// ALTERNATE Config (enable if Double Tap Pinky Trigger needs a Hold action - remember to disable the line above!)
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

@@ -26,9 +26,9 @@
 
 	int initJoystickAxis() { 																	// Set Default Joystick Axis
 		if(VerboseOutput) printf("Initialising Joystick Axis... ");
-		MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+		MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);							// JOY-X Axis
 			SetSCurve(&Joystick, JOYX, 0, 0, 0, 0, 0);
-		MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+		MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);							// JOY-Y Axis
 			SetSCurve(&Joystick, JOYY, 0, 0, 0, 0, 0); }
 
 
