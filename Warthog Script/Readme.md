@@ -342,7 +342,7 @@ Setting value to 0 will simplify this to a single tier of responses (4 in total)
 >>
 >>I was supremely strugging to get my head around the coding, and seeing practical script examples really helped unravel it all. Sections of all their scripts have been incorporated into my design along with some other odds and ends I learned searching online _(so if I missed calling out your name, sorry!)_.
 >>
->>Special mentions to CMDR Clicker for all his help squashing those bugs & code improvements in general across on the Frontier Forums & also to Tekadept for his Fantastic [Custom Warthog Plates](https://www.tekcreations.space/product/custom-elite-dangerous-plates-warthog/?currency=USD "www.tekcreations.space") he created for this script!
+>>Special mentions to CMDR Clicker for all his help squashing those bugs & code improvements in general across on the Frontier Forums. Also a special mention to Tekadept for his Exceptional [Custom Warthog Plates](https://www.tekcreations.space/product/custom-elite-dangerous-plates-warthog/?currency=USD "www.tekcreations.space") he created for this script!
 >>
 >>The script continues to evolve with the fantastic community feedback, ideas, bug reports & sharing of code... the help & support shown on the forums/guide has been been amazing!
 >>
