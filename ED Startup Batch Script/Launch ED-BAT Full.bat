@@ -18,7 +18,7 @@
 
 : FOLDER PATHS:   <- Update these paths for the Apps you use. "Take note where quotations " " are/aren't used"
 : =============
-: Steam User Instructions (Swapping ED-LAUNCHER to STEAM Version):   
+: Steam User Instructions (How to Swap ED-LAUNCHER to STEAM Version):   
 : - If you use Steam version of ED, you will need to REMOVE the comments ':' for STEAM-PATH below.
 : - If you do not update path comments, the Screenshot & other Steam features may not work when launching via the BAT.
 : - REMOVE the comments for app launch section towards the end of the BAT for STEAM (Steam.exe). 
