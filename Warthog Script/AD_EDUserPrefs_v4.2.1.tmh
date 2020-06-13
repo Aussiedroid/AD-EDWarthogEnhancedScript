@@ -52,7 +52,9 @@
 	define ThrottlePresetDWNALT mNextTurretModeX2		// If ThrottleOverride = 1, this will determine what custom 'Pulse' mapping is applied to the DOWN direction of the Throttle Toggle. (NOTE: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.)
 
 	define DisableLEFTTHRAxis	0						// Whenever a Throttle Preset is applied, it is applied to both the Left & Right Throttle Axes. ED only requires one to be mapped. This option allows you to disable the Left Throttle Axis if you require the mappings for another device axis in the virtual device.
-														// 	 Options:	Enable Left Axis = 0 (default)				Disable Left Axis = 1	
+														// 	 Options:	Enable Left Axis = 0 (default)				Disable Left Axis = 1
+	define SyncLEFTTHRAxis 		1						// Whenever a Throttle Preset is applied, this ensures the preset is applied to both the Left & Right Throttle Axes. Disabling this will cause the Left Throttle Axis to maintain its full range regardless of the preset that is used.
+														//   Options:   Enable Left Axis Sync = 1 (default)         Disable Left Axis Sync = 0	
 		// JOYSTICK AXIS //
 	define JoystickOverride		0						// Allows replacement of the Joystick Axis Preset Toggle to custom mappings. (NOTE: This will mean you will NOT be able to change your Joystick Axes Behaviour in-game & will remove any custom axis behaviour found in initSetJoystickCurves())		
 														//   Options:	Use Joystick Presets = 0 (default)			Use Custom Toggle Mappings = 1 
