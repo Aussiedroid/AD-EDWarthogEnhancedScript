@@ -7,7 +7,7 @@
 ------------ | -------------
 ![Logo](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Supported.png)
 
-### LATEST BUILD | [v4.2.1](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest "Latest Official Build") | Updated for [Elite Dangerous](https://www.elitedangerous.com/ "Frontier's Official Website"):  Beyond 3.4+  "September Update" ###
+### LATEST BUILD | [v4.3.0](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest "Latest Official Build") | Updated for [Elite Dangerous](https://www.elitedangerous.com/ "Frontier's Official Website"):  Beyond 3.7+  "Fleet Carrier Update" ###
 
 ### REQUIREMENTS | TARGET Software, Drivers & Firmware, 2018 Update ([v3.0.18.328](https://support.thrustmaster.com/en/product/hotaswarthog-en/ "Official Thrustmaster Warthog Support Portal") _or higher_) ###
 
@@ -117,7 +117,7 @@ To further enhance the Modifier button system, some buttons have also been desig
          C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
     6. Set the Hotkeys in TrackIR; Pause Key to PAUSE, and Center to END.
          Tick 'Exclusive' in TrackIR to autoload if you want. 
-    7. Set NVidia/AMD Capture Last 20mins Hotkey to ALT+F11 (as required). (Default causes conflict)
+    7. Set NVidia/AMD Capture Last 20 mins Hotkey to ALT+F11 (as required). (Default causes conflict)
     8. Map any other 3rd Party Keybinds such as Voice Comm Apps (as required). (Setup Mic Behaviour in User Prefs)
     9. Edit ED-BAT Batch File and update the path/locations for any apps you use (as required).
     10.Open TARGET GUI & Run, and then Start ED Launcher OR alternatively run it automatically via the ED-BAT file.
