@@ -128,6 +128,9 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - Set the Warthog Throttle 'Full Range' Deadzone percentage. 
 - _Note:_ Do not set this too high! [Max ~15%] as it will intefer with the FSS tuning.
 - Default is 5%.
+### SLEW_DEADZONE [Value 0-100] ###
+- Set the Warthog Throttle Slew Axes Deadzone percentage.
+- Default is 20%.
 
 ` `
 ## -> THROTTLE AXIS ##
@@ -169,6 +172,13 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - By Default, whenever a Throttle Preset is applied, it is applied to both the Left & Right Throttle Axes.
 - ED only requires one axis to be mapped.
 - Freeing Up the Left Throttle Axis potential could allow another axis from another device to be included in the virtual device.
+
+### SyncLEFTTHRAxis [Value 1 or 0] ###
+- This setting will decouple the Left Throttle Axis from the Right Throttle Axis.
+- If Sync is Disabled, Throttle Presets will no longer be applyed to Left Throttle Axis (will alway remain Full Range).
+- If Sync is Disabled, Left Throttle can be mapped to another function (such as FSS Tuning which is useful if you use Forward Only main Throttle).
+- DisableLEFTTHRAxis will override this setting.
+- Default is 1 (Enable Left Axis Sync).
 
 ` `
 ## -> JOYSTICK AXIS ##
