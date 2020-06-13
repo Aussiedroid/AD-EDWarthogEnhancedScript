@@ -1,0 +1,71 @@
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// AUSSIEDROID'S ACKNOWLEDGEMENTS //																//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// Standing on the Shoulders of Giants! Creation of this TARGET Script would not have been possible without amazing ED Scripts I found online created by:	//
+// Alexandr Zhevedenko, Michael Lehman (WraithMG11235), CMDR Clicker, DarKcyde & Thomas Duployez (CMDR Touille). Script continues to evolve with all the great  //
+// feedback, ideas, bug reports & sharing of code... the help & support shown on the forums/guide has been been amazing!	 !! You ALL Rock! Thank you !!	//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// GENERAL INFO & LINKS //																	//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// Created by Aussiedroid:		(http://steamcommunity.com/id/aussiedroid | https://forums.frontier.co.uk/member.php/21601-Aussiedroid)			//
+// Full Guide:				(http://steamcommunity.com/sharedfiles/filedetails/?id=769637037)							//
+// GitHub Resource:			(https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript)								//
+// Frontier Forums Discussion Thread:	(https://forums.frontier.co.uk/showthread.php/293027-Aussiedroid-s-Enhanced-Thrustmaster-Warthog-Script)		//
+// Some Previous Ver. Reference Maps:	(https://aussiedroid.imgur.com/)											//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// MINIMUM REQUIREMENTS: THRUSTMASTER TARGET SOFTWARE v3.0.18.328+ \ DRIVERS+FIRMWARE 2018+  ->(https://support.thrustmaster.com/en/product/hotaswarthog-en/)<- //
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//																				//
+//							  ** RECOMMENDED RUNNING SCRIPT IN TARGET GUI **							//
+//						** REMINDER: CUSTOMISE/SET YOUR USER PREFERENCES IN AD_EDUSERPREFS FILE **					//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// VERSION HISTORY //		Version 4.3.0		\\ Released Sept 2016	|	Updated Jun 2020 //		\\		Public Release #25	//
+// =============================================================================================================================================================//
+// v4.3 - NEW: Mapped In-game Store Page. Set custom deadzone on Slew on Throttle. FIXED: Joystick 'JS_DEADZONE' not working & FastMode Switch macro for new UI.//
+// v4.3 - IMPROVED: Separate Left/Right Throttle axis mappings now possible & Overall Throttle Axis Presets code has been upgraded.				//
+// v4.2.1-IMPROVED: CruiseOnThrottle now works @ 0% position. FIX: VA Keymappings for Reset HMD Orientation, SRV Throttle Reverse, Exit FSS & Pri/Sec. Fire.    //
+// v4.2.0-NEW: Throttle/Joystick Axis Preset Toggles can now be user defined. NEW: Boost Brake & Turret Mode Cycle Macros. NEW: Disable Left Throttle Axis pref.//
+// v4.2.0-FIXED: Throttle Modes enforced on both axes, Combined Fire mode now utilises 2-Stage Trigger properly & Mic Push-To-Talk invert fix. 			//
+// v4.1.0-APRIL UPDATE NEW: Axis Deadzone Customisation + Disable Message Text Output in TARGET Window via User Prefs. FIXED: UseRudderAxisCurves axis configs.	//
+// v4.1.0-NEW: Galaxy Map Keybind for returning to Current System added. FIXED: FastModeSwitch, NAV Beacon & Report Crimes macro timings 4 new Main Menu layout.//
+// v4.0 - NEW: Pulse Repeater Fire! Customisable Auto-Chat Presets, 2 Non-Linear Throttle Presets, SHIFT Key & Hide HUD on NightVision. FIX: LEDs on Launch Seq.//
+// v4.0 - IMPROVED: New File Structure, Categorised User Prefs, Table of Contents, Toggle Seq. for Nav Beacon. REMOVED: ChatPresetMode+RepeaterFireMode Presets.//
+// v3.3.3-IMPROVED: ED-BAT now opens picture files. FIX: FAOff Printout (UseRudderAxisCurves), VA: 4 Conflict+3 Missing binds. Conflict Discord keymap resolved.//
+// v3.3 - BEYOND CH.4: ALL New Keys mapped! NEW: ED-BAT App Launcher, TM TPR Rudder Support, Swap PIP Hat, Report Crimes Macro & LED 'Blinking' Controller.	//
+// v3.3 - NEW: User Override on Sec. Fire Pinky. IMPROVED: initPrintState formatting & Merged Ship/SRV Cam. FIX: Autodock Macro, C.Scoop LED & ECM duration. 	//
+// v3.2 - IMPROVED: PIP MGT now works first press & FAOFF HOLD Toggle now returns to Previously Active Joystick Curve. FIXED: Multiple Minor Keybind Conflicts.	//
+// v3.1 - FIXED: Galnet Audio & Escape Vector Sequence conflict. IMPROVED: Combined Fire Trigger behaviour, & Dual Tier PIPs 4xWEP now (2xSYS->2xENG).  	//
+// v3.0.2-BEYOND CH.1: Added User def. Double Tap to Pinky Trigger, NEW Inverted Dual PIP scheme (short=full PIPs), Fighter Follow replaced with Attack.	//
+// v3.0.1-BEYOND BETA UPDATE: Added the new Galnet Audio keybindings mapped in ED .binds file which are now updated to (v3.0).					//
+// v3.0 - NEW: Ship Take Off Sequence! UPDATED: Mic Switch Function, Def. VA Toggle Mapping ADD: EDFX/EDDI to SW List FIX: Throttle Prec. Mode preventing Boost.//
+// v2.4.3-NEW: Precision C.Scoop Override FIXED: Throttle Toggle @Start, 100% Working TFRP Rudder code! REMOVED: Old Target.tmh (New Ver. Create @ Run/Compile) //
+// v2.4.2-NEW: Start Software on Run, LG/CS Toggle Overrides, Jump to Subsystem. IMPROVED: PIP Mapping Code, TFRP Rudder Code & Script Print. FIX: HP Override. //
+// v2.4.1-NEW: Clear Chatbox Macro, Precision Cargo Scoop Deploy. IMPROVED: Toggle mechanics FIXED: Mappings HoloMe Rotate, Camera Roll & Digital Ship/SRV Roll.//
+// v2.4 - NEW: Auto Timer for Repeater Fire, Fast Menu Switch Macro, VR/TIR Headlook Swap U.Pref SWAP: S.Running/R.Correction Toggles. IMPROVED: Error Handling.//
+// v2.3.3-COMBINED FAOFF+ALT FLT (SpeedBrake w/ Pinky Mod) NEW: Escape Macro now has Gear/Scoop Check + new timings. FIX: Chat Macros when Comms Panel is Open.	//
+// v2.3.2-SWAPPED: Repeater Fire & Combo Fire Modifier buttons. ADD: CruiseOnThrottle check for China Hat, removes FSD as req. FIX: IDLEMaster Function error.  //
+// v2.3.1-FIXED: 75% Trim T.Preset, + General Comments Cleanup NEW: Macros 2-Tier PIPs (Hold), Swap Joy/Throt Preset Toggles ADD: Chat Macro print layout map.	//
+// v2.3 - COMMANDERS UPDATE: ADD New Multicrew, HoloME & Camera Suite Keybinds. NEW: Text Chat Macros (PIP Hatswitch+Pinky Trigger). NEW: ShowGameStats Macro.	//
+// v2.3 - NEW: SC 100% Throttle/Repeater Fire/Signal Light Macros. ADD: 1&2-Tier PIP Alts,User Prefs,MFDs. MOVED: Hardpoints to T.Arm. FIXED: SRV Boost on Slew.//
+// v2.2.7-NEW: Heatsink+SilentRunning Mod! FIXED: Dead Throttle on Run/Looping running in Script Editor/Improved FPS/Bandwidth Toggle/Galaxy Map chat conflict. //
+// v2.2.6-Changed SRV Digital Steering Hat Switch, Swapped Weapon Fire Group. ADD: Auto-Dock Short/Long press+Pinky. No Shadowplay ref. ADD Fighter Orders.	//
+// v2.2.5-ADD: Charge ECM button & Fixed Incorrect ED Bindings file in download.										//
+// v2.2.4-FIXED: Changed Combo Fire Modifier from Pinky to CMS Hat Switch (avoid conflict). Improved PIP timings/refined layout. Removed SRV Handbrake conflict.//
+// v2.2 - GUARDIANS UPDATE: ADD Fighters Hotkeys to Trim Hat, Mapped Weapon/Engine Color change. Improved IDLE saftey features. NEW Macros. Public Release! 	//
+// v2.1 - ADD External Keymappings for TrackIR, VoiceAttack & ShadowPlay. SWAP Landing Gear & Silent Running. Changed some delay times.				//
+// v2.0 - Full script cleanup & formatting update. ADD alt. Macros 4 PIPs & Curves. ADD Reference table for DX Mappings & USB Key Defs. Update .binds to (v2.0).//
+// v1.8 - ADD SetThrottle function & Handbrake to Throttle IDLE lock. Ship Lights now dim Throttle LED backlight :) Steam added & Hidden FPS/Ping keys mapped.	//
+// v1.6 - Improved Toggle switch usage. ADD LED output & expanded script print output in Script Editor.								//
+// v1.3 - ADD Auto-dock, PIPs Macros & also Joystick & Throttle Curve presets. Plus Subsystem Prev Jump to Powerplant shortcut when holding Prev Subsystem.	//
+// v1.0 - ADD All Standard KeyMaps, Default Axis settings & Core script structure/defaults. ADD Trigger Combo code. Debug testing.				//
+// =============================================================================================================================================================//
+
+
+Need help understanding this script?
+
+	Click the HELP (?) button in top right corner of Target Script Editor OR ask a question in the Forum/Guide.
+
+Upgrading from a previous version?	
+
+	Simply copy the new files to the appropriate locations below. Each major version update is numbered to ensure you don't override older settings.
+	Minor updates may be overridden. If you have made custom modifications, always make a backup copy (see ED-BAT) of your existing profile just to be safe. :)
