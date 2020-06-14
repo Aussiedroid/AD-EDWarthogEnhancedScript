@@ -10,9 +10,11 @@ List of Changes:
 
 NEW: Set Custom Deadzone on Slew Axes on the Throttle Arm for better FA Off lateral thruster control. Change via the new SLEW_DEADZONE user preference. (Thx Berndserk for the suggestion!)
 NEW: In-game Store Page axis/buttons are now mappped to Joystick Axes (Move Camera) & Throttle Slew on Arm (Zoom). KeyMap also updated with Store Page for script integration.
+NEW: Hangar Automation Routine Macro added. After touch-down & station menu appears this can be used to automatically refuel, repair & restock your ship using the new UI buttons while entering the hangar. This is currently mapped to the Autopilot button (on Throttle) + Long Press + Pinky Trigger, and can be customised in the user preferences.
 
 IMPROVEMENT: Separate Throttle Axis mappings are now possible. Map the Left Throttle axis to something else (eg. FSS Tuning?) while keeping Right mapped for Ship/SRV. Also, the Left Axis will no longer be impacted by Throttle Preset changes allowing Full Range + Foward Only combos! Use the new SyncLEFTTHRAxis user preference to set behaviour. (Thx dmakaitis for the code!)
 IMPROVEMENT: Throttle Axis Mapping code has been upgraded to more efficient layout. (Thx dmakaitis for the code!)
+IMPROVEMENT: Added SetSpeed0 command into the Auto-Launch function to prevent premature acceleration away from pad.
 
 FIXED: Joystick 'JS_DEADZONE' variable not taking effect. (Thx Berndserk for the report!)
 FIXED: Fast Mode Switching Macro is now aligned for the latest UI changes in main menus.

@@ -21,8 +21,8 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // VERSION HISTORY //		Version 4.3.0		\\ Released Sept 2016	|	Updated Jun 2020 //		\\		Public Release #25	//
 // =============================================================================================================================================================//
-// v4.3 - NEW: Mapped In-game Store Page. Set custom deadzone on Slew on Throttle. FIXED: Joystick 'JS_DEADZONE' not working & FastMode Switch macro for new UI.//
-// v4.3 - IMPROVED: Separate Left/Right Throttle axis mappings now possible & Overall Throttle Axis Presets code has been upgraded.				//
+// v4.3 - NEW: Mapped In-game Store Page. Hangar Automation Macro added! Set custom deadzone on Slew on Throttle. FIXED: Joystick 'JS_DEADZONE' not working. 	//
+// v4.3 - FIXED: FastMode Switch Macro 4 new UI. IMPROVED: Separate Left/Right Throttle axis mappings now possible & Throttle Axis Presets code's been upgraded.//
 // v4.2.1-IMPROVED: CruiseOnThrottle now works @ 0% position. FIX: VA Keymappings for Reset HMD Orientation, SRV Throttle Reverse, Exit FSS & Pri/Sec. Fire.    //
 // v4.2.0-NEW: Throttle/Joystick Axis Preset Toggles can now be user defined. NEW: Boost Brake & Turret Mode Cycle Macros. NEW: Disable Left Throttle Axis pref.//
 // v4.2.0-FIXED: Throttle Modes enforced on both axes, Combined Fire mode now utilises 2-Stage Trigger properly & Mic Push-To-Talk invert fix. 			//
