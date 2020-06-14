@@ -2,7 +2,7 @@
 // START-UP: MACRO VARIABLE INITALISATION //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int mRequestDock, mShowGameStats, mFastModeSwitch, mChatPanelGrab, mSignalLights, mSignalLightsLong, mReportCrimesToggle, mBoostBrake;
+	int mRequestDock, mHangarAutomation, mShowGameStats, mFastModeSwitch, mChatPanelGrab, mSignalLights, mSignalLightsLong, mReportCrimesToggle, mBoostBrake;
 	int mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys, mNextTurretModeX1, mNextTurretModeX2;
 	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear, mThrottleFullScaleCustom; 	// Configured for use in AD_EDHardware.tmh
 
@@ -22,6 +22,17 @@
 			PULSE+UIPrevPanel,			D(),
 			PULSE+UIBack,				LOCK);
 
+		mHangarAutomation = CHAIN(																// MACRO: Auto-Refuel/Repair/Restock while Entering the Hangar of Station/Starport/Fleet Carrier
+			LOCK+PULSE+UILeft,			D(),
+			PULSE+UISelect,				D(1750),												//  (Enter Hangar) Comment this line if you do not wish the macro to enter hangar (ie only repair/restock/refuel).			
+			PULSE+UILeft,				D(),													// Limitation: This is designed to be used as soon as your touch down on the landing pad.
+			PULSE+UISelect,				D(1750),												//  (Restock)   If you move the cursor or otherwise navagate the UI, this macro will be misaligned.
+			PULSE+UILeft,				D(),
+			PULSE+UISelect,				D(1750),												//  (Repair)
+			PULSE+UILeft,				D(),
+			PULSE+UISelect,				D(1750),												//  (Refuel)
+			PULSE+UIDown,				LOCK);
+
 		mShowGameStats = CHAIN(																	// MACRO: Display the combined OSD FPS & Bandwidth meters
 			PULSE+ShowFramerate,		D(150),
 			PULSE+ShowConnectionStatus);
@@ -30,8 +41,8 @@
 			LOCK+PULSE+UIEscape,		D(700),													//	From Cockpit, it will navigate the Game Menu to put you back at the Game Mode selection screen automatically!
 			PULSE+UIUp,					D(400),
 			PULSE+UISelect,				D(550),
-			PULSE+UISelect,				D(6666),
-			PULSE+UISelect,				LOCK);													// ** Depending on the load times of your PC, this value may need to be changed/increased (6666ms is default) **
+			PULSE+UISelect,				D(6666),												// ** Depending on the load times of your PC, this value may need to be changed/increased (6666ms is default) **
+			PULSE+UISelect,				LOCK);
 
 	    mSignalLights = CHAIN(																	// MACRO: Flash Ship/SRV Lights (Standard)
 	    	DOWN+ShipLights, 			D(800),													//	Will turn lights on & off 3 times @ short intervals

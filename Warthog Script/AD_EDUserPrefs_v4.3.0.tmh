@@ -37,6 +37,14 @@
 	define TFULL_DEADZONE		5						// Set the Throttle 'Full Range' Deadzone %	  (default = 5)	(Use the Device Analyzer to validate) (Note: Don't set this too high! [Max ~15%] It will intefer with the FSS tuning)
 	define SLEW_DEADZONE		20						// Set the Throttle Slew X/Y Axis Deadzone %  (default = 20)(Use the Device Analyzer to validate)
 
+		// JOYSTICK AXIS //
+	define JoystickOverride		0						// Allows replacement of the Joystick Axis Preset Toggle to custom mappings. (NOTE: This will mean you will NOT be able to change your Joystick Axes Behaviour in-game & will remove any custom axis behaviour found in initSetJoystickCurves())		
+														//   Options:	Use Joystick Presets = 0 (default)			Use Custom Toggle Mappings = 1 
+	define JoystickPresetDEF	1						// If JoystickOverride = 1, this setting will determine what Default Joystick Behaviour to be applied on script startup (Choose your preferred Joystick Preset)
+														//	 Joystick Curve Preset:		Fast = 0		Standard = 1 (default)	 		Slow = 2
+	define JoystickPresetUPALT	mSignalLights			// If JoystickOverride = 1, this will determine what custom 'Pulse' mapping is applied to the UP direction of the Joystick Toggle.   (NOTE: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.)
+	define JoystickPresetDWNALT mSignalLightsLong		// If JoystickOverride = 1, this will determine what custom 'Pulse' mapping is applied to the DOWN direction of the Joystick Toggle. (NOTE: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.)
+
 		// THROTTLE AXIS //
 	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% and 0% = 1 (default)	Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%/0%]
 
@@ -56,14 +64,6 @@
 														// 	 Options:	Enable Left Axis = 0 (default)				Disable Left Axis = 1
 	define SyncLEFTTHRAxis 		1						// Whenever a Throttle Preset is applied, this ensures the preset is applied to both the Left & Right Throttle Axes. Disabling this will cause the Left Throttle Axis to maintain its full range regardless of the preset that is used & allow mapping of Left Throttle independantly to the Right.
 														//   Options:   Enable Left Axis Sync = 1 (default)         Disable Left Axis Sync = 0
-														
-		// JOYSTICK AXIS //
-	define JoystickOverride		0						// Allows replacement of the Joystick Axis Preset Toggle to custom mappings. (NOTE: This will mean you will NOT be able to change your Joystick Axes Behaviour in-game & will remove any custom axis behaviour found in initSetJoystickCurves())		
-														//   Options:	Use Joystick Presets = 0 (default)			Use Custom Toggle Mappings = 1 
-	define JoystickPresetDEF	1						// If JoystickOverride = 1, this setting will determine what Default Joystick Behaviour to be applied on script startup (Choose your preferred Joystick Preset)
-														//	 Joystick Curve Preset:		Fast = 0		Standard = 1 (default)	 		Slow = 2
-	define JoystickPresetUPALT	mSignalLights			// If JoystickOverride = 1, this will determine what custom 'Pulse' mapping is applied to the UP direction of the Joystick Toggle.   (NOTE: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.)
-	define JoystickPresetDWNALT mSignalLightsLong		// If JoystickOverride = 1, this will determine what custom 'Pulse' mapping is applied to the DOWN direction of the Joystick Toggle. (NOTE: To avoid potential 3-way mapping conflicts, the MIDDLE position on the Toggle will remain NULL/Empty.)
 
 		// SHIP/SRV PIP CONFIG //
 	define UserPIPPref 			2						// Choose your preferred PIP configuration	[0 -> 3]: 
@@ -128,7 +128,7 @@
 	define APEngageShort		mSignalLights			//	Standard Short Press (No Mods)	= mSignalLights 	(default)
 	define APEngageLong			mSignalLightsLong		//	Standard Long Press  (No Mods)	= mSignalLightsLong (default)
 	define APEngagePinkyShort	mRequestDock			//	Pinky Modifier + Short Press	= mRequestDock 		(default)
-	define APEngagePinkyLong	mRequestDock			//	Pinky Modifier + Long Press		= mRequestDock 		(default)
+	define APEngagePinkyLong	mHangarAutomation		//	Pinky Modifier + Long Press		= mHangarAutomation	(default)
 	define APEngageCMSShort		mNAVBeaconWing			//	CMS Modifier   + Short Press	= mNAVBeaconWing 	(default)
 	define APEngageCMSLong		mNAVBeaconOff			//	CMS Modifier   + Long Press		= mNAVBeaconOff 	(default)
 

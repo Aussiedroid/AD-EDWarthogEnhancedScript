@@ -403,6 +403,7 @@
 				Gears = 0;																		// (Mapped to work in either toggle direction)
 				if(VerboseOutput) ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));			// Set PIPs to SYSx4 ENGx2 - Protect Ship on Launch
 				ActKey(KEYON+DOWN+ThrustUp);
+				ActKey(KEYON+PULSE+SetSpeed0);
 				DeferCall(3500, &ActKey, KEYON+PULSE+LandingGear);								// Retract Landing Gear shortly after leaving pad/surface
 				DeferCall(4000, &ActKey, KEYON+UP+ThrustUp);									// Releases Vertical Thrust after 4 seconds
 				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));				// set LED 5 OFF
@@ -424,6 +425,7 @@
 				Gears = 0;																		// (Mapped to work in either toggle direction)
 				ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));							// Set PIPs to SYSx4 ENGx2 - Protect Ship on Launch
 				ActKey(KEYON+DOWN+ThrustUp);
+				ActKey(KEYON+PULSE+SetSpeed0);
 				DeferCall(3500,  &ActKey, KEYON+PULSE+LandingGear);								// Retract Landing Gear shortly after leaving pad/surface
 				DeferCall(4000, &ActKey, KEYON+UP+ThrustUp);									// Releases Vertical Thrust after 4 seconds
 				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));				// set LED 5 OFF
