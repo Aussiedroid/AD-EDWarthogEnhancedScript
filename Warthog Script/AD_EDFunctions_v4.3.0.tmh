@@ -1,7 +1,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FUNCTIONS: TABLE OF CONTENTS //					// FUNCTIONS Include logic to customise specific Button/Toggle functionality								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 590)]	//
+//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 592)]	//
 //		- initHardpointManagement					- initLEDController						- initEnhancedFAOFF						- initPrintState			//
 //		- initSetCombinedFire						- initNightVisionEnhancer				- initToggleRotationCorrection										//
 //		- initExplorerScannerDisengage				- initAPEngageEnhancer					- initToggleSilentRunning											//

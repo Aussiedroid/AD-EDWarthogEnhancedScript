@@ -6,13 +6,12 @@
 	define ADVersionMinor 		3						// Script Version Minor Value			ie. x.4.x
 	define ADVersionPoint		0						// Script Version Point Update			ie. x.x.5
 
-	int    profile =			1					   ;// Set initial joystick profile global variable for joystick curves	(Options: 0, 1, 2)	(default = 1)
-
 	define SYS					1						// Used in initPIPMapper() for managing System  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
 	define ENG					2						// Used in initPIPMapper() for managing Engine  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
 	define WEP					3						// Used in initPIPMapper() for managing Weapon  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
 	define MID					4						// Used in initPIPMapper() for managing Balance PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
 
+	int    profile =			1					   ;// Set initial joystick profile global variable for joystick curves	(Options: 0, 1, 2)	(default = 1)
 	char   ca_pulseChar[] =	   "0"					   ;// Used in Auto-Text Chat Presets		(DO NOT modify!)
 
 
