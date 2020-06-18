@@ -25,7 +25,7 @@ Thanks to the fantastically creative community member __Tekadept__, you can repl
 
 I'm sharing it here for visibility for all CMDRs using this script, as I think it is simply an awesome mod! :)
 
-Please direct any queries to __Tekadept__ via his [website](https://www.tekcreations.space/contact-us/ "Contact TekCreations"). Individual tweaks & customisations are also available.
+Please direct any queries to __Tekadept__ via his [website](https://www.tekcreations.space/contact-us/ "Contact TekCreations"). Individual tweaks & customisations are also available. 
 
 Further information can also be found [here](https://www.tekcreations.space/product/custom-elite-dangerous-plates-warthog/ "Custom Plates for Thrustmaster Warthog Elite Dangerous HOTAS Throttle").
 
