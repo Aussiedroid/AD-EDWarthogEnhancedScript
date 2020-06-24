@@ -1,7 +1,5 @@
 # Aussiedroid's Enhanced Warthog Script 4 Elite Dangerous
 ### LATEST BUILD | [v4.3.0](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest "Latest Official Build") | Updated for [Elite Dangerous](https://www.elitedangerous.com/ "Frontier's Official Website"):  Beyond 3.7+  "Fleet Carrier Update" ###
-
-### REQUIREMENTS | TARGET Software, Drivers & Firmware, 2018 Update ([v3.0.18.328](https://support.thrustmaster.com/en/product/hotaswarthog-en/ "Official Thrustmaster Warthog Support Portal") _or higher_) ###
 ## ##
 >> _"Welcome Commander, let me introduce myself, I am Engineer Aussiedroid, & I offer only the best Grade 5 Controller mods in the bubble! No lower level enhancements, no no .. only the best, for the Elite of the Pilot's Federation. Not all of my mods are, shall we say 'approved' in all duristictions throughout the galaxy, but I see in your eyes that's why you are here, is it not? No questions asked, I understand, please browse the shop & remember for Pilot's Federation Members upgrades are free of charge."_
 
@@ -9,8 +7,7 @@
 ` ` | Supported
 ------------ | -------------
 ![Logo](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Supported.png)
-
-
+### REQUIREMENTS | TARGET Software, Drivers & Firmware, 2018 Update ([v3.0.18.328](https://support.thrustmaster.com/en/product/hotaswarthog-en/ "Official Thrustmaster Warthog Support Portal") _or higher_) ###
 
 ## ##
 
@@ -28,7 +25,9 @@ Some of the highlighted advanced features available that are not found in the de
 
  - __Three Tier PIP Management Hat Switch__ offering different presets depending how long you hold down the button. _(Optional configurations also available for a Two Tier PIP system & also default One Tier PIP system configurable in the preferences)_
     
-- __Auto-Docking Request procedure__.
+- __Auto-Docking Request procedure__
+
+- __Auto-Repair/Refuel/Restock__ ship 'Hangar Automation' for Stations, Settlements & Fleet Carriers.
     
 - __Full LED Lighting__ implemented for core Ship Systems, plus full LED Backlight manual control for the Throttle.
     
