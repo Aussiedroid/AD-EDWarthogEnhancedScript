@@ -1,0 +1,75 @@
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// DEFAULT SETTINGS //									// ** YOU SHOULD NOT NEED TO CHANGE THE DEFAULTS STORED IN THIS FILE **
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	define ADVersionMajor 		4						// Script Version Major Value			ie. 3.x.x
+	define ADVersionMinor 		3						// Script Version Minor Value			ie. x.4.x
+	define ADVersionPoint		0						// Script Version Point Update			ie. x.x.5
+
+	define SYS					1						// Used in initPIPMapper() for managing System  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
+	define ENG					2						// Used in initPIPMapper() for managing Engine  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
+	define WEP					3						// Used in initPIPMapper() for managing Weapon  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
+	define MID					4						// Used in initPIPMapper() for managing Balance PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
+
+	int    profile =			1					   ;// Set initial joystick profile global variable for joystick curves	(Options: 0, 1, 2)	(default = 1)
+	char   ca_pulseChar[] =	   "0"					   ;// Used in Auto-Text Chat Presets		(DO NOT modify!)
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// DEFAULT TIMINGS //
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	define PulseTime 			25						// PULSE+ Delay time 			(ms)									(default = 25ms)
+	define DelayTime 			75						// D() Delay time 				(ms)									(default = 75ms)
+
+	define MiniPressDelay		110						// Shortest Delay 				(ms)									(default = 110ms)
+	define ShortPressDelay 		250						// Shorter Delay 				(ms)									(default = 250ms)
+	define PIPPressDelay 		333						// Timing for PIPs				(ms)									(default = 333ms)
+	define DTPressDelay			365						// Timing for Pinky Double Tap	(ms)									(default = 365ms)
+	define LongPressDelay 		500						// Standard Delay 				(ms)									(default = 500ms)
+	define ExtraPressDelay 		1500					// Longest Delay (Safety Press) (ms)									(default = 1500ms)
+
+	define ScanTimer			6000					// Set the Delay Timer for Explorer Scanner to auto-disengage			(default = 6000ms)	[Note: Should only need to change this if you use Engineered Fast Scanners or Using Wake Scanners which need up to 9000ms]
+	define MineTimer			6200					// Set the Delay Timer for Mining Pulse Wave Scanner to auto-disengage	(default = 6200ms)
+
+	define ChatKeyRepeatTime	70						// Auto-Text Chat Preset time	(ms)									(default = 70ms)
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// DEFAULT STATES    		(1 = Yes, 0 = No) //		// VARIABLE DESCRIPTION & USAGE
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+														// **Set your toggles before you start Elite Dangerous to align default toggle states**
+														//  NOTE: If your switches aren't set to match, then you may need to use a toggle override, or have to do an extra key toggle/key press to "catch up"
+
+	int AxisCurveMod;									// Initiates variable to be used for custom axis curve preset on Throttle.		(used in initSetThrottleCurves())
+	int StartupLock			  = 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes)
+	int RCorrection 		  = 1;						// Rotational Correction ON		(Press 'F4' to align as required in-game) 		(used in initToggleRotationCorrection())
+	int SRunning			  = 0;						// Silent Running OFF			(Press 'DEL' to toggle manually if misaligned)	(used in initToggleSilentRunning())
+	int Gears 				  = 0;						// Landing Gears set to ON 		(Assumes docked in station on Start. Press 'L' to align as required) (used in initToggleLandingGear())
+	int Lights 				  = 0;						// Ship Lights OFF				(Press 'INSERT' to align if SRV takes out of alignment) (used in initToggleShipLights())
+	int NightVisionStatus	  = 0;						// Tracks if Night Vision is enabled (for LED backlight)(used in initNightVisionEnhancer())
+	int AltFlightToggle		  = 0;						// Tracks Alternative Flight Controls Toggle Status OFF	(used in initEnhancedFAOFF())
+	int AltFlightHold		  = 0;						// Tracks Alternative Flight Controls Hold Status OFF	(used in initEnhancedFAOFF())
+	int FAOFFToggle			  = 0;						// Tracks Flight Assist Off Controls Toggle Status OFF	(used in initEnhancedFAOFF())
+	int FAOFFHold			  = 0;						// Tracks Flight Assist Off Controls Hold Status OFF	(used in initEnhancedFAOFF())
+	int CargoSc 			  = 0;						// Cargo Scoop Deployed OFF								(used in initToggleCargoScoop())
+	int HPoints 			  = 0;						// Hardpoints Deployed OFF								(used in initEscapeVector())
+	int APSeqLong			  = 0;						// Tracks Long Press for Autopilot Engage Button		(used in initAPEngageEnhancer())
+	int APSeqShort			  = 0;						// Tracks Short Press for Autopilot Engage Button		(used in initAPEngageEnhancer())
+	int MicCheckHold		  = 0;						// Tracks if Microphone PTT Hold is engaged				(used in initMicCommander())
+	int MicCheckToggle		  = 0;						// Tracks if Microphone Toggle is engaged 				(used in initMicCommander())
+	int MicExtPulseCheck	  = 0;						// Tracks state of PTT Microphone Pulse action			(used in initMicCommander())
+	int MicExtHoldCheck		  = 0;						// Tracks state of PTT Microphone Down/Up action		(used in initMicCommander())
+	int MicExtPulseCheckALT	  = 0;						// Tracks state of Alt. PTT Microphone Pulse action		(used in initMicCommander())
+	int MicExtHoldCheckALT	  = 0;						// Tracks state of Alt. PTT Microphone Down/Up action	(used in initMicCommander())
+	int MicExtToggleCheck	  = 0;						// Tracks state of Toggle Microphone action				(used in initMicCommander())
+	int MicExtToggleCheckALT  = 0;						// Tracks state of Alt. Toggle Microphone action		(used in initMicCommander())
+	int MicExtToggleCombo	  = 0;						// Tracks state of Toggle Microphone Combo action		(used in initMicCommander())
+	int DoubleTapPT			  = 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
+	int ReportCrimeState	  = 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v4.x.x.tmc)
+	int ShowGameStatState	  = 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v4.x.x.tmc)
+	int EndlessStatePri		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Pri(used in AD_ED_v4.x.x.tmc)
+	int EndlessStateSec		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Sec(used in AD_ED_v4.x.x.tmc)
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
