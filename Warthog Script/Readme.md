@@ -1,6 +1,6 @@
 # TM TARGET Scripts #
 
-The Thrustmaster TARGET Warthog Script is split into several files. Each houses different functionality. __AD_ED_v4._x_._x_.tmc__ calls on all the other included files. __Target.tmh__ will generate on script Run.
+The Thrustmaster TARGET Warthog Script is split into several files. Each houses different functionality. __AD_ED_v5._x_._x_.tmc__ calls on all the other included files. __Target.tmh__ will generate on script Run.
 
 Scripting files are properly formatted & contain full comments to help understand what the code is doing. Best viewed in TARGET SCRIPT EDITOR & best run in TARGET GUI. Additional keys & content are present if you want to modify further, including additional Throttle presets, PIP presets, Next/Prev Subsystem presets & all the commands not currently mapping in the script (but mapped in ED).
 
@@ -10,13 +10,13 @@ DX Mapping & Conversion table also included in the Key Mapping file to help with
 
 Filename | Function
 ------------ | -------------
-AD_ED_v4.3.0.tmc | Main Script File, Maps Combined Device & Includes Files Below
-AD_EDDefaults_v4.3.0.tmh | Global Variable Settings, States & Timings/Delays
-AD_EDUserPrefs_v4.3.0.tmh | User Preferences & Script Customisation Options
-AD_EDKeyMap_v4.3.0.ttm | Variable Key Mapping & Reference Tables
-AD_EDHardware_v4.3.0.tmh | Joystick, Throttle & Rudder Axes/Curves Configuration
-AD_EDMacros_v4.3.0.tmh | Macro Definitions _(Custom Sequences)_
-AD_EDFunctions_v4.3.0.tmh | Function Definitions _(Custom Logic for Buttons, Toggles & Ship Controls)_
+AD_ED_v5.0.0.tmc | Main Script File, Maps Combined Device & Includes Files Below
+AD_EDDefaults_v5.0.0.tmh | Global Variable Settings, States & Timings/Delays
+AD_EDUserPrefs_v5.0.0.tmh | User Preferences & Script Customisation Options
+AD_EDKeyMap_v5.0.0.ttm | Variable Key Mapping & Reference Tables
+AD_EDHardware_v5.0.0.tmh | Joystick, Throttle & Rudder Axes/Curves Configuration
+AD_EDMacros_v5.0.0.tmh | Macro Definitions _(Custom Sequences)_
+AD_EDFunctions_v5.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Toggles & Ship Controls)_
 
 ` `
 
@@ -34,7 +34,7 @@ AD_EDFunctions_v4.3.0.tmh | Function Definitions _(Custom Logic for Buttons, Tog
 [Pinky 'Double Tap' Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--pinky-double-tap-override "Pinky 'Double Tap' Override Customisation") | [Autopilot Button Override](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--autopilot-button-overrides "Autopilot Button Override Customisation") | [Auto-Text Chat Presets](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#--auto-text-chat-presets "Auto-Text Chat Presets Customisation") | [Acknowledgements](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/Warthog%20Script#script-acknowledgements "Acknowledgements")
 ## ##
 
-## User Preferences : AD_EDUserPrefs_v.4.3.0.tmh ##
+## User Preferences : AD_EDUserPrefs_v.5.0.0.tmh ##
 
 Although it is not practical to have everything as a user preference, for key features & play styles I have tried to cover as many as possible in a simple to use User Preference section with the goal to make the script accessible to as many players as possible. This will help those who do not know the scripting programming language make quick changes to suite their needs.
 
