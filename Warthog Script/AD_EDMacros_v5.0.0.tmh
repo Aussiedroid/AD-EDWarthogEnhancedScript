@@ -1,0 +1,227 @@
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// START-UP: MACRO VARIABLE INITALISATION //
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int mRequestDock, mHangarAutomation, mShowGameStats, mFastModeSwitch, mChatPanelGrab, mSignalLights, mSignalLightsLong, mReportCrimesToggle, mBoostBrake;
+	int mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys, mNextTurretModeX1, mNextTurretModeX2, mChinaHatBack;
+	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear, mThrottleFullScaleCustom; 	// Configured for use in AD_EDHardware.tmh
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// MACROS: SPECIALISED SEQUENCES //																// MACROS Include a series of automated key presses to perform a specific task.
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int initCustomMacroCommands() {
+		mRequestDock = CHAIN(																	// MACRO: Auto-Docking Request
+			LOCK+PULSE+TargetPanel, 	D(250),
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if Target Panel cursor in
+			PULSE+UINextPanel,			D(),													//			   Default/Orig position (On Galaxy Map), else will be misaligned.
+			PULSE+UISelect,				D(250),
+			PULSE+UIRight,				D(250),
+			PULSE+UISelect,				D(250),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIBack,				LOCK);
+
+		mHangarAutomation = CHAIN(																// MACRO: Auto-Refuel/Repair/Restock while Entering the Hangar of Station/Starport/Fleet Carrier
+			LOCK+PULSE+UILeft,			D(),
+			PULSE+UISelect,				D(1850),												//	(Enter Hangar)  {Comment out this line if you do not wish the macro to enter hangar (ie only repair/restock/refuel).}			
+			PULSE+UIRight,				D(),													// Limitation: This is designed to be used as soon as your touch down on the landing pad.
+			PULSE+UISelect,				D(1850),												//	(Refuel)   If you move the cursor or otherwise navagate the UI, this macro will be misaligned.
+			PULSE+UIRight,				D(),
+			PULSE+UISelect,				D(1850),												//	(Repair)
+			PULSE+UIRight,				D(),
+			PULSE+UISelect,				D(1850),												//	(Restock)
+			PULSE+UIDown,				LOCK);
+
+		mShowGameStats = CHAIN(																	// MACRO: Display the combined OSD FPS & Bandwidth meters
+			PULSE+ShowFramerate,		D(150),
+			PULSE+ShowConnectionStatus);
+
+		mFastModeSwitch = CHAIN(																// MACRO: Automated Game Mode Switching
+			LOCK+PULSE+UIEscape,		D(700),													//	From Cockpit, it will navigate the Game Menu to put you back at the Game Mode selection screen automatically!
+			PULSE+UIUp,					D(400),
+			PULSE+UISelect,				D(550),
+			PULSE+UISelect,				D(6666),												// ** Depending on the load times of your PC, this value may need to be changed/increased (6666ms is default) **
+			PULSE+UISelect,				LOCK);
+
+	    mSignalLights = CHAIN(																	// MACRO: Flash Ship/SRV Lights (Standard)
+	    	DOWN+ShipLights, 			D(800),													//	Will turn lights on & off 3 times @ short intervals
+	    	UP+ShipLights,				D(600),
+	    	DOWN+ShipLights,			D(1000),
+	    	UP+ShipLights,				D(700),
+	    	DOWN+ShipLights,			D(1000),
+	    	UP+ShipLights);
+
+	    mSignalLightsLong = CHAIN(																// MACRO: Flash Ship/SRV Lights (Long)
+	    	DOWN+ShipLights,			D(800),													//	Will turn lights on & off 6 times @ short intervals
+	    	UP+ShipLights,				D(600),
+	    	DOWN+ShipLights,			D(1000),
+	    	UP+ShipLights,				D(700),
+	    	DOWN+ShipLights,			D(1000),
+	    	UP+ShipLights,				D(750),
+	    	DOWN+ShipLights,			D(1300),
+	    	UP+ShipLights,				D(800),
+	    	DOWN+ShipLights,			D(1000),
+	    	UP+ShipLights,				D(650),
+	    	DOWN+ShipLights,			D(1000),
+	    	UP+ShipLights);
+
+		mJumpMidSubSys = CHAIN(																	// MACRO: Select Previous Subsystem x2 when centering Pinky Throttle Toggle
+			PULSE+SelectPrevSubsystem,	D(),													//	Toggle Pinky Throttle MID + CMS Hat Switch to activate
+			PULSE+SelectPrevSubsystem);
+
+		mJumpPrevSubSys = CHAIN(																// MACRO: Select Previous Subsystem x6 (Targets Powerplant, or close to it)
+			PULSE+SelectPrevSubsystem,	D(),													//	Toggle Pinky Throttle UP + CMS Hat Switch to activate
+			PULSE+SelectPrevSubsystem,	D(),														
+			PULSE+SelectPrevSubsystem,	D(),
+			PULSE+SelectPrevSubsystem,	D(),
+			PULSE+SelectPrevSubsystem,	D(),
+			PULSE+SelectPrevSubsystem);
+
+		mJumpNextSubSys = CHAIN(																// MACRO: Select Next Subsystem x5 (Targets ??, or close to it)
+			PULSE+SelectNextSubsystem,	D(),													//	Toggle Pinky Throttle DOWN + CMS Hat Switch to activate
+			PULSE+SelectNextSubsystem,	D(),														
+			PULSE+SelectNextSubsystem,	D(),
+			PULSE+SelectNextSubsystem,	D(),
+			PULSE+SelectNextSubsystem);
+
+		mReportCrimesToggle = CHAIN(															// MACRO: [PVP] Toggles 'Report Crimes Against Me' from the System Panel (if cooldown timer is not active)
+			LOCK+PULSE+SystemPanel,		D(250),													//	Toggle Pinky Trigger + Engine Fuel Flow Norm/Override Switches LEFT to activate
+			PULSE+UINextPanel,			D(),
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if System Panel cursor in
+			PULSE+UINextPanel,			D(),													//			   default/orig position, else will be misaligned.
+			PULSE+UIDown,				D(250),
+			PULSE+UIDown,				D(250),
+			PULSE+UIRight,				D(250),
+			PULSE+UIRight,				D(500),
+			PULSE+UISelect,				D(150),
+			PULSE+UILeft,				D(250),
+			PULSE+UILeft,				D(250),
+			PULSE+UIUp,					D(250),
+			PULSE+UIUp,					D(250),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIBack, 				LOCK);
+			
+		mNAVBeaconWing = CHAIN(																	// MACRO: Toggle 'NAV Beacon' ON 
+			LOCK+PULSE+SystemPanel, 	D(250),
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if System Panel cursor in
+			PULSE+UINextPanel,			D(),													//			   Default/Orig position, else will be misaligned. Need to be in a Wing.
+			PULSE+UINextPanel,			D(),
+			PULSE+UIRight,				D(250),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
+			PULSE+UISelect,				D(250),
+			PULSE+UIDown,				D(150),
+			PULSE+UISelect,				D(250),
+			PULSE+UIUp,					D(150),		 											// Send selector back to home position when done
+			PULSE+UIUp,					D(150),			
+			PULSE+UIUp,					D(150),
+			PULSE+UIUp,					D(250),			
+			PULSE+UILeft,				D(250),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIBack,				LOCK);
+			
+		mNAVBeaconOff = CHAIN(																	// MACRO: Toggle 'NAV Beacon' OFF
+			LOCK+PULSE+SystemPanel, 	D(250),
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if System Panel cursor in
+			PULSE+UINextPanel,			D(),													//			   Default/Orig position, else will be misaligned. Need to be in a Wing.
+			PULSE+UINextPanel,			D(),
+			PULSE+UIRight,				D(250),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
+			PULSE+UIDown,				D(150),
+			PULSE+UISelect,				D(250),
+			PULSE+UISelect,				D(150),
+			PULSE+UIUp,					D(150),													// Send selector back to home position when done
+			PULSE+UIUp,					D(150),
+			PULSE+UIUp,					D(150),
+			PULSE+UIUp,					D(150),			
+			PULSE+UILeft,				D(250),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIBack,				LOCK);
+
+		mNAVBeaconToggle = SEQ(																	// SEQUENCE: Alternate 'NAV Beacon' ON <-> OFF [Allows both Nav Beacon Macros to be mapped to one button]
+			PULSE+mNAVBeaconWing,																//	Alternates between turning On & Off Wing NAV Beacon each press. Need to be in a Wing.
+			PULSE+mNAVBeaconOff);																//  (Unmapped by Default)
+
+		mNextTurretModeX1 = CHAIN(																// MACRO: Auto-Select Next Turret Mode (Cycle x1) from the System Panel
+			LOCK+PULSE+SystemPanel,		D(250),													//  (Unmapped by Default)
+			PULSE+UINextPanel,			D(),
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if System Panel cursor in
+			PULSE+UINextPanel,			D(),													//			   default/orig position, else will be misaligned.
+			PULSE+UIRight,				D(250),
+			PULSE+UIRight,				D(250),
+			PULSE+UIDown,				D(150),
+			PULSE+UISelect,				D(300),													//  Select Turrent Mode 1x times
+			PULSE+UIUp,					D(300),													//  Send selector back to home position when done
+			PULSE+UILeft,				D(250),
+			PULSE+UILeft,				D(250),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIBack, 				LOCK);
+
+		mNextTurretModeX2 = CHAIN(																// MACRO: Auto-Select Next Turret Mode (Cycle x2) from the System Panel
+			LOCK+PULSE+SystemPanel,		D(250),													//  (Unmapped by Default)
+			PULSE+UINextPanel,			D(),
+			PULSE+UINextPanel,			D(),													// Limitation: This will only work correctly if System Panel cursor in
+			PULSE+UINextPanel,			D(),													//			   default/orig position, else will be misaligned.
+			PULSE+UIRight,				D(250),
+			PULSE+UIRight,				D(250),
+			PULSE+UIDown,				D(150),
+			PULSE+UISelect,				D(300),
+			PULSE+UISelect,				D(500),													//  Select Turrent Mode 2x times
+			PULSE+UIUp,					D(300),													//  Send selector back to home position when done
+			PULSE+UILeft,				D(250),
+			PULSE+UILeft,				D(250),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIPrevPanel,			D(),
+			PULSE+UIBack, 				LOCK);
+
+		mChatPanelGrab = CHAIN(																	// MACRO: Reset GUI in preparation of Auto-Chat Response Text String (Used in initSendChatString())
+			LOCK+PULSE+UIBack,			D(50),													//	Lock and Exit any current GUI windows (x3).
+			PULSE+UIBack,				D(50),													//	NOTE: If no GUI is selected, these commands will do nothing.
+			PULSE+UIBack,				D(50),
+			PULSE+CommsPanel,			D(250),													// Open Full Comms Panel (+GUI Delay - Default: 250ms) (Delay ensures panel is Open and Text Box Active before entering characters)
+			PULSE+QuickCommsPanel,		D(150),													//	Select/Enter Text Chat Box
+			LOCK); 																				//	Unlock Ready for Text String Input
+
+		mBoostBrake = CHAIN(																	// MACRO: [PVP] Engine Boost + Auto-Brake
+			PULSE+EngineBoost,			D(666),													// 	Boost for a short period, then..	(shorter time = slower boost speed)
+			PULSE+LandingGear,			D(3600),												//	Toggle Landing Gear as 'Air-Brake', then..
+			PULSE+LandingGear);																	//	Close Landing Gear
+
+		mChinaHatBack = CHAIN(																	// MACRO: China Hat Back Keybinding Combo (See: CRUISE ON THROTTLE CONFIG in AD_ED_v4.x.x.tmc)
+			PULSE+SelectNextSystemInRoute,  D(),												//  Combines mutually exclusive bindings SRV Handbrake & Next System In Route to a single toggle
+			PULSE+SRVHandbrake); }
+
+
+
+	int initEscapeVector() {																	// MACRO: Disengage Defensively + Emergency Escape Vector (Hold Pinky Trigger)
+		if(!StartupLock) {																		// *This line is only required to prevent running on startup
+			if(VerboseOutput) printf("EVASIVE MANEUVERS! Emergency Escape Vector Calculating...\x0a");
+			ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));								// Set PIPs to SYSx4 ENGx2 - Defensive Get-a-way
+			if(AutoChaffOnEscape) DeferCall(500,  &ActKey, KEYON+PULSE+FireChaffLauncher);		// Optional: Auto-fire Chaff to cover your escape (See User Preferences to Set)
+			if(CargoSc)  {		  DeferCall(750,  &ActKey, KEYON+PULSE+CargoScoop);				// Override: Cargo Scoop (will force close scoop, overriding toggle)
+								  DeferCall(750,  &ActKey, KEYON+PULSE+EXEC("CargoSc = 0;"));
+								  DeferCall(750,  &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); }	// set LED 4 OFF (Override)					  
+			if(Gears)    {		  DeferCall(1000, &ActKey, KEYON+PULSE+LandingGear);			// Override: Landing Gear (will force retract gears, overriding toggle)
+								  DeferCall(1000, &ActKey, KEYON+PULSE+EXEC("Gears   = 0;"));
+								  DeferCall(1000, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); }	// set LED 5 OFF (Override)
+			if(AutoBoostOnEscape) DeferCall(1250, &ActKey, KEYON+PULSE+EngineBoost);			// Optional: Auto-fire Boost to help evade (See User Preferences to Set)
+			if(HPoints)  {		  DeferCall(1500, &ActKey, KEYON+PULSE+DeployHardpoints);		// If Hardpoints are deployed, retract, ready for jump
+								  DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("HPoints = 0;")); }	// Update Hardpoint variable value to retracted (0)
+			DeferCall(1750, &ActKey, KEYON+PULSE+FrameShiftDrive); } }							// After Retracting Hardpoints etc, Engage FSD (or High Wake if another System is selected route)
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
