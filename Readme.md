@@ -1,4 +1,4 @@
-## (Alpha/Beta Odyssey Branch Build for testing) _Please Report Issues._ ##
+## *(Alpha/Beta Odyssey Branch Build for testing)* _Please Report Any Issues._ ##
 
 # Aussiedroid's Enhanced Warthog Script 4 Elite Dangerous
 ### LATEST BUILD | [v5.0.0](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest "Latest Official Build") | Updated for [Elite Dangerous](https://www.elitedangerous.com/ "Frontier's Official Website"):  Odyssey 3.7+  "Odyssey Alpha Update" ###
