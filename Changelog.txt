@@ -17,8 +17,11 @@ IMPROVEMENT:
 IMPROVEMENT: 
 
 FIXED: Handbrake on Double Tap Pinky Trigger has been moved to China Hat toggle on Throttle to avoid conflicts.
-FIXED: 
+FIXED: Swapped Med & Long press for UserPIPPref 3 mapping for left PIP direction to match UserPIPPref 2 mapping of WEP (instead of ENG). 
 
 
 
 Fly Safe CMDRs!
+
+*** Ref maps updated 2/2021
+
