@@ -311,16 +311,16 @@
 																								PIPPressDelay), PIPPressDelay));
 		MapKey(&Joystick, PLT, TEMPO(EXEC("if(!Joystick[S4]) ActKey(KEYON+PULSE+PowerSys);"							// DMS LEFT (H3L) [Short: 1xSYS]
 									 	  "if(Joystick[S4])  ActKey(KEYON+PULSE+GalNetAudioPrev);"),				// [Short+Pinky: GalNet Audio Previous Track]
-							   TEMPO(EXEC("if(!Joystick[S4]) initPIPMapper(SYS,ENG);"								// [Med:  4xSYS 2xENG]
+							   TEMPO(EXEC("if(!Joystick[S4]) initPIPMapper(SYS,WEP);"								// [Med:  4xSYS 2xWEP]
 									 	  "if(Joystick[S4])  ActKey(KEYON+PULSE+GalNetAudioPrev);"),				// [Med+Pinky:  GalNet Audio Previous Track]
-									 EXEC("if(!Joystick[S4]) initPIPMapper(SYS,WEP);"								// [Long: 4xSYS 2xWEP]
+									 EXEC("if(!Joystick[S4]) initPIPMapper(SYS,ENG);"								// [Long: 4xSYS 2xENG]
 									 	  "if(Joystick[S4])  ActKey(KEYON+PULSE+GalNetAudioPrev);"),				// [Long+Pinky:  GalNet Audio Previous Track]
 									 				 	  										PIPPressDelay), PIPPressDelay));
 		MapKey(&Joystick, PRT, TEMPO(EXEC("if(!Joystick[S4]) ActKey(KEYON+PULSE+PowerWep);"							// DMS RIGHT (H3R) [Short: 1xWEP]
 									 	  "if(Joystick[S4])  ActKey(KEYON+PULSE+GalNetAudioNext);"),				// [Short+Pinky: GalNet Audio Next Track]
-							   TEMPO(EXEC("if(!Joystick[S4]) initPIPMapper(WEP,ENG);"								// [Med:  4xWEP 2xENG]
+							   TEMPO(EXEC("if(!Joystick[S4]) initPIPMapper(WEP,SYS);"								// [Med:  4xWEP 2xSYS]
 									 	  "if(Joystick[S4])  ActKey(KEYON+PULSE+GalNetAudioNext);"),				// [Med+Pinky:  GalNet Audio Next Track]
-									 EXEC("if(!Joystick[S4]) initPIPMapper(WEP,SYS);"								// [Long: 4xWEP 2xSYS]
+									 EXEC("if(!Joystick[S4]) initPIPMapper(WEP,ENG);"								// [Long: 4xWEP 2xENG]
 									 	  "if(Joystick[S4])  ActKey(KEYON+PULSE+GalNetAudioNext);"),				// [Long+Pinky:  GalNet Audio Next Track]
 									 				 	  										PIPPressDelay), PIPPressDelay)); }
 
@@ -602,11 +602,11 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // =============================================================================================================================================================//
-// VERSION HISTORY //			Version 4.4.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
+// VERSION HISTORY //			Version 5.0.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
 // =============================================================================================================================================================//
-// TO DO: Handbrake look at alts to Pinky Mod.
-//
-//
+// 
+// v5.0 - //
+// v5.0 - FIXED: Handbrake changing HUD mode when activated on Pinky Trigger, now mapped to China Hat back. FIXED: UserPIPPref 3 Med/Long Press swapped WEP/ENG.//
 // v4.3 - NEW: Hangar Automation Macro added! Mapped In-game Store Page. Set custom deadzone on Slew on Throttle. FIXED: Joystick 'JS_DEADZONE' not working. 	//
 // v4.3 - FIXED: FastMode Switch Macro for new UI. IMPROVED: Separate Left/Right Throttle axis mapping now possible & Throttle Axis Presets codes been upgraded.//
 // v4.2.1-IMPROVED: CruiseOnThrottle now works @ 0% position. FIX: VA Keymappings for Reset HMD Orientation, SRV Throttle Reverse, Exit FSS & Pri/Sec. Fire.    //
