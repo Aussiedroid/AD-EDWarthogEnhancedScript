@@ -5,7 +5,7 @@
 		// START-UP //
 	define StartSoftware		0						// Start ED Launcher (&/or other 3rd Party Apps) when you Run the Script (Software List & Paths can be customised in AD_ED_v4.x.x.tmc)
 														//  [NOTE: Doesn't work under Win10 -> Please use ED-BAT File included in download pack]
-														
+	define DebugOutput			0						// Enables Developer Output to the TARGET Window (Will Spam!)													
 	define VerboseOutput		1						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
 														//	Options:	Enable = 1 (default) (On)					Disable = 0 (Silent Mode / Off)
 
@@ -13,8 +13,12 @@
 	define BlingLEDBling		1						// Enables a Short Flashing LED Sequence when you flip a Toggle & will also enable a short start-up sequence pattern. Bling Bling!
 														// 	Options:	Enable = 1 (default)						Disable = 0
 
+														// Local Path to the status.json file on your PC.
+	alias StatusFile			= "Z:\\Personal Files\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";	// Set value in User Prefs. Location example: "C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
+
+
 		// CORE HARDWARE //
-	define KBLayout 			KB_ENG					// Default Keyboard Layout	(Change this to your local keyboard layout (KB_GER for German | KB_FR for French) otherwise some keys may not function correctly!)
+	define KBLayout 			KB_ENG					// Default Keyboard Layout	(Change this to your local keyboard layout (KB_GER for German | KB_FR for French) otherwise some keys may not function correctly!). If your kb not supported try changing kb type in Windows to emulate.
 
 	define UseMFD 				0 						// No MFD = 0 (default)		One MFD = 1 (Right MFD)			Two MFDs = 2 (Right & Left MFD)		**UNMAPPED** **UNTESTED**
 	

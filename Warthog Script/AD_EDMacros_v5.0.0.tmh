@@ -209,18 +209,17 @@
 
 	int initEscapeVector() {																	// MACRO: Disengage Defensively + Emergency Escape Vector (Hold Pinky Trigger)
 		if(!StartupLock) {																		// *This line is only required to prevent running on startup
+			fnProcessFlags();																	// Get latest Flags Value first
 			if(VerboseOutput) printf("EVASIVE MANEUVERS! Emergency Escape Vector Calculating...\x0a");
 			ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));								// Set PIPs to SYSx4 ENGx2 - Defensive Get-a-way
 			if(AutoChaffOnEscape) DeferCall(500,  &ActKey, KEYON+PULSE+FireChaffLauncher);		// Optional: Auto-fire Chaff to cover your escape (See User Preferences to Set)
-			if(CargoSc)  {		  DeferCall(750,  &ActKey, KEYON+PULSE+CargoScoop);				// Override: Cargo Scoop (will force close scoop, overriding toggle)
+			if(fCargoScoop)  {	  DeferCall(750,  &ActKey, KEYON+PULSE+CargoScoop);				// Override: Cargo Scoop (will force close scoop, overriding toggle)
 								  DeferCall(750,  &ActKey, KEYON+PULSE+EXEC("CargoSc = 0;"));
 								  DeferCall(750,  &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); }	// set LED 4 OFF (Override)					  
-			if(Gears)    {		  DeferCall(1000, &ActKey, KEYON+PULSE+LandingGear);			// Override: Landing Gear (will force retract gears, overriding toggle)
-								  DeferCall(1000, &ActKey, KEYON+PULSE+EXEC("Gears   = 0;"));
+			if(fLandingGear) {	  DeferCall(1000, &ActKey, KEYON+PULSE+LandingGear);			// Override: Landing Gear (will force retract gears, overriding toggle)
 								  DeferCall(1000, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); }	// set LED 5 OFF (Override)
 			if(AutoBoostOnEscape) DeferCall(1250, &ActKey, KEYON+PULSE+EngineBoost);			// Optional: Auto-fire Boost to help evade (See User Preferences to Set)
-			if(HPoints)  {		  DeferCall(1500, &ActKey, KEYON+PULSE+DeployHardpoints);		// If Hardpoints are deployed, retract, ready for jump
-								  DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("HPoints = 0;")); }	// Update Hardpoint variable value to retracted (0)
+			if(fHardpoints)  {	  DeferCall(1500, &ActKey, KEYON+PULSE+DeployHardpoints); }		// If Hardpoints are deployed, retract, ready for jump
 			DeferCall(1750, &ActKey, KEYON+PULSE+FrameShiftDrive); } }							// After Retracting Hardpoints etc, Engage FSD (or High Wake if another System is selected route)
 
 

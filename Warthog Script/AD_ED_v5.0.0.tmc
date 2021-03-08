@@ -1,5 +1,5 @@
 // =============================================================================================================================================================//
-// Version 5.0.0									\\ Released Sept 2016	|	Updated XX 2021 //										Public Release #26		//
+// Version 5.0.0									\\ Released Sept 2016	|	Updated ?? 2021 //										Public Release #26		//
 // =============================================================================================================================================================//
 // AUSSIEDROID'S ACKNOWLEDGEMENTS //																															//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -32,6 +32,7 @@
 	include "AD_EDUserPrefs_v5.0.0.tmh" 								// User Preferences & Script Customisation Options
 	include "AD_EDKeyMap_v5.0.0.ttm" 									// Variable Key Mapping & Reference Tables
 	include "AD_EDHardware_v5.0.0.tmh"									// Joystick, Throttle & Rudder Axes/Curves Configuration
+	include "AD_EDStatusJson_v5.0.0.tmh"								// ???
 	include "AD_EDMacros_v5.0.0.tmh"									// Macro Definitions	 (Custom Sequences)
 	include "AD_EDFunctions_v5.0.0.tmh" 								// Function Definitions	 (Custom Logic for Buttons, Toggles & Ship Controls)
 
@@ -86,9 +87,9 @@
 	initPIPMapper();																		// Initiate PIP Configuration Mapper (See AD_EDFunctions.tmh)
 	initSetCombinedFire(0);																	// Initiate Mapping Logic to enable/disable the Dual-Stage Primary Trigger with either Primary & Secondary Fire Combined OR Primary Fire Only (Nothing mapped to 2nd stage). (See AD_EDFunctions.tmh)
 	initToggleRotationCorrection();															// Initiate Toggle Mapping for Rotational Correction (LED Support) (See AD_EDFunctions.tmh)
-	initToggleSilentRunning();																// Initiate Toggle Mapping for Silent Running		 (LED Support) (See AD_EDFunctions.tmh)
+	initToggleSilentRunning(0);																// Initiate Toggle Mapping for Silent Running		 (LED Support) (See AD_EDFunctions.tmh)
 	initEnhancedFAOFF();																	// Initiate Toggle Mapping for Flight Assist Off	 (LED Support, Auto-Joystick Curve adjust) (See AD_EDFunctions.tmh)
-	initToggleLandingGear();																// Initiate Toggle Mapping for Landing Gear			 (LED Support) (See AD_EDFunctions.tmh)
+	initToggleLandingGear(0);																// Initiate Toggle Mapping for Landing Gear			 (LED Support) (See AD_EDFunctions.tmh)
 	initToggleCargoScoop();																	// Initiate Toggle Mapping for Cargo Scoop			 (LED Support) (See AD_EDFunctions.tmh)
 	initIDLEMaster();																		// Initiate Advanced Function to disable Throttle (& Boost) when engaging Throttle IDLE/Afterburner Lock Indent. Will also enable SRV Handbrake. (See AD_EDFunctions.tmh)
 	initHeadlookModeSelect();																// Initiate Custom mapping preference for Headlook Centering based on your hardware (TrackIR, VR, Mouse) (See AD_EDFunctions.tmh)
@@ -145,6 +146,8 @@
 
 
 	StartupLock = 0;																		// Startup Pre-checks: "Releases" the Startup Lock post initialising the Macros/Functions/Hardware above.
+
+//	ActKey(KEYON+REXEC(3, 500, 	 "fnReadStatusJson();", RNOSTOP));   						// 3=internal handle...can be anything so long as you've not used elsewhere. 500=milliseconds for the loop
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MAP JOYSTICK CONTROLS //
@@ -382,13 +385,13 @@
 		MapKey(&Throttle,  CHF, TEMPO(FrameShiftDrive, Supercruise, LongPressDelay)); 								// China Hat FORWARD [When Route Blocked HOLD for Supercruise]
 		MapKey(&Throttle,  CHB, TEMPO(EXEC(																			// China Hat BACK 	 [Short: Night Vision or Orbital Lines(+Pinky), Very Long: Next Sys Route]
 										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
-										"if(!Joystick[S4]) initNightVisionEnhancer(1);"),
+										"if(!Joystick[S4]) initNightVisionEnhancer();"),
 									  EXEC(
 									  	"if(!Joystick[S4]) ActKey(KEYON+PULSE+mChinaHatBack);"), LongPressDelay)); }
 	if(CruiseOnThrottle == 1) {																						// Sets China Hat to remove Frame Shift Drive when Cruise on Throttle is enabled.
 		MapKey(&Throttle,  CHF, EXEC(																				// China Hat FORWARD
 										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
-										"else			   initNightVisionEnhancer(1);"));
+										"else			   initNightVisionEnhancer();"));
 		MapKey(&Throttle,  CHB, mChinaHatBack);	}																	// China Hat BACK
 
 
@@ -449,8 +452,8 @@
 	MapKey(&Throttle,  EORMOTOR, EXEC("initToggleRotationCorrection();"));											// Engine Operate Ign/Norm RIGHT DOWN
 	MapKeyR(&Throttle, EORMOTOR, EXEC("initToggleRotationCorrection();")); 											// Engine Operate Ign/Norm RIGHT RELEASE
 
-	MapKey(&Throttle,  APUON,	 EXEC("initToggleSilentRunning();")); 												// APU START UP
-	MapKeyR(&Throttle, APUON,	 EXEC("initToggleSilentRunning();")); 												// APU START RELEASE
+	MapKey(&Throttle,  APUON,	 EXEC("initToggleSilentRunning(1);")); 												// APU START UP
+	MapKeyR(&Throttle, APUON,	 EXEC("initToggleSilentRunning(0);")); 												// APU START RELEASE
 	MapKey(&Throttle,  APUOFF,	 0); 																				// APU OFF DOWN
 
 
@@ -465,8 +468,8 @@
 
 
 	// LANDING GEAR & CARGO SCOOP //
-	MapKey(&Throttle,  EACON, 	 EXEC("initToggleLandingGear();")); 												// EAC ARM UP
-	MapKeyR(&Throttle, EACON,	 EXEC("initToggleLandingGear();"));													// EAC ARM UP RELEASE
+	MapKey(&Throttle,  EACON, 	 EXEC("initToggleLandingGear(1);")); 												// EAC ARM UP
+	MapKeyR(&Throttle, EACON,	 EXEC("initToggleLandingGear(0);"));													// EAC ARM UP RELEASE
 	MapKey(&Throttle,  EACOFF,	 0); 																				// EAC OFF DOWN
 
 	MapKey(&Throttle,  RDRNRM,	 EXEC("initToggleCargoScoop();"));													// RDR ALTM NRM UP [Deploy Cargo Scoop]
@@ -604,8 +607,8 @@
 // =============================================================================================================================================================//
 // VERSION HISTORY //			Version 5.0.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
 // =============================================================================================================================================================//
-// 
-// v5.0 - //
+// v5.0 - WIP...
+// v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision .. To Do Cargo Scoop, Ship Lights?//
 // v5.0 - FIXED: Handbrake changing HUD mode when activated on Pinky Trigger, now mapped to China Hat back. FIXED: UserPIPPref 3 Med/Long Press swapped WEP/ENG.//
 // v4.3 - NEW: Hangar Automation Macro added! Mapped In-game Store Page. Set custom deadzone on Slew on Throttle. FIXED: Joystick 'JS_DEADZONE' not working. 	//
 // v4.3 - FIXED: FastMode Switch Macro for new UI. IMPROVED: Separate Left/Right Throttle axis mapping now possible & Throttle Axis Presets codes been upgraded.//

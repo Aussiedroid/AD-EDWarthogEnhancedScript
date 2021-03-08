@@ -1,0 +1,224 @@
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// STATUS.JSON INTEGRATION: DETERMINE STATUS OF COMMANDS VIA THE ED LOG FILE IN REAL TIME.									Original Author: CMDR Clicker		//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+// Shortlist - Landing Gear, Cargo Scoop, FAOff, Silent Running, Escape Vector, Hardpoints
+// Possible? - Check game is running, set LED to off on exit, 
+// Abort(); -> Kill script
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// GLOBAL VARIABLES	//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	char myJson;								 							// Char array to store status.json
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// FLAG VARIABLES		//													Refer to Section 13 in latest Journal Docs for more info - http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int fDocked;															// Use these after calling fnProcessFlags() in your functions.
+	int fLanded;
+	int fLandingGear;
+	int fShieldsUp;
+	int fSupercruise;
+	int fFAOff;
+	int fHardpoints;
+	int fInWing;
+	int fLights;
+	int fCargoScoop;
+	int fSilentRunning;
+	int fFuelScoop;
+	int fSRVHandbrake;
+	int fSRVTurretView;
+	int fSRVTurretRetracted;
+	int fSRVDriveAssist;
+	int fMassLocked;
+	int fFSDCharging;
+	int fFSDCooldown;
+	int fLowFuel;
+	int fOverHeating;
+	int fLatLong;
+	int fDanger;
+	int fInterdicted;
+	int fMainShip;
+	int fFighter;
+	int fSRV;
+	int fHUDAnalysis;
+	int fNightVision;
+	int fAltFromAvgRad;
+	int fsdJump;
+	int fSRVHiBeam;
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// STATUS FUNCTIONS	//														Requires:	'StatusFile' alias must be set correctly in User Prefs
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int fnReadStatusJson() {												// FUNCTION:	Read status.json into 'myJson'
+
+		int	fp;																// General purpose file handle
+		int	buf = 512;														// Buffer variable. status.json can get lengthy, so assign a buffer of at least 512
+		int	myResult;														// General pupose 'result' variable
+
+		Dim(&myJson, buf);													// Dimension our character array to size of buffer
+		myJson[0] = 0;														// Best always to zero out the array before use
+		fp = fopen(&StatusFile, "r");										// Open status.json for reading
+		if (fp) {															// If we succeed in opening...
+			myResult = fread(&myJson, 1, buf, fp);							// ...read the entire file into our character array (myJson)...
+			fclose(fp);														// ... and close the file
+			if (myResult == 0) {											// 'myResult' should contain the number of characters read...
+				if(VerboseOutput) { printf("File Read Error: status.json\x0a");	} }	 // ...so, if we read zero, we had an issue
+			else {
+				strdel(&myJson, myResult-1, buf); } }						// If no issues with read, remove any trailing garbage    
+		else {
+			if(VerboseOutput) { printf("Status.json Access Error!\x0a"); } } }		 // File not found OR locked by Elite Dangerous
+
+
+
+	int fnProcessFlags() {													// FUNCTION: Read & Process "Flags" value from "status.json"
+																			// Declare all required local variables
+		int Flags = 0;														// contains the Flags key value integer.
+		int EndValue = 0;													// Catch when we get to a space or comma
+		int myResult;														// Temporary general purpose variable to capture results of file and string operations
+		int chrpnt;															// Pointer to current character in string
+
+		char thischr;														// Contains current character read during string search
+		Dim(&thischr, 2);
+		thischr[0] = 0;
+
+		char keyvalue;														// Contains our Key Value when complete
+		Dim(&keyvalue, 16);													// arbitrary size. Currently Flags integer value does not exceed 11 digits
+		keyvalue[0] = 0;
+
+		// FLAG VALUE MASKS //
+		int ED_Docked				=	0x0000000000000001;
+		int ED_Landed				=	0x0000000000000002;
+		int ED_LandingGearDown		=	0x0000000000000004;
+		int ED_ShieldsUp			=	0x0000000000000008;
+
+		int ED_Supercruise			=	0x0000000000000010;
+		int ED_FlightAssistOff		=	0x0000000000000020;
+		int ED_HardpointsDeployed	=	0x0000000000000040;
+		int ED_InWing				=	0x0000000000000080;
+
+		int ED_LightsOn				=	0x0000000000000100;
+		int ED_CargoScoopDeployed	=	0x0000000000000200;
+		int ED_SilentRunning		=	0x0000000000000400;
+		int ED_ScoopingFuel			=	0x0000000000000800;
+
+		int ED_SRVHandbrake			=	0x0000000000001000;
+		int ED_SRVTurret			=	0x0000000000002000;
+		int ED_SRVTurretRetracted	=	0x0000000000004000;
+		int ED_SRVDriveAssist		=	0x0000000000008000;
+
+		int ED_FSDMassLocked		=	0x0000000000010000;
+		int ED_FSDCharging			=	0x0000000000020000;
+		int ED_FSDCooldown			=	0x0000000000040000;
+		int ED_LowFuel				=	0x0000000000080000;
+
+		int ED_OverHeating			=	0x0000000000100000;
+		int ED_HasLatLong			=	0x0000000000200000;
+		int ED_IsInDanger			=	0x0000000000400000;
+		int ED_BeingInterdicted		=	0x0000000000800000;
+
+		int ED_InMainShip			=	0x0000000001000000;
+		int ED_InFighter			=	0x0000000002000000;
+		int ED_InSRV				=	0x0000000004000000;
+		int ED_HudInAnalysisMode	=	0x0000000008000000;
+
+		int ED_NightVision			=	0x0000000010000000;
+		int ED_AltFromAvgRad		=	0x0000000020000000;
+		int ED_FSDJump				=	0x0000000040000000;
+		int ED_SRVHiBeam			=	0x0000000080000000;
+
+		fnReadStatusJson();													// Get latest status.json
+		int Start = 64;														// Flags key value always starts at char# 64 in status.json
+																			// Flags key value always ends in a space if zero, else comma character
+		chrpnt = 0;															// Reset character pointer
+
+		while (EndValue == 0) {												// Start loop...
+			strsub(&thischr, &myJson, Start+chrpnt, Start+chrpnt);			// Grab next character in 'myJson' and put it into 'thischr'
+			myResult = strcmp(&thischr, " ");
+			if (myResult == 0) EndValue = 1;								// End loop when we find a space
+			myResult = strcmp(&thischr, ",");
+			if (myResult == 0) EndValue = 1;								// End loop when we find a comma
+			if (EndValue == 0) strcat(&keyvalue, &thischr);					// Otherwise, update keyvalue...
+			chrpnt = chrpnt + 1; }											// ...Update character pointer, and loop
+		Flags = ieval(&keyvalue);											// Convert string to integer when we finished the loop
+		if(DebugOutput) { printf("Flags Integer    =    %d\x0a", Flags); }	// print the Flags integer value to the console
+																			// TARGET uses 32 bit signed precision for its integers. Flags values larger than 2147483648 wrap around to negative number and means that bit 31 (fSRVHiBeam) is set.
+		if (Flags != 0) {													// If Flags == 0, it means the game has not started yet...
+			if (Flags < 0) fSRVHiBeam = 1;									// ... otherwise, test for bit 31 first, like so...
+			else fSRVHiBeam = 0;
+
+			fsdJump				= ((Flags & ED_FSDJump) > 0);				// ...then assign the rest of the 'Flags' values using 'bitwise and' between Flags and a mask for each variable, like so...
+			fAltFromAvgRad		= ((Flags & ED_AltFromAvgRad) > 0);
+			fNightVision		= ((Flags & ED_NightVision) > 0);
+			fHUDAnalysis		= ((Flags & ED_HudInAnalysisMode) > 0);
+			fSRV				= ((Flags & ED_InSRV) > 0);
+			fFighter			= ((Flags & ED_InFighter) > 0);
+			fMainShip			= ((Flags & ED_InMainShip) > 0);
+			fInterdicted		= ((Flags & ED_BeingInterdicted) > 0);
+			fDanger				= ((Flags & ED_IsInDanger) > 0);
+			fLatLong			= ((Flags & ED_HasLatLong) > 0);
+			fOverHeating		= ((Flags & ED_OverHeating) > 0);
+			fLowFuel			= ((Flags & ED_LowFuel) > 0);
+			fFSDCooldown		= ((Flags & ED_FSDCooldown) > 0);
+			fFSDCharging		= ((Flags & ED_FSDCharging) > 0);
+			fMassLocked			= ((Flags & ED_FSDMassLocked) > 0);
+			fSRVDriveAssist		= ((Flags & ED_SRVDriveAssist) > 0);
+			fSRVTurretRetracted = ((Flags & ED_SRVTurretRetracted) > 0);
+			fSRVTurretView		= ((Flags & ED_SRVTurret) > 0);
+			fSRVHandbrake		= ((Flags & ED_SRVHandbrake) > 0);
+			fFuelScoop			= ((Flags & ED_ScoopingFuel) > 0);
+			fSilentRunning		= ((Flags & ED_SilentRunning) > 0);
+			fCargoScoop			= ((Flags & ED_CargoScoopDeployed) > 0);
+			fLights				= ((Flags & ED_LightsOn) > 0);
+			fInWing				= ((Flags & ED_InWing) > 0);
+			fHardpoints			= ((Flags & ED_HardpointsDeployed) > 0);
+			fFAOff				= ((Flags & ED_FlightAssistOff) > 0);
+			fSupercruise		= ((Flags & ED_Supercruise) > 0);
+			fShieldsUp			= ((Flags & ED_ShieldsUp) > 0);
+			fLandingGear		= ((Flags & ED_LandingGearDown) > 0);
+			fLanded				= ((Flags & ED_Landed) > 0);
+			fDocked				= ((Flags & ED_Docked) > 0);
+
+			if(DebugOutput) {
+				printf("\x0a\ Active Flags");									//    Print any Flags which are set to 1
+				printf("\x0a===============\x0a");
+				if (fSRVHiBeam)					printf("SRVHiBeam\x0a");
+				if (fsdJump)					printf("Hyperjump\x0a");
+				if (fAltFromAvgRad)				printf("Radius-ALT\x0a");
+				if (fNightVision)				printf("Night Vision\x0a");
+				if (fHUDAnalysis)				printf("AnalysisHUD\x0a");
+				if (fSRV)						printf("In SRV\x0a");
+				if (fFighter)					printf("In Fighter\x0a");
+				if (fMainShip)					printf("In MainShip\x0a");
+				if (fInterdicted)				printf("Being Interdicted\x0a");
+				if (fDanger)					printf("!!! DANGER !!!\x0a");
+				if (fLatLong)					printf("Lat\\Lon available\x0a");
+				if (fOverHeating)				printf("Over Heating\x0a");
+				if (fLowFuel)					printf("Low Fuel\x0a");
+				if (fFSDCooldown)				printf("FSD Cooldown\x0a");
+				if (fFSDCharging)				printf("FSD Charging\x0a");
+				if (fMassLocked)				printf("FSD Masslocked\x0a");
+				if (fSRVDriveAssist)			printf("SRV Drive Assist\x0a");
+				if (fSRVTurretRetracted)		printf("SRV Turret Retracted\x0a");
+				if (fSRVTurretView)				printf("SRV Turret View\x0a");
+				if (fSRVHandbrake)				printf("SRV Handbrake\x0a");
+				if (fFuelScoop)					printf("Fuel Scoop Deployed\x0a");
+				if (fSilentRunning)				printf("Silent Running\x0a");
+				if (fCargoScoop)				printf("Cargo Scoop Deployed\x0a");
+				if (fLights)					printf("Lights On\x0a");
+				if (fInWing)					printf("In Wing\x0a");
+				if (fHardpoints)				printf("Hardpoints Deployed\x0a");
+				if (fFAOff)						printf("Flight Assist OFF\x0a");
+				if (fSupercruise)				printf("Supercruise Engaged\x0a");
+				if (fShieldsUp)					printf("Shields Up\x0a");
+				if (fLandingGear)				printf("Landing Gear Deployed\x0a");
+				if (fLanded)					printf("Landed on planet\x0a");
+				if (fDocked)					printf("Docked\x0a");
+				printf("===============\x0a"); } } }
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//

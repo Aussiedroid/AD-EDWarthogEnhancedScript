@@ -19,7 +19,7 @@
 		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[profile], JS_ZOOM[profile]);
 		if(UseRuddersT16000 & UseRudderAxisCurves)	SetSCurve(&TFRPRudder, 	 TRUDDER, 		0, TR_DEADZONE, 0, YAW_CURVE[profile], JS_ZOOM[profile]);
 		else if(UseRuddersTPR & UseRudderAxisCurves)SetSCurve(&TFRPHARudder, TFRPHA_RUDDER, 0, TR_DEADZONE, 0, YAW_CURVE[profile], JS_ZOOM[profile]);
-		if(!FAOFFToggle) {
+		if(!fFAOff) {
 			if(UseRudderAxisCurves & VerboseOutput) printf("Joystick Profile[%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
 			else if(VerboseOutput) 					printf("Joystick Profile[%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]); } }
 

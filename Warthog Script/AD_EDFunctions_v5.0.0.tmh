@@ -17,9 +17,6 @@
 
 	int initHardpointManagement() {																// FUNCTION: Manage Hardpoint Deployment & Associated Menu Mappings
 		if(Joystick[S4] & !Joystick[H4P]) {														// This check forces Hardpoints to be deployed so Escape Vector is always in the right state. 
-			if(!HPoints) {																		// (It will result in the hardpoints appearing to deploy in your HUD, but does not slow macro down)
-				HPoints = 1;
-				ActKey(KEYON+PULSE+DeployHardpoints); }
 			initEscapeVector();	}																// Disengage & Escape Vector Macro
 		if(Joystick[H4P] & !Joystick[S4]) {
 			ActKey(KEYON+PULSE+UIEscape); }														// EXIT to MENU (Hold Modifier 2)
@@ -28,7 +25,6 @@
 		if(!Joystick[H4P] & !Joystick[S4]) {													// Standard Hardpoint Deploy/Retract
 			if(!StartupLock) {
 				ActKey(KEYON+PULSE+DeployHardpoints);											// If in Ship: Deploy/Retract Hardpoints
-				HPoints=!HPoints;
 				ActKey(KEYON+DOWN+ShowCQCScoreboard); }	} }										// If in CQC: Show Scoreboard (Hold)
 
 
@@ -137,20 +133,22 @@
 																								// End of Forward Sequence
 
 
-	int initNightVisionEnhancer(int toggleValue) { 												// FUNCTION: Calculate Night Vision state.
-		if(toggleValue) {																		// Dims Throttle LED Backlight intensity when active.
-			NightVisionStatus=!NightVisionStatus; }
-		if(NightVisionStatus){
-			if(VerboseOutput) printf("Night Vision: ^^ ACTIVE ^^\x0a");
-			ActKey(KEYON+PULSE+NightVision);
-			if(NightVisionHUD) ActKey(KEYON+PULSE+HideShipGUI);									// If enabled in User Preferences, Hide the Ship/SRV HUD when enabling Night Vision.
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 50)); }							// Dim Throttle Lights
-		if(!NightVisionStatus) {
-			if(VerboseOutput) printf("Night Vision: DEACTIVATED!\x0a");
-			ActKey(KEYON+PULSE+NightVision);
-			if(NightVisionHUD) ActKey(KEYON+PULSE+HideShipGUI);									// If enabled in User Preferences, Show the Ship/SRV HUD when disabling Night Vision.
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }							// Return Throttle Lights to Default
-				
+	int initNightVisionEnhancer() { 															// FUNCTION: Calculate Night Vision state.
+		fnProcessFlags();																		// Get latest Flags Value first
+		ActKey(KEYON+PULSE+NightVision);
+		if(NightVisionHUD) ActKey(KEYON+PULSE+HideShipGUI);										// If enabled in User Preferences, Hide the Ship/SRV HUD when enabling Night Vision.
+		if(!fDocked) { 
+			if(!fNightVision){																	// Dims Throttle LED Backlight intensity when active.
+				if(VerboseOutput) printf("Night Vision: ^^ ACTIVE ^^\x0a");
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 50)); }						// Dim Throttle Lights
+			else  {
+				if(VerboseOutput) printf("Night Vision: DEACTIVATED!\x0a");
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }						// Return Throttle Lights to Default
+		else {
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172));
+			if(VerboseOutput) printf("Night Vision: DISABLED WHILE DOCKED\x0a"); } }
+
+
 
 
 	int initAPEngageEnhancer() { 																// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
@@ -221,11 +219,12 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initEnhancedFAOFF() {																	// FUNCTION: Enhanced Joystick Curves tailored for Flight Assist Off (TOGGLE)
+		fnProcessFlags();																		// Get latest Flags Value first
 		if(Throttle[SPDF]) {																	//    AKA     "FAOFF LIKE A BOSS!"
 			if(Joystick[S4]) {																	// FA OFF: TOGGLE
 				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Enables Alternative Flight Control Mappings (when using the Pinky Trigger).
 				AltFlightToggle = 1; }
-			if(!Joystick[S4]) {
+			if(!Joystick[S4] & !fFAOff) {
 				ActKey(KEYON+PULSE+FlightAssist);
 				SetSCurve(&Joystick, JOYX, 0, 1, 0, 2, -1);										// Reduces the Joystick sensitivity on Forward TOGGLE on FA Off
 				SetSCurve(&Joystick, JOYY, 0, 1, 0, 2, -1);										// Full Joystick sensitivity remains on Back HOLD on FA Off for quick turns in combat
@@ -233,37 +232,33 @@
 				if(UseRuddersT16000 & UseRudderAxisCurves)	SetSCurve(&TFRPRudder, TFRPHA_RUDDER, 0, 10, 0, 3, -1);
 				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));				// set LED 1 OFF
 				if(BlingLEDBling) initLEDController(LED1);
-				FAOFFToggle = 1;
 				if(UseRudderAxisCurves & VerboseOutput)  printf("Joystick Profile[%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
 				if(!UseRudderAxisCurves & VerboseOutput) printf("Joystick Profile[%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]); } }
 		if(!Throttle[SPDF]) {
 			if(AltFlightToggle) {
 				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Disables Alternative Flight Control Mappings (works with both Pinky Trigger & Without!).
 				AltFlightToggle=!AltFlightToggle; }
-			if(FAOFFToggle) {
+			if(fFAOff) {
 				ActKey(KEYON+PULSE+FlightAssist);
 				initSetJoystickCurves();														// Return Joystick Curve back to previous preset (based on toggle position)
 				if(BlingLEDBling) initLEDController(LED1);
 				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1));				// set LED 1 ON     you will need to toggle back to center, then UP/DOWN again to reapply settings.
-				FAOFFToggle=!FAOFFToggle;
 				if(UseRudderAxisCurves & VerboseOutput)  printf("Returning to Joystick Profile [%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
 				if(!UseRudderAxisCurves & VerboseOutput) printf("Returning to Joystick Profile [%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]);  } }
 		if(Throttle[SPDB]) {																	// FA OFF: HOLD
 			if(Joystick[S4]) {
 				ActKey(KEYON+PULSE+AlternativeFlightMode);
 				AltFlightHold = 1; }
-			if(!Joystick[S4]) {
+			if(!Joystick[S4] & !fFAOff) {
 				ActKey(KEYON+PULSE+FlightAssist);
-				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));				// set LED 1 OFF
-				FAOFFHold = 1; } }
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)); } }			// set LED 1 OFF
 		if(!Throttle[SPDB]) {
 			if(AltFlightHold) {
 				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Disables Alternative Flight Control Mappings (works with both Pinky Trigger & Without!).
 				AltFlightHold=!AltFlightHold; }
-			if(FAOFFHold) {
+			if(fFAOff) {
 				ActKey(KEYON+PULSE+FlightAssist);
-				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1));				// set LED 1 ON
-				FAOFFHold=!FAOFFHold; } } }
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1)); } } }			// set LED 1 ON
 
 
 
@@ -285,26 +280,30 @@
 
 
 
-	int initToggleSilentRunning() {																// TOGGLE: Silent Running
-		if(Throttle[APUON]) {																	// Default: OFF (Exhaust Vents Open)
-			if(!SRunning) {																		// Press 'DEL' to toggle manually if misaligned, or change in Sys Panel.
-				if(!Joystick[S4]) {
-					ActKey(KEYON+PULSE+SilentRunning);											// [Toggle Hold]
-					if(VerboseOutput) printf("Silent Running: ACTIVATED   !!\x0a"); }
-				if(Joystick[S4])  {																// Heat Sink + Silent Running Combo [Pinky+Silent Running]
+	int initToggleSilentRunning(int x) {														// TOGGLE: Silent Running
+        fnProcessFlags();																		// Get latest Flags Value first
+        if (!fSupercruise & !fSRV & !fLanded & !fDocked & !StartupLock) {						// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
+            if (fSilentRunning != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
+				ActKey(KEYON+PULSE+SilentRunning);												// [Toggle Hold]
+				if(Joystick[S4] & Throttle[APUON])  {											// Heat Sink + Silent Running Combo [Pinky+Silent Running]
 					ActKey(KEYON+PULSE+DeployHeatSink);
 					ActKey(KEYON+PULSE+SilentRunning);
-					if(VerboseOutput) printf("Silent Running: COOL RUNNINGS (Heat Sink Combo Sequence Activated!)\x0a"); }
-				SRunning = 1;
-				if(BlingLEDBling) initLEDController(LED3);
-				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3)); } }			// set LED 3 ON
-		if(!Throttle[APUON]) {
-			if(SRunning) {
-				ActKey(KEYON+PULSE+SilentRunning);												// [Toggle Release]
-				if(VerboseOutput) printf("Silent Running: DEACTIVATED <<\x0a");
-				SRunning = 0;
-				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));				// set LED 3 OFF
-				if(BlingLEDBling) initLEDController(LED3); } } }
+					if(VerboseOutput) printf("Silent Running: COOL RUNNINGS (Heat Sink Combo Activated!)\x0a"); }
+                if (!fSilentRunning) { 
+                	if(BlingLEDBling) initLEDController(LED3);
+					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3));				// set LED 3 ON
+                	if(VerboseOutput) printf("Silent Running: ACTIVATED   !!\x0a"); }				// Print the action to console...
+                else {
+                	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));				// set LED 3 OFF
+					if(BlingLEDBling) initLEDController(LED3);
+                    if(VerboseOutput) printf("Silent Running: DEACTIVATED <<\x0a");	 } }
+            else {
+                if(VerboseOutput) printf("Silent Running: Nothing to Do :) ==\x0a"); } }
+        else {																					// ... or, print the reason no action taken
+            if (fSupercruise) {		  printf("\x0a\Silent Running: DISABLED WHILST IN SUPERCRUISE\x0a"); }
+            if (fSRV) {				  printf("\x0a\Silent Running: DISABLED WHILST IN SRV\x0a"); }
+            if (fLanded | fDocked) {  printf("\x0a\Silent Running: DISABLED WHEN LANDED\x0a"); } } }
+
 
 
 
@@ -394,51 +393,33 @@
 
 
 
-	int initToggleLandingGear() {																// TOGGLE: Landing Gear
-		if(Throttle[EACON]) {																	// Default: ON (Assumes you are docked when loading into ED)
-			if(Joystick[S4]) {																	// Hold Pinky Trigger to toggle manual position reset, or change in Sys Panel.
-				Gears=!Gears;
-				if(VerboseOutput) printf("Landing Gear: !! Toggle RESET !!\x0a");	}
-			if(Joystick[H4P]) {																	// Hold CMS Hat Switch to Initiate Take Off Procedure (This will hold Vert. Thrust up, toggle Landing Gear & Set PIPs for Launch at Station or Planet Surface)
-				Gears = 0;																		// (Mapped to work in either toggle direction)
-				if(VerboseOutput) ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));			// Set PIPs to SYSx4 ENGx2 - Protect Ship on Launch
-				ActKey(KEYON+DOWN+ThrustUp);
-				ActKey(KEYON+PULSE+SetSpeed0);
-				DeferCall(3500, &ActKey, KEYON+PULSE+LandingGear);								// Retract Landing Gear shortly after leaving pad/surface
-				DeferCall(4000, &ActKey, KEYON+UP+ThrustUp);									// Releases Vertical Thrust after 4 seconds
-				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));				// set LED 5 OFF
-				if(BlingLEDBling) initLEDController(LED5);
-				if(VerboseOutput) printf("Landing Gear: LAUNCH SEQUENCE ACTIVATED >>\x0a");
-				if(VerboseOutput) printf("Landing Gear: RETRACTED <<\x0a"); }
-			if((!Joystick[S4]) & (!Joystick[H4P])) {
-				if(!Gears) {
-					if(VerboseOutput) printf("Landing Gear: DEPLOYED >>\x0a");
-					Gears = 1;
-					ActKey(KEYON+PULSE+LandingGear);
+	int initToggleLandingGear(int x) {															// TOGGLE: Landing Gear   (Argument x: ... 1 = Deploy, 0 = Retract)
+        fnProcessFlags();																		// Get latest Flags Value first
+        if (!fSupercruise & !fSRV & !fLanded & !fDocked & !StartupLock) {						// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
+            if (fLandingGear != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
+				if(!Joystick[H4P]) {
+					ActKey(KEYON+PULSE+LandingGear); }
+				if(Joystick[H4P] & !Throttle[EACON]) {											// Hold CMS Hat Switch to Initiate Take Off Procedure (This will hold Vert. Thrust up, toggle Landing Gear & Set PIPs for Launch at Station or Planet Surface)
+					ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));						// Set PIPs to SYSx4 ENGx2 - Protect Ship on Launch
+					ActKey(KEYON+DOWN+ThrustUp);
+					ActKey(KEYON+PULSE+SetSpeed0);
+					DeferCall(3500, &ActKey, KEYON+PULSE+LandingGear);							// Retract Landing Gear shortly after leaving pad/surface
+					DeferCall(4000, &ActKey, KEYON+UP+ThrustUp);								// Releases Vertical Thrust after 4 seconds
+					if(VerboseOutput) printf("Landing Gear: LAUNCH SEQUENCE ACTIVATED >>\x0a"); }
+                if(!fLandingGear) { 
+                	if(BlingLEDBling) initLEDController(LED5);
+					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5));
+                	if(VerboseOutput) printf("Landing Gear: DEPLOYED >>\x0a"); }				 // Print the action to console...
+                else {
+                	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));			// set LED 5 OFF
 					if(BlingLEDBling) initLEDController(LED5);
-					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5)); } } }		// set LED 5 ON
-		if(!Throttle[EACON]) {
-			if(Joystick[S4]) {																	// Hold Pinky Trigger to toggle manual position reset, or change in Sys Panel.
-				Gears=!Gears;
-				if(VerboseOutput) printf("Landing Gear: !! Toggle RESET !!\x0a");	}
-			if(Joystick[H4P]) {																	// Hold CMS Hat Switch to Initiate Take Off Procedure (This will hold Vert. Thrust up, toggle Landing Gear & Set PIPs for Launch at Station or Planet Surface)
-				Gears = 0;																		// (Mapped to work in either toggle direction)
-				ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));							// Set PIPs to SYSx4 ENGx2 - Protect Ship on Launch
-				ActKey(KEYON+DOWN+ThrustUp);
-				ActKey(KEYON+PULSE+SetSpeed0);
-				DeferCall(3500,  &ActKey, KEYON+PULSE+LandingGear);								// Retract Landing Gear shortly after leaving pad/surface
-				DeferCall(4000, &ActKey, KEYON+UP+ThrustUp);									// Releases Vertical Thrust after 4 seconds
-				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));				// set LED 5 OFF
-				if(BlingLEDBling) initLEDController(LED5);
-				if(VerboseOutput) printf("Landing Gear: LAUNCH SEQUENCE ACTIVATED >>\x0a");
-				if(VerboseOutput) printf("Landing Gear: RETRACTED <<\x0a"); }
-			if((!Joystick[S4]) & (!Joystick[H4P])) {
-				if(Gears) {
-					if(VerboseOutput) printf("Landing Gear: RETRACTED <<\x0a");
-					Gears = 0;
-					ActKey(KEYON+PULSE+LandingGear);
-					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));			// set LED 5 OFF
-					if(BlingLEDBling) initLEDController(LED5); } } } }
+                    if(VerboseOutput) printf("Landing Gear: RETRACTED <<\x0a");	 } }
+            else {
+                if(VerboseOutput) printf("Landing Gear: Nothing to Do :) ==\x0a"); } }
+        else {																					// ... or, print the reason no action taken
+            if (fSupercruise) {		  printf("\x0a\Landing Gear: DISABLED WHILST IN SUPERCRUISE\x0a"); }
+            if (fSRV) {				  printf("\x0a\Landing Gear: DISABLED WHILST IN SRV\x0a"); }
+            if (fLanded | fDocked) {  printf("\x0a\Landing Gear: DISABLED WHEN LANDED\x0a"); } } }
 
 
 
@@ -604,7 +585,7 @@
 		printf("[Throttle Axis O/ride = %d]  [Joystik Axis O/ride = %d]  [Throttle D/zone = %d]  [Joys D/zone = %d]\x0a", ThrottleOverride, JoystickOverride, TFULL_DEADZONE, JS_DEADZONE);
 		if(VerboseOutput) printf("\x0a"); 
 		if(VerboseOutput) printf(":..DEFAULT TOGGLE STATE..:\x0a");
-		if(VerboseOutput) printf("[Combine Pri+Sec Fire = %d]  [Rot. Correction = %d]  [C/ Scoop = %d]  [L/ Gear = %d]  [Lights  = %d]\x0a", combinePriSecFire, RCorrection, CargoSc, Gears, Lights);
+//		if(VerboseOutput) printf("[Combine Pri+Sec Fire = %d]  [Rot. Correction = %d]  [C/ Scoop = %d]  [L/ Gear = %d]  [Lights  = %d]\x0a", combinePriSecFire, RCorrection, CargoSc, Gears, Lights);
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
 		if(VerboseOutput) printf("Starting Macros... Compiling Functions... "); }
 
