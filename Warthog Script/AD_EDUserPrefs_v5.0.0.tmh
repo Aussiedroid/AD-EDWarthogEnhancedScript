@@ -5,7 +5,7 @@
 		// START-UP //
 	define StartSoftware		0						// Start ED Launcher (&/or other 3rd Party Apps) when you Run the Script (Software List & Paths can be customised in AD_ED_v4.x.x.tmc)
 														//  [NOTE: Doesn't work under Win10 -> Please use ED-BAT File included in download pack]
-	define DebugOutput			0						// Enables Developer Output to the TARGET Window (Will Spam!)													
+	define DebugOutput			0						// Enables Developer Output to the TARGET Window for troubleshooting coding issues (Will Spam! Leave Disabled)												
 	define VerboseOutput		1						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
 														//	Options:	Enable = 1 (default) (On)					Disable = 0 (Silent Mode / Off)
 

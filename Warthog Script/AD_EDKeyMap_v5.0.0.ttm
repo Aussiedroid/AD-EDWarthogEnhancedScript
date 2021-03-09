@@ -58,6 +58,12 @@
 //	define SRVRecallDismissShip					L_ALT+USB[0x1B]			// ALT+X <Disabled>
 
 
+		// FIRST PERSON CONTROLS //
+				//TBC//
+	
+	
+	
+
 		// SHIP SYSTEMS //
 	define CargoScoop 							USB[0x4A] 				// HOME
 	define JettisonAllCargo 					L_CTL+USB[0x56]			// CTRL+NUMPAD

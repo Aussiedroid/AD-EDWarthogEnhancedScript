@@ -6,10 +6,11 @@
 //		- initSetCombinedFire						- initNightVisionEnhancer				- initToggleRotationCorrection										//
 //		- initExplorerScannerDisengage				- initAPEngageEnhancer					- initToggleSilentRunning											//
 //													- initIDLEMaster						- initToggleCargoScoop												//
-//													- initUserHotSlotPinkyTrigger			- initToggleLandingGear												//
-//	[2. PIP & TEXT CHAT CONTROLS (line 55)]													- initToggleShipLights												//
-//		- initPIPMapper																		- initHeadlookModeSelect											//
-//		- initSendChatString																- initMicCommander													//
+//													- initUserHotSlotPinkyTrigger			- initCargoReturnMode												//
+//	[2. PIP & TEXT CHAT CONTROLS (line 55)]													- initToggleLandingGear												//
+//		- initPIPMapper																		- initToggleShipLights												//
+//		- initSendChatString																- initHeadlookModeSelect											//
+//																							- initMicCommander													//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //
@@ -142,7 +143,7 @@
 				if(VerboseOutput) printf("Night Vision: ^^ ACTIVE ^^\x0a");
 				ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 50)); }						// Dim Throttle Lights
 			else  {
-				if(VerboseOutput) printf("Night Vision: DEACTIVATED!\x0a");
+				if(VerboseOutput) printf("Night Vision: DEACTIVATED\x0a");
 				ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }						// Return Throttle Lights to Default
 		else {
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172));
@@ -280,7 +281,7 @@
 
 
 
-	int initToggleSilentRunning(int x) {														// TOGGLE: Silent Running
+	int initToggleSilentRunning(int x) {														// TOGGLE: Silent Running   (Argument x .. 1 = Deploy, 0 = Retract)
         fnProcessFlags();																		// Get latest Flags Value first
         if (!fSupercruise & !fSRV & !fLanded & !fDocked & !StartupLock) {						// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
             if (fSilentRunning != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
@@ -289,11 +290,11 @@
 					ActKey(KEYON+PULSE+DeployHeatSink);
 					ActKey(KEYON+PULSE+SilentRunning);
 					if(VerboseOutput) printf("Silent Running: COOL RUNNINGS (Heat Sink Combo Activated!)\x0a"); }
-                if (!fSilentRunning) { 
+                if (!fSilentRunning) {    // OPEN ACTIONS //
                 	if(BlingLEDBling) initLEDController(LED3);
 					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3));				// set LED 3 ON
                 	if(VerboseOutput) printf("Silent Running: ACTIVATED   !!\x0a"); }				// Print the action to console...
-                else {
+                else {					 // CLOSE ACTIONS //
                 	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));				// set LED 3 OFF
 					if(BlingLEDBling) initLEDController(LED3);
                     if(VerboseOutput) printf("Silent Running: DEACTIVATED <<\x0a");	 } }
@@ -306,94 +307,67 @@
 
 
 
-
-	int initToggleCargoScoop() {																// TOGGLE: Cargo Scoop
-		if(Throttle[RDRNRM]){																	// UP (ON)
-			if(Joystick[S4] & !Joystick[H4P]) {													// UP/TOGGLE OVERRIDE: If Pinky Trigger + Cargo Scoop UP, then override Cargo Scoop.
-				CargoSc=!CargoSc;
-				if(VerboseOutput) printf("Cargo Scoop: !! Toggle RESET !!\x0a"); }
-			if(!Joystick[S4] & Joystick[H4P]) {													// UP/TOGGLE PRECISION MODE: If CMS Hat Switch + Cargo Scoop UP, then toggle Throttle Precision Mode when Cargo Scoop is Open.
-				CargoPrecisionMode=!CargoPrecisionMode;
-				if(CargoPrecisionMode & VerboseOutput)	printf("Cargo Scoop Precision Mode: ENABLED! [Throttle Limiter ACTIVE]\x0a");
-				else if(VerboseOutput) 					printf("Cargo Scoop Precision Mode: DISABLED <<\x0a"); }
-			if(!Joystick[S4] & !Joystick[H4P]) {												// UP/OPEN CARGO SCOOP: If No Modifiers are pressed, then open Cargo Scoop
-				if(!CargoSc) {
-					if(VerboseOutput) printf("Cargo Scoop: DEPLOYED >>\x0a");
-					CargoSc = 1;
-					ActKey(KEYON+PULSE+CargoScoop);
-					if(BlingLEDBling) initLEDController(LED4);
-					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4));			// set LED 4 ON
-					if(CargoPrecisionMode) {													// UP/ENABLE PRECISION MODE: If Precision Mode is ON, then limit Throttle axis to 50% (Blue Zone).
+	int initToggleCargoScoop(int x) {															// TOGGLE: Cargo Scoop   (Argument x .. 1 = Deploy, 0 = Retract)
+		fnProcessFlags();																		// Get latest Flags Value first
+		if (!fSupercruise & !fLanded & !fDocked & !StartupLock) {								// Only attempt to toggle landing gear if we're not in Supercruise and not Landed or Docked.
+			if (fCargoScoop != x) {																// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa.
+				if(!Joystick[S4] & !Joystick[H4P]) { 
+					ActKey(KEYON+PULSE+CargoScoop); }											// TRIGGER Cargo Scoop (When no Modifier Held).
+				if(!Joystick[S4] &  Joystick[H4P]) {											// TOGGLE PRECISION MODE: If CMS Hat Switch + Toggle, then Throttle Precision Mode when Cargo Scoop is Open.
+					CargoPrecisionMode=!CargoPrecisionMode;
+					if(CargoPrecisionMode) {	// ENABLE CPM //								// ENABLE PRECISION MODE: If Precision Mode is ON, then limit Throttle axis to 50% (Blue Zone).
 						TrimDXAxis(DX_Z_AXIS, SET(0));
 						SetSCurve(&Throttle, THR_RIGHT, 0, 2, 0, 2, -2);
-						if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP OVERRIDE PRECISION [-50 -> 50]\x0a");
-						SetThrottle(); } } } }
-		if(!Throttle[RDRNRM]) {																	// DOWN (OFF)
-			if(Joystick[S4] & !Joystick[H4P]) {													// DOWN/TOGGLE OVERRIDE: If Pinky Trigger + Cargo Scoop DOWN, then override Cargo Scoop.
-				CargoSc=!CargoSc;
-				if(VerboseOutput) printf("Cargo Scoop: !! Toggle RESET !!\x0a"); }
-			if(!Joystick[S4] & Joystick[H4P]) {													// DOWN/TOGGLE PRECISION MODE: If CMS Hat Switch + Cargo Scoop DOWN, then toggle Throttle Precision Mode when Cargo Scoop is Open.
-				CargoPrecisionMode=!CargoPrecisionMode;
-				if(CargoPrecisionMode & VerboseOutput)	printf("Cargo Scoop Precision Mode: ENABLED! [Throttle Limiter ACTIVE]\x0a");
-				else if(VerboseOutput) 					printf("Cargo Scoop Precision Mode: DISABLED <<\x0a"); }
-			if(!Joystick[S4] & !Joystick[H4P]) {												// DOWN/CLOSE CARGO SCOOP: If No Modifiers are pressed, then close Cargo Scoop
-				if(CargoSc) {
-					CargoSc = 0;
-					ActKey(KEYON+PULSE+CargoScoop);
-					if(VerboseOutput) printf("Cargo Scoop: RETRACTED <<\x0a");
-					if(CargoPrecisionMode) {													// DOWN/TOGGLE PRECISION MODE: If Precision Mode is ON, then remove Throttle axis limitation & return axis to user's preference.
-						if(CargoReturnMode == 0) {
-							TrimDXAxis(DX_Z_AXIS, SET(-1024));
-							if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);
-							if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -90, 0, 0); 
-							if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FORWARD ONLY [0 -> 100]\x0a"); }
-						if(CargoReturnMode == 1) {
-							TrimDXAxis(DX_Z_AXIS, SET(0));
-							if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, 5, 0, 0);
-							if(CruiseOnThrottle == 1) SetJCurve(&Throttle, THR_RIGHT, 90, 100);
-							if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE [-100 -> 100]\x0a"); }
-						if(CargoReturnMode == 2) {
-							TrimDXAxis(DX_Z_AXIS, SET(0));
-							SetJCurve(&Throttle, THR_RIGHT, 80, 100);
-							if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE CUSTOM [-100 -> 80]\x0a"); }
-						if(CargoReturnMode == 3) {
-							TrimDXAxis(DX_Z_AXIS, SET(0));
-							SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);
-							if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT TRIMMED [-75 -> 75]\x0a"); }							
-						SetThrottle(); } } }
-			if(Joystick[S4] & Joystick[H4P]) {													// DOWN/JETTISON ALL CARGO: If BOTH CMS Hat Switch & Pinky Trigger Modifier are held + Cargo Scoop is DOWN, the activate Jettison All Cargo & close Cargo Scoop.
-				if(CargoSc) {
-					CargoSc = 0;
+						if(VerboseOutput) printf("Cargo Scoop Precision Mode: ENABLED -> OVERRIDE PRECISION [-50 -> 50]\x0a");
+						SetThrottle(); }
+					else {						// DISABLE CPM //
+						initCargoReturnMode(); } }												// MANUAL DISABLE PRECISION MODE: Returns Throttle range to your default (as set in your User Prefs).
+				if(Joystick[S4] & Joystick[H4P] & !Throttle[RDRNRM]) {							// JETTISON ALL CARGO: If BOTH CMS Hat Switch & Pinky Trigger Modifier are held + Cargo Scoop is DOWN, the activate Jettison All Cargo & close Cargo Scoop.
 					ActKey(KEYON+PULSE+JettisonAllCargo);
 					if(VerboseOutput) printf("Cargo Scoop: JETTISON ALL CARGO !!\x0a");
-					if(CargoPrecisionMode) {													// DOWN/TOGGLE PRECISION MODE: If Precision Mode is ON & BOTH CMS Hat Switch & Pinky Trigger Modifier are held, then remove Throttle axis limitation & return axis to user's preference.
-						if(CargoReturnMode == 0) {
-							TrimDXAxis(DX_Z_AXIS, SET(-1024));
-							if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);
-							if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -90, 0, 0); 
-							if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FORWARD ONLY [0 -> 100]\x0a"); }
-						if(CargoReturnMode == 1) {
-							TrimDXAxis(DX_Z_AXIS, SET(0));
-							if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, 5, 0, 0);
-							if(CruiseOnThrottle == 1) SetJCurve(&Throttle, THR_RIGHT, 90, 100);
-							if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE [-100 -> 100]\x0a"); }
-						if(CargoReturnMode == 2) {
-							TrimDXAxis(DX_Z_AXIS, SET(0));
-							SetJCurve(&Throttle, THR_RIGHT, 80, 100);
-							if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE CUSTOM [-100 -> 80]\x0a"); }
-						if(CargoReturnMode == 3) {
-							TrimDXAxis(DX_Z_AXIS, SET(0));
-							SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);
-							if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT TRIMMED [-75 -> 75]\x0a"); }
-						SetThrottle(); }
-					DeferCall(5000, &ActKey, KEYON+PULSE+CargoScoop);
-					if(VerboseOutput) DeferCall(5050, &ActKey, KEYON+PULSE+EXEC("printf(\"Cargo Scoop: RETRACTED <<\\x0a\");")); } }
-				ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));				// set LED 4 OFF
-				if(BlingLEDBling) initLEDController(LED4); } }
+					DeferCall(5000, &ActKey, KEYON+PULSE+CargoScoop); }
+                if(!fCargoScoop) { 			// OPEN ACTIONS //
+                	if(BlingLEDBling) initLEDController(LED4);
+					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4));			// set LED 4 ON
+                	if(VerboseOutput) printf("Cargo Scoop: DEPLOYED >>\x0a"); }
+                else {						// CLOSE ACTIONS //
+                	initCargoReturnMode();														// AUTO DISABLE PRECISION MODE: Returns Throttle range to your default whenever you close Cargo Scoop (as set in your User Prefs).
+                	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));			// set LED 4 OFF
+					if(BlingLEDBling) initLEDController(LED4);
+					if(VerboseOutput) printf("Cargo Scoop: RETRACTED <<\x0a"); } }
+			else {																				// Toggle is currently in the wrong position.
+                if(VerboseOutput) printf("Cargo Scoop: Nothing to Do :) ==\x0a"); } }
+        else {																					// BLOCKED From Action.
+            if (fSupercruise) {		  printf("\x0a\Cargo Scoop: DISABLED WHILST IN SUPERCRUISE\x0a"); }
+            if (fLanded | fDocked) {  printf("\x0a\Cargo Scoop: DISABLED WHEN LANDED\x0a"); } } }
 
 
 
-	int initToggleLandingGear(int x) {															// TOGGLE: Landing Gear   (Argument x: ... 1 = Deploy, 0 = Retract)
+	int initCargoReturnMode() {																	// FUNCTION: Returns Throttle to default behaviour by disabling Precision Mode or Closing Cargo Scoop.
+		if(CargoReturnMode == 0) {																// Used only in initToggleCargoScoop();
+			TrimDXAxis(DX_Z_AXIS, SET(-1024));													// Set your CargoReturnMode preference in User Prefs.
+			if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);
+			if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -90, 0, 0); 
+			if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FORWARD ONLY [0 -> 100]\x0a"); }
+		if(CargoReturnMode == 1) {
+			TrimDXAxis(DX_Z_AXIS, SET(0));
+			if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, 5, 0, 0);
+			if(CruiseOnThrottle == 1) SetJCurve(&Throttle, THR_RIGHT, 90, 100);
+			if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE [-100 -> 100]\x0a"); }
+		if(CargoReturnMode == 2) {
+			TrimDXAxis(DX_Z_AXIS, SET(0));
+			SetJCurve(&Throttle, THR_RIGHT, 80, 100);
+			if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE CUSTOM [-100 -> 80]\x0a"); }
+		if(CargoReturnMode == 3) {
+			TrimDXAxis(DX_Z_AXIS, SET(0));
+			SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);
+			if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT TRIMMED [-75 -> 75]\x0a"); }
+		SetThrottle();
+		if(VerboseOutput) printf("Cargo Scoop Precision Mode: DISABLED <<\x0a"); }   
+
+
+
+	int initToggleLandingGear(int x) {															// TOGGLE: Landing Gear   (Argument x .. 1 = Deploy, 0 = Retract)
         fnProcessFlags();																		// Get latest Flags Value first
         if (!fSupercruise & !fSRV & !fLanded & !fDocked & !StartupLock) {						// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
             if (fLandingGear != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
@@ -406,17 +380,17 @@
 					DeferCall(3500, &ActKey, KEYON+PULSE+LandingGear);							// Retract Landing Gear shortly after leaving pad/surface
 					DeferCall(4000, &ActKey, KEYON+UP+ThrustUp);								// Releases Vertical Thrust after 4 seconds
 					if(VerboseOutput) printf("Landing Gear: LAUNCH SEQUENCE ACTIVATED >>\x0a"); }
-                if(!fLandingGear) { 
+                if(!fLandingGear) {  		  // OPEN ACTIONS //
                 	if(BlingLEDBling) initLEDController(LED5);
 					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5));
-                	if(VerboseOutput) printf("Landing Gear: DEPLOYED >>\x0a"); }				 // Print the action to console...
-                else {
+                	if(VerboseOutput) printf("Landing Gear: DEPLOYED >>\x0a"); }
+                else {						 // CLOSE ACTIONS //
                 	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));			// set LED 5 OFF
 					if(BlingLEDBling) initLEDController(LED5);
                     if(VerboseOutput) printf("Landing Gear: RETRACTED <<\x0a");	 } }
             else {
                 if(VerboseOutput) printf("Landing Gear: Nothing to Do :) ==\x0a"); } }
-        else {																					// ... or, print the reason no action taken
+        else {																					// 
             if (fSupercruise) {		  printf("\x0a\Landing Gear: DISABLED WHILST IN SUPERCRUISE\x0a"); }
             if (fSRV) {				  printf("\x0a\Landing Gear: DISABLED WHILST IN SRV\x0a"); }
             if (fLanded | fDocked) {  printf("\x0a\Landing Gear: DISABLED WHEN LANDED\x0a"); } } }

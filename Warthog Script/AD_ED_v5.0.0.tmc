@@ -90,7 +90,8 @@
 	initToggleSilentRunning(0);																// Initiate Toggle Mapping for Silent Running		 (LED Support) (See AD_EDFunctions.tmh)
 	initEnhancedFAOFF();																	// Initiate Toggle Mapping for Flight Assist Off	 (LED Support, Auto-Joystick Curve adjust) (See AD_EDFunctions.tmh)
 	initToggleLandingGear(0);																// Initiate Toggle Mapping for Landing Gear			 (LED Support) (See AD_EDFunctions.tmh)
-	initToggleCargoScoop();																	// Initiate Toggle Mapping for Cargo Scoop			 (LED Support) (See AD_EDFunctions.tmh)
+	initToggleCargoScoop(0);																// Initiate Toggle Mapping for Cargo Scoop			 (LED Support) (See AD_EDFunctions.tmh)
+	initCargoReturnMode();																	// ???
 	initIDLEMaster();																		// Initiate Advanced Function to disable Throttle (& Boost) when engaging Throttle IDLE/Afterburner Lock Indent. Will also enable SRV Handbrake. (See AD_EDFunctions.tmh)
 	initHeadlookModeSelect();																// Initiate Custom mapping preference for Headlook Centering based on your hardware (TrackIR, VR, Mouse) (See AD_EDFunctions.tmh)
 	initHardpointManagement();																// Initiate Advanced Function integrating all Hardpoint/Other functions related to the Red Left Throttle Button (See AD_EDFunctions.tmh)
@@ -469,11 +470,11 @@
 
 	// LANDING GEAR & CARGO SCOOP //
 	MapKey(&Throttle,  EACON, 	 EXEC("initToggleLandingGear(1);")); 												// EAC ARM UP
-	MapKeyR(&Throttle, EACON,	 EXEC("initToggleLandingGear(0);"));													// EAC ARM UP RELEASE
+	MapKeyR(&Throttle, EACON,	 EXEC("initToggleLandingGear(0);"));												// EAC ARM UP RELEASE
 	MapKey(&Throttle,  EACOFF,	 0); 																				// EAC OFF DOWN
 
-	MapKey(&Throttle,  RDRNRM,	 EXEC("initToggleCargoScoop();"));													// RDR ALTM NRM UP [Deploy Cargo Scoop]
-	MapKeyR(&Throttle, RDRNRM,	 EXEC("initToggleCargoScoop();"));													// RDR ALTM NRM UP REVERSE
+	MapKey(&Throttle,  RDRNRM,	 EXEC("initToggleCargoScoop(1);"));													// RDR ALTM NRM UP [Deploy Cargo Scoop]
+	MapKeyR(&Throttle, RDRNRM,	 EXEC("initToggleCargoScoop(0);"));													// RDR ALTM NRM UP REVERSE
 	MapKey(&Throttle,  RDRDIS,	 0);
 
 
@@ -608,7 +609,7 @@
 // VERSION HISTORY //			Version 5.0.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
 // =============================================================================================================================================================//
 // v5.0 - WIP...
-// v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision .. To Do Cargo Scoop, Ship Lights?//
+// v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision ..To Do Cargo Scoop, Ship Lights? //
 // v5.0 - FIXED: Handbrake changing HUD mode when activated on Pinky Trigger, now mapped to China Hat back. FIXED: UserPIPPref 3 Med/Long Press swapped WEP/ENG.//
 // v4.3 - NEW: Hangar Automation Macro added! Mapped In-game Store Page. Set custom deadzone on Slew on Throttle. FIXED: Joystick 'JS_DEADZONE' not working. 	//
 // v4.3 - FIXED: FastMode Switch Macro for new UI. IMPROVED: Separate Left/Right Throttle axis mapping now possible & Throttle Axis Presets codes been upgraded.//
