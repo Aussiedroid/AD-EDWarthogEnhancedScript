@@ -7,10 +7,9 @@
 //		- initExplorerScannerDisengage				- initAPEngageEnhancer					- initToggleSilentRunning											//
 //													- initIDLEMaster						- initToggleCargoScoop												//
 //													- initUserHotSlotPinkyTrigger			- initCargoReturnMode												//
-//	[2. PIP & TEXT CHAT CONTROLS (line 55)]													- initToggleLandingGear												//
+//	[2. PIP & TEXT CHAT CONTROLS (line 55)]			- initHeadlookModeSelect				- initToggleLandingGear												//
 //		- initPIPMapper																		- initToggleShipLights												//
-//		- initSendChatString																- initHeadlookModeSelect											//
-//																							- initMicCommander													//
+//		- initSendChatString																- initMicCommander													//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //
@@ -151,7 +150,6 @@
 
 
 
-
 	int initAPEngageEnhancer() { 																// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
 		if(Joystick[H4P]) {																		//	Defaults: Include the Autodock, Signal Light Sequences (Flashing ShipLights) & Basic Text Comms.
 			if(APSeqShort) {																	// [Short+CMS: Text "CMDR o7" (default)]
@@ -213,6 +211,20 @@
 				DoubleTapPT = 2;																// Increment DoubleTapPT counter (prevents further triggers until DoubleTapPT delay timer cycle completes)
 				ActKey(KEYON+PULSE+UserDTPinkyKeyBind); } } }									// Trigger User Hot Slot Preference (*see User Preferences to set*)
 //				ActKey(KEYON+DOWN+UserDTPinkyKeyBind); } } }									// ALTERNATE Config (enable if Double Tap Pinky Trigger needs a Hold action - remember to disable the line above!)
+
+
+
+	int initHeadlookModeSelect() {																// FUNCTION: Choose Headlook Center Method, based on hardware preference
+		if(!StartupLock) {
+			if(HeadtrackPref == 0) {															// 			(Maps to the Engine Operate Ign/Norm LEFT UP)
+				if(!Joystick[S4]) ActKey(KEYON+PULSE+LookCenter);								// [Short:		 Headlook Center Toggle] 	[MOUSE]
+				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
+			if(HeadtrackPref == 1) {
+				if(!Joystick[S4]) ActKey(KEYON+PULSE+TrackIRCenter);							// [Short: 		 TIR Center]				[TRACKIR/TOBI EYE/EDTRACKER]
+				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
+			if(HeadtrackPref == 2) {
+				if(!Joystick[S4]) ActKey(KEYON+PULSE+ResetHMDOrientation);						// [Short: 		 Reset HMD Orientation]		[VR/VIVE/OCCULUS RIFT]
+				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); } } }			// [Short+Pinky: VA Toggle]
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -287,9 +299,10 @@
             if (fSilentRunning != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
 				ActKey(KEYON+PULSE+SilentRunning);												// [Toggle Hold]
 				if(Joystick[S4] & Throttle[APUON])  {											// Heat Sink + Silent Running Combo [Pinky+Silent Running]
+					ActKey(KEYON+PULSE+EXEC("initPIPMapper(ENG,WEP);"));						// Set PIPs to ENGx4 WEPx2 - Offensive stance - removes from SYS
 					ActKey(KEYON+PULSE+DeployHeatSink);
 					ActKey(KEYON+PULSE+SilentRunning);
-					if(VerboseOutput) printf("Silent Running: COOL RUNNINGS (Heat Sink Combo Activated!)\x0a"); }
+					if(VerboseOutput) printf("Silent Running: COOL RUNNINGS (Heat Sink Combo!)\x0a"); }
                 if (!fSilentRunning) {    // OPEN ACTIONS //
                 	if(BlingLEDBling) initLEDController(LED3);
 					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3));				// set LED 3 ON
@@ -344,26 +357,27 @@
 
 
 	int initCargoReturnMode() {																	// FUNCTION: Returns Throttle to default behaviour by disabling Precision Mode or Closing Cargo Scoop.
-		if(CargoReturnMode == 0) {																// Used only in initToggleCargoScoop();
-			TrimDXAxis(DX_Z_AXIS, SET(-1024));													// Set your CargoReturnMode preference in User Prefs.
-			if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);
-			if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -90, 0, 0); 
-			if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FORWARD ONLY [0 -> 100]\x0a"); }
-		if(CargoReturnMode == 1) {
-			TrimDXAxis(DX_Z_AXIS, SET(0));
-			if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, 5, 0, 0);
-			if(CruiseOnThrottle == 1) SetJCurve(&Throttle, THR_RIGHT, 90, 100);
-			if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE [-100 -> 100]\x0a"); }
-		if(CargoReturnMode == 2) {
-			TrimDXAxis(DX_Z_AXIS, SET(0));
-			SetJCurve(&Throttle, THR_RIGHT, 80, 100);
-			if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE CUSTOM [-100 -> 80]\x0a"); }
-		if(CargoReturnMode == 3) {
-			TrimDXAxis(DX_Z_AXIS, SET(0));
-			SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);
-			if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT TRIMMED [-75 -> 75]\x0a"); }
-		SetThrottle();
-		if(VerboseOutput) printf("Cargo Scoop Precision Mode: DISABLED <<\x0a"); }   
+		if(!StartupLock) {
+			if(CargoReturnMode == 0) {															// Used only in initToggleCargoScoop();
+				TrimDXAxis(DX_Z_AXIS, SET(-1024));												// Set your CargoReturnMode preference in User Prefs.
+				if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);
+				if(CruiseOnThrottle == 1) SetSCurve(&Throttle, THR_RIGHT, 0, -90, 0, 0); 
+				if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FORWARD ONLY [0 -> 100]\x0a"); }
+			if(CargoReturnMode == 1) {
+				TrimDXAxis(DX_Z_AXIS, SET(0));
+				if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, 5, 0, 0);
+				if(CruiseOnThrottle == 1) SetJCurve(&Throttle, THR_RIGHT, 90, 100);
+				if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE [-100 -> 100]\x0a"); }
+			if(CargoReturnMode == 2) {
+				TrimDXAxis(DX_Z_AXIS, SET(0));
+				SetJCurve(&Throttle, THR_RIGHT, 80, 100);
+				if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT FULL SCALE CUSTOM [-100 -> 80]\x0a"); }
+			if(CargoReturnMode == 3) {
+				TrimDXAxis(DX_Z_AXIS, SET(0));
+				SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);
+				if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT TRIMMED [-75 -> 75]\x0a"); }
+			SetThrottle();
+			if(VerboseOutput) printf("Cargo Scoop Precision Mode: DISABLED <<\x0a"); } }  
 
 
 
@@ -408,20 +422,6 @@
 			if(VerboseOutput) printf("Lights:    DELUMINATE!\x0a");
 			ActKey(KEYON+PULSE+ShipLights);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }							// Return Throttle Lights to Default
-
-
-
-	int initHeadlookModeSelect() {																// FUNCTION: Choose Headlook Center Method, based on hardware preference
-		if(!StartupLock) {
-			if(HeadtrackPref == 0) {															// 			(Maps to the Engine Operate Ign/Norm LEFT UP)
-				if(!Joystick[S4]) ActKey(KEYON+PULSE+LookCenter);								// [Short:		 Headlook Center Toggle] 	[MOUSE]
-				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
-			if(HeadtrackPref == 1) {
-				if(!Joystick[S4]) ActKey(KEYON+PULSE+TrackIRCenter);							// [Short: 		 TIR Center]				[TRACKIR/TOBI EYE/EDTRACKER]
-				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
-			if(HeadtrackPref == 2) {
-				if(!Joystick[S4]) ActKey(KEYON+PULSE+ResetHMDOrientation);						// [Short: 		 Reset HMD Orientation]		[VR/VIVE/OCCULUS RIFT]
-				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); } } }			// [Short+Pinky: VA Toggle]
 
 
 
@@ -547,7 +547,7 @@
 // 5. START-UP: REPORT SCRIPT STATES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int initPrintState() {																		// Display the status of the macro toggles & user prefs on run.
+	int initPrintState() {	    			 fnProcessFlags();									 // Display the status of the macro toggles & user prefs on run.
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
 		printf(">> ENHANCEMENTS LOADING:	v%d.%d.%d	  TARGET Mappings, Macros & Functions Decrypted			<|>\x0a", ADVersionMajor, ADVersionMinor, ADVersionPoint);
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
@@ -559,7 +559,7 @@
 		printf("[Throttle Axis O/ride = %d]  [Joystik Axis O/ride = %d]  [Throttle D/zone = %d]  [Joys D/zone = %d]\x0a", ThrottleOverride, JoystickOverride, TFULL_DEADZONE, JS_DEADZONE);
 		if(VerboseOutput) printf("\x0a"); 
 		if(VerboseOutput) printf(":..DEFAULT TOGGLE STATE..:\x0a");
-//		if(VerboseOutput) printf("[Combine Pri+Sec Fire = %d]  [Rot. Correction = %d]  [C/ Scoop = %d]  [L/ Gear = %d]  [Lights  = %d]\x0a", combinePriSecFire, RCorrection, CargoSc, Gears, Lights);
+		if(VerboseOutput) printf("[Combine Pri+Sec Fire = %d]  [Rot. Correction = %d]  [C/ Scoop = %d]  [L/ Gear = %d]  [Lights  = %d]\x0a", combinePriSecFire, RCorrection, fCargoScoop, fLandingGear, fLights);
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
 		if(VerboseOutput) printf("Starting Macros... Compiling Functions... "); }
 
