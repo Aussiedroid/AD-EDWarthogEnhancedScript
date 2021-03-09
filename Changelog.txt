@@ -1,6 +1,6 @@
 Update 5.0.0: ODD CITY UPDATE (Update #26)
 
--> Feature alignment for the Odyssey Update 2021.
+-> Feature alignment for the Odyssey Update 2021. BETA
 
 
 New to the script? Be sure to also check out the Beginners Reference Map in the download pack to get started.
@@ -8,18 +8,28 @@ New to the script? Be sure to also check out the Beginners Reference Map in the 
 
 List of Changes:
 
-NEW: Reads the State of game variables via the ED status.json file. Script functions will now always align to the in-game status tracking.
+NEW: Odyssey: All New First Person Mode Mappings added! (TBC)
+NEW: Script now reads in real time the State of game variables via the ED status.json file. This improvement means:
+	- Toggles actions will always align to the live in-game status.
+	- No more overrides needed to realign toggles.
+	- A complete rewrite of many functions, inc. Landing Gear, Cargo Scoop, Silent Running, Escape Vector...
+	- REMEMBER to set the new StatusFile User Preference, to define the path to the status.json file before you start.
 NEW: 
 NEW: 
+NEW:
 
-IMPROVEMENT: 
+IMPROVEMENT: Silent Running with Heat Sink modifier will now also set PIPs to ENG/WEP.
 IMPROVEMENT: 
 IMPROVEMENT: 
 
 FIXED: Handbrake on Double Tap Pinky Trigger has been moved to China Hat toggle on Throttle to avoid conflicts.
 FIXED: Swapped Med & Long press for UserPIPPref 3 mapping for left PIP direction to match UserPIPPref 2 mapping of WEP (instead of ENG). 
+FIXED: 
 
-
+CODE: Moved MDF Panel Mapping functions to the AD_EDHardware_v5.x.x.tmh file.
+CODE: Added new script file for parsing status.json game file, called AD_EDStatusJson_v5.x.x.tmh.
+CODE: Debug Output User Preference added. Provides additional TARGET Window output to troubleshoot coding issues (Devs Only).
+CODE: 
 
 Fly Safe CMDRs!
 
