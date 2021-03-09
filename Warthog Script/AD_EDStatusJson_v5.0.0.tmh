@@ -1,9 +1,9 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// STATUS.JSON INTEGRATION: DETERMINE STATUS OF COMMANDS VIA THE ED LOG FILE IN REAL TIME.									Original Author: CMDR Clicker		//
+// STATUS.JSON PARSER: DETERMINE THE REAL-TIME STATUS OF IN-GAME COMMANDS VIA THE ED LOG FILE.								Original Author: CMDR Clicker		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // Possible? - Check game is running, set LED to off on exit, 
 // Abort(); -> Kill script
-
+//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // GLOBAL VARIABLES	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -11,10 +11,10 @@
 	char myJson;								 							// Char array to store status.json
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FLAG VARIABLES		//													Refer to Section 13 in latest Journal Docs for more info - http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
+// FLAG VARIABLES   //														Refer to Section 13 in latest Journal Docs for more info - http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int fAltFromAvgRad;															// Use these after calling fnProcessFlags() in your functions.
+	int fAltFromAvgRad;														// Use these after calling fnProcessFlags() in your functions.
 	int fCargoScoop;
 	int fDanger;
 	int fDocked;
@@ -49,7 +49,7 @@
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// STATUS FUNCTIONS	//														Requires:	'StatusFile' alias must be set correctly in User Prefs
+// STATUS 'READ/PROCESS' FUNCTIONS	//										Requires:	'StatusFile' alias must be set correctly in User Prefs
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int fnReadStatusJson() {												// FUNCTION:	Read status.json into 'myJson'
