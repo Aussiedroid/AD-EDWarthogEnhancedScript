@@ -38,7 +38,6 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // DEFAULT STATES    		(1 = Yes, 0 = No) //		// VARIABLE DESCRIPTION & USAGE
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-														// **Set your toggles before you start Elite Dangerous to align default toggle states**
 														//  NOTE: If your switches aren't set to match, then you may need to use a toggle override, or have to do an extra key toggle/key press to "catch up"
 
 	int AxisCurveMod;									// Initiates variable to be used for custom axis curve preset on Throttle.		(used in initSetThrottleCurves())

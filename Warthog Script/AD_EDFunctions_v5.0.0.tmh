@@ -1,15 +1,15 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS: TABLE OF CONTENTS //					// FUNCTIONS Include logic to customise specific Button/Toggle functionality								//
+// FUNCTIONS: TOC	//							// FUNCTIONS Include logic to customise specific Button/Toggle functionality									//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	[1. FIRE & HARDPOINT CONTROLS (line 15)]	[3. SPECIALISED FEATURES (line 103)]	[4. TOGGLE CONTROLS (line 220)]			[5. REPORT STATES (line 592)]	//
-//		- initHardpointManagement					- initLEDController						- initEnhancedFAOFF						- initPrintState			//
-//		- initSetCombinedFire						- initNightVisionEnhancer				- initToggleRotationCorrection										//
-//		- initExplorerScannerDisengage				- initAPEngageEnhancer					- initToggleSilentRunning											//
-//													- initIDLEMaster						- initToggleCargoScoop												//
-//													- initUserHotSlotPinkyTrigger			- initCargoReturnMode												//
-//	[2. PIP & TEXT CHAT CONTROLS (line 55)]			- initHeadlookModeSelect				- initToggleLandingGear												//
-//		- initPIPMapper																		- initToggleShipLights												//
-//		- initSendChatString																- initMicCommander													//
+//	[1. FIRE/HARDPOINT CONTROLS			]		[3. SPECIALISED FEATURES				]	[4. TOGGLE CONTROLS					]	[5. REPORT STATES		  ] //
+//		- initHardpointManagement	(11)			- initLEDController				(111)		- initEnhancedFAOFF			(222)		- initPrintState (555)	//
+//		- initSetCombinedFire		(11)			- initNightVisionEnhancer		(111)		- initToggleRotationCorrect.(222)								//
+//		- initExplorerScannerDiseng.(11)			- initAPEngageEnhancer			(111)		- initToggleSilentRunning	(222)								//
+//													- initIDLEMaster				(111)		- initToggleCargoScoop		(222)								//
+//													- initUserHotSlotPinkyTrigger	(111)		- initCargoReturnMode		(222)								//
+//	[2. PIP & TEXT CHAT CONTROLS		]			- initHeadlookModeSelect		(111)		- initToggleLandingGear		(222)								//
+//		- initPIPMapper				(11)														- initToggleShipLights		(222)								//
+//		- initSendChatString		(11)														- initMicCommander			(222)								//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //

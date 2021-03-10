@@ -1,6 +1,14 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // KEY BINDINGS 	(Note: Not all Bindings are used in this script directly (these will be commented out below) Instead, they're mapped directly in ED Config.)//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// TOC:/																[ 1. KEYBIND GROUP INDEX ]																//
+// ----				- WEAPON CONTROL	(13)		- SHIP SYSTEMS 		 (132)		- WINGS			(232)		- GALAXY MAP		(444)						//
+//					- TARGET CONTROL	(26)		- COOLING/C.MEASURES (132)		- FIGHTERS		(232)		- CAMERA SUITE		(999)						//
+//					- FLIGHT CONTROL	(43)		- THROTTLE BASE		 (132)		- MULTICREW		(232)		- HEADLOOK	 		(343)						//
+//					- SRV CONTROL		(59)		- SCANNERS			 (434)		- HOLO-ME		(111)      	- STORE PAGE & MISC (555)						//
+//					- FIRST PERSON CTRL	(44)		- UI NAVIGATION		 (333)		- PLAYLIST		(232)		- EXTERNAL BINDINGS (654)						//
+//																																			+ DX MAPPINGS (292)	//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 		// WEAPON CONTROL //
 	define PrimaryFire 							DX1						// JOY 1 (Also mapped to SHIFT+1 in ED Bindings)
@@ -51,14 +59,14 @@
 //	define ThrustForwardOnlyReverse				L_CTL+USB[0x15]			// CTRL+R
 
 
-		// SRV CONTROLS //
+		// SRV CONTROL //
 	define SRVHandbrake 						L_CTL+USB[0x2D]			// CTRL+-
 	define SRVTurret 							L_SHIFT+USB[0x18]		// SHIFT+U
 	define SRVVerticalThrust 					USB[0x12]				// O
 //	define SRVRecallDismissShip					L_ALT+USB[0x1B]			// ALT+X <Disabled>
 
 
-		// FIRST PERSON CONTROLS //				//TBC//
+		// FIRST PERSON CONTROL //				//TBC//
 //	define FPSForward							
 //	define FPSBack
 //	define FPSLeftTurn
@@ -118,25 +126,6 @@
 //	define FSSShowHelp							USB[0x06] 				// C
 
 
-		// WINGS //
-	define SelectWingman1 						USB[0x25] 				// 8
-	define SelectWingman2 						USB[0x26] 				// 9
-	define SelectWingman3 						USB[0x27] 				// 0
-	define WingmanTarget 						R_CTL					// CTRL
-	define WingmanNavlock 						R_SHIFT					// SHIFT
-
-
-		// SHIP LAUNCHED FIGHTERS //
-	define FighterDock 							L_ALT+USB[0x05]			// ALT+B
-	define FighterDefensive 					L_ALT+USB[0x07]			// ALT+D
-	define FighterAggressive 					L_ALT+USB[0x04]			// ALT+A
-	define FighterFocusAttack					L_ALT+USB[0x17]			// ALT+T
-	define FighterHoldFire 						L_ALT+USB[0x0B]			// ALT+H
-	define FighterHoldPosition 					L_ALT+USB[0x16]			// ALT+S
-	define FighterFollow 						L_ALT+USB[0x09]			// ALT+F
-	define FighterOrders 						L_ALT+USB[0x12]			// ALT+O
-
-
 		// UI NAVIGATION //
 	define UISelect 							USB[0x2C] 				// Space
 	define UIBack 								USB[0x2A]				// Backspace
@@ -158,6 +147,25 @@
 	define GalaxyMap 							L_SHIFT+USB[0x33] 		// :
 //	define CodexOpenDiscovery					USB[0x23]				// 6  <Disabled>
 //	define FriendsView							USB[0x22]				// 5  <Disabled>
+
+
+		// WINGS //
+	define SelectWingman1 						USB[0x25] 				// 8
+	define SelectWingman2 						USB[0x26] 				// 9
+	define SelectWingman3 						USB[0x27] 				// 0
+	define WingmanTarget 						R_CTL					// CTRL
+	define WingmanNavlock 						R_SHIFT					// SHIFT
+
+
+		// SHIP LAUNCHED FIGHTERS //
+	define FighterDock 							L_ALT+USB[0x05]			// ALT+B
+	define FighterDefensive 					L_ALT+USB[0x07]			// ALT+D
+	define FighterAggressive 					L_ALT+USB[0x04]			// ALT+A
+	define FighterFocusAttack					L_ALT+USB[0x17]			// ALT+T
+	define FighterHoldFire 						L_ALT+USB[0x0B]			// ALT+H
+	define FighterHoldPosition 					L_ALT+USB[0x16]			// ALT+S
+	define FighterFollow 						L_ALT+USB[0x09]			// ALT+F
+	define FighterOrders 						L_ALT+USB[0x12]			// ALT+O
 
 
 		// MULTICREW //							(Note: These are mapped in ED Bindings directly)
@@ -199,15 +207,6 @@
 //	define GalaxyCurrentSystem					L_CTL+USB[0x06]			// CTRL+C (Not currently mapped in bindings - currently C & V)
 
 
-		// HEADLOOK //
-//	define LookUp 								DXHATUP					// <Disabled>
-//	define LookDown 							DXHATDOWN				// <Disabled>
-//	define LookLeft 							DXHATLEFT				// <Disabled>
-//	define LookRight 							DXHATRIGHT				// <Disabled>
-	define LookToggle							USB[0x3E]				// F5
-	define LookCenter 							L_CTL+USB[0x4D]			// CTRL+END
-
-
 		// CAMERA SUITE //						(Note: These are mapped in ED Bindings directly)
 //	define PreviousCamera						L_ALT+USB[0x1E]			// ALT+1
 //	define NextCamera							L_ALT+USB[0x1F]			// ALT+2
@@ -242,6 +241,15 @@
 //	define CameraIncreaseFocus					
 //	define CameraDecreaseFocus					
 //	define AttachDetachCamera					L+CTL+USB[0x06]			// CTRL+C
+
+
+		// HEADLOOK //
+//	define LookUp 								DXHATUP					// <Disabled>
+//	define LookDown 							DXHATDOWN				// <Disabled>
+//	define LookLeft 							DXHATLEFT				// <Disabled>
+//	define LookRight 							DXHATRIGHT				// <Disabled>
+	define LookToggle							USB[0x3E]				// F5
+	define LookCenter 							L_CTL+USB[0x4D]			// CTRL+END
 
 
 		// STORE PAGE //						(Note: These are mapped in ED Bindings directly)
