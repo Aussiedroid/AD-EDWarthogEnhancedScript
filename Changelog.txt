@@ -18,20 +18,22 @@ NEW:
 NEW: 
 NEW:
 
-IMPROVEMENT: Silent Running with Heat Sink modifier will now also set PIPs to ENG/WEP.
 IMPROVEMENT: Added Conditional Check to Auto-Dock & Hangar Automation so they can only fired when undocked or docked respectively.
-IMPROVEMENT: Added script verbose output message for Hangar Automation when fired in the default AP mapping.
+IMPROVEMENT: Silent Running with Heat Sink modifier will now also set PIPs to ENG/WEP.
+IMPROVEMENT: Added verbose output message for Hangar Automation when fired in the default AP button mapping.
+IMPROVEMENT: 
 IMPROVEMENT: 
 
 FIXED: Handbrake on Double Tap Pinky Trigger has been moved to China Hat toggle on Throttle to avoid a minor conflict.
 FIXED: Swapped Med & Long press for UserPIPPref 3 mapping for left PIP direction to match UserPIPPref 2 mapping of WEP (instead of ENG). 
 FIXED: 
+FIXED: 
 
-CODE: 
+CODE: Added new tmh script file for parsing status.json game file, called AD_EDStatusJson_v5.x.x.tmh.
 CODE: Moved MDF Panel Mapping functions to the AD_EDHardware_v5.x.x.tmh file.
-CODE: Added new script file for parsing status.json game file, called AD_EDStatusJson_v5.x.x.tmh.
-CODE: Debug Output User Preference added. Provides additional TARGET Window output to troubleshoot coding issues (Devs Only).
-CODE: Removed unused default state flags.
+CODE: Removed redundant default state flags.
+CODE: Debug Output User Preference added. Provides additional TARGET Window text output to troubleshoot coding issues (Devs Only).
+CODE: 
 CODE:
 
 
