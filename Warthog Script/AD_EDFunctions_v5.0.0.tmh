@@ -149,9 +149,9 @@
 			if(VerboseOutput) printf("Night Vision: DISABLED WHILE DOCKED\x0a"); } }
 
 
-
-	int initAPEngageEnhancer() { 																// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
-		if(Joystick[H4P]) {																		//	Defaults: Include the Autodock, Signal Light Sequences (Flashing ShipLights) & Basic Text Comms.
+																								// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
+	int initAPEngageEnhancer() { 																//	(See AD_EDUserPrefs.tmh for mappings)
+		if(Joystick[H4P]) {																		//	 Defaults: Include the Autodock, Signal Light Sequences (Flashing ShipLights) & Basic Text Comms.
 			if(APSeqShort) {																	// [Short+CMS: Text "CMDR o7" (default)]
 				ActKey(KEYON+PULSE+APEngageCMSShort);											// Set custom APEngageCMSShort value in the User Preferences
 				APSeqShort=!APSeqShort; }
@@ -161,11 +161,13 @@
 		if(Joystick[S4]) {
 			if(APSeqShort) {																	// [Short+Pinky: Auto-Dock Request (default)]
 				ActKey(KEYON+PULSE+APEngagePinkyShort);											// Set custom APEngagePinkyShort value in the User Preferences
-				if(APEngagePinkyShort == mRequestDock & VerboseOutput) printf("Attempting Auto-Dock Procedure...\x0a");
+				if(APEngagePinkyShort == mRequestDock & VerboseOutput & !fDocked) printf("Attempting Auto-Dock Procedure...\x0a");
+				if(APEngagePinkyShort == mHangarAutomation & VerboseOutput & fDocked) printf("Repair & Refuel Sequence Activated...\x0a");
 				APSeqShort=!APSeqShort; }
 			if(APSeqLong) {																		// [Long+Pinky: Auto-Dock Request (default)]
 				ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
-				if(APEngagePinkyLong == mRequestDock & VerboseOutput) printf("Attempting Auto-Dock Procedure...\x0a");
+				if(APEngagePinkyLong == mRequestDock & VerboseOutput & !fDocked) printf("Attempting Auto-Dock Procedure...\x0a");
+				if(APEngagePinkyLong == mHangarAutomation & VerboseOutput & fDocked) printf("Repair & Refuel Sequence Activated...\x0a");
 				APSeqLong=!APSeqLong; } }
 		if(!Joystick[S4] & !Joystick[H4P]) {
 			if(APSeqShort) {																	// [Short: Short Signal Light Sequence (default)]

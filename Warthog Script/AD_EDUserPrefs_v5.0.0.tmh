@@ -13,8 +13,8 @@
 	define BlingLEDBling		1						// Enables a Short Flashing LED Sequence when you flip a Toggle & will also enable a short start-up sequence pattern. Bling Bling!
 														// 	Options:	Enable = 1 (default)						Disable = 0
 
-														// Local Path to the status.json file on your PC.
-	alias StatusFile			= "Z:\\Personal Files\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";	// Set value in User Prefs. Location example: "C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
+														// Local Path to the status.json file on your PC. Example: "C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
+	alias StatusFile			= "Z:\\Personal Files\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
 
 
 		// CORE HARDWARE //

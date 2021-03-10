@@ -107,8 +107,8 @@
 	initJoystickAxis();																		// Initiate HOTAS Axis Mappings
 	initThrottleAxis();
 
-	if(UseMFD > 0)			  initRightMFD();												// Initiate the First MFD Only		(Initialise via MAP MFD CONTROLS section below) *UNTESTED*
-	if(UseMFD > 1)			  initLeftMFD();												// Initiate the First+Second MFD	(Initialise via MAP MFD CONTROLS section below) *UNTESTED*
+	if(UseMFD > 0)			  initRightMFD();												// Initiate the First MFD Only		(Initialise via HARDWARE: MFD CONTROLS section) (See AD_EDHardware.tmh) *UNTESTED*
+	if(UseMFD > 1)			  initLeftMFD();												// Initiate the First+Second MFD	(Initialise via HARDWARE: MFD CONTROLS section) (See AD_EDHardware.tmh) *UNTESTED*
 
 	if(UseRuddersT16000 == 1) initTFRPRudder();												// Enables T.Flight TFRP T16000 Rudder Intialisation.	(Note: T.Flight Rudder Axes are Configured below in EVENT HANDLER)
 	if(UseRuddersTPR == 1)	  initTFRPHARudder();											// Enables T.Flight TPR Pedal Intialisation. 			(Note: T.Flight Rudder Axes are Configured below in EVENT HANDLER)
