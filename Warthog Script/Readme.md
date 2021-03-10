@@ -67,10 +67,17 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 - Will not work on Windows 10 _(See [ED-BAT File](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Startup%20Batch%20Script "ED-BAT Batch File"))_ :(
 
-### VerboseOutput [Values: 1 or 0] ###
-- Changes the script messaging behaviour on keypress actions to determine if it will Print Output to the TARGET Window.
+### DebugOutput [Values: 1 or 0] ###
+- Changes the script messaging behaviour to enable Developer output for troubleshooting coding issues, to 'Print' to the TARGET Window.
 
-- Enabled by default 1, disable by changing value to 0. (Disabling will stop all 'printf' statements from firing)
+- Disabled by default 0, enable by changing value to 1. (Enabling will enable all developer 'printf' statements for debugging code - not needed for regular use)
+
+- Will spam a lot to the TARGET Window! Recommended to leave it off.
+
+### VerboseOutput [Values: 1 or 0] ###
+- Changes the script messaging behaviour on keypress actions to determine if it will 'Print' additional output to the TARGET Window.
+
+- Enabled by default 1, disable by changing value to 0. (Disabling will stop all 'printf' statements)
 
 ### SetLED [Values: 0-255] ###
 - Sets the initial LED Backlight brightness on the Throttle. (default = 172)
@@ -80,6 +87,14 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 - Enabled by default 1, disable by changing value to 0.
 
+### StatusFile [File Path] ###
+- Script reads in real time the State of game variables via the ED 'status.json' file. This improvement means, toggle actions will always align to the live in-game status & no more overrides needed to realign toggles.
+
+- Set your file path, using double backslash. Example: 
+
+  `"C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";`
+
+- Script will not work properly if it does not have access/path to the status.json!
 ` `
 ## -> CORE HARDWARE ##
 ### KBLayout [Values: KB_ENG, KB_GER or KB_FR] ###
