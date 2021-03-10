@@ -242,6 +242,7 @@
 								EXEC("ActKey(KEYON+PULSE+FighterHoldFire);"),				// ID
 								EXEC("ActKey(KEYON+PULSE+FighterFollow);"));				// OD
 
+	// TMS HATSWITCH //
 //	MapKey(&Joystick, H2U, 0); 																						// Target Management Switch (TMS) UP	(Mapped in ED Bindings File)
 //	MapKey(&Joystick, H2D, 0);																						// Target Management Switch (TMS) DOWN	(Mapped in ED Bindings File)
 //	MapKey(&Joystick, H2L, 0); 																						// Target Management Switch (TMS) LEFT	(Mapped in ED Bindings File)
@@ -327,12 +328,12 @@
 									 EXEC("if(!Joystick[S4]) initPIPMapper(WEP,ENG);"								// [Long: 4xWEP 2xENG]
 									 	  "if(Joystick[S4])  ActKey(KEYON+PULSE+GalNetAudioNext);"),				// [Long+Pinky:  GalNet Audio Next Track]
 									 				 	  										PIPPressDelay), PIPPressDelay)); }
-
-//			MapKey(&Joystick, H4U, 0); 																				// Countermeasures Management Switch (CMS) UP	 (Mapped in ED Bindings File)
-//			MapKey(&Joystick, H4D, 0); 																				// Countermeasures Management Switch (CMS) DOWN	 (Mapped in ED Bindings File)
-//			MapKey(&Joystick, H4L, 0); 																				// Countermeasures Management Switch (CMS) LEFT	 (Mapped in ED Bindings File)
-//			MapKey(&Joystick, H4R, 0); 																				// Countermeasures Management Switch (CMS) RIGHT (Mapped in ED Bindings File)
-//			MapKey(&Joystick, H4P, 0); 																				// Countermeasures Management Switch (CMS) PUSH	 (Mapped in ED Bindings File)
+	// CMS HATSWITCH //
+//	MapKey(&Joystick, H4U, 0); 																						// Countermeasures Management Switch (CMS) UP	 (Mapped in ED Bindings File)
+//	MapKey(&Joystick, H4D, 0); 																						// Countermeasures Management Switch (CMS) DOWN	 (Mapped in ED Bindings File)
+//	MapKey(&Joystick, H4L, 0); 																						// Countermeasures Management Switch (CMS) LEFT	 (Mapped in ED Bindings File)
+//	MapKey(&Joystick, H4R, 0); 																						// Countermeasures Management Switch (CMS) RIGHT (Mapped in ED Bindings File)
+//	MapKey(&Joystick, H4P, 0); 																						// Countermeasures Management Switch (CMS) PUSH	 (Mapped in ED Bindings File)
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

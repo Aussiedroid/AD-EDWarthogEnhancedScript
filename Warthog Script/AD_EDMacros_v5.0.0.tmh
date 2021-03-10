@@ -12,7 +12,7 @@
 
 	int initCustomMacroCommands() {
 		
-		if(Docked){			// When Docked //
+		if(Docked){		  // When Docked //
 			mRequestDock = 0; 																	// 	Do nothing when docked.
 			mHangarAutomation = CHAIN(															// MACRO: Auto-Refuel/Repair/Restock while Entering the Hangar of Station/Starport/Fleet Carrier
 				LOCK+PULSE+UILeft,			D(),
@@ -24,7 +24,7 @@
 				PULSE+UIRight,				D(),
 				PULSE+UISelect,				D(1850),											//	(Restock)
 				PULSE+UIDown,				LOCK); }
-		else {			 // When Not Docked //
+		else {			// When Not Docked //
 			mHangarAutomation = 0;																// 	Do nothing when not docked.
 			mRequestDock = CHAIN(																// MACRO: Auto-Docking Request
 				LOCK+PULSE+TargetPanel, 	D(250),
@@ -37,7 +37,7 @@
 				PULSE+UIPrevPanel,			D(),
 				PULSE+UIBack,				LOCK); } 
 
-						 // Anytime //
+					 // Anytime //
 		mShowGameStats = CHAIN(																	// MACRO: Display the combined OSD FPS & Bandwidth meters
 			PULSE+ShowFramerate,		D(150),
 			PULSE+ShowConnectionStatus);

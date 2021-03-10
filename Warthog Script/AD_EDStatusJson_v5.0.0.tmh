@@ -88,7 +88,7 @@
 		Dim(&keyvalue, 16);													// arbitrary size. Currently Flags integer value does not exceed 11 digits
 		keyvalue[0] = 0;
 
-			// FLAG VALUE MASKS //
+		// FLAG VALUE MASKS //
 		int ED_Docked				=	0x0000000000000001;
 		int ED_Landed				=	0x0000000000000002;
 		int ED_LandingGearDown		=	0x0000000000000004;
@@ -182,7 +182,7 @@
 			fSupercruise		= ((Flags & ED_Supercruise) > 0);
 
 			if(DebugOutput) {
-				printf("\x0a\ Active Flags");									//    Print any Flags which are set to 1
+				printf("\x0a\ Active Flags");									// Print any Flags which are set to 1
 				printf("\x0a===============\x0a");
 				if (fAltFromAvgRad)			printf("Radius-ALT\x0a");
 				if (fCargoScoop)			printf("Cargo Scoop Deployed\x0a");
