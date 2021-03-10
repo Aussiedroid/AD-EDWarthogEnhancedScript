@@ -11,7 +11,7 @@
 	char myJson;								 							// Char array to store status.json
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FLAG VARIABLES   //														Refer to Section 13 in latest Journal Docs for more info - http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
+// FLAG VARIABLES   //														Refer to Section 13 in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int fAltFromAvgRad;														// Use these after calling fnProcessFlags() in your functions.
@@ -52,7 +52,7 @@
 // STATUS 'READ/PROCESS' FUNCTIONS	//										Requires:	'StatusFile' alias must be set correctly in User Prefs
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int fnReadStatusJson() {												// FUNCTION:	Read status.json into 'myJson'
+	int fnReadStatusJson() {												// FUNCTION: Read status.json into 'myJson'
 
 		int	fp;																// General purpose file handle
 		int	buf = 512;														// Buffer variable. status.json can get lengthy, so assign a buffer of at least 512
@@ -65,11 +65,11 @@
 			myResult = fread(&myJson, 1, buf, fp);							// ...read the entire file into our character array (myJson)...
 			fclose(fp);														// ... and close the file
 			if (myResult == 0) {											// 'myResult' should contain the number of characters read...
-				if(VerboseOutput) { printf("FILE READ ERROR: Status.json\x0a");	} }	 // ...so, if we read zero, we had an issue
+				if(VerboseOutput) { printf("FILE READ ERROR: Status.json\x0a");	} }	 // ...so, if we read zero, we had an issue!
 			else {
-				strdel(&myJson, myResult-1, buf); } }						// If no issues with read, remove any trailing garbage
+				strdel(&myJson, myResult-1, buf); } }								 // If no issues with read, remove any trailing garbage
 		else {
-			if(VerboseOutput) { printf("FILE ACCESS ERROR: Status.json\x0a"); } } }	 // File not found OR locked by Elite Dangerous
+			if(VerboseOutput) { printf("FILE ACCESS ERROR: Status.json\x0a"); } } }	 // File not found OR locked by Elite Dangerous!
 
 
 
@@ -88,7 +88,7 @@
 		Dim(&keyvalue, 16);													// arbitrary size. Currently Flags integer value does not exceed 11 digits
 		keyvalue[0] = 0;
 
-		// FLAG VALUE MASKS //
+		// FLAG VALUE MASKS //												// See around page 80 in the Player Journal documentation.
 		int ED_Docked				=	0x0000000000000001;
 		int ED_Landed				=	0x0000000000000002;
 		int ED_LandingGearDown		=	0x0000000000000004;

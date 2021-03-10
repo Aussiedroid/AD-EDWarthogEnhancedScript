@@ -58,9 +58,20 @@
 //	define SRVRecallDismissShip					L_ALT+USB[0x1B]			// ALT+X <Disabled>
 
 
-		// FIRST PERSON CONTROLS //
-				//TBC//
-	
+		// FIRST PERSON CONTROLS //				//TBC//
+//	define FPSForward							
+//	define FPSBack
+//	define FPSLeftTurn
+//	define FPSRightTurn	
+//	define FPSStrafeLeft						
+//	define FPSStrafeRight
+//	define FPSSelect
+//	define FPSJump
+//	define FPSJetpack	
+//	define FPSPrimaryFire						
+//	define FPSSecondaryFire						
+//	define FPSUtilityFire
+//	define FPS 
 	
 	
 
