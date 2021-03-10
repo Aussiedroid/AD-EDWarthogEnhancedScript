@@ -50,7 +50,9 @@ Some of the highlighted advanced features available that are not found in the de
 - __Frame Shift Drive & Super Cruise engage on Throttle @ 100%__. Millennium Falcon style! _(Enabled only with Modifier to ensure full control)_
     
 - FA OFF like a boss!, with __automatic sensitivity adjustment__ mod in toggle mode.
-    
+
+- __Real-time Status Tracking using ED Log file (status.json)__, ensuring your HOTAS is always synced to the game state. Includes all major functions!
+   
 - __Safety Rating A++__, Improved Safety Features, including limiting access to Ship Boost based on presets or __IDLE lock__, additional combination required for Jettison All Cargo to prevent mishaps & disabling Throttle when IDLE is enabled. Nothing critical to the ship can be accidentally pressed.
     
 - __Defensive Pattern Delta__: An advanced withdraw tactic from combat that will retract your hardpoints, set PIPs to defensive & attempt to Supercruise/High Wake out.
