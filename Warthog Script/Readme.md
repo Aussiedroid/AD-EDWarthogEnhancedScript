@@ -40,7 +40,7 @@ Although it is not practical to have everything as a user preference, for key fe
 
 In the following sections below, I will explain what each setting does & what options there are to configure plus cover off a few other setting you may wish to change to integrate your external software/hardware & localise for your keyboard layout.
 
-___How to Use:__ Loading the script into Target Script Editor, you can access the User Preference section in the AD_EDUserPrefs_v4.x.x.tmh file. Once open you will see a screen similar to the example below. The area highlighed in Red is where you make changes:_
+___How to Use:__ Loading the script into Target Script Editor, you can access the User Preference section in the AD_EDUserPrefs_v5.x.x.tmh file. Once open you will see a screen similar to the example below. The area highlighed in Red is where you make changes:_
 
 ![User Prefs](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/User-Prefs.png "Example of User Preferences")
 
@@ -63,7 +63,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 ### StartSoftware [Values: 1 or 0] ###
 - Allows the script to load other programs when it runs. This can include the Game Launcher for those not running through Steam, Voice Attack, TrackIR etc. Also, Elite Dangerous Community offers some great 3rd Party Tools to enhance your experience such as Elite Dangerous Market Connector, EDDI, EDFX & EDDiscovery. 
 
-- Application paths & your own software selection can be configured in the AD_ED_v4.x.x.tmc file under START-UP: SOFTWARE section. By default these are commented out '//'. Remove the '//' at the start of the line to enable. Ensure the path written matches your install location.
+- Application paths & your own software selection can be configured in the AD_ED_v5.x.x.tmc file under START-UP: SOFTWARE section. By default these are commented out '//'. Remove the '//' at the start of the line to enable. Ensure the path written matches your install location.
 
 - Will not work on Windows 10 _(See [ED-BAT File](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Startup%20Batch%20Script "ED-BAT Batch File"))_ :(
 
@@ -106,7 +106,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 ### UseMFD [Values: 2, 1 or 0] ###
 - [Thrustmaster MFD Cougar Panels](http://www.thrustmaster.com/en_US/products/mfd-cougar-pack "Official MFD Cougar Control Panels Website") are multifunctional, customisable panels for use in Cockpits. The script supports up to 2 devices being connected. Select value 2 for both Right & Left panels or 1 for only the Right panel. If you do not use these panels leave the value as 0.
 
-- The base code for these panels has been added to the AD_ED_v4.x.x.tmc file, but remain UNMAPPED by default (unfortunately I do not own these to test out). To enable, copy the KeyMap code you wish to use to the Right or Left button mapping & remove the '//' at the start of line.
+- The base code for these panels has been added to the AD_ED_v5.x.x.tmc file, but remain UNMAPPED by default (unfortunately I do not own these to test out). To enable, copy the KeyMap code you wish to use to the Right or Left button mapping & remove the '//' at the start of line.
 
 ### UseRuddersT16000 + UseRuddersTPR [Value 1 or 0] ###
 - This value should not require modification from 1 in most use cases. Even if you do not use [TM TFRP/T16000 Rudder Pedals](http://www.thrustmaster.com/en_US/products/tflight-rudder-pedals "Official T.Flight TFRP Rudder Website") or [TM Pendular Rudder Pedals](http://www.thrustmaster.com/en_US/products/tpr-thrustmaster-pendular-rudder "Official Pendular Rudder Website"), the code will not fire unless they are plugged in. 
