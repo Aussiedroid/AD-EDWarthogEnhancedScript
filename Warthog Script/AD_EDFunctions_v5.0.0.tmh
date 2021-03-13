@@ -2,14 +2,14 @@
 // FUNCTIONS: TOC	//							// FUNCTIONS Include logic to customise specific Button/Toggle functionality									//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	[1. FIRE/HARDPOINT CONTROLS			]		[3. SPECIALISED FEATURES				]	[4. TOGGLE CONTROLS					]	[5. REPORT STATES		  ] //
-//		- initHardpointManagement	(11)			- initLEDController				(111)		- initEnhancedFAOFF			(222)		- initPrintState (555)	//
-//		- initSetCombinedFire		(11)			- initNightVisionEnhancer		(111)		- initToggleRotationCorrect.(222)								//
-//		- initExplorerScannerDiseng.(11)			- initAPEngageEnhancer			(111)		- initToggleSilentRunning	(222)								//
-//													- initIDLEMaster				(111)		- initToggleCargoScoop		(222)								//
-//													- initUserHotSlotPinkyTrigger	(111)		- initCargoReturnMode		(222)								//
-//	[2. PIP & TEXT CHAT CONTROLS		]			- initHeadlookModeSelect		(111)		- initToggleLandingGear		(222)								//
-//		- initPIPMapper				(11)														- initToggleShipLights		(222)								//
-//		- initSendChatString		(11)														- initMicCommander			(222)								//
+//		- initHardpointManagement	(p11)			- initLEDController				(p111)		- initEnhancedFAOFF			(p222)		- initPrintState (p555)	//
+//		- initSetCombinedFire		(p11)			- initNightVisionEnhancer		(p111)		- initToggleRotationCorrect.(p222)								//
+//		- initExplorerScannerDiseng.(p11)			- initAPEngageEnhancer			(p111)		- initToggleSilentRunning	(p222)								//
+//													- initIDLEMaster				(p111)		- initToggleCargoScoop		(p222)								//
+//													- initUserHotSlotPinkyTrigger	(p111)		- initCargoReturnMode		(p222)								//
+//	[2. PIP & TEXT CHAT CONTROLS		]			- initHeadlookModeSelect		(p111)		- initToggleLandingGear		(p222)								//
+//		- initPIPMapper				(p11)														- initToggleShipLights		(p222)								//
+//		- initSendChatString		(p11)														- initMicCommander			(p222)								//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //

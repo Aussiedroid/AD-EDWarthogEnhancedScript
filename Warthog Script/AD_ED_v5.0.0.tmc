@@ -4,10 +4,10 @@
 //													///  Aussiedroid's Enhanced Warthog Script  \\\																//
 //==============================================================================================================================================================//
 // TOC:/					[1. INITIALISATION / STARTUP  ]		[2. HOTAS CONTROL MAPPING	 ]		[3. HARDWARE HANDLER		  ]								//
-//-----							- INCLUDED FILES	  (p13)			- JOYSTICK 			(p132)			- EVENT HANDLE	 (p232)									//
-//								- DEVICE CHECK		  (p26)			- THROTTLE ARM 		(p132)																	//
-//								- START SOFTWARE	  (p43)			- THROTTLE BASE		(p132)																	//
-//								- CORE SETTINGS		  (p59)					        																			//
+//-----							- INCLUDED FILES	  (13)			- JOYSTICK 			(136)			- EVENT HANDLE	 (487)									//
+//								- DEVICE CHECK		  (26)			- THROTTLE ARM 		(322)																	//
+//								- START SOFTWARE	  (43)			- THROTTLE BASE		(399)																	//
+//								- CORE SETTINGS		  (59)					        																			//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // INCLUDED FILES //
@@ -188,7 +188,7 @@
 		MapKey(&Joystick,  S3,	TEMPO(PULSE+PinkyBtnDefaultShort, PULSE+PinkyBtnDefaultLong, LongPressDelay)); }	// Pinky Button			[USER DEFINED] [Short/Long: Set in User Preference]
 
 
-	// DOUBLE-TAP PINKY TRIGGER //	
+	// DOUBLE-TAP PINKY TRIGGER //
 	MapKey(&Joystick,  S4,		EXEC("initUserHotSlotPinkyTrigger();")); 											// Trigger 3 [Pinky Trigger] [Modifier Key]	[DO NOT REMAP!]
 	MapKeyR(&Joystick, S4,		UP+PinkyTriggerDefault);															// Release Pinky Trigger [Modifier Key] (Disable with // if using the line below)
 //	MapKeyR(&Joystick, S4,		UP+UserDTPinkyKeyBind);																// Release ALT (enable by removing the //, if Double Tap Pinky Trigger mapping needs a 'Hold' action)

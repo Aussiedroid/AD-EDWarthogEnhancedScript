@@ -67,14 +67,13 @@
 		Flags = ieval(&keyvalue);											// Convert string to integer when we finished the loop
 		if(DebugOutput) printf("Flags Integer    =    %d\x0a", Flags);		// print the Flags integer value to the console
 																			// TARGET uses 32 bit signed precision for its integers. Flags values larger than 2147483648 wrap around to negative number and means that bit 31 (fSRVHiBeam) is set.																		
-		if (Flags == 0) {		
-			if(GameLoaded == 1) {											// Detects when Game halts
-				//GameLoaded = 0;
-				if (VerboseOutput & ReadErrorCount > 5) { printf("FILE READ ERROR: Count Exceeded...\x0a"); }
-				// <- SHUTDOWN LED DIM SEQUENCE
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, 0));
-				if(VerboseOutput & ReadErrorCount < 5) printf("EXITING Elite Dangerous .. Auto Script Shutdown Initiated .. Bye!");
-				Abort(); } }												// EXIT: Force Stop of Script.
+		if (Flags == 0 & GameLoaded == 1) {									// Detects when Game halts	
+			
+			// <- SHUTDOWN LED DIM SEQUENCE
+			if(TurnOffLEDSOnExit) ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, 0));
+			if(VerboseOutput & ReadErrorCount > 3) printf("FILE READ ERROR: Count Exceeded...\x0a");
+			if(VerboseOutput & ReadErrorCount < 3) printf("EXITING Elite Dangerous .. Auto Script Shutdown Initiated .. Bye!");
+			if(AbortScriptOnExit) Abort(); }								// EXIT: Force Stop of Script.
 																
 		if (Flags != 0) {													// If Flags == 0, it means the game has not started yet...
 			if(GameLoaded == 0) GameLoaded = 1;								// Game started...as opposed to re-started.			
