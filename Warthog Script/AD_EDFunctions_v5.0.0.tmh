@@ -1,16 +1,15 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FUNCTIONS: TOC	//							// FUNCTIONS Include logic to customise specific Button/Toggle functionality									//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	[1. FIRE/HARDPOINT CONTROLS			]		[3. SPECIALISED FEATURES				]	[4. TOGGLE CONTROLS					]	[5. REPORT STATES		  ] //
-//		- initHardpointManagement	(p11)			- initLEDController				(p111)		- initEnhancedFAOFF			(p222)		- initPrintState (p555)	//
-//		- initSetCombinedFire		(p11)			- initNightVisionEnhancer		(p111)		- initToggleRotationCorrect.(p222)								//
-//		- initExplorerScannerDiseng.(p11)			- initAPEngageEnhancer			(p111)		- initToggleSilentRunning	(p222)								//
+//		[1. FIRE/HARDPOINT CONTROLS			]	[3. SPECIALISED FEATURES				]	[4. TOGGLE CONTROLS					]	[5. REPORT STATES		  ] //
+//			- initHardpointManagement	(p11)		- initLEDController				(p111)		- initEnhancedFAOFF			(p222)		- initPrintState (p555)	//
+//			- initSetCombinedFire		(p11)		- initNightVisionEnhancer		(p111)		- initToggleRotationCorrect.(p222)								//
+//			- initExplorerScannerDiseng.(p11)		- initAPEngageEnhancer			(p111)		- initToggleSilentRunning	(p222)								//
 //													- initIDLEMaster				(p111)		- initToggleCargoScoop		(p222)								//
 //													- initUserHotSlotPinkyTrigger	(p111)		- initCargoReturnMode		(p222)								//
-//	[2. PIP & TEXT CHAT CONTROLS		]			- initHeadlookModeSelect		(p111)		- initToggleLandingGear		(p222)								//
-//		- initPIPMapper				(p11)														- initToggleShipLights		(p222)								//
-//		- initSendChatString		(p11)														- initMicCommander			(p222)								//
-//																																								//
+//		[2. PIP & TEXT CHAT CONTROLS		]		- initHeadlookModeSelect		(p111)		- initToggleLandingGear		(p222)								//
+//			- initPIPMapper				(p11)													- initToggleShipLights		(p222)								//
+//			- initSendChatString		(p11)													- initMicCommander			(p222)								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

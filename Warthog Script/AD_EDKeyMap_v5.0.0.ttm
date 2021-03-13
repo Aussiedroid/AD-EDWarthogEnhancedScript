@@ -6,8 +6,7 @@
 //					- TARGET CONTROL	(26)		- COOLING/C.MEASURES (132)		- FIGHTERS		(232)		- CAMERA SUITE		(999)						//
 //					- FLIGHT CONTROL	(43)		- THROTTLE BASE		 (132)		- MULTICREW		(232)		- HEADLOOK	 		(343)						//
 //					- SRV CONTROL		(59)		- SCANNERS			 (434)		- HOLO-ME		(111)      	- STORE PAGE & MISC (555)						//
-//					- FIRST PERSON CTRL	(44)		- UI NAVIGATION		 (333)		- PLAYLIST		(232)		- EXTERNAL BINDINGS (654)						//
-//																																			+ DX MAPPINGS (292)	//
+//					- FIRST PERSON CTRL	(44)		- UI NAVIGATION		 (333)		- PLAYLIST		(232)		- EXTERNAL BINDINGS (654)	+ DX MAPPINGS (292)	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 		// WEAPON CONTROL //

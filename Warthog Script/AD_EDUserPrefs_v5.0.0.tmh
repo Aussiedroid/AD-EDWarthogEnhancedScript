@@ -37,7 +37,7 @@
 	define BlingLEDBling		1						// Enables a Short Flashing LED Sequence when you flip a Toggle & will also enable a short start-up sequence pattern. Bling Bling!
 														// 	Options:	Enable = 1 (default)						Disable = 0
 
-	alias StatusFile			= "Z:\\Personal Files\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
+	alias  StatusFile			= "Z:\\Personal Files\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
 														// Local Path to the status.json file on your PC. Default Path: "C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
 
 		// SHUT-DOWN //
@@ -179,7 +179,7 @@
 	define chat_ClearChatBox	"/clear"				// (DO NOT modify!)							// Clears the Comms Panel of all previous text chats. 
 
 
-		// DEVELOPER //
+		// DEVELOPER OPTIONS //
 	define DebugOutput			0						// Enables Developer Output to the TARGET Window for troubleshooting coding issues (Will Spam! Leave Disabled = 0)
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
