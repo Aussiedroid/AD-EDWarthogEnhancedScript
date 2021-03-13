@@ -1,15 +1,15 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// DEFAULT SETTINGS //									// ** YOU SHOULD NOT NEED TO CHANGE THE DEFAULTS STORED IN THIS FILE **
+// GLOBAL SETTINGS //									// ** YOU SHOULD NOT NEED TO CHANGE THE DEFAULTS STORED IN THIS FILE **
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	define ADVersionMajor 		5						// Script Version Major Value			ie. 3.x.x
 	define ADVersionMinor 		0						// Script Version Minor Value			ie. x.4.x
 	define ADVersionPoint		0						// Script Version Point Update			ie. x.x.5
 
-	define SYS					1						// Used in initPIPMapper() for managing System  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
-	define ENG					2						// Used in initPIPMapper() for managing Engine  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
-	define WEP					3						// Used in initPIPMapper() for managing Weapon  PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
-	define MID					4						// Used in initPIPMapper() for managing Balance PIPs (see AD_EDFunctions_v4.x.x.tmh) (DO NOT MODIFY!)
+	define SYS					1						// Used in initPIPMapper() for managing System  PIPs (see AD_EDFunctions_v5.x.x.tmh) (DO NOT MODIFY!)
+	define ENG					2						// Used in initPIPMapper() for managing Engine  PIPs (see AD_EDFunctions_v5.x.x.tmh) (DO NOT MODIFY!)
+	define WEP					3						// Used in initPIPMapper() for managing Weapon  PIPs (see AD_EDFunctions_v5.x.x.tmh) (DO NOT MODIFY!)
+	define MID					4						// Used in initPIPMapper() for managing Balance PIPs (see AD_EDFunctions_v5.x.x.tmh) (DO NOT MODIFY!)
 
 	int    profile =			1					   ;// Set initial joystick profile global variable for joystick curves	(Options: 0, 1, 2)	(default = 1)
 	char   ca_pulseChar[] =	   "0"					   ;// Used in Auto-Text Chat Presets		(DO NOT modify!)
@@ -33,15 +33,18 @@
 	define MineTimer			6200					// Set the Delay Timer for Mining Pulse Wave Scanner to auto-disengage	(default = 6200ms)
 
 	define ChatKeyRepeatTime	70						// Auto-Text Chat Preset time	(ms)									(default = 70ms)
+	define StatusReadRate		750						// Looping rate of the fnProcessFlags() function to read latest status.json status updates. (default = 750ms)
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // DEFAULT STATES    		(1 = Yes, 0 = No) //		// VARIABLE DESCRIPTION & USAGE
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-														//  NOTE: If your switches aren't set to match, then you may need to use a toggle override, or have to do an extra key toggle/key press to "catch up"
+														//  NOTE: If your switches aren't set to match, then you may need to use the toggle to reset, or have to do an extra key toggle/key press to "catch up"
 
 	int AxisCurveMod;									// Initiates variable to be used for custom axis curve preset on Throttle.		(used in initSetThrottleCurves())
 	int StartupLock			  = 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes)
+	int GameLoaded			  = 0;						// ???
+	int ReadErrorCount		  = 0;						// ???
 	int RCorrection 		  = 1;						// Rotational Correction ON		(Press 'F4' to align as required in-game) 		(used in initToggleRotationCorrection())
 	int Lights 				  = 0;						// Ship Lights OFF				(Press 'INSERT' to align if SRV takes out of alignment) (used in initToggleShipLights())
 	int AltFlightToggle		  = 0;						// Tracks Alternative Flight Controls Toggle Status OFF	(used in initEnhancedFAOFF())
@@ -57,11 +60,95 @@
 	int MicExtToggleCheck	  = 0;						// Tracks state of Toggle Microphone action				(used in initMicCommander())
 	int MicExtToggleCheckALT  = 0;						// Tracks state of Alt. Toggle Microphone action		(used in initMicCommander())
 	int MicExtToggleCombo	  = 0;						// Tracks state of Toggle Microphone Combo action		(used in initMicCommander())
+	int CoolRunnings 		  = 0;						// Tracks state of Silent Running + Heat Sink Combo		(used in initToggleSilentRunning())
 	int DoubleTapPT			  = 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
-	int ReportCrimeState	  = 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v4.x.x.tmc)
-	int ShowGameStatState	  = 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v4.x.x.tmc)
-	int EndlessStatePri		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Pri(used in AD_ED_v4.x.x.tmc)
-	int EndlessStateSec		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Sec(used in AD_ED_v4.x.x.tmc)
+	int ReportCrimeState	  = 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v5.x.x.tmc)
+	int ShowGameStatState	  = 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v5.x.x.tmc)
+	int EndlessStatePri		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Pri(used in AD_ED_v5.x.x.tmc)
+	int EndlessStateSec		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Sec(used in AD_ED_v5.x.x.tmc)
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// FLAG VARIABLES   //	(Used in AD_EDStatusJson.tmh)	   Refer to Section 13 (page 80) in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int fAltFromAvgRad		  = 0;						// Use these after calling fnProcessFlags() in your functions.
+	int fCargoScoop			  = 0;
+	int fDanger				  = 0;
+	int fDocked				  = 0;
+	int fFAOff				  = 0;
+	int fFighter			  = 0;
+	int fFSDCharging		  = 0;
+	int fFSDCooldown		  = 0;
+	int fFuelScoop			  = 0;
+	int fHardpoints			  = 0;
+	int fHUDAnalysis		  = 0;
+	int fInterdicted		  = 0;
+	int fInWing				  = 0;
+	int fLanded				  = 0;
+	int fLandingGear		  = 0;
+	int fLatLong			  = 0;
+	int fLights				  = 0;
+	int fLowFuel			  = 0;
+	int fMainShip			  = 0;
+	int fMassLocked			  = 0;
+	int fNightVision		  = 0;
+	int fOverHeating		  = 0;
+	int fsdJump				  = 0;
+	int fSilentRunning		  = 0;
+	int fShieldsUp			  = 0;
+	int fSRV				  = 0;
+	int fSRVDriveAssist		  = 0;
+	int fSRVHandbrake		  = 0;
+	int fSRVHiBeam			  = 0;
+	int fSRVTurretRetracted	  = 0;
+	int fSRVTurretView		  = 0;
+	int fSupercruise		  = 0;
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// FLAG VALUE MASKS //		(Used in AD_EDStatusJson.tmh)										// See around page 80 in the Player Journal documentation.
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int ED_Docked				=	0x0000000000000001;
+	int ED_Landed				=	0x0000000000000002;
+	int ED_LandingGearDown		=	0x0000000000000004;
+	int ED_ShieldsUp			=	0x0000000000000008;
+
+	int ED_Supercruise			=	0x0000000000000010;
+	int ED_FlightAssistOff		=	0x0000000000000020;
+	int ED_HardpointsDeployed	=	0x0000000000000040;
+	int ED_InWing				=	0x0000000000000080;
+
+	int ED_LightsOn				=	0x0000000000000100;
+	int ED_CargoScoopDeployed	=	0x0000000000000200;
+	int ED_SilentRunning		=	0x0000000000000400;
+	int ED_ScoopingFuel			=	0x0000000000000800;
+
+	int ED_SRVHandbrake			=	0x0000000000001000;
+	int ED_SRVTurret			=	0x0000000000002000;
+	int ED_SRVTurretRetracted	=	0x0000000000004000;
+	int ED_SRVDriveAssist		=	0x0000000000008000;
+
+	int ED_FSDMassLocked		=	0x0000000000010000;
+	int ED_FSDCharging			=	0x0000000000020000;
+	int ED_FSDCooldown			=	0x0000000000040000;
+	int ED_LowFuel				=	0x0000000000080000;
+
+	int ED_OverHeating			=	0x0000000000100000;
+	int ED_HasLatLong			=	0x0000000000200000;
+	int ED_IsInDanger			=	0x0000000000400000;
+	int ED_BeingInterdicted		=	0x0000000000800000;
+
+	int ED_InMainShip			=	0x0000000001000000;
+	int ED_InFighter			=	0x0000000002000000;
+	int ED_InSRV				=	0x0000000004000000;
+	int ED_HudInAnalysisMode	=	0x0000000008000000;
+
+	int ED_NightVision			=	0x0000000010000000;
+	int ED_AltFromAvgRad		=	0x0000000020000000;
+	int ED_FSDJump				=	0x0000000040000000;
+	int ED_SRVHiBeam			=	0x0000000080000000;
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

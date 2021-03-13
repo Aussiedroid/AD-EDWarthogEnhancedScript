@@ -38,7 +38,7 @@
 	define BlingLEDBling		1						// Enables a Short Flashing LED Sequence when you flip a Toggle & will also enable a short start-up sequence pattern. Bling Bling!
 														// 	Options:	Enable = 1 (default)						Disable = 0
 
-														// Local Path to the status.json file on your PC. Example: "C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
+														// Local Path to the status.json file on your PC. Default Path: "C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
 	alias StatusFile			= "Z:\\Personal Files\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
 
 
@@ -199,7 +199,7 @@
 // =============================================================================================================================================================//
 // VERSION HISTORY //			Version 5.0.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
 // =============================================================================================================================================================//
-// v5.0 - WIP...Moved MFD Code to Hardware.tmh. ADD: PIP auto-set to ENG/WEP on Silent Running HS Combo.
+// v5.0 - WIP...Moved MFD Code to Hardware.tmh. ADD: PIP auto-set to ENG/WEP on Silent Running HS Combo.  Changed LG to Pinky override.
 // v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision .. Cargo Scoop UNTESTED!		 //
 // v5.0 - FIXED: Handbrake changing HUD mode when activated on Pinky Trigger, now mapped to China Hat back. FIXED: UserPIPPref 3 Med/Long Press swapped WEP/ENG.//
 // v4.3 - NEW: Hangar Automation Macro added! Mapped In-game Store Page. Set custom deadzone on Slew on Throttle. FIXED: Joystick 'JS_DEADZONE' not working. 	//

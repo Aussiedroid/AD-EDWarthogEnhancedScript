@@ -1,8 +1,6 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// STATUS.JSON PARSER: DETERMINE THE REAL-TIME STATUS OF IN-GAME COMMANDS VIA THE ED LOG FILE.								Original Author: CMDR Clicker		//
+// STATUS.JSON PARSER: Determine the Real-time Status of In-game Commands, via the ED Log file.								Original Author: CMDR Clicker		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// Possible? - Check game is running, set LED to off on exit, 
-// Abort(); -> Kill script
 //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // GLOBAL VARIABLES	//
@@ -11,45 +9,7 @@
 	char myJson;								 							// Char array to store status.json
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FLAG VARIABLES   //														Refer to Section 13 in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	int fAltFromAvgRad;														// Use these after calling fnProcessFlags() in your functions.
-	int fCargoScoop;
-	int fDanger;
-	int fDocked;
-	int fFAOff;
-	int fFighter;
-	int fFSDCharging;
-	int fFSDCooldown;
-	int fFuelScoop;
-	int fHardpoints;
-	int fHUDAnalysis;
-	int fInterdicted;
-	int fInWing;
-	int fLanded;
-	int fLandingGear;
-	int fLatLong;
-	int fLights;
-	int fLowFuel;
-	int fMainShip;
-	int fMassLocked;
-	int fNightVision;
-	int fOverHeating;
-	int fsdJump;
-	int fSilentRunning;
-	int fShieldsUp;
-	int fSRV;
-	int fSRVDriveAssist;
-	int fSRVHandbrake;
-	int fSRVHiBeam;
-	int fSRVTurretRetracted;
-	int fSRVTurretView;
-	int fSupercruise;
-
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// STATUS 'READ/PROCESS' FUNCTIONS	//										Requires:	'StatusFile' alias must be set correctly in User Prefs
+// STATUS 'READ/PROCESS' FUNCTIONS	//										Requires:	'StatusFile' alias must be set correctly in AD_EDUserPrefs.tmh
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int fnReadStatusJson() {												// FUNCTION: Read status.json into 'myJson'
@@ -64,12 +24,15 @@
 		if (fp) {															// If we succeed in opening...
 			myResult = fread(&myJson, 1, buf, fp);							// ...read the entire file into our character array (myJson)...
 			fclose(fp);														// ... and close the file
-			if (myResult == 0) {											// 'myResult' should contain the number of characters read...
-				if(VerboseOutput) { printf("FILE READ ERROR: Status.json\x0a");	} }	 // ...so, if we read zero, we had an issue!
+			if (myResult == 0) 	{										// 'myResult' should contain the number of characters read...
+				ReadErrorCount = ReadErrorCount + 1;
+				if(VerboseOutput) printf("WARNING READ ERROR #%d: Status.json\x0a", ReadErrorCount); } // ...so, if we read zero, we had an issue!
 			else {
-				strdel(&myJson, myResult-1, buf); } }								 // If no issues with read, remove any trailing garbage
+				ReadErrorCount = 0;
+				strdel(&myJson, myResult-1, buf); } }					// If no issues with read, remove any trailing garbage
 		else {
-			if(VerboseOutput) { printf("FILE ACCESS ERROR: Status.json\x0a"); } } }	 // File not found OR locked by Elite Dangerous!
+			if(VerboseOutput) printf("FATAL ACCESS ERROR: Status.json .. !ABORT!\x0a");						// File not found OR locked by Elite Dangerous!
+								Abort(); } }
 
 
 
@@ -88,47 +51,6 @@
 		Dim(&keyvalue, 16);													// arbitrary size. Currently Flags integer value does not exceed 11 digits
 		keyvalue[0] = 0;
 
-		// FLAG VALUE MASKS //												// See around page 80 in the Player Journal documentation.
-		int ED_Docked				=	0x0000000000000001;
-		int ED_Landed				=	0x0000000000000002;
-		int ED_LandingGearDown		=	0x0000000000000004;
-		int ED_ShieldsUp			=	0x0000000000000008;
-
-		int ED_Supercruise			=	0x0000000000000010;
-		int ED_FlightAssistOff		=	0x0000000000000020;
-		int ED_HardpointsDeployed	=	0x0000000000000040;
-		int ED_InWing				=	0x0000000000000080;
-
-		int ED_LightsOn				=	0x0000000000000100;
-		int ED_CargoScoopDeployed	=	0x0000000000000200;
-		int ED_SilentRunning		=	0x0000000000000400;
-		int ED_ScoopingFuel			=	0x0000000000000800;
-
-		int ED_SRVHandbrake			=	0x0000000000001000;
-		int ED_SRVTurret			=	0x0000000000002000;
-		int ED_SRVTurretRetracted	=	0x0000000000004000;
-		int ED_SRVDriveAssist		=	0x0000000000008000;
-
-		int ED_FSDMassLocked		=	0x0000000000010000;
-		int ED_FSDCharging			=	0x0000000000020000;
-		int ED_FSDCooldown			=	0x0000000000040000;
-		int ED_LowFuel				=	0x0000000000080000;
-
-		int ED_OverHeating			=	0x0000000000100000;
-		int ED_HasLatLong			=	0x0000000000200000;
-		int ED_IsInDanger			=	0x0000000000400000;
-		int ED_BeingInterdicted		=	0x0000000000800000;
-
-		int ED_InMainShip			=	0x0000000001000000;
-		int ED_InFighter			=	0x0000000002000000;
-		int ED_InSRV				=	0x0000000004000000;
-		int ED_HudInAnalysisMode	=	0x0000000008000000;
-
-		int ED_NightVision			=	0x0000000010000000;
-		int ED_AltFromAvgRad		=	0x0000000020000000;
-		int ED_FSDJump				=	0x0000000040000000;
-		int ED_SRVHiBeam			=	0x0000000080000000;
-
 		fnReadStatusJson();													// Get latest status.json
 		int Start = 64;														// Flags key value always starts at char# 64 in status.json
 																			// Flags key value always ends in a space if zero, else comma character
@@ -143,11 +65,21 @@
 			if (EndValue == 0) strcat(&keyvalue, &thischr);					// Otherwise, update keyvalue...
 			chrpnt = chrpnt + 1; }											// ...Update character pointer, and loop
 		Flags = ieval(&keyvalue);											// Convert string to integer when we finished the loop
-		if(DebugOutput) { printf("Flags Integer    =    %d\x0a", Flags); }	// print the Flags integer value to the console
-																			// TARGET uses 32 bit signed precision for its integers. Flags values larger than 2147483648 wrap around to negative number and means that bit 31 (fSRVHiBeam) is set.
+		if(DebugOutput) printf("Flags Integer    =    %d\x0a", Flags);		// print the Flags integer value to the console
+																			// TARGET uses 32 bit signed precision for its integers. Flags values larger than 2147483648 wrap around to negative number and means that bit 31 (fSRVHiBeam) is set.																		
+		if (Flags == 0) {		
+			if(GameLoaded == 1) {											// Detects when Game halts
+				//GameLoaded = 0;
+				if (VerboseOutput & ReadErrorCount > 5) { printf("FILE READ ERROR: Count Exceeded...\x0a"); }
+				// <- SHUTDOWN LED DIM SEQUENCE
+				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, 0));
+				if(VerboseOutput & ReadErrorCount < 5) printf("EXITING Elite Dangerous .. Auto Script Shutdown Initiated .. Bye!");
+				Abort(); } }												// EXIT: Force Stop of Script.
+																
 		if (Flags != 0) {													// If Flags == 0, it means the game has not started yet...
-			if (Flags < 0) fSRVHiBeam = 1;									// ... otherwise, test for bit 31 first, like so...
-			else fSRVHiBeam = 0;
+			if(GameLoaded == 0) GameLoaded = 1;								// Game started...as opposed to re-started.			
+			if (Flags < 0)		fSRVHiBeam = 1;								// ... otherwise, test for bit 31 first, like so...
+			else 				fSRVHiBeam = 0;
 
 			fAltFromAvgRad		= ((Flags & ED_AltFromAvgRad) > 0);			// ...then assign the rest of the 'Flags' values using 'bitwise and' between Flags and a mask for each variable, like so...
 			fCargoScoop			= ((Flags & ED_CargoScoopDeployed) > 0);
@@ -181,8 +113,13 @@
 			fSRVTurretView		= ((Flags & ED_SRVTurret) > 0);
 			fSupercruise		= ((Flags & ED_Supercruise) > 0);
 
+			if(!fFAOff & !Throttle[SPDF] & !Throttle[SPDB]) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1));	// set LED 1 ON
+			if(!fSilentRunning & !Throttle[APUON]) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));				// set LED 3 OFF
+			if(!fCargoScoop & !Throttle[RDRNRM]) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));				// set LED 4 OFF
+			if(!fLandingGear & !Throttle[EACON]) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));				// set LED 5 OFF
+
 			if(DebugOutput) {
-				printf("\x0a\ Active Flags");									// Print any Flags which are set to 1
+				printf("\x0a\ Active Flags");								// Print any Flags which are set to 1
 				printf("\x0a===============\x0a");
 				if (fAltFromAvgRad)			printf("Radius-ALT\x0a");
 				if (fCargoScoop)			printf("Cargo Scoop Deployed\x0a");
@@ -217,6 +154,29 @@
 				if (fSRVTurretView)			printf("SRV Turret View\x0a");
 				if (fSupercruise)			printf("Supercruise Engaged\x0a");
 				printf("===============\x0a"); } } }
+
+
+	
+	int fnStartCheck() {													// FUNCTION: Initial check to see if game is already running after we've restarted the script.
+		int fp;						// file pointer (handle)
+		int ValidStatusFile = 0;
+		
+		fp = fopen(&StatusFile, "r");
+		
+		if (fp) {
+			fclose(fp);
+			ValidStatusFile = 1;
+			if(DebugOutput) { printf("\FILE LOAD SUCCESS: status.json file set correctly in AD_EDUserPrefs\x0a"); } }
+		else {
+			printf("\x0a\!!! FATAL ERROR !!!\x0a");
+			printf("status.json file not found.\x0a");
+			printf("Please set 'StatusFile' alias correctly in AD_EDUserPrefs file\x0a");
+			printf("Refer AD_EDUserPrefs.tmh file for instructions.\x0a");
+			abort(); }
+		if (ValidStatusFile) {
+			fnReadStatusJson();
+			if(VerboseOutput) printf("Processing Status.json flags...Now running...Done\x0a");
+			ActKey(KEYON+REXEC(3, StatusReadRate, "fnProcessFlags();", RNOSTOP)); } }	// StatusReadRate is set in AD_EDDefaults.tmh
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

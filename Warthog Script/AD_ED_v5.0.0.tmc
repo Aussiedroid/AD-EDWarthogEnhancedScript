@@ -3,11 +3,11 @@
 //==============================================================================================================================================================//
 //													///  Aussiedroid's Enhanced Warthog Script  \\\																//
 //==============================================================================================================================================================//
-// TOC:/					[1. INITIALISATION / STARTUP  ]		[2. HOTAS CONTROL MAPPING	 ]		[3. EVENT HANDLER		  ]									//
-//-----							- INCLUDED FILES	  (13)			- JOYSTICK 			(132)			- EVENT HANDLER	 (232)									//
-//								- DEVICE CHECK		  (26)			- THROTTLE ARM 		(132)																	//
-//								- START SOFTWARE	  (43)			- THROTTLE BASE		(132)																	//
-//								- CORE SETTINGS		  (59)					        																			//
+// TOC:/					[1. INITIALISATION / STARTUP  ]		[2. HOTAS CONTROL MAPPING	 ]		[3. HARDWARE HANDLER		  ]								//
+//-----							- INCLUDED FILES	  (p13)			- JOYSTICK 			(p132)			- EVENT HANDLE	 (p232)									//
+//								- DEVICE CHECK		  (p26)			- THROTTLE ARM 		(p132)																	//
+//								- START SOFTWARE	  (p43)			- THROTTLE BASE		(p132)																	//
+//								- CORE SETTINGS		  (p59)					        																			//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // INCLUDED FILES //
@@ -18,7 +18,7 @@
 	include "AD_EDUserPrefs_v5.0.0.tmh" 								// User Preferences & Script Customisation Options
 	include "AD_EDKeyMap_v5.0.0.ttm" 									// Variable Key Mapping & Reference Tables
 	include "AD_EDHardware_v5.0.0.tmh"									// MFD, Joystick, Throttle & Rudder Axes/Curves Configuration
-	include "AD_EDStatusJson_v5.0.0.tmh"								// ???
+	include "AD_EDStatusJson_v5.0.0.tmh"								// Parse Status.json file to get in-game status
 	include "AD_EDMacros_v5.0.0.tmh"									// Macro Definitions	 (Custom Sequences)
 	include "AD_EDFunctions_v5.0.0.tmh" 								// Function Definitions	 (Custom Logic for Buttons, Toggles & Ship Controls)
 
@@ -40,7 +40,7 @@
 	if(Init(&EventHandle)) return 1;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// START-UP: SOFTWARE //												// *system("spawn -w \"software main folder" \"exe shortcut"");  (*May not work on Win 10* - Use EDBAT instead)
+// START-UP: SOFTWARE //  (*May not work on Win 10* - Use EDBAT instead)	// *system("spawn -w \"software main folder" \"exe shortcut"");  
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	if(StartSoftware == 1) {															// Auto-Load on Script Run (Customise Example Paths below OR Add Your Own)
@@ -69,6 +69,7 @@
 	initCustomMacroCommands();																// Initiate Custom Macros & Functions (See AD_EDMacros.tmh)
 	initEscapeVector();																		// Initiate Advanced Macro to perform a tactical withdraw from combat (Retract Hardpoints, Set Defensive PIPs, Auto Boost/Chaff, Engage Supercruise) (See AD_EDMacros.tmh)
 	initSetThrottleCurves();																// Initiate Mapping of Custom Throttle Curves (3 Presets configurable in AD_EDUserPrefs.tmh)
+	fnStartCheck();
 	initPrintState();																		// Initiate Display Script Settings to Output Window in Script/GUI (See AD_EDFunctions.tmh)
 	initPIPMapper();																		// Initiate PIP Configuration Mapper (See AD_EDFunctions.tmh)
 	initSetCombinedFire(0);																	// Initiate Mapping Logic to enable/disable the Dual-Stage Primary Trigger with either Primary & Secondary Fire Combined OR Primary Fire Only (Nothing mapped to 2nd stage). (See AD_EDFunctions.tmh)
@@ -77,7 +78,7 @@
 	initEnhancedFAOFF();																	// Initiate Toggle Mapping for Flight Assist Off	 (LED Support, Auto-Joystick Curve adjust) (See AD_EDFunctions.tmh)
 	initToggleLandingGear(0);																// Initiate Toggle Mapping for Landing Gear			 (LED Support) (See AD_EDFunctions.tmh)
 	initToggleCargoScoop(0);																// Initiate Toggle Mapping for Cargo Scoop			 (LED Support) (See AD_EDFunctions.tmh)
-	initCargoReturnMode();																	// ???
+	initCargoReturnMode();																	// Initiate Disables Cargo Scoop Throttle Mode		 (LED Support) (See AD_EDFunctions.tmh)
 	initIDLEMaster();																		// Initiate Advanced Function to disable Throttle (& Boost) when engaging Throttle IDLE/Afterburner Lock Indent. Will also enable SRV Handbrake. (See AD_EDFunctions.tmh)
 	initHeadlookModeSelect();																// Initiate Custom mapping preference for Headlook Centering based on your hardware (TrackIR, VR, Mouse) (See AD_EDFunctions.tmh)
 	initHardpointManagement();																// Initiate Advanced Function integrating all Hardpoint/Other functions related to the Red Left Throttle Button (See AD_EDFunctions.tmh)
@@ -86,7 +87,6 @@
 	initLEDController(0);																	// Initiate Short LED Flashing Sequence on Toggle Flip & a Pattern on Startup. (LED Support) (See AD_EDFunctions.tmh)
 	initAPEngageEnhancer();																	// Initiate Autopilot Engage button customisation				   (See AD_EDFunctions.tmh) (includes Auto-Dock & Signal Light Macros)
 	initExplorerScannerDisengage();															// Initiate Repeater Fire Explorer-Scanner Disengage/Off Console Printout
-
 
 
 	// HARDWARE CONFIG //
@@ -131,10 +131,6 @@
 		MapKey(&Throttle, APAH,   0);														// Autopilot ALT/HDG MIDDLE (Default: Not mapped to avoid conflicts)
 		MapKey(&Throttle, APALT,  EXEC("ActKey(KEYON+PULSE+JoystickPresetDWNALT);")); }		// Autopilot ALT DOWN
 
-
-	StartupLock = 0;																		// Startup Pre-checks: "Releases" the Startup Lock post initialising the Macros/Functions/Hardware above.
-
-//	ActKey(KEYON+REXEC(3, 500, 	 "fnReadStatusJson();", RNOSTOP));   						// 3=internal handle...can be anything so long as you've not used elsewhere. 500=milliseconds for the loop
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MAP JOYSTICK CONTROLS //
@@ -482,6 +478,8 @@
 
 	printf("Done... Enhanced ED Script Engineered by Aussiedroid is now running...    Fly Safe CMDR!	       <|>\x0a");
 	printf("-----------------------------------------------------------------------------------------------------------------------------------------------");
+	
+	StartupLock = 0;																								// Startup Pre-checks: "Releases" the Startup Lock post initialising the Macros/Functions/Hardware above.
 } 																													// end main()
 
 

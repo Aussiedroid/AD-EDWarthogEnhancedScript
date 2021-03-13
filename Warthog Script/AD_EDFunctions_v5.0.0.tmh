@@ -151,6 +151,7 @@
 
 																								// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
 	int initAPEngageEnhancer() { 																//	(See AD_EDUserPrefs.tmh for mappings)
+		fnProcessFlags();																		// Get latest Flags Value first
 		if(Joystick[H4P]) {																		//	 Defaults: Include the Autodock, Signal Light Sequences (Flashing ShipLights) & Basic Text Comms.
 			if(APSeqShort) {																	// [Short+CMS: Text "CMDR o7" (default)]
 				ActKey(KEYON+PULSE+APEngageCMSShort);											// Set custom APEngageCMSShort value in the User Preferences
@@ -160,11 +161,16 @@
 				APSeqLong=!APSeqLong; } }
 		if(Joystick[S4]) {
 			if(APSeqShort) {																	// [Short+Pinky: Auto-Dock Request (default)]
-				ActKey(KEYON+PULSE+APEngagePinkyShort);											// Set custom APEngagePinkyShort value in the User Preferences
+				if(mRequestDock & fDocked) {
+					if(VerboseOutput) printf("Cannot Auto-Dock when Docked!"); }
+				else { ActKey(KEYON+PULSE+APEngagePinkyShort);	}										// Set custom APEngagePinkyShort value in the User Preferences
 				if(APEngagePinkyShort == mRequestDock & VerboseOutput & !fDocked) printf("Attempting Auto-Dock Procedure...\x0a");
 				if(APEngagePinkyShort == mHangarAutomation & VerboseOutput & fDocked) printf("Repair & Refuel Sequence Activated...\x0a");
 				APSeqShort=!APSeqShort; }
 			if(APSeqLong) {																		// [Long+Pinky: Auto-Dock Request (default)]
+				if(mHangarAutomation & !fDocked) {
+					if(VerboseOutput) printf("Cannot Repair & Refuel when not Docked!"); }
+				else { ActKey(KEYON+PULSE+APEngagePinkyLong);	}	
 				ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
 				if(APEngagePinkyLong == mRequestDock & VerboseOutput & !fDocked) printf("Attempting Auto-Dock Procedure...\x0a");
 				if(APEngagePinkyLong == mHangarAutomation & VerboseOutput & fDocked) printf("Repair & Refuel Sequence Activated...\x0a");
@@ -183,23 +189,24 @@
 
 	int initIDLEMaster() {																		// FUNCTION: Enforce Throttle IDLE (Stationary) on any Throttle Mode
 		if(!StartupLock) {
+			fnProcessFlags();																		// Get latest Flags Value first
 			if(Throttle[IDLELON]) {
 				if(!Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Full Range Throttle Modes
 					DXAxis(DX_ZROT_AXIS, 0);													// Prevents issues launching from stations etc
 					DXAxis(DX_Z_AXIS, 0);
 					LockAxis(&Throttle, THR_LEFT, 1);											// Lock Axes to keep null value
 					LockAxis(&Throttle, THR_RIGHT, 1);
-					ActKey(KEYON+PULSE+SRVHandbrake); }											// IDLE Doubles as SRV Handbrake ON when on surface
+					if(fSRV) ActKey(KEYON+PULSE+SRVHandbrake); }											// IDLE Doubles as SRV Handbrake ON when on surface
 				if(Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Forward Only Throttle Mode
 					DXAxis(DX_ZROT_AXIS, 32767);
 					DXAxis(DX_Z_AXIS, 32767);
 					LockAxis(&Throttle, THR_LEFT, 1);											// Lock Axes to keep null value
 					LockAxis(&Throttle, THR_RIGHT, 1);
-					ActKey(KEYON+PULSE+SRVHandbrake); }	}										// IDLE Doubles as SRV Handbrake ON when on surface
+					if(fSRV) ActKey(KEYON+PULSE+SRVHandbrake); }	}										// IDLE Doubles as SRV Handbrake ON when on surface
 			if(!Throttle[IDLELON]) {
 				LockAxis(&Throttle, THR_LEFT, 0);												// Unlocks the Throttle Axes when exiting IDLE
 				LockAxis(&Throttle, THR_RIGHT, 0);
-				ActKey(KEYON+PULSE+SRVHandbrake); } } }											// Release the SRV Handbrake
+				if(fSRV) ActKey(KEYON+PULSE+SRVHandbrake); } } }											// Release the SRV Handbrake
 	
 
 
@@ -297,46 +304,54 @@
 
 	int initToggleSilentRunning(int x) {														// TOGGLE: Silent Running   (Argument x .. 1 = Deploy, 0 = Retract)
         fnProcessFlags();																		// Get latest Flags Value first
-        if (!fSupercruise & !fSRV & !fLanded & !fDocked & !StartupLock) {						// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
+        if (!fSupercruise & !fSRV & !fLanded & !fDocked) {						// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
             if (fSilentRunning != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
 				ActKey(KEYON+PULSE+SilentRunning);												// [Toggle Hold]
 				if(Joystick[S4] & Throttle[APUON])  {											// Heat Sink + Silent Running Combo [Pinky+Silent Running]
+					CoolRunnings=!CoolRunnings;
 					ActKey(KEYON+PULSE+EXEC("initPIPMapper(ENG,WEP);"));						// Set PIPs to ENGx4 WEPx2 - Offensive stance - removes from SYS
 					ActKey(KEYON+PULSE+DeployHeatSink);
 					ActKey(KEYON+PULSE+SilentRunning);
-					if(VerboseOutput) printf("Silent Running: COOL RUNNINGS (Heat Sink Combo!)\x0a"); }
+					if(VerboseOutput) printf("Silent Running: COOL RUNNINGS (!Heat Sink Combo!)\x0a"); }
                 if (!fSilentRunning) {    // OPEN ACTIONS //
                 	if(BlingLEDBling) initLEDController(LED3);
 					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3));				// set LED 3 ON
-                	if(VerboseOutput) printf("Silent Running: ACTIVATED   !!\x0a"); }				// Print the action to console...
+                	if(!StartupLock & VerboseOutput) printf("Silent Running: ACTIVATED   !!\x0a"); }				// Print the action to console...
                 else {					 // CLOSE ACTIONS //
                 	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));				// set LED 3 OFF
 					if(BlingLEDBling) initLEDController(LED3);
-                    if(VerboseOutput) printf("Silent Running: DEACTIVATED <<\x0a");	 } }
+					if(CoolRunnings) {
+									CoolRunnings=!CoolRunnings;
+									ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);")); }			// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from SYS
+                    if(!StartupLock & VerboseOutput) printf("Silent Running: DEACTIVATED <<\x0a");	 } }
             else {
-                if(VerboseOutput) printf("Silent Running: Nothing to Do :) ==\x0a"); } }
+                if(!StartupLock & VerboseOutput) printf("Silent Running: NOTHING TO DO ==\x0a"); } }
         else {																					// ... or, print the reason no action taken
-            if (fSupercruise) {		  printf("\x0a\Silent Running: DISABLED WHILST IN SUPERCRUISE\x0a"); }
-            if (fSRV) {				  printf("\x0a\Silent Running: DISABLED WHILST IN SRV\x0a"); }
-            if (fLanded | fDocked) {  printf("\x0a\Silent Running: DISABLED WHEN LANDED\x0a"); } } }
+            if (fSupercruise) {		  printf("Silent Running: DISABLED WHILST IN SUPERCRUISE\x0a"); }
+            if (fSRV) {				  printf("Silent Running: DISABLED WHILST IN SRV\x0a"); }
+            if (fLanded | fDocked) {  printf("Silent Running: DISABLED WHEN LANDED\x0a"); } } }
 
 
 
 	int initToggleCargoScoop(int x) {															// TOGGLE: Cargo Scoop   (Argument x .. 1 = Deploy, 0 = Retract)
 		fnProcessFlags();																		// Get latest Flags Value first
-		if (!fSupercruise & !fLanded & !fDocked & !StartupLock) {								// Only attempt to toggle landing gear if we're not in Supercruise and not Landed or Docked.
+		if (!fSupercruise & !fLanded & !fDocked) {		//  & !StartupLock						// Only attempt to toggle landing gear if we're not in Supercruise and not Landed or Docked.
 			if (fCargoScoop != x) {																// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa.
 				if(!Joystick[S4] & !Joystick[H4P]) { 
 					ActKey(KEYON+PULSE+CargoScoop); }											// TRIGGER Cargo Scoop (When no Modifier Held).
-				if(!Joystick[S4] &  Joystick[H4P]) {											// TOGGLE PRECISION MODE: If CMS Hat Switch + Toggle, then Throttle Precision Mode when Cargo Scoop is Open.
+				if(Joystick[S4] &  !Joystick[H4P] & Throttle[RDRNRM]) {											// TOGGLE PRECISION MODE: If CMS Hat Switch + Toggle, then Throttle Precision Mode when Cargo Scoop is Open.
 					CargoPrecisionMode=!CargoPrecisionMode;
 					if(CargoPrecisionMode) {	// ENABLE CPM //								// ENABLE PRECISION MODE: If Precision Mode is ON, then limit Throttle axis to 50% (Blue Zone).
+						ActKey(KEYON+PULSE+CargoScoop);
 						TrimDXAxis(DX_Z_AXIS, SET(0));
 						SetSCurve(&Throttle, THR_RIGHT, 0, 2, 0, 2, -2);
 						if(VerboseOutput) printf("Cargo Scoop Precision Mode: ENABLED -> OVERRIDE PRECISION [-50 -> 50]\x0a");
 						SetThrottle(); }
 					else {						// DISABLE CPM //
 						initCargoReturnMode(); } }												// MANUAL DISABLE PRECISION MODE: Returns Throttle range to your default (as set in your User Prefs).
+				if(Joystick[S4] &  !Joystick[H4P] & !Throttle[RDRNRM]) {					
+					ActKey(KEYON+PULSE+CargoScoop);
+					initCargoReturnMode(); }
 				if(Joystick[S4] & Joystick[H4P] & !Throttle[RDRNRM]) {							// JETTISON ALL CARGO: If BOTH CMS Hat Switch & Pinky Trigger Modifier are held + Cargo Scoop is DOWN, the activate Jettison All Cargo & close Cargo Scoop.
 					ActKey(KEYON+PULSE+JettisonAllCargo);
 					if(VerboseOutput) printf("Cargo Scoop: JETTISON ALL CARGO !!\x0a");
@@ -351,15 +366,16 @@
 					if(BlingLEDBling) initLEDController(LED4);
 					if(VerboseOutput) printf("Cargo Scoop: RETRACTED <<\x0a"); } }
 			else {																				// Toggle is currently in the wrong position.
-                if(VerboseOutput) printf("Cargo Scoop: Nothing to Do :) ==\x0a"); } }
+                if(!StartupLock & VerboseOutput) printf("Cargo Scoop: NOTHING TO DO ==\x0a"); } }
         else {																					// BLOCKED From Action.
-            if (fSupercruise) {		  printf("\x0a\Cargo Scoop: DISABLED WHILST IN SUPERCRUISE\x0a"); }
-            if (fLanded | fDocked) {  printf("\x0a\Cargo Scoop: DISABLED WHEN LANDED\x0a"); } } }
+            if (fSupercruise) {		  printf("Cargo Scoop: DISABLED WHILST IN SUPERCRUISE\x0a"); }
+            if (fLanded | fDocked) {  printf("Cargo Scoop: DISABLED WHEN LANDED\x0a"); } } }
 
 
 
 	int initCargoReturnMode() {																	// FUNCTION: Returns Throttle to default behaviour by disabling Precision Mode or Closing Cargo Scoop.
 		if(!StartupLock) {
+			if(VerboseOutput) printf("Cargo Scoop Precision Mode: DISABLED <<\x0a");
 			if(CargoReturnMode == 0) {															// Used only in initToggleCargoScoop();
 				TrimDXAxis(DX_Z_AXIS, SET(-1024));												// Set your CargoReturnMode preference in User Prefs.
 				if(CruiseOnThrottle == 0) SetSCurve(&Throttle, THR_RIGHT, 0, -100, 0, 0);
@@ -378,18 +394,17 @@
 				TrimDXAxis(DX_Z_AXIS, SET(0));
 				SetSCurve(&Throttle, THR_RIGHT, -25, 0, -25, 0);
 				if(VerboseOutput) printf("Throttle Profile: CARGO SCOOP REVERT TRIMMED [-75 -> 75]\x0a"); }
-			SetThrottle();
-			if(VerboseOutput) printf("Cargo Scoop Precision Mode: DISABLED <<\x0a"); } }  
+			SetThrottle(); } }  
 
 
 
 	int initToggleLandingGear(int x) {															// TOGGLE: Landing Gear   (Argument x .. 1 = Deploy, 0 = Retract)
         fnProcessFlags();																		// Get latest Flags Value first
-        if (!fSupercruise & !fSRV & !fLanded & !fDocked & !StartupLock) {						// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
+        if (!fSupercruise & !fSRV & !fLanded & !fDocked) {		// & !StartupLock				// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
             if (fLandingGear != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
-				if(!Joystick[H4P]) {
+				if(!Joystick[S4] | (Joystick[S4] & Throttle[EACON])) {
 					ActKey(KEYON+PULSE+LandingGear); }
-				if(Joystick[H4P] & !Throttle[EACON]) {											// Hold CMS Hat Switch to Initiate Take Off Procedure (This will hold Vert. Thrust up, toggle Landing Gear & Set PIPs for Launch at Station or Planet Surface)
+				if(Joystick[S4] & !Throttle[EACON]) {											// Hold CMS Hat Switch to Initiate Take Off Procedure (This will hold Vert. Thrust up, toggle Landing Gear & Set PIPs for Launch at Station or Planet Surface)
 					ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));						// Set PIPs to SYSx4 ENGx2 - Protect Ship on Launch
 					ActKey(KEYON+DOWN+ThrustUp);
 					ActKey(KEYON+PULSE+SetSpeed0);
@@ -405,11 +420,11 @@
 					if(BlingLEDBling) initLEDController(LED5);
                     if(VerboseOutput) printf("Landing Gear: RETRACTED <<\x0a");	 } }
             else {
-                if(VerboseOutput) printf("Landing Gear: Nothing to Do :) ==\x0a"); } }
+                if(VerboseOutput& !StartupLock) printf("Landing Gear: NOTHING TO DO ==\x0a"); } }
         else {																					// 
-            if (fSupercruise) {		  printf("\x0a\Landing Gear: DISABLED WHILST IN SUPERCRUISE\x0a"); }
-            if (fSRV) {				  printf("\x0a\Landing Gear: DISABLED WHILST IN SRV\x0a"); }
-            if (fLanded | fDocked) {  printf("\x0a\Landing Gear: DISABLED WHEN LANDED\x0a"); } } }
+            if (fSupercruise) {		  printf("Landing Gear: DISABLED WHILST IN SUPERCRUISE\x0a"); }
+            if (fSRV) {				  printf("Landing Gear: DISABLED WHILST IN SRV\x0a"); }
+            if (fLanded | fDocked) {  printf("Landing Gear: DISABLED WHEN LANDED\x0a"); } } }
 
 
 
