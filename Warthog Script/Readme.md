@@ -67,13 +67,6 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 - Will not work on Windows 10 _(See [ED-BAT File](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Startup%20Batch%20Script "ED-BAT Batch File"))_ :(
 
-### DebugOutput [Values: 1 or 0] ###
-- Changes the script messaging behaviour to enable Developer output for troubleshooting coding issues, to 'Print' to the TARGET Window.
-
-- Disabled by default 0, enable by changing value to 1. (Enabling will enable all developer 'printf' statements for debugging code - not needed for regular use)
-
-- Will spam a lot to the TARGET Window! Recommended to leave it off.
-
 ### VerboseOutput [Values: 1 or 0] ###
 - Changes the script messaging behaviour on keypress actions to determine if it will 'Print' additional output to the TARGET Window.
 
@@ -95,6 +88,18 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
   `"C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";`
 
 - Script will not work properly if it does not have access/path to the status.json!
+
+` `
+## SHUT-DOWN ##
+### AbortScriptOnExit [Value 1 or 0] ###
+- <TBC>
+
+- <TBC>
+
+### TurnOffLEDSOnExit [Value 1 or 0] ###
+- <TBC>
+
+- <TBC>
 
 ` `
 ## -> CORE HARDWARE ##
@@ -350,14 +355,21 @@ Rings of Haze
 ### chat_Basic_LEFT/chat_Basic_RIGHT [Value Character] ###
 ### chat_Modifier_UP/chat_Modifier_DOWN [Value Character] ###
 ### chat_Modifier_LEFT/chat_Modifier_RIGHT [Value Character] ###
-Chat Preset feature offers a way for VR users or those without easy access to a keyboard a way to communicate via the comms panel in game. These pre-defined responses can be edited in the script in the AD_EDFunctions_v4.x.x.tmh file to suit your personality/playstyle.
+Chat Preset feature offers a way for VR users or those without easy access to a keyboard a way to communicate via the comms panel in game. These pre-defined responses can be edited in the script in the AD_EDFunctions_v5.x.x.tmh file to suit your personality/playstyle.
 
 Setting value to 1 will give access to 3 tiers of responses (12 in total) depending on the position of the Pinky Throttle Switch (as seen in the reference maps).
 
 Setting value to 0 will simplify this to a single tier of responses (4 in total). This will also add Game FPS/Ping & Hide Ship HUD to UP & DOWN directions for the Pinky Throttle Switch in its place. (Else, these are still accessible via Toggle Switch & Modifiers if value set to 1.)
 
+` `
+## -> DEVELOPER OPTIONS ##
 
+### DebugOutput [Values: 1 or 0] ###
+- Changes the script messaging behaviour to enable Developer output for troubleshooting coding issues, to 'Print' to the TARGET Window.
 
+- Disabled by default 0, enable by changing value to 1. (Enabling will enable all developer 'printf' statements for debugging code - not needed for regular use)
+
+- Will spam a lot to the TARGET Window! Recommended to leave it off.
 
 
 ## ##
