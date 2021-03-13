@@ -89,6 +89,7 @@ Some of the highlighted advanced features available that are not found in the de
 
 ![Legend](https://github.com/Aussiedroid/AD-ED-EnhancedWarthogScript/blob/master/Maps/Legend.jpg)
 
+## How to use Modifiers: ##
 In order to map everything, this script uses Modifier buttons. A Modifier button when held down and combined with another button press will give a different command. This combination is represented in the reference map pictures by [x] prefixing command name. Eg. [1] Next Target. This feature allows multiple mappings for a single button, different layers, that also offers some protection from accidental presses. You will find most of the potentially dangerous commands configured with Modifier keys, along with lower priority tasks that do not get used as often.
 
 To further enhance the Modifier button system, some buttons have also been designed to offer different commands based on the length of time you hold the button down. Some buttons offer up to 3 different commands based on Short, Med, Long timings.
