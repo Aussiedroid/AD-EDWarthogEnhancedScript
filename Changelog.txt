@@ -5,6 +5,8 @@ Update 5.0.0: ODD CITY UPDATE (Update #26)
 
 New to the script? Be sure to also check out the Beginners Reference Map in the download pack to get started.
 
+> Reminder -> there is new software version v3.0.20.826 of TARGET on Thrustmaster site.
+
 
 List of Changes:
 
