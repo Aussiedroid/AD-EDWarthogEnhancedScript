@@ -13,16 +13,24 @@ NEW: Script now reads in real time the State of game variables via the ED status
 	- Toggles actions will always align to the live in-game status.
 	- No more overrides needed to realign toggles.
 	- A complete rewrite of many functions, inc. Landing Gear, Cargo Scoop, Silent Running, Escape Vector...
-	- REMEMBER to set the new StatusFile User Preference, to define the path to the status.json file before you start.
+	- Ability to prevent some actions based on game state (In SRV or Supercruise, or Docked for example), added many new checks! 
+	- REMEMBER to set the new StatusFile User Preferences, to define the path to the status.json file before you start.
+NEW: Automatically Stop Script Run when Elite Dangerous game is exited. Set is UserPrefs.
+NEW: Disable LED Backlight on Elite Dangerous exit. Set is UserPrefs.
 NEW: 
 NEW: 
-NEW:
+NEW: 
 
-IMPROVEMENT: Added Conditional Check to Auto-Dock & Hangar Automation so they can only fired when undocked or docked respectively.
-IMPROVEMENT: Silent Running with Heat Sink modifier will now also set PIPs to ENG/WEP.
+
+IMPROVEMENT: Added Check to Auto-Dock & Hangar Automation so can only fired when undocked or docked respectively. Note: Only works with default Autopilot Override mappings.
+IMPROVEMENT: Silent Running with Heat Sink modifier will now also set PIPs to ENG/WEP (and back to SYS/WEP when disabled).
 IMPROVEMENT: Added verbose output message for Hangar Automation when fired in the default AP button mapping.
+IMPROVEMENT: Live Check of the LED status for Toggles against flag values in status.json file. LEDs will always align!
+IMPROVEMENT: Cargo Precision Mode on the Cargo Scoop toggle, and Take Off Sequence on Landing Gear toggle, moved to Pinky Modifier from CMS Hat Switch.
 IMPROVEMENT: 
 IMPROVEMENT: 
+IMPROVEMENT: 
+
 
 FIXED: Handbrake on Double Tap Pinky Trigger has been moved to China Hat toggle on Throttle to avoid a minor conflict.
 FIXED: Swapped Med & Long press for UserPIPPref 3 mapping for left PIP direction to match UserPIPPref 2 mapping of WEP (instead of ENG). 
@@ -32,6 +40,8 @@ FIXED:
 CODE: Added new tmh script file for parsing status.json game file, called AD_EDStatusJson_v5.x.x.tmh.
 CODE: Moved MDF Panel Mapping functions to the AD_EDHardware_v5.x.x.tmh file.
 CODE: Removed redundant default state flags.
+CODE: Startuplock now moved to end of main().
+CODE: Additional Table of Contents added to some script files for easy navigation.
 CODE: Debug Output User Preference added. Provides additional TARGET Window text output to troubleshoot coding issues (Devs Only).
 CODE: 
 CODE:
@@ -39,4 +49,4 @@ CODE:
 
 Fly Safe CMDRs!
 
-*** Ref maps updated 3/2021
+*** Ref maps updated 3/2021 - Need to update LG & CS to [1]
