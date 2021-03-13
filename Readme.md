@@ -86,7 +86,9 @@ Some of the highlighted advanced features available that are not found in the de
 ## ##
 
 ## How Modifiers Work: ##
-In order to map everything, this script uses Modifier buttons. A Modifier button when held down and combined with another button press will give a different command. This combination is represented in the reference map pictures by [x] prefixing command name. Eg. [1] Next Target. This feature allows multiple mappings for a single button, different layers, that also offers some protection from accidental presses. You will find most of the potentially dangerous commands configured with Modifier keys, along with lower priority tasks that do not get used as often. The main Modifiers are listed below:
+In order to map everything, this script uses Modifier buttons. A Modifier button when held down and combined with another button press will give a different command. This combination is represented in the reference map pictures by [x] prefixing command name. Eg. [1] Next Target. This feature allows multiple mappings for a single button, different layers, that also offers some protection from accidental presses. You will find most of the potentially dangerous commands configured with Modifier keys, along with lower priority tasks that do not get used as often. 
+
+The main Modifiers are listed below:
 
 __[1] = Pinky Trigger on Joystick__
 
@@ -94,7 +96,7 @@ __[2] = CMS Hatswitch on Joystick__
 
 To further enhance the Modifier button system, some buttons have also been designed to offer different commands based on the length of time you hold the button down. Some buttons offer up to 3 different commands based on Short, Med, Long timings.
 
-__Special Note:__ _Supercruise on Throttle_ operates a little differently to other modifiers as it combines an axis along with the [1] Pinky Trigger. To activate, move the Throttle to 100% while also holding down the Pinky Trigger. To deactivate before charging completes, move Throttle to 99% or less and then hold Pinky Trigger and move back to 100%. You can also activate/deactivate Supercruise by moving the Throttle to 0% while holding the Pinky Trigger down. Any combination is allowed.
+__Special Note:__ _SUPERCRUISE ON THROTTLE_ operates a little differently to other modifiers as it combines an axis along with the [1] Pinky Trigger. To activate, move the Throttle to 100% while also holding down the Pinky Trigger. To deactivate before charging completes, move Throttle to 99% or less and then hold Pinky Trigger and move back to 100%. You can also activate/deactivate Supercruise by moving the Throttle to 0% while holding the Pinky Trigger down. Any combination is allowed.
 
 ## ##
 
