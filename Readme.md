@@ -93,6 +93,8 @@ In order to map everything, this script uses Modifier buttons. A Modifier button
 
 To further enhance the Modifier button system, some buttons have also been designed to offer different commands based on the length of time you hold the button down. Some buttons offer up to 3 different commands based on Short, Med, Long timings.
 
+__Special Note:__ _Supercruise on Throttle_ operates a little differently to other modifiers as it combines an axis along with the [1] Pinky Trigger. To activate, move the Throttle to 100% while also holding down the Pinky Trigger. To deactivate before charging completes, move Throttle to 99% or less and then hold Pinky Trigger and move back to 100%. You can also activate/deactivate Supercruise by moving the Throttle to 0% while holding the Pinky Trigger down. Any combination is allowed.
+
 ## ##
 
 ## Reference Maps: ##
@@ -110,14 +112,14 @@ To further enhance the Modifier button system, some buttons have also been desig
 
     1. Download & Extract the latest zip file pack. The Warthog Script can be run from any location. 
        All script files need to be in the same folder though.
-    2. Open TARGET Script Editor, Open & Compile AD_ED_v4.x.x & then Edit AD_EDUserPrefs_v4.x.x.tmh.
+    2. Open TARGET Script Editor, Open & Compile AD_ED_v5.x.x & then Edit AD_EDUserPrefs_v5.x.x.tmh.
          Can be Run from TARGET GUI later.
     3. Edit User Preferences file, primarily the 'Core Hardware' variables (rest can be reconfigured on later runs)
        SAVE & Close TARGET Script Editor when done editing.
          Note: Most commands can be tested prior to starting the game using the Event Tester & Device Analyzer.
     4. Copy the Elite Dangerous Profile (.binds) from ED Bindings folder to:
          C:\Users\USERNAME\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
-    5. Copy the TrackIR Profile (Elite.Dangerous.4.x.AD.xml) from the TrackIR folder to:
+    5. Copy the TrackIR Profile (Elite.Dangerous.5.x.AD.xml) from the TrackIR folder to:
          C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
     6. Set the Hotkeys in TrackIR; Pause Key to PAUSE, and Center to END.
          Tick 'Exclusive' in TrackIR to autoload if you want. 
@@ -125,7 +127,7 @@ To further enhance the Modifier button system, some buttons have also been desig
     8. Map any other 3rd Party Keybinds such as Voice Comm Apps (as required). (Setup Mic Behaviour in User Prefs)
     9. Edit ED-BAT Batch File and update the path/locations for any apps you use (as required).
     10.Open TARGET GUI & Run, and then Start ED Launcher OR alternatively run it automatically via the ED-BAT file.
-    11.PLAY, and remember to select the AD Enhanced Warthog 4.x.x bindings in Elite Dangerous Config Menu, & APPLY.
+    11.PLAY, and remember to select the AD Enhanced Warthog 5.x.x bindings in Elite Dangerous Config Menu, & APPLY.
     12.*If you are NOT running MFG Crosswind Pedals, map the missing axis/buttons under 'Other Mappings/Pedals' in
        the Legend in ED Controls Config to your own devices. Remember to Test!*
     
