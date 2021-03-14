@@ -67,6 +67,11 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 - Will not work on Windows 10 _(See [ED-BAT File](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Startup%20Batch%20Script "ED-BAT Batch File"))_ :(
 
+### ShipSRVTelemetry [Values: 1 or 0] ###
+- TBC
+
+- TBC
+
 ### VerboseOutput [Values: 1 or 0] ###
 - Changes the script messaging behaviour on keypress actions to determine if it will 'Print' additional output to the TARGET Window.
 
