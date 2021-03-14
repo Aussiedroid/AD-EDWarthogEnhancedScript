@@ -29,7 +29,7 @@
 		Configure(&HCougar,		  MODE_EXCLUDED);
 		Configure(&T16000,		  MODE_EXCLUDED);
 		Configure(&T16000L,		  MODE_EXCLUDED);
-//		Configure(&JoystickF18,	  MODE_EXCLUDED);
+		Configure(&JoystickF18,	  MODE_EXCLUDED);
 		Configure(&A320Pilot,	  MODE_EXCLUDED);
 		Configure(&A320Copilot,	  MODE_EXCLUDED);
 		Configure(&TCAQuadrant12, MODE_EXCLUDED);
@@ -87,7 +87,7 @@
 	initCargoReturnMode();																	// Initiate Disables Cargo Scoop Throttle Mode		 (LED Support) (See AD_EDFunctions.tmh)
 	initIDLEMaster();																		// Initiate Advanced Function to disable Throttle (& Boost) when engaging Throttle IDLE/Afterburner Lock Indent. Will also enable SRV Handbrake. (See AD_EDFunctions.tmh)
 	initHeadlookModeSelect();																// Initiate Custom mapping preference for Headlook Centering based on your hardware (TrackIR, VR, Mouse) (See AD_EDFunctions.tmh)
-	initExternalCameraUpgrade();															// ???
+	initExternalCameraUpgrade();															// Initiate Custom External Camera Module to swap between Std Camera & Free Camera (See AD_EDFunctions.tmh)
 	initHardpointManagement();																// Initiate Advanced Function integrating all Hardpoint/Other functions related to the Red Left Throttle Button (See AD_EDFunctions.tmh)
 	initMicCommander();																		// Initiate Full control over Internal & External Mic Push-to-Talk functionality for Hold & Toggle configurations (See AD_EDFunctions.tmh)
 	initUserHotSlotPinkyTrigger();															// Initiate Double Tap Functionality on the Joystick Pinky Trigger (See AD_EDFunctions.tmh)

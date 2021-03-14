@@ -25,7 +25,6 @@
 		mHangarAutomation = CHAIN(																// MACRO: Auto-Refuel/Repair/Restock while Entering the Hangar of Station/Starport/Fleet Carrier
 			LOCK+PULSE+UILeft,			D(),
 			PULSE+UISelect,				D(1850),												//	(Enter Hangar)  {Comment out this line if you do not wish the macro to enter hangar (ie only repair/restock/refuel).}			
-			PULSE+BalancePower, 		D(),
 			PULSE+UIRight,				D(),													// Limitation: This is designed to be used as soon as your touch down on the landing pad.
 			PULSE+UISelect,				D(1850),												//	(Refuel)   If you move the cursor or otherwise navagate the UI, this macro will be misaligned.
 			PULSE+UIRight,				D(),
@@ -229,10 +228,10 @@
 			if(VerboseOutput) printf("EVASIVE MANEUVERS! Emergency Escape Vector Calculating...\x0a");
 			ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));								// Set PIPs to SYSx4 ENGx2 - Defensive Get-a-way
 			if(AutoChaffOnEscape) DeferCall(500,  &ActKey, KEYON+PULSE+FireChaffLauncher);		// Optional: Auto-fire Chaff to cover your escape (See User Preferences to Set)
-			if(fCargoScoop)  {	  DeferCall(750,  &ActKey, KEYON+PULSE+CargoScoop);				// Override: Cargo Scoop (will force close scoop, overriding toggle)
-								  DeferCall(750,  &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); }	// set LED 4 OFF (Override)					  
-			if(fLandingGear) {	  DeferCall(1000, &ActKey, KEYON+PULSE+LandingGear);			// Override: Landing Gear (will force retract gears, overriding toggle)
-								  DeferCall(1000, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); }	// set LED 5 OFF (Override)
+			if(fCargoScoop)  {	  DeferCall(750,  &ActKey, KEYON+PULSE+CargoScoop);		}		// Override: Cargo Scoop (will force close scoop, overriding toggle)
+								  //DeferCall(750,  &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); }	// set LED 4 OFF (Override)					  
+			if(fLandingGear) {	  DeferCall(1000, &ActKey, KEYON+PULSE+LandingGear);	}		// Override: Landing Gear (will force retract gears, overriding toggle)
+								  //DeferCall(1000, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); }	// set LED 5 OFF (Override)
 			if(AutoBoostOnEscape) DeferCall(1250, &ActKey, KEYON+PULSE+EngineBoost);			// Optional: Auto-fire Boost to help evade (See User Preferences to Set)
 			if(fHardpoints)  {	  DeferCall(1500, &ActKey, KEYON+PULSE+DeployHardpoints); }		// If Hardpoints are deployed, retract, ready for jump
 			DeferCall(1750, &ActKey, KEYON+PULSE+FrameShiftDrive); } }							// After Retracting Hardpoints etc, Engage FSD (or High Wake if another System is selected route)

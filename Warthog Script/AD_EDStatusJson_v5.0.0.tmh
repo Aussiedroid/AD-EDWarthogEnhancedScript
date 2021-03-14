@@ -26,14 +26,14 @@
 		if (fp) {															// If we succeed in opening...
 			myResult = fread(&myJson, 1, buf, fp);							// ...read the entire file into our character array (myJson)...
 			fclose(fp);														// ... and close the file
-			if (myResult == 0) 	{										// 'myResult' should contain the number of characters read...
+			if (myResult == 0) 	{											// 'myResult' should contain the number of characters read...
 				ReadErrorCount = ReadErrorCount + 1;
-				if(VerboseOutput) printf("WARNING READ ERROR #%d: Status.json\x0a", ReadErrorCount); } // ...so, if we read zero, we had an issue!
+				if(VerboseOutput) printf("WARNING READ ERROR #%d: Status.json\x0a", ReadErrorCount); }	// ...so, if we read zero, we had an issue!
 			else {
 				ReadErrorCount = 0;
-				strdel(&myJson, myResult-1, buf); } }					// If no issues with read, remove any trailing garbage
+				strdel(&myJson, myResult-1, buf); } }						// If no issues with read, remove any trailing garbage
 		else {
-			if(VerboseOutput) printf("FATAL ACCESS ERROR: Status.json .. !ABORT!\x0a");						// File not found OR locked by Elite Dangerous!
+			if(VerboseOutput) printf("FATAL ACCESS ERROR: Status.json .. !ABORT!\x0a");					// File not found OR locked by Elite Dangerous!
 								Abort(); } }
 
 
@@ -119,14 +119,14 @@
 			if(!fCargoScoop & !Throttle[RDRNRM]) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));				// set LED 4 OFF
 			if(!fLandingGear & !Throttle[EACON]) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));				// set LED 5 OFF
 			
-			if(fsdJump & FSDJumpCheck == 0) {								// test!! Turn Off HUD in Ship when in Witchspace (Warp Tunnel)
+			if(fsdJump & FSDJumpCheck == 0) {								// Turn Off Ship HUD when in Witchspace (Frameshift Warp Tunnel)
 				ActKey(KEYON+PULSE+HideShipGUI);
 				FSDJumpCheck = 1;}
 			if(!fsdJump & FSDJumpCheck == 1) {
 				ActKey(KEYON+PULSE+HideShipGUI);
 				FSDJumpCheck = 0; }
 
-			if(ShipSRVTelemetry & !StartupLock) {											// Outputs Ship & SRV Telemetry data sourced from the status.json file to the TARGET Window.
+			if(ShipSRVTelemetry & !StartupLock) {							// Outputs Ship & SRV Telemetry data sourced from the status.json file to the TARGET Window.
 				if(fMainShip & StatusMainShip == 0)			 { printf("Aboard Your Ship\x0a");					StatusMainShip = 1; StatusSRV = 0; StatusFighter = 0; }
 				if(fDanger & StatusDanger)					 { printf("*!! DANGER !!*\x0a");					StatusDanger = 1;		DeferCall(5000,  &ActKey, KEYON+PULSE+EXEC("StatusDanger = 0;")); }
 				if(fDocked & StatusDocked == 0)				 { printf("Ship Status: Docked on Landing Pad\x0a");StatusDocked = 1; }

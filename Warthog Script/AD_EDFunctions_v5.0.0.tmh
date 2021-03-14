@@ -163,12 +163,15 @@
 			if(APSeqShort) {																	// [Short+Pinky: Auto-Dock Request (default)]
 				if(mRequestDock & fDocked & !fSRV) {
 					if(VerboseOutput) printf("Cannot Auto-Dock when Docked!\x0a"); }
-				else { if(!fSRV) ActKey(KEYON+PULSE+APEngagePinkyShort);	}										// Set custom APEngagePinkyShort value in the User Preferences
+				else { if(!fSRV) ActKey(KEYON+PULSE+APEngagePinkyShort); }						// Set custom APEngagePinkyShort value in the User Preferences
+				if(mRequestDock & !fDocked & !fSRV) {
+					ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);")); }						// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from ENG
 				if(APEngagePinkyShort == mRequestDock & VerboseOutput & !fDocked & !fSRV) printf("Attempting Auto-Dock Procedure...\x0a");
 				if(APEngagePinkyShort == mHangarAutomation & VerboseOutput & fDocked & !fSRV) printf("Repair & Refuel Sequence Activated...\x0a");
 				APSeqShort=!APSeqShort; }
 			if(APSeqLong) {																		// [Long+Pinky: Hangar Automation  (default)]
 				if(mHangarAutomation & !fDocked & !fSRV) {
+					ActKey(KEYON+PULSE+BalancePower);
 					if(VerboseOutput) printf("Cannot Repair & Refuel when not Docked!\x0a"); }
 				else { ActKey(KEYON+PULSE+APEngagePinkyLong);	}	
 				ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
@@ -327,10 +330,12 @@
 					ActKey(KEYON+PULSE+SilentRunning);
 					if(VerboseOutput) printf("Silent Running: COOL RUNNINGS (!Heat Sink Combo!)\x0a"); }
 				if(!Joystick[S4] & Joystick[H4P] & Throttle[APUON] & SRStrobe == 0) {
-					AutoRepeat(5, 2000, &ActKey, PULSE+KEYON+SilentRunning);					// Start Strobe Silent Running 
+					AutoRepeat(5, 2000, &ActKey, PULSE+KEYON+SilentRunning);					// Start Strobe Silent Running
+					ActKey(KEYON+PULSE+EXEC("initPIPMapper(ENG,WEP);"));							// Set PIPs to ENGx4 WEPx2 - Offensive stance - removes from SYS				
 					SRStrobe = 1; }
 				if(!Joystick[S4] & Joystick[H4P] & !Throttle[APUON] & SRStrobe == 1) {
 					StopAutoRepeat(5);															// Stop Strobe Silent Running 
+					ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);"));							// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from ENG
 					SRStrobe = 0; }
                 if (!fSilentRunning) {    // OPEN ACTIONS //
                 	if(BlingLEDBling) initLEDController(LED3);
@@ -341,7 +346,7 @@
 					if(BlingLEDBling) initLEDController(LED3);
 					if(CoolRunnings) {
 									CoolRunnings=!CoolRunnings;
-									ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);")); }		// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from SYS
+									ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);")); }		// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from ENG
                     if(!StartupLock & VerboseOutput) printf("Silent Running: DEACTIVATED <<\x0a");	 } }
             else {
                 if(!StartupLock & VerboseOutput) printf("Silent Running: NOTHING TO DO ==\x0a"); } }
@@ -387,8 +392,8 @@
 			else {																				// Toggle is currently in the wrong position.
                 if(!StartupLock & VerboseOutput) printf("Cargo Scoop: NOTHING TO DO ==\x0a"); } }
         else {																					// BLOCKED From Action.
-            if (fSupercruise) {		  printf("Cargo Scoop: DISABLED WHILST IN SUPERCRUISE\x0a"); }
-            if (fLanded | fDocked) {  printf("Cargo Scoop: DISABLED WHEN LANDED\x0a"); } } }
+            if (fSupercruise & Throttle[RDRNRM]) {		  printf("Cargo Scoop: DISABLED WHILST IN SUPERCRUISE\x0a"); }
+            if ((fLanded | fDocked) & Throttle[RDRNRM]) {  printf("Cargo Scoop: DISABLED WHEN LANDED\x0a"); } } }
 
 
 
@@ -441,9 +446,9 @@
             else {
                 if(VerboseOutput& !StartupLock) printf("Landing Gear: NOTHING TO DO ==\x0a"); } }
         else {																					// 
-            if (fSupercruise) {		  printf("Landing Gear: DISABLED WHILST IN SUPERCRUISE\x0a"); }
-            if (fSRV) {				  printf("Landing Gear: DISABLED WHILST IN SRV\x0a"); }
-            if (fLanded | fDocked) {  printf("Landing Gear: DISABLED WHEN LANDED\x0a"); } } }
+            if (fSupercruise & Throttle[EACON]) {		  printf("Landing Gear: DISABLED WHILST IN SUPERCRUISE\x0a"); }
+            if (fSRV & Throttle[EACON]) {				  printf("Landing Gear: DISABLED WHILST IN SRV\x0a"); }
+            if ((fLanded | fDocked) & Throttle[EACON]) {  printf("Landing Gear: DISABLED WHEN LANDED\x0a"); } } }
 
 
 

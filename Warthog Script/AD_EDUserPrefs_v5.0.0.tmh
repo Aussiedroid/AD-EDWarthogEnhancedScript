@@ -207,7 +207,7 @@
 // VERSION HISTORY //			Version 5.0.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
 // =============================================================================================================================================================//
 //
-// v5.0 - NEW: SRV & SHIP TELEMETRY FUNCTION, AUTO-HUD OFF IN FSD.   TEST SR H4P,	//
+// v5.0 - NEW: SRV & SHIP TELEMETRY FUNCTION, AUTO-HUD OFF IN FSD.  TO TEST: SR H4P, CONFIRM ENABLED KEYMAP KEYS ARE ALIGN TO BINDINGS. AUTODOCK /PIPS	//
 // v5.0 - IMPROVEMENT: Add SRV Turret to Hardpoints, External Camera turn off GUI HUD 		TODO:  Clear all Chat boxes?,		//
 // v5.0 - IMPROVED: Moved MFD Code to Hardware.tmh. ADD: PIP auto-set to ENG/WEP on Silent Running HS Combo.  Changed LG & CS to Pinky overrides.		//
 // v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision .. Cargo Scoop UNTESTED!		 //
