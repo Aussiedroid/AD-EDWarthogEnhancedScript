@@ -161,19 +161,19 @@
 				APSeqLong=!APSeqLong; } }
 		if(Joystick[S4]) {
 			if(APSeqShort) {																	// [Short+Pinky: Auto-Dock Request (default)]
-				if(mRequestDock & fDocked) {
+				if(mRequestDock & fDocked & !fSRV) {
 					if(VerboseOutput) printf("Cannot Auto-Dock when Docked!\x0a"); }
-				else { ActKey(KEYON+PULSE+APEngagePinkyShort);	}										// Set custom APEngagePinkyShort value in the User Preferences
-				if(APEngagePinkyShort == mRequestDock & VerboseOutput & !fDocked) printf("Attempting Auto-Dock Procedure...\x0a");
-				if(APEngagePinkyShort == mHangarAutomation & VerboseOutput & fDocked) printf("Repair & Refuel Sequence Activated...\x0a");
+				else { if(!fSRV) ActKey(KEYON+PULSE+APEngagePinkyShort);	}										// Set custom APEngagePinkyShort value in the User Preferences
+				if(APEngagePinkyShort == mRequestDock & VerboseOutput & !fDocked & !fSRV) printf("Attempting Auto-Dock Procedure...\x0a");
+				if(APEngagePinkyShort == mHangarAutomation & VerboseOutput & fDocked & !fSRV) printf("Repair & Refuel Sequence Activated...\x0a");
 				APSeqShort=!APSeqShort; }
 			if(APSeqLong) {																		// [Long+Pinky: Hangar Automation  (default)]
-				if(mHangarAutomation & !fDocked) {
+				if(mHangarAutomation & !fDocked & !fSRV) {
 					if(VerboseOutput) printf("Cannot Repair & Refuel when not Docked!\x0a"); }
 				else { ActKey(KEYON+PULSE+APEngagePinkyLong);	}	
 				ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
-				if(APEngagePinkyLong == mRequestDock & VerboseOutput & !fDocked) printf("Attempting Auto-Dock Procedure...\x0a");
-				if(APEngagePinkyLong == mHangarAutomation & VerboseOutput & fDocked) printf("Repair & Refuel Sequence Activated...\x0a");
+				if(APEngagePinkyLong == mRequestDock & VerboseOutput & !fDocked & !fSRV) printf("Attempting Auto-Dock Procedure...\x0a");
+				if(APEngagePinkyLong == mHangarAutomation & VerboseOutput & fDocked & !fSRV) printf("Repair & Refuel Sequence Activated...\x0a");
 				APSeqLong=!APSeqLong; } }
 		if(!Joystick[S4] & !Joystick[H4P]) {
 			if(APSeqShort) {																	// [Short: Short Signal Light Sequence (default)]
@@ -242,11 +242,11 @@
 		CameraMode = !CameraMode;
 		ActKey(PULSE+KEYON+ClassifiedCamera);
 		if(CameraMode) {
-			printf("External Camera:	ON\x0a");
+			if(VerboseOutput & !StartupLock) printf("External Camera:	ON\x0a");
 			DeferCall(100, &ActKey, PULSE+KEYON+EnterFreeCameraMode);
 			DeferCall(200, &ActKey, PULSE+KEYON+ToggleCameraHUD); }								// Automatically Hide Camera HUD
 		else {
-			printf("External Camera:	OFF\x0a"); } }
+			if(VerboseOutput & !StartupLock) printf("External Camera:	OFF\x0a"); } }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -346,9 +346,9 @@
             else {
                 if(!StartupLock & VerboseOutput) printf("Silent Running: NOTHING TO DO ==\x0a"); } }
         else {																					// ... or, print the reason no action taken
-            if (fSupercruise) {		  printf("Silent Running: DISABLED WHILST IN SUPERCRUISE\x0a"); }
-            if (fSRV) {				  printf("Silent Running: DISABLED WHILST IN SRV\x0a"); }
-            if (fLanded | fDocked) {  printf("Silent Running: DISABLED WHEN LANDED\x0a"); } } }
+            if (fSupercruise & Throttle[APUON]) {		  printf("Silent Running: DISABLED WHILST IN SUPERCRUISE\x0a"); }
+            if (fSRV & Throttle[APUON]) {				  printf("Silent Running: DISABLED WHILST IN SRV\x0a"); }
+            if ((fLanded | fDocked) & Throttle[APUON]) {  printf("Silent Running: DISABLED WHEN LANDED\x0a"); } } }
 
 
 

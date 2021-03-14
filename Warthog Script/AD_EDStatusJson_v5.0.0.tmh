@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// STATUS.JSON PARSER //		Determine the Real-time Status of In-game Commands, via the ED Log file.					Original Author: CMDR Clicker		//
+// STATUS.JSON PARSER //			Determine the Real-time Status of In-game Commands, via the ED Log file.					Original Author: CMDR Clicker	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //TOC:/									fnReadStatusJson()		(17)																							//
 //----									fnProcessFlags()		(41)																							//
@@ -126,11 +126,11 @@
 				ActKey(KEYON+PULSE+HideShipGUI);
 				FSDJumpCheck = 0; }
 
-			if(ShipSRVTelemetry) {											// Outputs Ship & SRV Telemetry data sourced from the status.json file to the TARGET Window.
+			if(ShipSRVTelemetry & !StartupLock) {											// Outputs Ship & SRV Telemetry data sourced from the status.json file to the TARGET Window.
 				if(fMainShip & StatusMainShip == 0)			 { printf("Aboard Your Ship\x0a");					StatusMainShip = 1; StatusSRV = 0; StatusFighter = 0; }
 				if(fDanger & StatusDanger)					 { printf("*!! DANGER !!*\x0a");					StatusDanger = 1;		DeferCall(5000,  &ActKey, KEYON+PULSE+EXEC("StatusDanger = 0;")); }
 				if(fDocked & StatusDocked == 0)				 { printf("Ship Status: Docked on Landing Pad\x0a");StatusDocked = 1; }
-				if(!Docked & StatusDocked == 1)	 			 { printf("Ship Status: TAKEOFF!\x0a");				StatusDocked = 0; }
+				if(!fDocked & StatusDocked == 1)	 		 { printf("Ship Status: TAKEOFF!\x0a");				StatusDocked = 0; }
 				if(fFighter & StatusFighter == 0)			 { printf("Aboard Your Figher\x0a");				StatusMainShip = 0; StatusSRV = 0; StatusFighter = 1; }
 				if(fFSDCooldown & StatusFSDCooldown == 0)	 { printf("FSD Cooldown: IN-PROGRESS\x0a");			StatusFSDCooldown = 1; }
 				if(!fFSDCooldown & StatusFSDCooldown == 1)	 { printf("FSD Cooldown: COMPLETE\x0a");			StatusFSDCooldown = 0; }
@@ -140,20 +140,21 @@
 				if(!fFuelScoop & StatusFuelScoop == 1)	 	 { printf("Ship Status: FUEL SCOOP RETRACTED\x0a");	StatusFuelScoop = 0; }
 				if(fHUDAnalysis & StatusHUD == 0)			 { printf("HUD Analysis Mode: ENABLED\x0a");		StatusHUD = 1; }
 				if(!fHUDAnalysis & StatusHUD == 1)			 { printf("HUD Analysis Mode: DISABED\x0a");		StatusHUD = 0; }
-				if(fInterdicted & StatusInterdicted == 0)	 { printf("-!! INTERDICTION ATTEMPT !!-\x0a");		StatusInterdicted = 1;	DeferCall(3500,  &ActKey, KEYON+PULSE+EXEC("StatusInterdicted = 0;")); }
+				if(fInterdicted & StatusInterdicted == 0)	 { printf("-!! INTERDICTION ATTEMPT !!-\x0a");		StatusInterdicted = 1;	DeferCall(5000,  &ActKey, KEYON+PULSE+EXEC("StatusInterdicted = 0;")); }
 				if(fInWing & StatusInWing == 0)				 { printf("Ship Status: Joined WING\x0a");			StatusInWing = 1; }
 				if(!fInWing & StatusInWing == 1)	 		 { printf("Ship Status: Left WING\x0a");			StatusInWing = 0; }
 				if(fLanded & StatusLanded == 0)				 { printf("Ship Status: Landed on Planet\x0a");		StatusLanded = 1; }
-				if(!fLanded & StatusLanded == 1)	 		 { printf("Ship Status: TAKEOFF!\x0a");				StatusLanded = 0; }
-				if(fLatLong & StatusLatLong == 0)			 { printf("Ship Status: Orbiting Planet\x0a");		StatusLatLong = 1; }
-				if(!fLatLong & StatusLatLong == 1)	 		 { printf("Ship Status: Left Orbit\x0a");			StatusLatLong = 0; }
-				if(fLowFuel & StatusLowFuel == 0)			 { printf("WARNING: Running Low on Fuel!\x0a");		StatusLowFuel = 1;		DeferCall(15000, &ActKey, KEYON+PULSE+EXEC("StatusLowFuel = 0;")); }
-				if(fMassLocked & StatusMassLocked == 0)		 { printf("WARNING: Mass Locked\x0a");				StatusMassLocked = 1;	DeferCall(7500,  &ActKey, KEYON+PULSE+EXEC("StatusMassLocked = 0;")); }
+				if(!fLanded & !fSRV & StatusLanded == 1)	 { printf("Ship Status: TAKEOFF!\x0a");				StatusLanded = 0; }
+				if(fLatLong & !fSRV & StatusLatLong == 0)	 { printf("Ship Status: Orbiting Planet\x0a");		StatusLatLong = 1; }
+				if(!fLatLong & !fLanded & StatusLatLong == 1){ printf("Ship Status: Left Orbit\x0a");			StatusLatLong = 0; }
+				if(fLowFuel & StatusLowFuel == 0)			 { printf("WARNING: Running Low on Fuel!\x0a");		StatusLowFuel = 1;		DeferCall(30000, &ActKey, KEYON+PULSE+EXEC("StatusLowFuel = 0;")); }
+				if(fMassLocked & StatusMassLocked == 0)		 { printf("WARNING: Mass Locked\x0a");				StatusMassLocked = 1; }
+				if(!fMassLocked & !fSRV & StatusMassLocked == 1){ printf("No Longer Mass Locked\x0a");			StatusMassLocked = 0; }
 				if(fOverHeating & StatusOverheating == 0)	 { printf("^!! OVERHEATING !!^\x0a");				StatusOverheating = 1;	DeferCall(5000,  &ActKey, KEYON+PULSE+EXEC("StatusOverheating = 0;")); }
 				if(fsdJump & StatusfsdJump == 0)			 { printf("Jumping to the next star system\x0a");	StatusfsdJump = 1; }
 				if(!fsdJump & StatusfsdJump == 1)			 { printf("Leaving Witchspace...\x0a");				StatusfsdJump = 0; }
-				if(fShieldsUp & StatusShieldsUp == 0)		 { printf("Ship Shields: Back Online\x0a");			StatusShieldsUp = 1; }
-				if(!fShieldsUp & StatusShieldsUp == 1)		 { printf("Ship Shields: Offline!\x0a");			StatusShieldsUp = 0; }
+				if(fShieldsUp & StatusShieldsUp == 0)		 { printf("Ship Shields: ONLINE\x0a");				StatusShieldsUp = 1; }
+				if(!fShieldsUp & StatusShieldsUp == 1)		 { printf("Ship Shields: OFFLINE!\x0a");			StatusShieldsUp = 0; }
 				if(fSupercruise & StatusSupercruise == 0)	 { printf("Ship Flight: SUPERCRUISE ON\x0a");		StatusSupercruise = 1; }
 				if(!fSupercruise & StatusSupercruise == 1)	 { printf("Ship Flight: SUPERCRUISE OFF\x0a");		StatusSupercruise = 0; }
 				if(fSRV & StatusSRV == 0)					 { printf("Aboard Your SRV\x0a");					StatusMainShip = 0; StatusSRV = 1; StatusFighter = 0; }

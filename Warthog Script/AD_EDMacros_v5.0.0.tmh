@@ -25,13 +25,13 @@
 		mHangarAutomation = CHAIN(																// MACRO: Auto-Refuel/Repair/Restock while Entering the Hangar of Station/Starport/Fleet Carrier
 			LOCK+PULSE+UILeft,			D(),
 			PULSE+UISelect,				D(1850),												//	(Enter Hangar)  {Comment out this line if you do not wish the macro to enter hangar (ie only repair/restock/refuel).}			
+			PULSE+BalancePower, 		D(),
 			PULSE+UIRight,				D(),													// Limitation: This is designed to be used as soon as your touch down on the landing pad.
 			PULSE+UISelect,				D(1850),												//	(Refuel)   If you move the cursor or otherwise navagate the UI, this macro will be misaligned.
 			PULSE+UIRight,				D(),
 			PULSE+UISelect,				D(1850),												//	(Repair)
 			PULSE+UIRight,				D(),
-			PULSE+UISelect,				D(1850),												//	(Restock)
-			PULSE+BalancePower, 		D(),
+			PULSE+UISelect,				D(1850),												//	(Restock)		
 			PULSE+UIDown,				LOCK);
 
 		mRequestDock = CHAIN(																	// MACRO: Auto-Docking Request
@@ -50,8 +50,8 @@
 			PULSE+ShowConnectionStatus);
 	
 		mChangeColours = CHAIN(																	// MACRO: Change Engine and Weapon Colours
-			PULSE+EngineColour, 		D(250),
-			PULSE+WeaponColour, 		D(250));
+			PULSE+ChangeEngineColor, 	D(250),
+			PULSE+ChangeWeaponColor, 	D(250));
 
 		mFastModeSwitch = CHAIN(																// MACRO: Automated Game Mode Switching
 			LOCK+PULSE+UIEscape,		D(700),													//	From Cockpit, it will navigate the Game Menu to put you back at the Game Mode selection screen automatically!

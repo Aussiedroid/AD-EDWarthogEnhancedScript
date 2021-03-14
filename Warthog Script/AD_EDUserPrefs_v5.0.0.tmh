@@ -23,7 +23,7 @@
 //																																								//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// USER PREFERENCES //			(1 = Yes, 0 = No)		// ** CHANGE SETTINGS BELOW TO YOUR PERSONAL PREFERENCES **
+// USER PREFERENCES //			(1 = Yes, 0 = No)			** CHANGE SETTINGS BELOW TO YOUR PERSONAL PREFERENCES **
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 														// User Prefs allow easy modification of some alternative/optional script features without editing the code.
 		// START-UP //
@@ -207,8 +207,8 @@
 // VERSION HISTORY //			Version 5.0.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
 // =============================================================================================================================================================//
 //
-// v5.0 - 	TEST SRV & SHIP TELEMETRY FUNCTION, TEST HARDPOINT IN SRV/SHIP, TEST SR H4P, TEST FSD HUD OFF IN JUMP, 	//
-// v5.0 - IMPROVEMENT: Add SRV Turret to Hardpoints,  TODO: External Camera turn off GUI HUD, Clear all Chat boxes?,		//
+// v5.0 - NEW: SRV & SHIP TELEMETRY FUNCTION, AUTO-HUD OFF IN FSD.   TEST SR H4P,	//
+// v5.0 - IMPROVEMENT: Add SRV Turret to Hardpoints, External Camera turn off GUI HUD 		TODO:  Clear all Chat boxes?,		//
 // v5.0 - IMPROVED: Moved MFD Code to Hardware.tmh. ADD: PIP auto-set to ENG/WEP on Silent Running HS Combo.  Changed LG & CS to Pinky overrides.		//
 // v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision .. Cargo Scoop UNTESTED!		 //
 // v5.0 - FIXED: Handbrake changing HUD mode when activated on Pinky Trigger, now mapped to China Hat back. FIXED: UserPIPPref 3 Med/Long Press swapped WEP/ENG.//

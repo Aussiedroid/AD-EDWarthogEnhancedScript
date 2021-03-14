@@ -92,7 +92,7 @@
 	int StatusSRVHandbrake	  = 0;						// TEST
 	int StatusSRVTRet		  = 0;						// TEST
 	int StatusSRVTView		  = 0;						// TEST
-
+	int HSPTDelay			  = 0;						// TEST
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FLAG VARIABLES   //	(Used in AD_EDStatusJson.tmh)	   Refer to Section 13 (page 80) in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
