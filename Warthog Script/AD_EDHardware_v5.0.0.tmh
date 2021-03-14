@@ -1,8 +1,8 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// HARDWARE //																																					//
+// HARDWARE //								Set Device Axis behaviour &  Map MFD Controls																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// TOC:/								JOYSTICK AXIS		(20)			RUDDER AXIS			(158)															//
-//-----									THROTTLE AXIS		(44)			MFD CONTROLS 		(176)															//
+// TOC:/								JOYSTICK AXIS		(15)			RUDDER AXIS			(156)															//
+//-----									THROTTLE AXIS		(42)			MFD CONTROLS 		(174)															//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // HARDWARE: JOYSTICK AXIS CURVES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -27,7 +27,7 @@
 		if(!fFAOff) {
 			if(UseRudderAxisCurves & VerboseOutput) printf("Joystick Profile[%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
 			else if(VerboseOutput) 					printf("Joystick Profile[%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]); } }
-
+		
 
 
 	int initJoystickAxis() { 																	// Set Default Joystick Axis

@@ -1,23 +1,23 @@
 //==============================================================================================================================================================//
-// Version 5.0.0									 \\ Released Sept 2016	|	Updated ?? 2021 //										Public Release #26		//
+// VERSION 5.0.0									 \\ Released Sept 2016	|	Updated ?? 2021 //											Public Release #26	//
 //==============================================================================================================================================================//
 //													///  Aussiedroid's Enhanced Warthog Script  \\\																//
 //==============================================================================================================================================================//
 // TOC:/					[1. INITIALISATION / STARTUP  ]		[2. HOTAS CONTROL MAPPING	 ]		[3. HARDWARE HANDLER		  ]								//
-//-----							- INCLUDED FILES	  (13)			- JOYSTICK 			(136)			- EVENT HANDLE	 (487)									//
-//								- DEVICE CHECK		  (26)			- THROTTLE ARM 		(322)																	//
-//								- START SOFTWARE	  (43)			- THROTTLE BASE		(399)																	//
-//								- CORE SETTINGS		  (59)					        																			//
+//-----							- INCLUDED FILES	  (12)			- JOYSTICK 			(143)			- EVENT HANDLE	 (492)									//
+//								- DEVICE CHECK		  (25)			- THROTTLE ARM 		(329)																	//
+//								- START SOFTWARE	  (49)			- THROTTLE BASE		(404)																	//
+//								- CORE SETTINGS		  (65)					        																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // INCLUDED FILES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	include "Target.tmh" 												// Default System Import (Thrustmaster TARGET Functions)
+	include "Target.tmh" 												// Manditory Default System Import (Thrustmaster TARGET Functions)
 	include "AD_EDDefaults_v5.0.0.tmh"									// Global Variable Settings, States & Timings/Delays
 	include "AD_EDUserPrefs_v5.0.0.tmh" 								// User Preferences & Script Customisation Options
 	include "AD_EDKeyMap_v5.0.0.ttm" 									// Variable Key Mapping & Reference Tables
 	include "AD_EDHardware_v5.0.0.tmh"									// MFD, Joystick, Throttle & Rudder Axes/Curves Configuration
-	include "AD_EDStatusJson_v5.0.0.tmh"								// Parse Status.json file to get in-game status
+	include "AD_EDStatusJson_v5.0.0.tmh"								// Parse Status.json file to get real-time in-game status
 	include "AD_EDMacros_v5.0.0.tmh"									// Macro Definitions	 (Custom Sequences)
 	include "AD_EDFunctions_v5.0.0.tmh" 								// Function Definitions	 (Custom Logic for Buttons, Toggles & Ship Controls)
 
@@ -26,11 +26,18 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int main() {														// Exclude Hardware from Virtual Device & Manage Additional Devices
-		Configure(&HCougar, MODE_EXCLUDED);
-		Configure(&T16000, MODE_EXCLUDED);
+		Configure(&HCougar,		  MODE_EXCLUDED);
+		Configure(&T16000,		  MODE_EXCLUDED);
+		Configure(&T16000L,		  MODE_EXCLUDED);
+//		Configure(&JoystickF18,	  MODE_EXCLUDED);
+		Configure(&A320Pilot,	  MODE_EXCLUDED);
+		Configure(&A320Copilot,	  MODE_EXCLUDED);
+		Configure(&TCAQuadrant12, MODE_EXCLUDED);
+		Configure(&TCAQuadrant34, MODE_EXCLUDED);		
+		
 		if(UseMFD == 0) {												// No MFDs (Ignore configuring MFDs unless set in User Preferences)
-			Configure(&LMFD, MODE_EXCLUDED);
-			Configure(&RMFD, MODE_EXCLUDED); }
+			Configure(&LMFD, 	  MODE_EXCLUDED);
+			Configure(&RMFD, 	  MODE_EXCLUDED); }
 		if(UseRuddersT16000 == 0) Configure(&TFRPRudder, MODE_EXCLUDED);	// Enables Standard T.Flight T16000 Rudders
 		if(UseRuddersT16000 == 1) Configure(&TFRPRudder, MODE_FILTERED);	// Enables Differential Toe Brakes on T.Flight T16000 Rudders (for mapping through Target Script)
 		if(UseRuddersTPR == 0)	  Configure(&TFRPHARudder, MODE_EXCLUDED);	// Enables Standard T.Flight TPR Pedals
@@ -68,7 +75,7 @@
 	initCustomMacroCommands();																// Initiate Custom Macros & Functions (See AD_EDMacros.tmh)
 	initEscapeVector();																		// Initiate Advanced Macro to perform a tactical withdraw from combat (Retract Hardpoints, Set Defensive PIPs, Auto Boost/Chaff, Engage Supercruise) (See AD_EDMacros.tmh)
 	initSetThrottleCurves();																// Initiate Mapping of Custom Throttle Curves (3 Presets configurable in AD_EDUserPrefs.tmh)
-	fnStartCheck();
+	fnStartCheck();																			// Initiate Check for status.json file & commence reading output to flags (See AD_EDStatusJson.tmh)
 	initPrintState();																		// Initiate Display Script Settings to Output Window in Script/GUI (See AD_EDFunctions.tmh)
 	initPIPMapper();																		// Initiate PIP Configuration Mapper (See AD_EDFunctions.tmh)
 	initSetCombinedFire(0);																	// Initiate Mapping Logic to enable/disable the Dual-Stage Primary Trigger with either Primary & Secondary Fire Combined OR Primary Fire Only (Nothing mapped to 2nd stage). (See AD_EDFunctions.tmh)
@@ -80,6 +87,7 @@
 	initCargoReturnMode();																	// Initiate Disables Cargo Scoop Throttle Mode		 (LED Support) (See AD_EDFunctions.tmh)
 	initIDLEMaster();																		// Initiate Advanced Function to disable Throttle (& Boost) when engaging Throttle IDLE/Afterburner Lock Indent. Will also enable SRV Handbrake. (See AD_EDFunctions.tmh)
 	initHeadlookModeSelect();																// Initiate Custom mapping preference for Headlook Centering based on your hardware (TrackIR, VR, Mouse) (See AD_EDFunctions.tmh)
+	initExternalCameraUpgrade();															// ???
 	initHardpointManagement();																// Initiate Advanced Function integrating all Hardpoint/Other functions related to the Red Left Throttle Button (See AD_EDFunctions.tmh)
 	initMicCommander();																		// Initiate Full control over Internal & External Mic Push-to-Talk functionality for Hold & Toggle configurations (See AD_EDFunctions.tmh)
 	initUserHotSlotPinkyTrigger();															// Initiate Double Tap Functionality on the Joystick Pinky Trigger (See AD_EDFunctions.tmh)
@@ -330,10 +338,8 @@
 	MapKeyR(&Throttle, SC,   EXEC(		"ActKey(KEYON+UP+SRVVerticalThrust);"));									// Release the SRV Vertical Thrust
 
 
-	MapKey(&Throttle,  LTB,  TEMPO(EXEC( "initHardpointManagement();"),												// Left Throttle Button (RED)
-								   EXEC(
-								  	    "if(!Joystick[H4P] & !Joystick[S4]) ActKey(KEYON+DOWN+ShowCQCScoreboard);" 	// If in CQC: Show Scoreboard (Hold) | If NOT in CQC: Reset Hardpoint Flag (fix alignment issues with Escape Vector Macro)
-								  	    "if(!Joystick[H4P] & !Joystick[S4]) HPoints=!HPoints;"),					// Hardpoint Flag Override IF Escape Vector gets out of alignment.
+	MapKey(&Throttle,  LTB,  TEMPO(EXEC("initHardpointManagement();"),												// Left Throttle Button (RED)
+								   EXEC("if(!Joystick[H4P] & !Joystick[S4]) ActKey(KEYON+DOWN+ShowCQCScoreboard);"), 	// If in CQC: Show Scoreboard (Hold) | If NOT in CQC: Reset Hardpoint Flag (fix alignment issues with Escape Vector Macro)
 							 LongPressDelay));																		// [Have System selected prior to High Wake]
 	MapKeyR(&Throttle, LTB,  EXEC(       "ActKey(KEYON+UP+ShowCQCScoreboard);"));									// Release CQC Scoreboard display
 

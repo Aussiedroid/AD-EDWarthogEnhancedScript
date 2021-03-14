@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// GLOBAL SETTINGS //									// ** YOU SHOULD NOT NEED TO CHANGE THE DEFAULTS STORED IN THIS FILE **
+// GLOBAL VARIABLES //										** YOU SHOULD NOT NEED TO CHANGE THE DEFAULTS STORED IN THIS FILE **
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	define ADVersionMajor 		5						// Script Version Major Value			ie. 3.x.x
@@ -39,12 +39,13 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // DEFAULT STATES    		(1 = Yes, 0 = No) //		// VARIABLE DESCRIPTION & USAGE
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-														//  NOTE: If your switches aren't set to match, then you may need to use the toggle to reset, or have to do an extra key toggle/key press to "catch up"
+														//  NOTE: If your switches aren't set to match, then you may need to use the toggle to realign toggle position.
 
 	int AxisCurveMod;									// Initiates variable to be used for custom axis curve preset on Throttle.		(used in initSetThrottleCurves())
-	int StartupLock			  = 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes)
-	int GameLoaded			  = 0;						// ???
-	int ReadErrorCount		  = 0;						// ???
+	int StartupLock			  = 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes) (used in AD_ED_v5.x.x.tmc)
+	int GameLoaded			  = 0;						// Flag is set when game starts to send output from status.json file confirming the game is loaded and you are in a session. Used in auto-shutdown functionality. (used in AD_EDStatus.json.tmh)
+	int ReadErrorCount		  = 0;						// Tracks the number of times in a row the script fails to read the status.json file. Script will abort on 3 failures in a row. (used in AD_EDStatus.json.tmh)
+	int CameraMode			  = 0;						// ???
 	int RCorrection 		  = 1;						// Rotational Correction ON		(Press 'F4' to align as required in-game) 		(used in initToggleRotationCorrection())
 	int Lights 				  = 0;						// Ship Lights OFF				(Press 'INSERT' to align if SRV takes out of alignment) (used in initToggleShipLights())
 	int AltFlightToggle		  = 0;						// Tracks Alternative Flight Controls Toggle Status OFF	(used in initEnhancedFAOFF())
@@ -61,22 +62,47 @@
 	int MicExtToggleCheckALT  = 0;						// Tracks state of Alt. Toggle Microphone action		(used in initMicCommander())
 	int MicExtToggleCombo	  = 0;						// Tracks state of Toggle Microphone Combo action		(used in initMicCommander())
 	int CoolRunnings 		  = 0;						// Tracks state of Silent Running + Heat Sink Combo		(used in initToggleSilentRunning())
+	int SRStrobe			  = 0;						// Tracks state of Silent Running Strobe				(used in initToggleSilentRunning())
 	int DoubleTapPT			  = 0;						// Tracks state of Double Tap function on Pinky Trigger (used in initUserHotSlotPinkyTrigger())
 	int ReportCrimeState	  = 0;						// Tracks state of Report Crimes Against Me Toggle		(used in AD_ED_v5.x.x.tmc)
 	int ShowGameStatState	  = 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v5.x.x.tmc)
 	int EndlessStatePri		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Pri(used in AD_ED_v5.x.x.tmc)
 	int EndlessStateSec		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Sec(used in AD_ED_v5.x.x.tmc)
+	int FSDJumpCheck		  = 0;						// TEST
+	int StatusMainShip		  = 0;						// TEST
+	int StatusDanger		  = 0;						// TEST
+	int StatusDocked		  = 0;						// TEST
+	int StatusFighter		  = 0;						// TEST
+	int StatusFSDCooldown	  = 0;						// TEST
+	int StatusFSDCharging	  = 0;						// TEST
+	int StatusFuelScoop		  = 0;						// TEST
+	int StatusHUD			  = 0;						// TEST
+	int StatusInterdicted	  = 0;						// TEST
+	int StatusInWing		  = 0;						// TEST
+	int StatusLanded		  = 0;						// TEST
+	int StatusLatLong		  = 0;						// TEST
+	int StatusLowFuel		  = 0;						// TEST
+	int StatusMassLocked	  = 0;						// TEST
+	int StatusOverheating	  = 0;						// TEST
+	int StatusfsdJump		  = 0;						// TEST
+	int StatusShieldsUp		  = 0;						// TEST
+	int StatusSupercruise	  = 0;						// TEST
+	int StatusSRV			  = 0;						// TEST
+	int StatusSRVAssist		  = 0;						// TEST
+	int StatusSRVHandbrake	  = 0;						// TEST
+	int StatusSRVTRet		  = 0;						// TEST
+	int StatusSRVTView		  = 0;						// TEST
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FLAG VARIABLES   //	(Used in AD_EDStatusJson.tmh)	   Refer to Section 13 (page 80) in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	int fAltFromAvgRad		  = 0;						// Use these after calling fnProcessFlags() in your functions.
+														// Use these after calling fnProcessFlags() in your functions.
+	int fAltFromAvgRad		  = 0;						// Altitude from Average radius 				
 	int fCargoScoop			  = 0;
-	int fDanger				  = 0;
-	int fDocked				  = 0;
-	int fFAOff				  = 0;
+	int fDanger				  = 0;						// Is In Danger
+	int fDocked				  = 0;						// On a Landing Pad
+	int fFAOff				  = 0;						// Flight Assist Off
 	int fFighter			  = 0;
 	int fFSDCharging		  = 0;
 	int fFSDCooldown		  = 0;
@@ -85,9 +111,9 @@
 	int fHUDAnalysis		  = 0;
 	int fInterdicted		  = 0;
 	int fInWing				  = 0;
-	int fLanded				  = 0;
+	int fLanded				  = 0;						// On a Planet
 	int fLandingGear		  = 0;
-	int fLatLong			  = 0;
+	int fLatLong			  = 0;						// Orbiting a Planet
 	int fLights				  = 0;
 	int fLowFuel			  = 0;
 	int fMainShip			  = 0;
@@ -101,7 +127,7 @@
 	int fSRVDriveAssist		  = 0;
 	int fSRVHandbrake		  = 0;
 	int fSRVHiBeam			  = 0;
-	int fSRVTurretRetracted	  = 0;
+	int fSRVTurretRetracted	  = 0;						// SRV Turret retracted (close to ship) 
 	int fSRVTurretView		  = 0;
 	int fSupercruise		  = 0;
 

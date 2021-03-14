@@ -1,21 +1,22 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS: TOC	//							// FUNCTIONS Include logic to customise specific Button/Toggle functionality									//
+// FUNCTIONS //								FUNCTIONS include logic to customise specific Button/Toggle functionality											//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//		[1. FIRE/HARDPOINT CONTROLS			]	[3. SPECIALISED FEATURES				]	[4. TOGGLE CONTROLS					]	[5. REPORT STATES		  ] //
-//			- initHardpointManagement	(p11)		- initLEDController				(p111)		- initEnhancedFAOFF			(p222)		- initPrintState (p555)	//
-//			- initSetCombinedFire		(p11)		- initNightVisionEnhancer		(p111)		- initToggleRotationCorrect.(p222)								//
-//			- initExplorerScannerDiseng.(p11)		- initAPEngageEnhancer			(p111)		- initToggleSilentRunning	(p222)								//
-//													- initIDLEMaster				(p111)		- initToggleCargoScoop		(p222)								//
-//													- initUserHotSlotPinkyTrigger	(p111)		- initCargoReturnMode		(p222)								//
-//		[2. PIP & TEXT CHAT CONTROLS		]		- initHeadlookModeSelect		(p111)		- initToggleLandingGear		(p222)								//
-//			- initPIPMapper				(p11)													- initToggleShipLights		(p222)								//
-//			- initSendChatString		(p11)													- initMicCommander			(p222)								//
+// TOC:/ [1. FIRE/HARDPOINT CONTROLS		] 	[3. SPECIALISED FEATURES				]	[4. TOGGLE CONTROLS					]	[5. REPORT STATES		  ] //
+//-----		- initHardpointManagement	(17)		- initLEDController				(102)		- initEnhancedFAOFF			(256)		- initPrintState (p586)	//
+//			- initSetCombinedFire		(32)		- initNightVisionEnhancer		(136)		- initToggleRotationCorrect.(300)								//
+//			- initExplorerScannerDiseng.(44)		- initAPEngageEnhancer			(153)		- initToggleSilentRunning	(318)								//
+//													- initIDLEMaster				(190)		- initToggleCargoScoop		(355)								//
+//													- initUserHotSlotPinkyTrigger	(213)		- initCargoReturnMode		(395)								//
+//		 [2. PIP & TEXT CHAT CONTROLS		]		- initHeadlookModeSelect		(226)		- initToggleLandingGear		(420)								//
+//			- initPIPMapper				(54)		- initExternalCameraUpgrade()	(241)		- initToggleShipLights		(450)								//
+//			- initSendChatString		(81)													- initMicCommander			(464)								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initHardpointManagement() {																// FUNCTION: Manage Hardpoint Deployment & Associated Menu Mappings
-		if(Joystick[S4] & !Joystick[H4P]) {														// This check forces Hardpoints to be deployed so Escape Vector is always in the right state. 
+		fnProcessFlags();																		// Get latest Flags Value first
+		if(!Joystick[H4P] & Joystick[S4] & fMainShip) {											// This check forces Hardpoints to be deployed so Escape Vector is always in the right state. 
 			initEscapeVector();	}																// Disengage & Escape Vector Macro
 		if(Joystick[H4P] & !Joystick[S4]) {
 			ActKey(KEYON+PULSE+UIEscape); }														// EXIT to MENU (Hold Modifier 2)
@@ -23,12 +24,12 @@
 			ActKey(KEYON+PULSE+mFastModeSwitch); }												// EXIT to MENU + Fast Game Mode Switch (Hold Modifier 1+2)
 		if(!Joystick[H4P] & !Joystick[S4]) {													// Standard Hardpoint Deploy/Retract
 			if(!StartupLock) {
-				ActKey(KEYON+PULSE+DeployHardpoints);											// If in Ship: Deploy/Retract Hardpoints
+				if(fMainShip) { ActKey(KEYON+PULSE+DeployHardpoints); }							// If in Ship: Deploy/Retract Hardpoints
+				if(fSRV) 	  { ActKey(KEYON+PULSE+SRVTurret); }								// If in SRV: Deploy/Retract Turret
 				ActKey(KEYON+DOWN+ShowCQCScoreboard); }	} }										// If in CQC: Show Scoreboard (Hold)
-
-
-
-	int initSetCombinedFire(int toggleValue) { 													// FUNCTION: Calculate Combined Fire Status (Default = ON (Combined))
+	
+	
+	int initSetCombinedFire(int toggleValue) {													// FUNCTION: Calculate Combined Fire Status (Default = ON (Combined))
 		if(toggleValue) {																		// When disabled, Trigger 2 is independant on Pinky Button (DX3) only
 			combinePriSecFire = !combinePriSecFire;	}
 		if(combinePriSecFire){
@@ -151,24 +152,24 @@
 																								// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
 	int initAPEngageEnhancer() { 																//	(See AD_EDUserPrefs.tmh for mappings)
 		fnProcessFlags();																		// Get latest Flags Value first
-		if(Joystick[H4P]) {																		//	 Defaults: Include the Autodock, Signal Light Sequences (Flashing ShipLights) & Basic Text Comms.
-			if(APSeqShort) {																	// [Short+CMS: Text "CMDR o7" (default)]
-				ActKey(KEYON+PULSE+APEngageCMSShort);											// Set custom APEngageCMSShort value in the User Preferences
-				APSeqShort=!APSeqShort; }
-			if(APSeqLong) {																		// [Long+CMS: Text "Fly Safe CMDR" (default)]
+		if(Joystick[H4P]) {																		//	 Defaults: Include the Autodock, Signal Light Sequences (Flashing ShipLights) & NAV Beacon.
+			if(APSeqShort) {																	// [Short+CMS: mNAVBeaconWing (default)]
+				ActKey(KEYON+PULSE+APEngageCMSShort); 											// Set custom APEngageCMSShort value in the User Preferences
+				APSeqShort=!APSeqShort; }			
+			if(APSeqLong) {																		// [Long+CMS:  mNAVBeaconOff  (default)]
 				ActKey(KEYON+PULSE+APEngageCMSLong);											// Set custom APEngageCMSLong value in the User Preferences
 				APSeqLong=!APSeqLong; } }
 		if(Joystick[S4]) {
 			if(APSeqShort) {																	// [Short+Pinky: Auto-Dock Request (default)]
 				if(mRequestDock & fDocked) {
-					if(VerboseOutput) printf("Cannot Auto-Dock when Docked!"); }
+					if(VerboseOutput) printf("Cannot Auto-Dock when Docked!\x0a"); }
 				else { ActKey(KEYON+PULSE+APEngagePinkyShort);	}										// Set custom APEngagePinkyShort value in the User Preferences
 				if(APEngagePinkyShort == mRequestDock & VerboseOutput & !fDocked) printf("Attempting Auto-Dock Procedure...\x0a");
 				if(APEngagePinkyShort == mHangarAutomation & VerboseOutput & fDocked) printf("Repair & Refuel Sequence Activated...\x0a");
 				APSeqShort=!APSeqShort; }
-			if(APSeqLong) {																		// [Long+Pinky: Auto-Dock Request (default)]
+			if(APSeqLong) {																		// [Long+Pinky: Hangar Automation  (default)]
 				if(mHangarAutomation & !fDocked) {
-					if(VerboseOutput) printf("Cannot Repair & Refuel when not Docked!"); }
+					if(VerboseOutput) printf("Cannot Repair & Refuel when not Docked!\x0a"); }
 				else { ActKey(KEYON+PULSE+APEngagePinkyLong);	}	
 				ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
 				if(APEngagePinkyLong == mRequestDock & VerboseOutput & !fDocked) printf("Attempting Auto-Dock Procedure...\x0a");
@@ -188,24 +189,24 @@
 
 	int initIDLEMaster() {																		// FUNCTION: Enforce Throttle IDLE (Stationary) on any Throttle Mode
 		if(!StartupLock) {
-			fnProcessFlags();																		// Get latest Flags Value first
+			fnProcessFlags();																	// Get latest Flags Value first
 			if(Throttle[IDLELON]) {
 				if(!Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Full Range Throttle Modes
 					DXAxis(DX_ZROT_AXIS, 0);													// Prevents issues launching from stations etc
 					DXAxis(DX_Z_AXIS, 0);
 					LockAxis(&Throttle, THR_LEFT, 1);											// Lock Axes to keep null value
 					LockAxis(&Throttle, THR_RIGHT, 1);
-					if(fSRV) ActKey(KEYON+PULSE+SRVHandbrake); }											// IDLE Doubles as SRV Handbrake ON when on surface
+					if(fSRV) ActKey(KEYON+PULSE+SRVHandbrake); }								// IDLE Doubles as SRV Handbrake ON when on surface
 				if(Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Forward Only Throttle Mode
 					DXAxis(DX_ZROT_AXIS, 32767);
 					DXAxis(DX_Z_AXIS, 32767);
 					LockAxis(&Throttle, THR_LEFT, 1);											// Lock Axes to keep null value
 					LockAxis(&Throttle, THR_RIGHT, 1);
-					if(fSRV) ActKey(KEYON+PULSE+SRVHandbrake); }	}										// IDLE Doubles as SRV Handbrake ON when on surface
+					if(fSRV) ActKey(KEYON+PULSE+SRVHandbrake); }	}							// IDLE Doubles as SRV Handbrake ON when on surface
 			if(!Throttle[IDLELON]) {
 				LockAxis(&Throttle, THR_LEFT, 0);												// Unlocks the Throttle Axes when exiting IDLE
 				LockAxis(&Throttle, THR_RIGHT, 0);
-				if(fSRV) ActKey(KEYON+PULSE+SRVHandbrake); } } }											// Release the SRV Handbrake
+				if(fSRV) ActKey(KEYON+PULSE+SRVHandbrake); } } }								// Release the SRV Handbrake
 	
 
 
@@ -233,6 +234,19 @@
 			if(HeadtrackPref == 2) {
 				if(!Joystick[S4]) ActKey(KEYON+PULSE+ResetHMDOrientation);						// [Short: 		 Reset HMD Orientation]		[VR/VIVE/OCCULUS RIFT]
 				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); } } }			// [Short+Pinky: VA Toggle]
+
+
+
+
+	int initExternalCameraUpgrade() {															// FUNCTION: Toggle External Camera & Free Camera Modes
+		CameraMode = !CameraMode;
+		ActKey(PULSE+KEYON+ClassifiedCamera);
+		if(CameraMode) {
+			printf("External Camera:	ON\x0a");
+			DeferCall(100, &ActKey, PULSE+KEYON+EnterFreeCameraMode);
+			DeferCall(200, &ActKey, PULSE+KEYON+ToggleCameraHUD); }								// Automatically Hide Camera HUD
+		else {
+			printf("External Camera:	OFF\x0a"); } }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -303,25 +317,31 @@
 
 	int initToggleSilentRunning(int x) {														// TOGGLE: Silent Running   (Argument x .. 1 = Deploy, 0 = Retract)
         fnProcessFlags();																		// Get latest Flags Value first
-        if (!fSupercruise & !fSRV & !fLanded & !fDocked) {						// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
+        if (!fSupercruise & !fSRV & !fLanded & !fDocked) {										// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
             if (fSilentRunning != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
 				ActKey(KEYON+PULSE+SilentRunning);												// [Toggle Hold]
-				if(Joystick[S4] & Throttle[APUON])  {											// Heat Sink + Silent Running Combo [Pinky+Silent Running]
+				if(Joystick[S4] & !Joystick[H4P] & Throttle[APUON])  {							// Heat Sink + Silent Running Combo [Pinky+Silent Running]
 					CoolRunnings=!CoolRunnings;
 					ActKey(KEYON+PULSE+EXEC("initPIPMapper(ENG,WEP);"));						// Set PIPs to ENGx4 WEPx2 - Offensive stance - removes from SYS
 					ActKey(KEYON+PULSE+DeployHeatSink);
 					ActKey(KEYON+PULSE+SilentRunning);
 					if(VerboseOutput) printf("Silent Running: COOL RUNNINGS (!Heat Sink Combo!)\x0a"); }
+				if(!Joystick[S4] & Joystick[H4P] & Throttle[APUON] & SRStrobe == 0) {
+					AutoRepeat(5, 2000, &ActKey, PULSE+KEYON+SilentRunning);					// Start Strobe Silent Running 
+					SRStrobe = 1; }
+				if(!Joystick[S4] & Joystick[H4P] & !Throttle[APUON] & SRStrobe == 1) {
+					StopAutoRepeat(5);															// Stop Strobe Silent Running 
+					SRStrobe = 0; }
                 if (!fSilentRunning) {    // OPEN ACTIONS //
                 	if(BlingLEDBling) initLEDController(LED3);
 					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3));				// set LED 3 ON
-                	if(!StartupLock & VerboseOutput) printf("Silent Running: ACTIVATED   !!\x0a"); }				// Print the action to console...
+                	if(!StartupLock & VerboseOutput) printf("Silent Running: ACTIVATED   !!\x0a"); }// Print the action to console...
                 else {					 // CLOSE ACTIONS //
                 	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));				// set LED 3 OFF
 					if(BlingLEDBling) initLEDController(LED3);
 					if(CoolRunnings) {
 									CoolRunnings=!CoolRunnings;
-									ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);")); }			// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from SYS
+									ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);")); }		// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from SYS
                     if(!StartupLock & VerboseOutput) printf("Silent Running: DEACTIVATED <<\x0a");	 } }
             else {
                 if(!StartupLock & VerboseOutput) printf("Silent Running: NOTHING TO DO ==\x0a"); } }

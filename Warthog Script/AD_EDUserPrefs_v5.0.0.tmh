@@ -17,10 +17,9 @@
 //																																								//
 // Need help understanding this script?		-> Click the (?) HELP button in top right corner of Target Script Editor OR ask a question in the Forum/Guide <-	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// MINIMUM REQUIREMENTS: THRUSTMASTER TARGET SOFTWARE v3.0.18.328+ \ DRIVERS+FIRMWARE 2018+  ->(https://support.thrustmaster.com/en/product/hotaswarthog-en/)<- //
+// MINIMUM REQUIREMENTS: THRUSTMASTER TARGET SOFTWARE v3.0.18.826+ \ DRIVERS+FIRMWARE 2018+  ->(https://support.thrustmaster.com/en/product/hotaswarthog-en/)<- //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //										** RECOMMENDED RUNNING SCRIPT IN TARGET GUI & EDITING VIA TARGET SCRIPT EDITOR **										//
-//																																								//
 //																																								//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -30,6 +29,7 @@
 		// START-UP //
 	define StartSoftware		0						// Start ED Launcher (&/or other 3rd Party Apps) when you Run the Script (Software List & Paths can be customised in AD_ED_v4.x.x.tmc)
 														//  [NOTE: Doesn't work under Win10 -> Please use ED-BAT File included in download pack]
+	define ShipSRVTelemetry		1						// Outputs Ship & SRV Telemetry Status to the TARGET Window. Eg. Shields Up, Low Fuel, Mass Locked, Overheating + more (Default = 0)													
 	define VerboseOutput		1						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
 														//	Options:	Enable = 1 (default) (On)					Disable = 0 (Silent Mode / Off)
 
@@ -41,8 +41,8 @@
 														// Local Path to the status.json file on your PC. Default Path: "C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
 
 		// SHUT-DOWN //
-	define AbortScriptOnExit	1						// 
-	define TurnOffLEDSOnExit	1						// 	
+	define AbortScriptOnExit	1						// Automatically stops running the script when you exit to desktop. (default = 1)
+	define TurnOffLEDSOnExit	1						// Set LED Backlight Level on Throttle to 0 (Off) when you exit to desktop. (default = 1)	
 
 
 		// CORE HARDWARE //
@@ -182,6 +182,7 @@
 		// DEVELOPER OPTIONS //
 	define DebugOutput			0						// Enables Developer Output to the TARGET Window for troubleshooting coding issues (Will Spam! Leave Disabled = 0)
 
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // EXPERIMENTAL PREFERENCES //
 //-------------------------//
@@ -205,7 +206,10 @@
 // =============================================================================================================================================================//
 // VERSION HISTORY //			Version 5.0.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
 // =============================================================================================================================================================//
-// v5.0 - WIP...Moved MFD Code to Hardware.tmh. ADD: PIP auto-set to ENG/WEP on Silent Running HS Combo.  Changed LG to Pinky override.
+//
+// v5.0 - 	TEST SRV & SHIP TELEMETRY FUNCTION, TEST HARDPOINT IN SRV/SHIP, TEST SR H4P, TEST FSD HUD OFF IN JUMP, 	//
+// v5.0 - IMPROVEMENT: Add SRV Turret to Hardpoints,  TODO: External Camera turn off GUI HUD, Clear all Chat boxes?,		//
+// v5.0 - IMPROVED: Moved MFD Code to Hardware.tmh. ADD: PIP auto-set to ENG/WEP on Silent Running HS Combo.  Changed LG & CS to Pinky overrides.		//
 // v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision .. Cargo Scoop UNTESTED!		 //
 // v5.0 - FIXED: Handbrake changing HUD mode when activated on Pinky Trigger, now mapped to China Hat back. FIXED: UserPIPPref 3 Med/Long Press swapped WEP/ENG.//
 // v4.3 - NEW: Hangar Automation Macro added! Mapped In-game Store Page. Set custom deadzone on Slew on Throttle. FIXED: Joystick 'JS_DEADZONE' not working. 	//

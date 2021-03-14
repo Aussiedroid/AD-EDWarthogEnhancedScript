@@ -1,12 +1,12 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// KEY BINDINGS 	(Note: Not all Bindings are used in this script directly (these will be commented out below) Instead, they're mapped directly in ED Config.)//
+// KEY BINDINGS //  	Not all Bindings are used in script directly (these will be commented out below) - They're mapped directly in ED Bindings Config		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // TOC:/																[ 1. KEYBIND GROUP INDEX ]																//
-// ----				- WEAPON CONTROL	(13)		- SHIP SYSTEMS 		 (132)		- WINGS			(232)		- GALAXY MAP		(444)						//
-//					- TARGET CONTROL	(26)		- COOLING/C.MEASURES (132)		- FIGHTERS		(232)		- CAMERA SUITE		(999)						//
-//					- FLIGHT CONTROL	(43)		- THROTTLE BASE		 (132)		- MULTICREW		(232)		- HEADLOOK	 		(343)						//
-//					- SRV CONTROL		(59)		- SCANNERS			 (434)		- HOLO-ME		(111)      	- STORE PAGE & MISC (555)						//
-//					- FIRST PERSON CTRL	(44)		- UI NAVIGATION		 (333)		- PLAYLIST		(232)		- EXTERNAL BINDINGS (654)	+ DX MAPPINGS (292)	//
+// ----				- WEAPON CONTROL	(12)		- SHIP SYSTEMS 		 (132)		- WINGS			(232)		- GALAXY MAP		(444)						//
+//					- TARGET CONTROL	(20)		- COOLING/C.MEASURES (132)		- FIGHTERS		(232)		- CAMERA SUITE		(999)						//
+//					- FLIGHT CONTROL	(32)		- THROTTLE BASE		 (132)		- MULTICREW		(232)		- HEADLOOK	 		(343)						//
+//					- SRV CONTROL		(61)		- SCANNERS			 (434)		- HOLO-ME		(111)      	- STORE PAGE & MISC (555)						//
+//					- FIRST PERSON CTRL	(68)		- UI NAVIGATION		 (333)		- PLAYLIST		(232)		- EXTERNAL BINDINGS (654)	+ DX MAPPINGS (292)	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 		// WEAPON CONTROL //
@@ -209,7 +209,7 @@
 		// CAMERA SUITE //						(Note: These are mapped in ED Bindings directly)
 //	define PreviousCamera						L_ALT+USB[0x1E]			// ALT+1
 //	define NextCamera							L_ALT+USB[0x1F]			// ALT+2
-//	define EnterFreeCameraMode					USB[0x62]				// NUMPAD 0
+	define EnterFreeCameraMode					USB[0x62]				// NUMPAD 0
 //	define ExitFreeCameraMode					
 //	define CameraPreset1						L+CTL+USB[0x1E]			// CTRL+1		(Cockpit FRONT)
 //	define CameraPreset2						L+CTL+USB[0x1E]			// CTRL+2		(Cockpit BACK)
@@ -220,7 +220,7 @@
 //	define CameraPreset7						L+CTL+USB[0x1E]			// CTRL+7		(Ship FRONT)
 //	define CameraPreset8						L+CTL+USB[0x1E]			// CTRL+8		(Ship BACK)
 //	define CameraPreset9						L+CTL+USB[0x1E]			// CTRL+9		(Ship LOW)
-//	define ToggleCameraHUD						L_CTL					// CTRL
+	define ToggleCameraHUD						L_CTL					// CTRL
 //	define CameraDecreaseSpeed					USB[0x1E]				// 9
 //	define CameraIncreaseSpeed					R_CTL					// CTRL
 //	define CameraZoomIn							
@@ -258,7 +258,7 @@
 
 		// MISCELLANEOUS //
 	define InternalVoiceCommsPTT 				USB[0x31]				// \
-//	define ClassifiedCamera 					USB[0x3A] 				// F1 <Disabled>
+	define ClassifiedCamera 					USB[0x3A] 				// F1 <Disabled>
 //	define ClassifiedCameraSRV					L_ALT+USB[0x3A]			// ALT+F1 <Disabled>
 	define OrbitalLines 						USB[0x2E] 				// =
 	define HideShipGUI 							L_CTL+L_ALT+USB[0x0A]	// CTRL+ALT+G	(Note: This cannot be modified!)

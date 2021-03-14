@@ -1,18 +1,18 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MACROS //													initCustomMacroCommands()																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// TOC:/						mHangarAutomation	(20)		mJumpMidSubSys		(80)		mNextTurretModeX1	(167)										//
-//-----							mRequestDock		(32)		mJumpPrevSubSys 	(84)		mNextTurretModeX2	(184)										//
-//								mShowGameStats		(44)		mJumpNextSubSys		(92)		mChatPanelGrab		(202)										//
-//								mFastModeSwitch		(48)		mReportCrimesToggle	(99)		mBoostBrake			(210)										//
-//								mSignalLights		(57)		mNAVBeaconWing		(118)		mChinaHatBack		(215)										//
-//								mSignalLightsLong	(65)		mNAVBeaconOff		(141)		initEscapeVector()	(221)										//
-//																mNAVBeaconToggle	(163)																		//
+// TOC:/						mHangarAutomation	(25)		mJumpMidSubSys		(85)		mNextTurretModeX1	(172)										//
+//-----							mRequestDock		(37)		mJumpPrevSubSys 	(89)		mNextTurretModeX2	(189)										//
+//								mShowGameStats		(48)		mJumpNextSubSys		(97)		mChatPanelGrab		(207)										//
+//								mChangeColours		(52)		mReportCrimesToggle	(104)		mBoostBrake			(215)										//
+//								mFastModeSwitch		(56)		mNAVBeaconWing		(123)		mChinaHatBack		(220)										//
+//								mSignalLights		(63)		mNAVBeaconOff		(146)		initEscapeVector()	(226)										//
+//								mSignalLightsLong	(71)		mNAVBeaconToggle	(163)																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // START-UP: MACRO VARIABLE INITALISATION //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int mRequestDock, mHangarAutomation, mShowGameStats, mFastModeSwitch, mChatPanelGrab, mSignalLights, mSignalLightsLong, mReportCrimesToggle, mBoostBrake;
+	int mRequestDock, mHangarAutomation, mShowGameStats, mFastModeSwitch, mChatPanelGrab, mSignalLights, mSignalLightsLong, mReportCrimesToggle, mBoostBrake, mChangeColours;
 	int mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys, mNextTurretModeX1, mNextTurretModeX2, mChinaHatBack;
 	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear, mThrottleFullScaleCustom; 	// Configured for use in AD_EDHardware.tmh
 
@@ -48,6 +48,10 @@
 		mShowGameStats = CHAIN(																	// MACRO: Display the combined OSD FPS & Bandwidth meters
 			PULSE+ShowFramerate,		D(150),
 			PULSE+ShowConnectionStatus);
+	
+		mChangeColours = CHAIN(																	// MACRO: Change Engine and Weapon Colours
+			PULSE+EngineColour, 		D(250),
+			PULSE+WeaponColour, 		D(250));
 
 		mFastModeSwitch = CHAIN(																// MACRO: Automated Game Mode Switching
 			LOCK+PULSE+UIEscape,		D(700),													//	From Cockpit, it will navigate the Game Menu to put you back at the Game Mode selection screen automatically!
