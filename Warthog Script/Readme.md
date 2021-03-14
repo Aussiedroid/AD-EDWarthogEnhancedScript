@@ -65,7 +65,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 - Application paths & your own software selection can be configured in the AD_ED_v5.x.x.tmc file under START-UP: SOFTWARE section. By default these are commented out '//'. Remove the '//' at the start of the line to enable. Ensure the path written matches your install location.
 
-- Will not work on Windows 10 _(See [ED-BAT File](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Startup%20Batch%20Script "ED-BAT Batch File"))_ :(
+- Will NOT work on Windows 10 _(See [ED-BAT File](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Startup%20Batch%20Script "ED-BAT Batch File"))_ :(
 
 ### ShipSRVTelemetry [Values: 1 or 0] ###
 - TBC
@@ -391,7 +391,7 @@ Setting value to 0 will simplify this to a single tier of responses (4 in total)
 >>
 >>I would also like to recognise __jgm__ whose site was super helpful to export a base line reference map which I used as a basis to create my custom reference maps above, as well as the keyboard button mappings list. As of Aug 17, __jgm__ has stepped down on maintaining the website, which is now maintained by __VerticalBlank__.
 >>
->>Their fantastic tool can be found [here](https://edrefcard.info/ "EDRefCard.info").
+>>Their fantastic tool used to be found [here](https://edrefcard.info/ "EDRefCard.info"), but appears to be offline these days :(.
 
 ` `
 
