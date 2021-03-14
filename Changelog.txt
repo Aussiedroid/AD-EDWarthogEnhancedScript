@@ -20,8 +20,8 @@ NEW: Script automatically reads in real-time the State of game variables via the
 	- REMEMBER: Set the new StatusFile User Preferences, to define the path to your status.json file before you start.
 NEW: Automatically Stop Script Run when Elite Dangerous game is exited. Set is UserPrefs.
 NEW: Disable LED Backlight on Elite Dangerous exit. Set is UserPrefs.
-NEW: Turn off HUD while in Witchspace Warp Tunnel. TBC
-NEW: Ship & SRV Live Telemetry Output to the TARGET Window. Includes things like Shields Up, Overheating, Mass Locked, SRV Turret status and more! (Disabled in User Prefs by default) TBC
+NEW: Turn off Ship HUD while in Witchspace Warp Tunnel.
+NEW: Ship & SRV Live Telemetry Output to the TARGET Window. Includes things like Shields Up, Overheating, Mass Locked, SRV Turret status and more! (Disabled in User Prefs by default)
 NEW: External Camera Mode function added that swaps between Standard Camera Mode and Free Camera Mode, plus auto-hide HUD. (Currently unmapped) (map initExternalCameraUpgrade() to MapKey etc. TBC
 NEW: 
 NEW: 
