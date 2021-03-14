@@ -17,7 +17,7 @@
 
 		// SET DEFAULT JOYSTICK AXIS //
 	int initSetJoystickCurves() {																// Autopilot Select Switch position sets Joystick Curve Profile
-		profile = 1;								// [APAH]									// Three different presets are selectable On-The-Fly
+		profile = 1;					// [APAH]												// Three different presets are selectable On-The-Fly
 		if(Throttle[APPAT]) profile = 0;
 		if(Throttle[APALT]) profile = 2;
 		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[profile], JS_ZOOM[profile]);
