@@ -127,8 +127,11 @@
 
 																							// Map Throttle Autopilot to Joystick Curve Presets
 	if(JoystickOverride == 0) {																// Default Joystick Axis Preset Toggle Configuration
-		MapKey(&Throttle, APPAT,  EXEC("initSetJoystickCurves();"));						// Autopilot PATH UP
-		MapKey(&Throttle, APAH,   EXEC("initSetJoystickCurves();"));						// Autopilot ALT/HDG MIDDLE (Default)
+		MapKey(&Throttle, APPAT,  EXEC("initExternalCameraUpgrade();"));						// Autopilot PATH UP
+		MapKey(&Throttle, APAH,   EXEC("initExternalCameraUpgrade();"));						// Autopilot ALT/HDG MIDDLE (Default)
+		
+	//	MapKey(&Throttle, APPAT,  EXEC("initSetJoystickCurves();"));						// Autopilot PATH UP
+	//	MapKey(&Throttle, APAH,   EXEC("initSetJoystickCurves();"));						// Autopilot ALT/HDG MIDDLE (Default)
 		MapKey(&Throttle, APALT,  EXEC("initSetJoystickCurves();")); }						// Autopilot ALT DOWN
 	if(JoystickOverride == 1) { 															// User Configured Joystick Axis Preset Toggle Configuration (set in the User Prefs)
 		if(StartupLock) { 																	// On Startup Only, set the default Joystick Behaviour (set in the User Prefs)
@@ -387,7 +390,7 @@
 	// SHIFT KEY ADDITIONAL MAPPINGS //
 	MapKey(&Throttle,  PSF,  EXEC(																					// Pinky Throttle Switch FORWARD
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpNextSubSys);"
-								"if(Joystick[S4])  initSendChatString(chat_ClearChatBox);"
+								"if(Joystick[S4]) ActKey(KEYON+PULSE+mClearAllChatBox);" //"if(Joystick[S4])  initSendChatString(chat_ClearChatBox);"
 								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput) { printf(\"SHIFT KEY FORWARD  >>> [Comms Channel: AUTO-TEXT]\\x0a\"); printf(\"SHIFT KEY FORWARD  >>> [Repeater Mode: COMBAT-ENDLESS]\\x0a\"); }"));
 	MapKey(&Throttle,  PSM,  EXEC( 																					// Pinky Throttle Switch MIDDLE
 								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpMidSubSys);"

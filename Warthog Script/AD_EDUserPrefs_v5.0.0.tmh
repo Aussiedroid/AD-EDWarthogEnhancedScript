@@ -206,11 +206,11 @@
 // =============================================================================================================================================================//
 // VERSION HISTORY //			Version 5.0.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
 // =============================================================================================================================================================//
-//
-// v5.0 - NEW: SRV & SHIP TELEMETRY FUNCTION, AUTO-HUD OFF IN FSD.  TO TEST: SR H4P, CONFIRM ENABLED KEYMAP KEYS ARE ALIGN TO BINDINGS. AUTODOCK /PIPS	//
-// v5.0 - IMPROVEMENT: Add SRV Turret to Hardpoints, External Camera turn off GUI HUD 		TODO:  Clear all Chat boxes?,		//
+// v5.0 - 			//
+// v5.0 - NEW: SRV & SHIP TELEMETRY FUNCTION, AUTO-HUD OFF IN FSD. SR H4P,  	//
+// v5.0 - IMPROVEMENT: Add SRV Turret to Hardpoints, External Camera turn off GUI HUD -test 			//
 // v5.0 - IMPROVED: Moved MFD Code to Hardware.tmh. ADD: PIP auto-set to ENG/WEP on Silent Running HS Combo.  Changed LG & CS to Pinky overrides.		//
-// v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision .. Cargo Scoop UNTESTED!		 //
+// v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision .. Cargo Scoop!		 //
 // v5.0 - FIXED: Handbrake changing HUD mode when activated on Pinky Trigger, now mapped to China Hat back. FIXED: UserPIPPref 3 Med/Long Press swapped WEP/ENG.//
 // v4.3 - NEW: Hangar Automation Macro added! Mapped In-game Store Page. Set custom deadzone on Slew on Throttle. FIXED: Joystick 'JS_DEADZONE' not working. 	//
 // v4.3 - FIXED: FastMode Switch Macro for new UI. IMPROVED: Separate Left/Right Throttle axis mapping now possible & Throttle Axis Presets codes been upgraded.//

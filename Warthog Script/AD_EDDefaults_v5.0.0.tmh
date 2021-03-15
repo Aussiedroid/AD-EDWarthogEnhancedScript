@@ -33,7 +33,7 @@
 	define MineTimer			6200					// Set the Delay Timer for Mining Pulse Wave Scanner to auto-disengage	(default = 6200ms)
 
 	define ChatKeyRepeatTime	70						// Auto-Text Chat Preset time	(ms)									(default = 70ms)
-	define StatusReadRate		750						// Looping rate of the fnProcessFlags() function to read latest status.json status updates. (default = 750ms)
+	define StatusReadRate		700						// Looping rate of the fnProcessFlags() function to read latest status.json status updates. (default = 750ms)
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -45,7 +45,7 @@
 	int StartupLock			  = 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes) (used in AD_ED_v5.x.x.tmc)
 	int GameLoaded			  = 0;						// Flag is set when game starts to send output from status.json file confirming the game is loaded and you are in a session. Used in auto-shutdown functionality. (used in AD_EDStatus.json.tmh)
 	int ReadErrorCount		  = 0;						// Tracks the number of times in a row the script fails to read the status.json file. Script will abort on 3 failures in a row. (used in AD_EDStatus.json.tmh)
-	int CameraMode			  = 0;						// ???
+	int CameraMode			  = 0;						// Tracks External Camera mode							(used in initExternalCameraUpgrade())	
 	int RCorrection 		  = 1;						// Rotational Correction ON		(Press 'F4' to align as required in-game) 		(used in initToggleRotationCorrection())
 	int Lights 				  = 0;						// Ship Lights OFF				(Press 'INSERT' to align if SRV takes out of alignment) (used in initToggleShipLights())
 	int AltFlightToggle		  = 0;						// Tracks Alternative Flight Controls Toggle Status OFF	(used in initEnhancedFAOFF())
@@ -68,30 +68,30 @@
 	int ShowGameStatState	  = 0;						// Tracks state of OSD FPS/Bandwidth Monitor Toggle		(used in AD_ED_v5.x.x.tmc)
 	int EndlessStatePri		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Pri(used in AD_ED_v5.x.x.tmc)
 	int EndlessStateSec		  = 0;						// Tracks state of Repeater Fire Combat-Endless Mode Sec(used in AD_ED_v5.x.x.tmc)
-	int FSDJumpCheck		  = 0;						// TEST
-	int StatusMainShip		  = 0;						// TEST
-	int StatusDanger		  = 0;						// TEST
-	int StatusDocked		  = 0;						// TEST
-	int StatusFighter		  = 0;						// TEST
-	int StatusFSDCooldown	  = 0;						// TEST
-	int StatusFSDCharging	  = 0;						// TEST
-	int StatusFuelScoop		  = 0;						// TEST
-	int StatusHUD			  = 0;						// TEST
-	int StatusInterdicted	  = 0;						// TEST
-	int StatusInWing		  = 0;						// TEST
-	int StatusLanded		  = 0;						// TEST
-	int StatusLatLong		  = 0;						// TEST
-	int StatusLowFuel		  = 0;						// TEST
-	int StatusMassLocked	  = 0;						// TEST
-	int StatusOverheating	  = 0;						// TEST
-	int StatusfsdJump		  = 0;						// TEST
-	int StatusShieldsUp		  = 0;						// TEST
-	int StatusSupercruise	  = 0;						// TEST
-	int StatusSRV			  = 0;						// TEST
-	int StatusSRVAssist		  = 0;						// TEST
-	int StatusSRVHandbrake	  = 0;						// TEST
-	int StatusSRVTRet		  = 0;						// TEST
-	int StatusSRVTView		  = 0;						// TEST
+	int FSDJumpCheck		  = 0;						// Tracks state of FSD Jump Travel in Witchspace		(used in AD_EDStatusJson.tmh)
+	int StatusMainShip		  = 0;						// Tracks state when in Main Ship						(used in AD_EDStatusJson.tmh)
+	int StatusDanger		  = 0;						// Tracks state when in Danger!							(used in AD_EDStatusJson.tmh)
+	int StatusDocked		  = 0;						// Tracks state when Docked	on a Landing Pad			(used in AD_EDStatusJson.tmh)
+	int StatusFighter		  = 0;						// Tracks state when in Fighter 						(used in AD_EDStatusJson.tmh)
+	int StatusFSDCooldown	  = 0;						// Tracks state when in FSD Cooldown					(used in AD_EDStatusJson.tmh)
+	int StatusFSDCharging	  = 0;						// Tracks state when FSD Charging						(used in AD_EDStatusJson.tmh)
+	int StatusFuelScoop		  = 0;						// Tracks state of Fuel Scooping						(used in AD_EDStatusJson.tmh)
+	int StatusHUD			  = 0;						// Tracks state when in HUD Analysis mode				(used in AD_EDStatusJson.tmh)
+	int StatusInterdicted	  = 0;						// Tracks state when being Interdicted!					(used in AD_EDStatusJson.tmh)
+	int StatusInWing		  = 0;						// Tracks state when in a Wing 							(used in AD_EDStatusJson.tmh)
+	int StatusLanded		  = 0;						// Tracks state when Landed on a Planet					(used in AD_EDStatusJson.tmh)
+	int StatusLatLong		  = 0;						// Tracks state when in Orbit of a Planet				(used in AD_EDStatusJson.tmh)
+	int StatusLowFuel		  = 0;						// Tracks state when Low in Fuel						(used in AD_EDStatusJson.tmh)
+	int StatusMassLocked	  = 0;						// Tracks state when Mass Locked by Body or Ship		(used in AD_EDStatusJson.tmh)
+	int StatusOverheating	  = 0;						// Tracks state when ship is Overheating!				(used in AD_EDStatusJson.tmh)
+	int StatusfsdJump		  = 0;						// Tracks state when you are in Witchspace				(used in AD_EDStatusJson.tmh)
+	int StatusShieldsUp		  = 0;						// Tracks state when Shields are Up						(used in AD_EDStatusJson.tmh)
+	int StatusSupercruise	  = 0;						// Tracks state when in Supercruise						(used in AD_EDStatusJson.tmh)
+	int StatusSRV			  = 0;						// Tracks state when in SRV								(used in AD_EDStatusJson.tmh)
+	int StatusSRVAssist		  = 0;						// Tracks state when SRV Drive Assist active			(used in AD_EDStatusJson.tmh)
+	int StatusSRVHandbrake	  = 0;						// Tracks state of SRV Handbrake						(used in AD_EDStatusJson.tmh)
+	int StatusSRVTRet		  = 0;						// Tracks state of SRV Turret Retracting				(used in AD_EDStatusJson.tmh)
+	int StatusSRVTView		  = 0;						// Tracks state of SRV Turret View						(used in AD_EDStatusJson.tmh)
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

@@ -14,7 +14,7 @@
 
 	int mRequestDock, mHangarAutomation, mShowGameStats, mFastModeSwitch, mChatPanelGrab, mSignalLights, mSignalLightsLong, mReportCrimesToggle, mBoostBrake, mChangeColours;
 	int mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle, mJumpMidSubSys, mJumpPrevSubSys, mJumpNextSubSys, mNextTurretModeX1, mNextTurretModeX2, mChinaHatBack;
-	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear, mThrottleFullScaleCustom; 	// Configured for use in AD_EDHardware.tmh
+	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear, mClearAllChatBox, mThrottleFullScaleCustom; 	// Configured for use in AD_EDHardware.tmh
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MACROS: SPECIALISED SEQUENCES //																// MACROS Include a series of automated key presses to perform a specific task.
@@ -216,6 +216,34 @@
 			PULSE+LandingGear,			D(3600),												//	Toggle Landing Gear as 'Air-Brake', then..
 			PULSE+LandingGear);																	//	Close Landing Gear
 
+		mClearAllChatBox = CHAIN(																// MACRO: Send '/clear' command to clear any text in all chat box windows
+			LOCK+PULSE+QuickCommsPanel, D(500),													// enter, enter, 2, left, enter, /, c, l, e, a, r, enter, left, down
+			PULSE+QuickCommsPanel, D(500),														// repeat twice, 3x if in squadron
+			PULSE+CommsPanel, D(500),
+			PULSE+UILeft, D(),
+			PULSE+QuickCommsPanel, D(),
+			PULSE+'\/', D(),
+			PULSE+'c', D(),
+			PULSE+'l', D(),
+			PULSE+'e', D(),
+			PULSE+'a', D(),
+			PULSE+'r', D(),
+			PULSE+QuickCommsPanel, D(500),
+			PULSE+UILeft, D(),
+			PULSE+UIDown, D(),
+			PULSE+QuickCommsPanel, D(),
+			PULSE+'\/', D(),
+			PULSE+'c', D(),
+			PULSE+'l', D(),
+			PULSE+'e', D(),
+			PULSE+'a', D(),
+			PULSE+'r', D(),
+			PULSE+QuickCommsPanel, D(500),
+			PULSE+UILeft, D(),
+			PULSE+UIDown, D(),
+			PULSE+CommsPanel, D(),			
+			LOCK);
+
 		mChinaHatBack = CHAIN(																	// MACRO: China Hat Back Keybinding Combo (See: CRUISE ON THROTTLE CONFIG in AD_ED_v4.x.x.tmc)
 			PULSE+SelectNextSystemInRoute,  D(),												//  Combines mutually exclusive bindings SRV Handbrake & Next System In Route to a single toggle
 			PULSE+SRVHandbrake); }
@@ -224,7 +252,7 @@
 
 	int initEscapeVector() {																	// MACRO: Disengage Defensively + Emergency Escape Vector (Hold Pinky Trigger)
 		if(!StartupLock) {																		// *This line is only required to prevent running on startup
-			fnProcessFlags();																	// Get latest Flags Value first
+		//	fnProcessFlags();																	// Get latest Flags Value first
 			if(VerboseOutput) printf("EVASIVE MANEUVERS! Emergency Escape Vector Calculating...\x0a");
 			ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));								// Set PIPs to SYSx4 ENGx2 - Defensive Get-a-way
 			if(AutoChaffOnEscape) DeferCall(500,  &ActKey, KEYON+PULSE+FireChaffLauncher);		// Optional: Auto-fire Chaff to cover your escape (See User Preferences to Set)

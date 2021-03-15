@@ -3,19 +3,18 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // TOC:/ [1. FIRE/HARDPOINT CONTROLS		] 	[3. SPECIALISED FEATURES				]	[4. TOGGLE CONTROLS					]	[5. REPORT STATES		  ] //
 //-----		- initHardpointManagement	(17)		- initLEDController				(102)		- initEnhancedFAOFF			(256)		- initPrintState (p586)	//
-//			- initSetCombinedFire		(32)		- initNightVisionEnhancer		(136)		- initToggleRotationCorrect.(300)								//
-//			- initExplorerScannerDiseng.(44)		- initAPEngageEnhancer			(153)		- initToggleSilentRunning	(318)								//
-//													- initIDLEMaster				(190)		- initToggleCargoScoop		(355)								//
-//													- initUserHotSlotPinkyTrigger	(213)		- initCargoReturnMode		(395)								//
-//		 [2. PIP & TEXT CHAT CONTROLS		]		- initHeadlookModeSelect		(226)		- initToggleLandingGear		(420)								//
-//			- initPIPMapper				(54)		- initExternalCameraUpgrade()	(241)		- initToggleShipLights		(450)								//
-//			- initSendChatString		(81)													- initMicCommander			(464)								//
+//			- initSetCombinedFire		(32)		- initLEDShutdown				(136)		- initToggleRotationCorrect.(300)								//
+//			- initExplorerScannerDiseng.(44)		- initNightVisionEnhancer		(153)		- initToggleSilentRunning	(318)								//
+//													- initAPEngageEnhancer			(190)		- initToggleCargoScoop		(355)								//
+//													- initIDLEMaster				(213)		- initCargoReturnMode		(395)								//
+//		 [2. PIP & TEXT CHAT CONTROLS		]		- initUserHotSlotPinkyTrigger	(226)		- initToggleLandingGear		(420)								//
+//			- initPIPMapper				(54)		- initHeadlookModeSelect		(241)		- initToggleShipLights		(450)								//
+//			- initSendChatString		(81)		- initExternalCameraUpgrade 	(555)		- initMicCommander			(464)								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initHardpointManagement() {																// FUNCTION: Manage Hardpoint Deployment & Associated Menu Mappings
-		fnProcessFlags();																		// Get latest Flags Value first
 		if(!Joystick[H4P] & Joystick[S4] & fMainShip) {											// This check forces Hardpoints to be deployed so Escape Vector is always in the right state. 
 			initEscapeVector();	}																// Disengage & Escape Vector Macro
 		if(Joystick[H4P] & !Joystick[S4]) {
@@ -133,8 +132,18 @@
 																								// End of Forward Sequence
 
 
+	int initLEDShutdown() {
+		if(!StartupLock) {
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 150));		Sleep(120);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 120));		Sleep(160);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 100));		Sleep(200);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 70));		Sleep(250);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 20));		Sleep(300);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 0));		}}	
+		
+
+
 	int initNightVisionEnhancer() { 															// FUNCTION: Calculate Night Vision state.
-		fnProcessFlags();																		// Get latest Flags Value first
 		ActKey(KEYON+PULSE+NightVision);
 		if(NightVisionHUD) ActKey(KEYON+PULSE+HideShipGUI);										// If enabled in User Preferences, Hide the Ship/SRV HUD when enabling Night Vision.
 		if(!fDocked) { 
@@ -151,7 +160,6 @@
 
 																								// FUNCTION: User Definable Autopilot Engage Button providing a total of Six inputs; a Short & Long Press option for Standalone, Pinky Modifier & CMS Hat Modifier combinations.
 	int initAPEngageEnhancer() { 																//	(See AD_EDUserPrefs.tmh for mappings)
-		fnProcessFlags();																		// Get latest Flags Value first
 		if(Joystick[H4P]) {																		//	 Defaults: Include the Autodock, Signal Light Sequences (Flashing ShipLights) & NAV Beacon.
 			if(APSeqShort) {																	// [Short+CMS: mNAVBeaconWing (default)]
 				ActKey(KEYON+PULSE+APEngageCMSShort); 											// Set custom APEngageCMSShort value in the User Preferences
@@ -161,22 +169,21 @@
 				APSeqLong=!APSeqLong; } }
 		if(Joystick[S4]) {
 			if(APSeqShort) {																	// [Short+Pinky: Auto-Dock Request (default)]
-				if(mRequestDock & fDocked & !fSRV) {
-					if(VerboseOutput) printf("Cannot Auto-Dock when Docked!\x0a"); }
+				if(mRequestDock & (fDocked | fLanded) & !fSRV) {
+					if(VerboseOutput) printf("Cannot Auto-Dock when Docked or Landed!\x0a"); }
 				else { if(!fSRV) ActKey(KEYON+PULSE+APEngagePinkyShort); }						// Set custom APEngagePinkyShort value in the User Preferences
-				if(mRequestDock & !fDocked & !fSRV) {
+				if(mRequestDock & !fDocked & !fLanded & !fSRV) {
 					ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);")); }						// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from ENG
-				if(APEngagePinkyShort == mRequestDock & VerboseOutput & !fDocked & !fSRV) printf("Attempting Auto-Dock Procedure...\x0a");
-				if(APEngagePinkyShort == mHangarAutomation & VerboseOutput & fDocked & !fSRV) printf("Repair & Refuel Sequence Activated...\x0a");
+				if(APEngagePinkyShort == mRequestDock & VerboseOutput & !fDocked & !fLanded & !fSRV) printf("Attempting Auto-Dock Procedure...\x0a");
+				if(APEngagePinkyShort == mHangarAutomation & VerboseOutput & fDocked & !fLanded & !fSRV) printf("Repair & Refuel Sequence Activated...\x0a");
 				APSeqShort=!APSeqShort; }
 			if(APSeqLong) {																		// [Long+Pinky: Hangar Automation  (default)]
 				if(mHangarAutomation & !fDocked & !fSRV) {
-					ActKey(KEYON+PULSE+BalancePower);
 					if(VerboseOutput) printf("Cannot Repair & Refuel when not Docked!\x0a"); }
-				else { ActKey(KEYON+PULSE+APEngagePinkyLong);	}	
-				ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
-				if(APEngagePinkyLong == mRequestDock & VerboseOutput & !fDocked & !fSRV) printf("Attempting Auto-Dock Procedure...\x0a");
-				if(APEngagePinkyLong == mHangarAutomation & VerboseOutput & fDocked & !fSRV) printf("Repair & Refuel Sequence Activated...\x0a");
+				else { ActKey(KEYON+PULSE+BalancePower); ActKey(KEYON+PULSE+APEngagePinkyLong);	}	
+			//	ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
+				if(APEngagePinkyLong == mRequestDock & VerboseOutput & !fDocked & !fLanded & !fSRV) printf("Attempting Auto-Dock Procedure...\x0a");
+				if(APEngagePinkyLong == mHangarAutomation & VerboseOutput & fDocked & !fLanded & !fSRV) printf("Repair & Refuel Sequence Activated...\x0a");
 				APSeqLong=!APSeqLong; } }
 		if(!Joystick[S4] & !Joystick[H4P]) {
 			if(APSeqShort) {																	// [Short: Short Signal Light Sequence (default)]
@@ -192,7 +199,6 @@
 
 	int initIDLEMaster() {																		// FUNCTION: Enforce Throttle IDLE (Stationary) on any Throttle Mode
 		if(!StartupLock) {
-			fnProcessFlags();																	// Get latest Flags Value first
 			if(Throttle[IDLELON]) {
 				if(!Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Full Range Throttle Modes
 					DXAxis(DX_ZROT_AXIS, 0);													// Prevents issues launching from stations etc
@@ -257,7 +263,6 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initEnhancedFAOFF() {																	// FUNCTION: Enhanced Joystick Curves tailored for Flight Assist Off (TOGGLE)
-		fnProcessFlags();																		// Get latest Flags Value first
 		if(Throttle[SPDF]) {																	//    AKA     "FAOFF LIKE A BOSS!"
 			if(Joystick[S4]) {																	// FA OFF: TOGGLE
 				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Enables Alternative Flight Control Mappings (when using the Pinky Trigger).
@@ -319,7 +324,6 @@
 
 
 	int initToggleSilentRunning(int x) {														// TOGGLE: Silent Running   (Argument x .. 1 = Deploy, 0 = Retract)
-        fnProcessFlags();																		// Get latest Flags Value first
         if (!fSupercruise & !fSRV & !fLanded & !fDocked) {										// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
             if (fSilentRunning != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
 				ActKey(KEYON+PULSE+SilentRunning);												// [Toggle Hold]
@@ -334,7 +338,7 @@
 					ActKey(KEYON+PULSE+EXEC("initPIPMapper(ENG,WEP);"));							// Set PIPs to ENGx4 WEPx2 - Offensive stance - removes from SYS				
 					SRStrobe = 1; }
 				if(!Joystick[S4] & Joystick[H4P] & !Throttle[APUON] & SRStrobe == 1) {
-					StopAutoRepeat(5);															// Stop Strobe Silent Running 
+					ActKey(KEYON+PULSE+EXEC("StopAutoRepeat(5);"));									// Stop Strobe Silent Running 
 					ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);"));							// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from ENG
 					SRStrobe = 0; }
                 if (!fSilentRunning) {    // OPEN ACTIONS //
@@ -358,7 +362,6 @@
 
 
 	int initToggleCargoScoop(int x) {															// TOGGLE: Cargo Scoop   (Argument x .. 1 = Deploy, 0 = Retract)
-		fnProcessFlags();																		// Get latest Flags Value first
 		if (!fSupercruise & !fLanded & !fDocked) {		//  & !StartupLock						// Only attempt to toggle landing gear if we're not in Supercruise and not Landed or Docked.
 			if (fCargoScoop != x) {																// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa.
 				if(!Joystick[S4] & !Joystick[H4P]) { 
@@ -423,10 +426,9 @@
 
 
 	int initToggleLandingGear(int x) {															// TOGGLE: Landing Gear   (Argument x .. 1 = Deploy, 0 = Retract)
-        fnProcessFlags();																		// Get latest Flags Value first
-        if (!fSupercruise & !fSRV & !fLanded & !fDocked) {		// & !StartupLock				// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
+        if (!fSupercruise & !fSRV & !fDocked) {		// & !StartupLock				// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
             if (fLandingGear != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
-				if(!Joystick[S4] | (Joystick[S4] & Throttle[EACON])) {
+				if(!Joystick[S4] | (Joystick[S4] & !fLanded & Throttle[EACON])) {
 					ActKey(KEYON+PULSE+LandingGear); }
 				if(Joystick[S4] & !Throttle[EACON]) {											// Hold CMS Hat Switch to Initiate Take Off Procedure (This will hold Vert. Thrust up, toggle Landing Gear & Set PIPs for Launch at Station or Planet Surface)
 					ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,ENG);"));						// Set PIPs to SYSx4 ENGx2 - Protect Ship on Launch

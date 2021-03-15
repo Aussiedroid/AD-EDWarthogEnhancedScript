@@ -206,7 +206,7 @@
 		if(VerboseOutput) printf("Right MFD Configured\x0a"); }
 
 
-	int initLeftMFD() {																		// Set Left MFD
+	int initLeftMFD() {																			// Set Left MFD
 //		MapKey(&LMFD, OSB01, 0);
 //		MapKey(&LMFD, OSB02, 0);
 //		MapKey(&LMFD, OSB03, 0);
