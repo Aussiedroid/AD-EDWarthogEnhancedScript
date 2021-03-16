@@ -68,9 +68,9 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - Will NOT work on Windows 10 _(See [ED-BAT File](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/tree/master/ED%20Startup%20Batch%20Script "ED-BAT Batch File"))_ :(
 
 ### ShipSRVTelemetry [Values: 1 or 0] ###
-- TBC
+- Outputs Ship or SRV status to the TARGET Window in real-time.
 
-- TBC
+- This includes a range of telemetry metrics including Shields Up, FSD states, In Orbit, Landed/Docked, Supercruise, Interdiction/Danger/Overheating and more.
 
 ### VerboseOutput [Values: 1 or 0] ###
 - Changes the script messaging behaviour on keypress actions to determine if it will 'Print' additional output to the TARGET Window.
@@ -97,14 +97,14 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 ` `
 ## SHUT-DOWN ##
 ### AbortScriptOnExit [Value 1 or 0] ###
-- <TBC>
+- When ED stops writing to the status.json file (indicating game exit), script will promptly stop running when preference is enabled.
 
-- <TBC>
+- Note: Script will also stop running (abort) when it has issues reading the status.json file for too many attempts or cannot gain access to file.
 
 ### TurnOffLEDSOnExit [Value 1 or 0] ###
-- <TBC>
+- The Warthog will automatically disable LED backlight on the Throttle when exiting the game (so it appears unplugged).
 
-- <TBC>
+- Will display a short fading effect as it dims to zero.
 
 ` `
 ## -> CORE HARDWARE ##
