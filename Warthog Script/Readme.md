@@ -70,7 +70,7 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 ### ShipSRVTelemetry [Values: 1 or 0] ###
 - Outputs Ship or SRV status to the TARGET Window in real-time.
 
-- This includes a range of telemetry metrics including Shields Up, FSD states, In Orbit, Landed/Docked, Supercruise, Interdiction/Danger/Overheating and more.
+- This includes a range of telemetry metrics including Shields Up, FSD states, Interdiction/Danger, In Orbit, Landed/Docked, Supercruise, Overheating and more.
 
 ### VerboseOutput [Values: 1 or 0] ###
 - Changes the script messaging behaviour on keypress actions to determine if it will 'Print' additional output to the TARGET Window.
