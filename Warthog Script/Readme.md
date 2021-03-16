@@ -284,6 +284,15 @@ cockpit by changing the axis curve.
 
 ` `
 ## -> MICROPHONE BEHAVIOUR ##
+### MicExternalAction/MicExternalActionALT [Value 1 or 0] ###
+- Different External Voice Communication Software can often provide different way to enable or disable your voice channel. Some use a Push-To-Talk, others only provide a Toggle (some may provide both options). These two variables for your main external voice comms & your alternative external voice comms allows you to choose how the script will handle your external communication software and align it so works correctly with the Push-To-Talk button and also the Open Mic Toggle. 
+Rings of Haze
+
+- Set the value to 1 if your software uses a toggle (On/Off) type setup.
+
+- Set the value to 0 if your software uses a hold down (Push-To-Talk) setup.
+
+
 ### ExternalMicCombined [Value 1 or 0] ###
 - When you enable the Open Mic toggle on the Throttle, this value will determine if one or both External Voice Channels are opened. Set value to 1 to combine, and value to 0 to keep them independant.
 
@@ -298,13 +307,6 @@ cockpit by changing the axis curve.
 - Note 2: Set 'MicExternalAction' to 0 and enable PTT in Discord/Comms (map to '~')
 - Note 3: Enabling this option will also inverse the Internal Comms Channel with VoiceAttack.
 
-### MicExternalAction/MicExternalActionALT [Value 1 or 0] ###
-- Different External Voice Communication Software can often provide different way to enable or disable your voice channel. Some use a Push-To-Talk, others only provide a Toggle (some may provide both options). These two variables for your main external voice comms & your alternative external voice comms allows you to choose how the script will handle your external communication software and align it so works correctly with the Push-To-Talk button and also the Open Mic Toggle. 
-Rings of Haze
-
-- Set the value to 1 if your software uses a toggle (On/Off) type setup.
-
-- Set the value to 0 if your software uses a hold down (Push-To-Talk) setup.
 
 ` `
 ## -> CARGO SCOOP TWEAKS ##
