@@ -22,7 +22,7 @@ NEW: Automatically Stop Script Run when Elite Dangerous game is exited. Set is U
 NEW: Disable LED Backlight on Elite Dangerous exit. Set is UserPrefs.
 NEW: Turn off Ship HUD while in Witchspace Warp Tunnel :).
 NEW: Ship & SRV Live Telemetry Output to the TARGET Window. Includes things like Shields Up, Overheating, Mass Locked, SRV Turret status and more! (Disabled in User Prefs by default)
-NEW: External Camera Mode function added that swaps between Standard Camera Mode and Free Camera Mode, plus auto-hide HUD. (Currently unmapped) (map initExternalCameraUpgrade() to MapKey etc. TBC
+NEW: External Camera Mode function added that automatically goes into Free Camera Mode plus auto-hides HUD. Hold Pinky Trigger + Galaxy Map (Boat Forward) to activate.
 NEW: 
 NEW: 
 
@@ -33,12 +33,12 @@ IMPROVEMENT: Added verbose output message for Hangar Automation when fired in th
 IMPROVEMENT: Live Check of the LED status for Toggles against flag values in status.json file. LEDs will always be correct!
 IMPROVEMENT: Cargo Precision Mode on the Cargo Scoop toggle, and Take Off Sequence on Landing Gear toggle modifiers, moved to Pinky Modifier from CMS Hat Switch.
 IMPROVEMENT: Hardpoint button on Throttle will now toggle the SRV Turret Mode when in SRV. (Old mapping on Joy remains too)
-IMPROVEMENT: Separated SRV Handbrake & Double Tap functionality on the Pinky Trigger. Double Tap is default, but moving Pinky Throttle Switch Forward + CMS Hatswitch modifier will switch it over to Handbrake. Center Pinky Switch + CMS Hatswitch to disable Handbrake. Only works in SRV, else reverts to JumpNextSubsys. TBC
-IMPROVEMENT: 
+IMPROVEMENT: Separated SRV Handbrake & Double Tap functionality on the Pinky Trigger due to conflict. Double Tap is now default, and added Pinky Throttle Switch Forward + CMS Hatswitch modifier to switch Pinky Trigger over to Handbrake. Center Pinky Switch + CMS Hatswitch to disable Handbrake. Only works in SRV, else reverts to JumpNextSubsys in Ship. Handbrake has also been added to China Hat toggle on Throttle (back) as a backup.
+IMPROVEMENT: Weapon & Engine Colour changes now combined into single button. Hold Pinky Trigger and Engine Operate Ign/Norm to cycle through. TBC
 IMPROVEMENT: 
 
 
-FIXED: Handbrake on Double Tap Pinky Trigger has been moved to China Hat toggle on Throttle to avoid a minor conflict.
+FIXED: Clear Chat macro now clears both local and system tabs of text.
 FIXED: Swapped Med & Long press for UserPIPPref 3 mapping for left PIP direction to match UserPIPPref 2 mapping of WEP (instead of ENG). 
 FIXED: 
 FIXED: 
