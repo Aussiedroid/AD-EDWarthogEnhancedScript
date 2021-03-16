@@ -1,12 +1,12 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// KEY BINDINGS //  	Not all Bindings are used in script directly (these will be commented out below) - They're mapped directly in ED Bindings Config		//
+// KEY BINDINGS //   Not all Bindings are used in script directly (these will be commented out below - instead they're mapped directly in ED Bindings Config)	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // TOC:/																[ 1. KEYBIND GROUP INDEX ]																//
 // ----				- WEAPON CONTROL	(12)		- SHIP SYSTEMS 		 (132)		- WINGS			(232)		- GALAXY MAP		(444)						//
 //					- TARGET CONTROL	(20)		- COOLING/C.MEASURES (132)		- FIGHTERS		(232)		- CAMERA SUITE		(999)						//
 //					- FLIGHT CONTROL	(32)		- THROTTLE BASE		 (132)		- MULTICREW		(232)		- HEADLOOK	 		(343)						//
 //					- SRV CONTROL		(61)		- SCANNERS			 (434)		- HOLO-ME		(111)      	- STORE PAGE & MISC (555)						//
-//					- FIRST PERSON CTRL	(68)		- UI NAVIGATION		 (333)		- PLAYLIST		(232)		- EXTERNAL BINDINGS (654)	+ DX MAPPINGS (292)	//
+//					- FIRST PERSON		(68)		- UI NAVIGATION		 (333)		- PLAYLIST		(232)		- EXTERNAL BINDINGS (654)	+ DX MAPPINGS (292)	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 		// WEAPON CONTROL //

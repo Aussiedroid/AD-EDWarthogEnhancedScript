@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS //								FUNCTIONS include logic to customise specific Button/Toggle functionality											//
+// FUNCTIONS //								mFUNCTIONS include logic to customise specific Button/Toggle functionality											//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // TOC:/ [1. FIRE/HARDPOINT CONTROLS		] 	[3. SPECIALISED FEATURES				]	[4. TOGGLE CONTROLS					]	[5. REPORT STATES		  ] //
 //-----		- initHardpointManagement	(17)		- initLEDController				(102)		- initEnhancedFAOFF			(256)		- initPrintState (p586)	//
@@ -25,7 +25,7 @@
 			if(!StartupLock) {
 				if(fMainShip) { ActKey(KEYON+PULSE+DeployHardpoints); }							// If in Ship: Deploy/Retract Hardpoints
 				if(fSRV) 	  { ActKey(KEYON+PULSE+SRVTurret); }								// If in SRV: Deploy/Retract Turret
-				ActKey(KEYON+DOWN+ShowCQCScoreboard); }	} }										// If in CQC: Show Scoreboard (Hold)
+				ActKey(KEYON+DOWN+ShowCQCScoreboard); } } }										// If in CQC: Show Scoreboard (Hold)
 	
 	
 	int initSetCombinedFire(int toggleValue) {													// FUNCTION: Calculate Combined Fire Status (Default = ON (Combined))
@@ -85,7 +85,7 @@
 		ActKey(KEYON+PULSE+mChatPanelGrab);														// PANEL RESET
 		strsub(&ca_pulseChar, &string, pos, pos);												// FIRST CHAR:		Before Entering Loop, Set String Value and..
 		ActKey(KEYON+PULSE+ca_pulseChar[0]); 		pos = pos + 1;								// 					..Pulse First Keypress without Delay (Prevents issues with Capitals 'sticking' for first letters)
-		while (pos < length) {																	// REMAINING CHARS:	WHILE there are characters to output, loop.
+		while(pos < length) {																	// REMAINING CHARS:	WHILE there are characters to output, loop.
 			strsub(&ca_pulseChar, &string, pos, pos);											// 					Update pulseChar key
 			DeferCall(ChatKeyRepeatTime * (pos + 1), &ActKey, KEYON+PULSE+ca_pulseChar[0]);		// 					Output pulseChar key to Comms Panel
 			pos = pos + 1;   }																	// 					Next character/key
@@ -134,11 +134,11 @@
 
 	int initLEDShutdown() {
 		if(!StartupLock) {
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 150));		Sleep(120);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 120));		Sleep(160);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 100));		Sleep(200);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 70));		Sleep(250);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 20));		Sleep(300);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 150));		Sleep(66);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 120));		Sleep(66);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 100));		Sleep(120);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 70));		Sleep(66);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 20));		Sleep(66);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 0));		}}	
 		
 
@@ -221,14 +221,18 @@
 
 	int initUserHotSlotPinkyTrigger() {															// FUNCTION: Enables User Definable 'Double Tap' functionality on the Pinky Trigger [S4]
 		if(!StartupLock) {																		// *This line is only required to prevent running on startup
-			if(DoubleTapPT == 0) {																// IF Single (First) Press  (DoubleTapPT starts at 0)
-				ActKey(KEYON+DOWN+PinkyTriggerDefault);											// Trigger Standard DX4/JOY 4 mapping
-				DoubleTapPT = 1;																// Increment DoubleTapPT counter
-				DeferCall(DTPressDelay, &ActKey, KEYON+PULSE+EXEC("DoubleTapPT = 0;")); }		// Sets Double Tap Speed: After delay of 365ms, reset DoubleTapPT counter to 0 (This is your window to press Pinky Trigger again for double tap) 
-			else if(DoubleTapPT == 1) {															// IF Double (Second) Press
-				DoubleTapPT = 2;																// Increment DoubleTapPT counter (prevents further triggers until DoubleTapPT delay timer cycle completes)
-				ActKey(KEYON+PULSE+UserDTPinkyKeyBind); } } }									// Trigger User Hot Slot Preference (*see User Preferences to set*)
-//				ActKey(KEYON+DOWN+UserDTPinkyKeyBind); } } }									// ALTERNATE Config (enable if Double Tap Pinky Trigger needs a Hold action - remember to disable the line above!)
+			if(PTModifier == 1) {
+				ActKey(KEYON+DOWN+PinkyTriggerDefault);
+				if(fSRV) ActKey(KEYON+PULSE+SRVHandbrake); }
+			else {
+				if(DoubleTapPT == 0) {															// IF Single (First) Press  (DoubleTapPT starts at 0)
+					ActKey(KEYON+DOWN+PinkyTriggerDefault);										// Trigger Standard DX4/JOY 4 mapping
+					DoubleTapPT = 1;															// Increment DoubleTapPT counter
+					DeferCall(DTPressDelay, &ActKey, KEYON+PULSE+EXEC("DoubleTapPT = 0;")); }	// Sets Double Tap Speed: After delay of 365ms, reset DoubleTapPT counter to 0 (This is your window to press Pinky Trigger again for double tap) 
+				else if(DoubleTapPT == 1) {														// IF Double (Second) Press
+					DoubleTapPT = 2;															// Increment DoubleTapPT counter (prevents further triggers until DoubleTapPT delay timer cycle completes)
+					ActKey(KEYON+PULSE+UserDTPinkyKeyBind); } } } }								// Trigger User Hot Slot Preference (*see User Preferences to set*)
+//					ActKey(KEYON+DOWN+UserDTPinkyKeyBind); } } }								// ALTERNATE Config (enable if Double Tap Pinky Trigger needs a Hold action - remember to disable the line above!)
 
 
 
@@ -247,15 +251,16 @@
 
 
 
-	int initExternalCameraUpgrade() {															// FUNCTION: Toggle External Camera & Free Camera Modes
-		CameraMode = !CameraMode;
-		ActKey(PULSE+KEYON+ClassifiedCamera);
-		if(CameraMode) {
-			if(VerboseOutput & !StartupLock) printf("External Camera:	ON\x0a");
-			DeferCall(100, &ActKey, PULSE+KEYON+EnterFreeCameraMode);
-			DeferCall(200, &ActKey, PULSE+KEYON+ToggleCameraHUD); }								// Automatically Hide Camera HUD
-		else {
-			if(VerboseOutput & !StartupLock) printf("External Camera:	OFF\x0a"); } }
+	int initFreeModeCameraUpgrade() {															// FUNCTION: Toggle External Camera Straight to Free Camera Mode (No HUD)
+		if(!StartupLock) {
+			ActKey(PULSE+KEYON+ClassifiedCamera);
+			if(CameraMode) {
+				if(VerboseOutput) printf("External Camera:	ON\x0a");
+				DeferCall(100, &ActKey, PULSE+KEYON+EnterFreeCameraMode);						// Automatically Enable Free Camera Mode
+				DeferCall(200, &ActKey, PULSE+KEYON+ToggleCameraHUD); }							// Automatically Hide Camera HUD
+			else {
+				if(VerboseOutput) printf("External Camera:	OFF\x0a");
+			CameraMode = !CameraMode; } } }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -335,18 +340,20 @@
 					if(VerboseOutput) printf("Silent Running: COOL RUNNINGS (!Heat Sink Combo!)\x0a"); }
 				if(!Joystick[S4] & Joystick[H4P] & Throttle[APUON] & SRStrobe == 0) {
 					AutoRepeat(5, 2000, &ActKey, PULSE+KEYON+SilentRunning);					// Start Strobe Silent Running
-					ActKey(KEYON+PULSE+EXEC("initPIPMapper(ENG,WEP);"));							// Set PIPs to ENGx4 WEPx2 - Offensive stance - removes from SYS				
+					ActKey(KEYON+PULSE+EXEC("initPIPMapper(ENG,WEP);"));						// Set PIPs to ENGx4 WEPx2 - Offensive stance - removes from SYS				
+					//ActKey(KEYON+PULSE+SilentRunning);
 					SRStrobe = 1; }
 				if(!Joystick[S4] & Joystick[H4P] & !Throttle[APUON] & SRStrobe == 1) {
-					ActKey(KEYON+PULSE+EXEC("StopAutoRepeat(5);"));									// Stop Strobe Silent Running 
-					ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);"));							// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from ENG
+					ActKey(KEYON+PULSE+EXEC("StopAutoRepeat(5);"));								// Stop Strobe Silent Running 
+					ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);"));						// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from ENG
+					ActKey(KEYON+PULSE+SilentRunning);
 					SRStrobe = 0; }
                 if (!fSilentRunning) {    // OPEN ACTIONS //
                 	if(BlingLEDBling) initLEDController(LED3);
-					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3));				// set LED 3 ON
+					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3));			// set LED 3 ON
                 	if(!StartupLock & VerboseOutput) printf("Silent Running: ACTIVATED   !!\x0a"); }// Print the action to console...
                 else {					 // CLOSE ACTIONS //
-                	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));				// set LED 3 OFF
+                	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));			// set LED 3 OFF
 					if(BlingLEDBling) initLEDController(LED3);
 					if(CoolRunnings) {
 									CoolRunnings=!CoolRunnings;
@@ -590,7 +597,7 @@
 // 5. START-UP: REPORT SCRIPT STATES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int initPrintState() {	    			 fnProcessFlags();									 // Display the status of the macro toggles & user prefs on run.
+	int initPrintState() {	    			 													 // Display the status of the macro toggles & user prefs on run.
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");
 		printf(">> ENHANCEMENTS LOADING:	v%d.%d.%d	  TARGET Mappings, Macros & Functions Decrypted			<|>\x0a", ADVersionMajor, ADVersionMinor, ADVersionPoint);
 		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\x0a");

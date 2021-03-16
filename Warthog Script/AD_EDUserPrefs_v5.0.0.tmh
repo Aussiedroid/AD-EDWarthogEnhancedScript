@@ -13,7 +13,7 @@
 // Frontier Forums Discussion Thread:	(https://forums.frontier.co.uk/showthread.php/293027-Aussiedroid-s-Enhanced-Thrustmaster-Warthog-Script)				//
 // Some Previous Ver. Reference Maps:	(https://aussiedroid.imgur.com/)																						//
 //																																								//
-// What's New?  Release Notes?				-> Scroll to End-of-File OR read Changelog/History <-																//
+// What's New?  Release Notes?				-> Scroll to End-of-File OR read Changelog/History file <-																//
 //																																								//
 // Need help understanding this script?		-> Click the (?) HELP button in top right corner of Target Script Editor OR ask a question in the Forum/Guide <-	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -125,6 +125,8 @@
 														// EXPLORER/TRADER Preset = 0 (default)	->	S1 [Short: Chaff, Long: Heat Sink], S2 [Short: ECM/SRV Turret, Long: Shield Cell]
 														// 			COMBAT Preset = 1			->	S1 [Short: Heat Sink, Long: Chaff], S2 [Short: Shield Cell, Long: ECM/SRV Turret]
 		// MICROPHONE BEHAVIOUR //
+	define MicExternalAction	1						// Define Main External Voice Software Behaviour: 			(If your software is Toggle action (On/Off) = 1 (default), If it's Hold action (PTT) = 0)
+	define MicExternalActionALT	1						// Define Alternative External Voice Software Behaviour: 	(If your software is Toggle action (On/Off) = 1 (default), If it's Hold action (PTT) = 0)
 	define ExternalMicCombined	0						// For OPEN Mic Toggle Switch on Throttle Base; combines Two External Voice Channels to One Toggle action: 
 														//	Options:	Separate Channels = 0 (default),				Combined Channels = 1 	(Remember: Set your Keyboard PTT/Toggle Mappings in your External Programs)
 	define ExternalMicInverse	0						// For PUSH-TO-TALK Mic Button on Throttle Arm; changes behavior to inverse the external channels on PTT button between VoiceAttack & Discord (or your preferred external comms). When enabled '1' and button pressed, VoiceAttack will mute and Discord channel will open, ensuring no voice commands are sent while conversing with friends. When button is released, VoiceAttack is activated again & Discord channel is muted.
@@ -132,11 +134,6 @@
 														// 	[NOTE 1: To ensure proper alignment, ensure Listening is enabled in VoiceAttack before your first Mic press.]
 														//	[NOTE 2: Set 'MicExternalAction' to 0 and enable PTT in Discord/Comms (map to 'NUMPAD *')]
 														//	[NOTE 3: Enabling this option will also inverse the Internal Comms Channel with VoiceAttack]
-
-	define MicExternalAction	1						// Define Main External Voice Software Behaviour: 			(If your software is Toggle action (On/Off) = 1 (default), If it's Hold action (PTT) = 0)
-	define MicExternalActionALT	1						// Define Alternative External Voice Software Behaviour: 	(If your software is Toggle action (On/Off) = 1 (default), If it's Hold action (PTT) = 0)
-
-
 		// CARGO SCOOP TWEAKS //
 	int    CargoPrecisionMode =	0					   ;// Enable Automatically Changing to Throttle Mode 'Precision' when you Deploy Cargo Scoop = 1		Disable = 0 (default) 
 														// 	[NOTE: Holding CMS Hat Switch Modifier + Engaging Cargo Scoop will Toggle Precision Mode ON/OFF On-The-Fly]
@@ -206,10 +203,10 @@
 // =============================================================================================================================================================//
 // VERSION HISTORY //			Version 5.0.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
 // =============================================================================================================================================================//
-// v5.0 - 			//
-// v5.0 - NEW: SRV & SHIP TELEMETRY FUNCTION, AUTO-HUD OFF IN FSD. SR H4P,  	//
-// v5.0 - IMPROVEMENT: Add SRV Turret to Hardpoints, External Camera turn off GUI HUD -test 			//
-// v5.0 - IMPROVED: Moved MFD Code to Hardware.tmh. ADD: PIP auto-set to ENG/WEP on Silent Running HS Combo.  Changed LG & CS to Pinky overrides.		//
+// v5.0 - 	leds dont update on srv change - eg cargo scoop		//
+// v5.0 - NEW: SRV & SHIP TELEMETRY FUNCTION, AUTO-HUD OFF IN FSD. SR H4P,  	TODO- ADD Handbrake back to Pinky using Modifier on THrottle, Takeoff seq. from planet.//
+// v5.0 - IMPROVEMENT: Add SRV Turret to Hardpoints,								 External Camera turn off GUI HUD -test 	, SC from Planet Orbit - Jump msgs?	//
+// v5.0 - IMPROVED: Moved MFD Code to Hardware.tmh. ADD: PIP auto-set to ENG/WEP on Silent Running HS Combo.  Changed LG & CS specials to Pinky modifier.		//
 // v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision .. Cargo Scoop!		 //
 // v5.0 - FIXED: Handbrake changing HUD mode when activated on Pinky Trigger, now mapped to China Hat back. FIXED: UserPIPPref 3 Med/Long Press swapped WEP/ENG.//
 // v4.3 - NEW: Hangar Automation Macro added! Mapped In-game Store Page. Set custom deadzone on Slew on Throttle. FIXED: Joystick 'JS_DEADZONE' not working. 	//

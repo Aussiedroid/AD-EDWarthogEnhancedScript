@@ -12,20 +12,20 @@
 // INCLUDED FILES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	include "Target.tmh" 												// Manditory Default System Import (Thrustmaster TARGET Functions)
-	include "AD_EDDefaults_v5.0.0.tmh"									// Global Variable Settings, States & Timings/Delays
-	include "AD_EDUserPrefs_v5.0.0.tmh" 								// User Preferences & Script Customisation Options
-	include "AD_EDKeyMap_v5.0.0.ttm" 									// Variable Key Mapping & Reference Tables
-	include "AD_EDHardware_v5.0.0.tmh"									// MFD, Joystick, Throttle & Rudder Axes/Curves Configuration
-	include "AD_EDStatusJson_v5.0.0.tmh"								// Parse Status.json file to get real-time in-game status
-	include "AD_EDMacros_v5.0.0.tmh"									// Macro Definitions	 (Custom Sequences)
-	include "AD_EDFunctions_v5.0.0.tmh" 								// Function Definitions	 (Custom Logic for Buttons, Toggles & Ship Controls)
+	include "Target.tmh" 													// Manditory System Default Import (Thrustmaster TARGET Functions)
+	include "AD_EDDefaults_v5.0.0.tmh"										// Global Variable Settings, States & Timings/Delays
+	include "AD_EDUserPrefs_v5.0.0.tmh" 									// User Preferences & Script Customisation Options
+	include "AD_EDKeyMap_v5.0.0.ttm" 										// Variable Key Mapping & Reference Tables
+	include "AD_EDHardware_v5.0.0.tmh"										// MFD, Joystick, Throttle & Rudder Axes/Curves Configuration
+	include "AD_EDStatusJson_v5.0.0.tmh"									// Parse Status.json file to get real-time in-game status
+	include "AD_EDMacros_v5.0.0.tmh"										// Macro Definitions	 (Custom Sequences)
+	include "AD_EDFunctions_v5.0.0.tmh" 									// Function Definitions	 (Custom Logic for Buttons, Toggles & Ship Controls)
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // START-UP: DEVICE CHECK / MAIN //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int main() {														// Exclude Hardware from Virtual Device & Manage Additional Devices
+	int main() {															// Exclude Hardware from Virtual Device & Manage Additional Devices
 		Configure(&HCougar,		  MODE_EXCLUDED);
 		Configure(&T16000,		  MODE_EXCLUDED);
 		Configure(&T16000L,		  MODE_EXCLUDED);
@@ -35,7 +35,7 @@
 		Configure(&TCAQuadrant12, MODE_EXCLUDED);
 		Configure(&TCAQuadrant34, MODE_EXCLUDED);		
 		
-		if(UseMFD == 0) {												// No MFDs (Ignore configuring MFDs unless set in User Preferences)
+		if(UseMFD == 0) {													// No MFDs (Ignore configuring MFDs unless set in User Preferences)
 			Configure(&LMFD, 	  MODE_EXCLUDED);
 			Configure(&RMFD, 	  MODE_EXCLUDED); }
 		if(UseRuddersT16000 == 0) Configure(&TFRPRudder, MODE_EXCLUDED);	// Enables Standard T.Flight T16000 Rudders
@@ -75,7 +75,7 @@
 	initCustomMacroCommands();																// Initiate Custom Macros & Functions (See AD_EDMacros.tmh)
 	initEscapeVector();																		// Initiate Advanced Macro to perform a tactical withdraw from combat (Retract Hardpoints, Set Defensive PIPs, Auto Boost/Chaff, Engage Supercruise) (See AD_EDMacros.tmh)
 	initSetThrottleCurves();																// Initiate Mapping of Custom Throttle Curves (3 Presets configurable in AD_EDUserPrefs.tmh)
-	fnStartCheck();																			// Initiate Check for status.json file & commence reading output to flags (See AD_EDStatusJson.tmh)
+	initJsonStartCheck();																	// Initiate Check for status.json file & commence reading output to flags (See AD_EDStatusJson.tmh)
 	initPrintState();																		// Initiate Display Script Settings to Output Window in Script/GUI (See AD_EDFunctions.tmh)
 	initPIPMapper();																		// Initiate PIP Configuration Mapper (See AD_EDFunctions.tmh)
 	initSetCombinedFire(0);																	// Initiate Mapping Logic to enable/disable the Dual-Stage Primary Trigger with either Primary & Secondary Fire Combined OR Primary Fire Only (Nothing mapped to 2nd stage). (See AD_EDFunctions.tmh)
@@ -87,7 +87,7 @@
 	initCargoReturnMode();																	// Initiate Disables Cargo Scoop Throttle Mode		 (LED Support) (See AD_EDFunctions.tmh)
 	initIDLEMaster();																		// Initiate Advanced Function to disable Throttle (& Boost) when engaging Throttle IDLE/Afterburner Lock Indent. Will also enable SRV Handbrake. (See AD_EDFunctions.tmh)
 	initHeadlookModeSelect();																// Initiate Custom mapping preference for Headlook Centering based on your hardware (TrackIR, VR, Mouse) (See AD_EDFunctions.tmh)
-	initExternalCameraUpgrade();															// Initiate Custom External Camera Module to swap between Std Camera & Free Camera (See AD_EDFunctions.tmh)
+	initFreeModeCameraUpgrade();															// Initiate Custom External Camera Module automatically go to Free Camera with HUD disabled (See AD_EDFunctions.tmh)
 	initHardpointManagement();																// Initiate Advanced Function integrating all Hardpoint/Other functions related to the Red Left Throttle Button (See AD_EDFunctions.tmh)
 	initMicCommander();																		// Initiate Full control over Internal & External Mic Push-to-Talk functionality for Hold & Toggle configurations (See AD_EDFunctions.tmh)
 	initUserHotSlotPinkyTrigger();															// Initiate Double Tap Functionality on the Joystick Pinky Trigger (See AD_EDFunctions.tmh)
@@ -127,11 +127,8 @@
 
 																							// Map Throttle Autopilot to Joystick Curve Presets
 	if(JoystickOverride == 0) {																// Default Joystick Axis Preset Toggle Configuration
-		MapKey(&Throttle, APPAT,  EXEC("initExternalCameraUpgrade();"));						// Autopilot PATH UP
-		MapKey(&Throttle, APAH,   EXEC("initExternalCameraUpgrade();"));						// Autopilot ALT/HDG MIDDLE (Default)
-		
-	//	MapKey(&Throttle, APPAT,  EXEC("initSetJoystickCurves();"));						// Autopilot PATH UP
-	//	MapKey(&Throttle, APAH,   EXEC("initSetJoystickCurves();"));						// Autopilot ALT/HDG MIDDLE (Default)
+		MapKey(&Throttle, APPAT,  EXEC("initSetJoystickCurves();"));						// Autopilot PATH UP
+		MapKey(&Throttle, APAH,   EXEC("initSetJoystickCurves();"));						// Autopilot ALT/HDG MIDDLE (Default)
 		MapKey(&Throttle, APALT,  EXEC("initSetJoystickCurves();")); }						// Autopilot ALT DOWN
 	if(JoystickOverride == 1) { 															// User Configured Joystick Axis Preset Toggle Configuration (set in the User Prefs)
 		if(StartupLock) { 																	// On Startup Only, set the default Joystick Behaviour (set in the User Prefs)
@@ -200,7 +197,8 @@
 
 	// DOUBLE-TAP PINKY TRIGGER //
 	MapKey(&Joystick,  S4,		EXEC("initUserHotSlotPinkyTrigger();")); 											// Trigger 3 [Pinky Trigger] [Modifier Key]	[DO NOT REMAP!]
-	MapKeyR(&Joystick, S4,		UP+PinkyTriggerDefault);															// Release Pinky Trigger [Modifier Key] (Disable with // if using the line below)
+	MapKeyR(&Joystick, S4,		EXEC("ActKey(KEYON+UP+PinkyTriggerDefault);"
+									 "if(PTModifier == 1 & fSRV) ActKey(KEYON+PULSE+SRVHandbrake);"));														// Release Pinky Trigger [Modifier Key] (Disable with // if using the line below)
 //	MapKeyR(&Joystick, S4,		UP+UserDTPinkyKeyBind);																// Release ALT (enable by removing the //, if Double Tap Pinky Trigger mapping needs a 'Hold' action)
 
 
@@ -233,12 +231,6 @@
 								EXEC("ActKey(KEYON+PULSE+SelectWingman3);"),				// OM
 								EXEC("ActKey(KEYON+PULSE+FighterHoldFire);"),				// ID
 								EXEC("ActKey(KEYON+PULSE+FighterFollow);"));				// OD
-
-	// TMS HATSWITCH //
-//	MapKey(&Joystick, H2U, 0); 																						// Target Management Switch (TMS) UP	(Mapped in ED Bindings File)
-//	MapKey(&Joystick, H2D, 0);																						// Target Management Switch (TMS) DOWN	(Mapped in ED Bindings File)
-//	MapKey(&Joystick, H2L, 0); 																						// Target Management Switch (TMS) LEFT	(Mapped in ED Bindings File)
-//	MapKey(&Joystick, H2R, 0); 																						// Target Management Switch (TMS) RIGHT	(Mapped in ED Bindings File)
 
 																													// Data Management Switch (DMS): Advanced PIP Selection (4 Configurations)
 	// PIP CONFIG //																								//    [NOTE: Set UserPIPPref in the AD_EDUserPrefs.tmh file]
@@ -320,10 +312,19 @@
 									 EXEC("if(!Joystick[S4]) initPIPMapper(WEP,ENG);"								// [Long: 4xWEP 2xENG]
 									 	  "if(Joystick[S4])  ActKey(KEYON+PULSE+GalNetAudioNext);"),				// [Long+Pinky:  GalNet Audio Next Track]
 									 				 	  										PIPPressDelay), PIPPressDelay)); }
+
+
+	// TMS HATSWITCH //
+//	MapKey(&Joystick, H2U, 0); 																						// Target Management Switch (TMS) UP	(Mapped in ED Bindings File)
+//	MapKey(&Joystick, H2D, 0);						<MAPPED IN BINDINGS>											// Target Management Switch (TMS) DOWN	(Mapped in ED Bindings File)
+//	MapKey(&Joystick, H2L, 0); 																						// Target Management Switch (TMS) LEFT	(Mapped in ED Bindings File)
+//	MapKey(&Joystick, H2R, 0); 																						// Target Management Switch (TMS) RIGHT	(Mapped in ED Bindings File)
+
+
 	// CMS HATSWITCH //
 //	MapKey(&Joystick, H4U, 0); 																						// Countermeasures Management Switch (CMS) UP	 (Mapped in ED Bindings File)
 //	MapKey(&Joystick, H4D, 0); 																						// Countermeasures Management Switch (CMS) DOWN	 (Mapped in ED Bindings File)
-//	MapKey(&Joystick, H4L, 0); 																						// Countermeasures Management Switch (CMS) LEFT	 (Mapped in ED Bindings File)
+//	MapKey(&Joystick, H4L, 0); 						<MAPPED IN BINDINGS>											// Countermeasures Management Switch (CMS) LEFT	 (Mapped in ED Bindings File)
 //	MapKey(&Joystick, H4R, 0); 																						// Countermeasures Management Switch (CMS) RIGHT (Mapped in ED Bindings File)
 //	MapKey(&Joystick, H4P, 0); 																						// Countermeasures Management Switch (CMS) PUSH	 (Mapped in ED Bindings File)
 
@@ -334,9 +335,9 @@
 
 	// BOOST & HARDPOINT BUTTONS //
 	MapKey(&Throttle,  SC,   TEMPO(0, EXEC(																			// Slew Control Button
-										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON]) ActKey(KEYON+DOWN+SRVVerticalThrust);" //   [Hold]
-										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON]) ActKey(KEYON+PULSE+EngineBoost);"	 //   [Press]
-										"if(Joystick[S4]  & !Throttle[FLAPD] & !Throttle[IDLELON]) ActKey(KEYON+PULSE+mBoostBrake);"),	// [Modifier]
+										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON] & fSRV) ActKey(KEYON+DOWN+SRVVerticalThrust);" //   [Hold]
+										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON] & fMainShip) ActKey(KEYON+PULSE+EngineBoost);"	 //   [Press]
+										"if(Joystick[S4]  & !Throttle[FLAPD] & !Throttle[IDLELON] & fMainShip) ActKey(KEYON+PULSE+mBoostBrake);"),	// [Modifier]
 						     MiniPressDelay));																		// Safety: Won't Boost when in Precise Throttle or IDLE! Plus 150ms Delay :)
 	MapKeyR(&Throttle, SC,   EXEC(		"ActKey(KEYON+UP+SRVVerticalThrust);"));									// Release the SRV Vertical Thrust
 
@@ -347,14 +348,14 @@
 	MapKeyR(&Throttle, LTB,  EXEC(       "ActKey(KEYON+UP+ShowCQCScoreboard);"));									// Release CQC Scoreboard display
 
 //	MapKey(&Throttle,  MSU,  0); 																					// Mic Switch UP	(Mapped in ED Bindings File)
-//	MapKey(&Throttle,  MSD,  0); 																					// Mic Switch DOWN	(Mapped in ED Bindings File)
+//	MapKey(&Throttle,  MSD,  0); 					<MAPPED IN BINDINGS>											// Mic Switch DOWN	(Mapped in ED Bindings File)
 //	MapKey(&Throttle,  MSL,  0); 																					// Mic Switch LEFT	(Mapped in ED Bindings File)
 //	MapKey(&Throttle,  MSR,  0); 																					// Mic Switch RIGHT	(Mapped in ED Bindings File)
 	MapKey(&Throttle,  MSP,  EXEC("initMicCommander();"));															// Mic Switch PUSH
 	MapKeyR(&Throttle, MSP,  EXEC("initMicCommander();"));															// Mic Switch PUSH RELEASE
 
 //	MapKey(&Throttle,  CSU,  0); 																					// Coolie Hat Switch UP 	(Mapped in ED Bindings File)
-//	MapKey(&Throttle,  CSD,  0);																					// Coolie Hat Switch DOWN	(Mapped in ED Bindings File)
+//	MapKey(&Throttle,  CSD,  0);					<MAPPED IN BINDINGS>											// Coolie Hat Switch DOWN	(Mapped in ED Bindings File)
 //	MapKey(&Throttle,  CSL,  0); 																					// Coolie Hat Switch LEFT	(Mapped in ED Bindings File)
 //	MapKey(&Throttle,  CSR,  0); 																					// Coolie Hat Switch RIGHT	(Mapped in ED Bindings File)
 
@@ -367,7 +368,9 @@
 
 
 	// NAVIGATION BOAT SWITCH //
-	MapKey(&Throttle,  BSF,  PULSE+GalaxyMap); 																		// Boat Switch Throttle FORWARD
+	//MapKey(&Throttle,  BSF,  PULSE+GalaxyMap); 																	// Boat Switch Throttle FORWARD
+	MapKey(&Throttle,  BSF,  TEMPO(EXEC("ActKey(KEYON+PULSE+GalaxyMap);"), 											// Boat Switch Throttle FORWARD
+									EXEC("if(Joystick[S4]) initFreeModeCameraUpgrade();"), LongPressDelay));
 	MapKey(&Throttle,  BSM,  PULSE+UIBack); 																		// Boat Switch Throttle MIDDLE		[Centering Switch will Exit Maps]
 	MapKey(&Throttle,  BSB,  PULSE+SystemMap); 																		// Boat Switch Throttle BACK
 
@@ -384,21 +387,27 @@
 		MapKey(&Throttle,  CHF, EXEC(																				// China Hat FORWARD
 										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
 										"else			   initNightVisionEnhancer();"));
-		MapKey(&Throttle,  CHB, mChinaHatBack);	}																	// China Hat BACK
+		MapKey(&Throttle,  CHB,  ActKey(KEYON+PULSE+mChinaHatBack));	}											// China Hat BACK
+//		MapKey(&Throttle,  CHB,  EXEC(	"if(Joystick[S4]) initSRVEnbarkBoard();"
+//										"if(!Joystick[S4]) ActKey(KEYON+PULSE+mChinaHatBack);" }					// China Hat BACK
 
 
 	// SHIFT KEY ADDITIONAL MAPPINGS //
 	MapKey(&Throttle,  PSF,  EXEC(																					// Pinky Throttle Switch FORWARD
-								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpNextSubSys);"
-								"if(Joystick[S4]) ActKey(KEYON+PULSE+mClearAllChatBox);" //"if(Joystick[S4])  initSendChatString(chat_ClearChatBox);"
-								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput) { printf(\"SHIFT KEY FORWARD  >>> [Comms Channel: AUTO-TEXT]\\x0a\"); printf(\"SHIFT KEY FORWARD  >>> [Repeater Mode: COMBAT-ENDLESS]\\x0a\"); }"));
+								"if(Joystick[H4P] & fSRV) PTModifier = 1;" 
+								"if(Joystick[H4P] & !fSRV) ActKey(KEYON+PULSE+mJumpNextSubSys);"
+								"if(Joystick[S4]) ActKey(KEYON+PULSE+mClearAllChatBoxes);" 			//"if(Joystick[S4])  initSendChatString(chat_ClearChatBox);"
+								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput & !fSRV) { printf(\"SHIFT KEY FORWARD  >>> [Comms Channel: AUTO-TEXT]\\x0a\"); printf(\"SHIFT KEY FORWARD  >>> [Repeater Mode: COMBAT-ENDLESS]\\x0a\"); }"));
+	MapKeyR(&Throttle,  PSF,  EXEC(																					// Pinky Throttle Switch FORWARD
+								"if(Joystick[H4P]) PTModifier = 0;"));
+
 	MapKey(&Throttle,  PSM,  EXEC( 																					// Pinky Throttle Switch MIDDLE
-								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpMidSubSys);"
-								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput) { printf(\"SHIFT KEY MIDDLE  ---- [Comms Channel: WINGS]\\x0a\"); printf(\"SHIFT KEY MIDDLE  ---- [Repeater Mode: EXPLORER-SCANNER]\\x0a\"); }"));
+								"if(Joystick[H4P] & !fSRV) ActKey(KEYON+PULSE+mJumpMidSubSys);"
+								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput & !fSRV) { printf(\"SHIFT KEY MIDDLE  ---- [Comms Channel: WINGS]\\x0a\"); printf(\"SHIFT KEY MIDDLE  ---- [Repeater Mode: EXPLORER-SCANNER]\\x0a\"); }"));
 	MapKey(&Throttle,  PSB,  EXEC(																					// Pinky Throttle Switch BACK
-								"if(Joystick[H4P]) ActKey(KEYON+PULSE+mJumpPrevSubSys);"
+								"if(Joystick[H4P] & !fSRV) ActKey(KEYON+PULSE+mJumpPrevSubSys);"
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"
-								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput) { printf(\"SHIFT KEY BACKWARD <<< [Comms Channel: FIGHTER]\\x0a\"); printf(\"SHIFT KEY BACKWARD <<< [Repeater Mode: MINING-AUTO-PULSE]\\x0a\"); }"));
+								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput & !fSRV) { printf(\"SHIFT KEY BACKWARD <<< [Comms Channel: FIGHTER]\\x0a\"); printf(\"SHIFT KEY BACKWARD <<< [Repeater Mode: MINING-AUTO-PULSE]\\x0a\"); }"));
 	MapKeyR(&Throttle, PSB,  EXEC(																					// Pinky Throttle Switch BACK RELEASE
 								"if(Joystick[S4])  ActKey(KEYON+PULSE+HideShipGUI);"));
 
@@ -480,7 +489,7 @@
 	MapKey(&Throttle,  IDLELON,	 EXEC("initIDLEMaster();" "if(VerboseOutput) printf(\"THROTTLE IDLE LOCK: ^^ACTIVE^^\\x0a\");"));		// Throttle Idle Detents LEFT ON	[Locking (Down): Stationary]
 	MapKeyR(&Throttle, IDLELON,  EXEC("initIDLEMaster();" "if(VerboseOutput) printf(\"THROTTLE IDLE LOCK: *DISABLED*\\x0a\");"));		// Throttle Idle Detents LEFT ON RELEASE
 //	MapKey(&Throttle,  IDLELOFF, 0);																				// Throttle Idle Detents LEFT OFF
-//	MapKey(&Throttle,  IDLERON,  0); 																				// Throttle Idle Detents RIGHT ON			(Not used)
+//	MapKey(&Throttle,  IDLERON,  0); 				<NOT USED>														// Throttle Idle Detents RIGHT ON			(Not used)
 //	MapKeyR(&Throttle, IDLERON,  0);																				// Throttle Idle Detents RIGHT ON RELEASE	(Not used)
 //	MapKey(&Throttle,  IDLEROFF, 0); 																				// Throttle Idle Detents RIGHT OFF			(Not used)
 

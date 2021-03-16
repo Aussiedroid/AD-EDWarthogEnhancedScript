@@ -45,7 +45,7 @@
 	int StartupLock			  = 1;						// Script Loading Function Lock (During Boot of Script this flag will prevent some code from triggering keystrokes) (used in AD_ED_v5.x.x.tmc)
 	int GameLoaded			  = 0;						// Flag is set when game starts to send output from status.json file confirming the game is loaded and you are in a session. Used in auto-shutdown functionality. (used in AD_EDStatus.json.tmh)
 	int ReadErrorCount		  = 0;						// Tracks the number of times in a row the script fails to read the status.json file. Script will abort on 3 failures in a row. (used in AD_EDStatus.json.tmh)
-	int CameraMode			  = 0;						// Tracks External Camera mode							(used in initExternalCameraUpgrade())	
+	int CameraMode			  = 1;						// Tracks External Camera mode							(used in initExternalCameraUpgrade())	
 	int RCorrection 		  = 1;						// Rotational Correction ON		(Press 'F4' to align as required in-game) 		(used in initToggleRotationCorrection())
 	int Lights 				  = 0;						// Ship Lights OFF				(Press 'INSERT' to align if SRV takes out of alignment) (used in initToggleShipLights())
 	int AltFlightToggle		  = 0;						// Tracks Alternative Flight Controls Toggle Status OFF	(used in initEnhancedFAOFF())
@@ -92,7 +92,7 @@
 	int StatusSRVHandbrake	  = 0;						// Tracks state of SRV Handbrake						(used in AD_EDStatusJson.tmh)
 	int StatusSRVTRet		  = 0;						// Tracks state of SRV Turret Retracting				(used in AD_EDStatusJson.tmh)
 	int StatusSRVTView		  = 0;						// Tracks state of SRV Turret View						(used in AD_EDStatusJson.tmh)
-
+	int PTModifier			  = 0;						// Tracks state of modifier for Pinky Trigger on Joy	(used in AD_ED_v5.x.x.tmc)
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FLAG VARIABLES   //	(Used in AD_EDStatusJson.tmh)	   Refer to Section 13 (page 80) in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
