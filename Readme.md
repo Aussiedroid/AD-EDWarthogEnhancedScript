@@ -88,24 +88,25 @@ Some of the highlighted advanced features available that are not found in the de
 ## How Modifiers Work: ##
 In order to map everything, this script uses Modifier buttons. A Modifier button when held down and combined with another button press will give a different command. This combination is represented in the reference map pictures by [x] prefixing command name. Eg. [1] Next Target. This feature allows multiple mappings for a single button, different layers, that also offers some protection from accidental presses. You will find most of the potentially dangerous commands configured with Modifier keys, along with lower priority tasks that do not get used as often. 
 
+
 To further enhance the Modifier button system, some buttons have also been designed to offer different commands based on the length of time you hold the button down. Some buttons offer up to 3 different commands based on Short, Med, Long timings.
 
 
-The main Modifiers are listed below:
+_The main Modifiers are listed below:_
 
-__[1] = Pinky Trigger on Joystick__ (Modifier #1)
+- __[1] = Pinky Trigger on Joystick__ (Modifier #1)
 
-__[2] = CMS Hatswitch on Joystick__ (Modifier #2)
+- __[2] = CMS Hatswitch on Joystick__ (Modifier #2)
 
 
 
-The specialised Modifiers include:
+_The specialised Modifiers include:_
 
-__[3] = Engine Operate Ign/Norm Toggle on Throttle__ (Modifier #3)
+- __[3] = Engine Operate Ign/Norm Toggle on Throttle__ (Modifier #3)
 
 This toggle selects your voice comms/microphone channel between Internal & External 1 or 2.
 
-__[4] = Shift Button on Pinky Switch 3-Way Toggle on Throttle__ (Modifier #4)
+- __[4] = Shift Button on Pinky Switch 3-Way Toggle on Throttle__ (Modifier #4)
 
 Finally, there is also the Pinky Switch 3-way Modifier on the side of the Throttle. This is also known as the Shift Button. Each position of the 3-way switch sets a different Modifier. Primarily, the 3 modes are used for different communication channels Fighters, Wing & Normal Chat in conjunction with the Trim Hatswitch, but this can also set your fire modes (Scanner, Endless & Pulse modes) in conjunction with your Joystick Trigger. 
 
