@@ -139,7 +139,7 @@
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 100));		Sleep(120);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 70));		Sleep(66);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 20));		Sleep(66);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 0));		}}	
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 0));		} }	
 		
 
 
@@ -180,7 +180,7 @@
 			if(APSeqLong) {																		// [Long+Pinky: Hangar Automation  (default)]
 				if(mHangarAutomation & !fDocked & !fSRV) {
 					if(VerboseOutput) printf("Cannot Repair & Refuel when not Docked!\x0a"); }
-				else { ActKey(KEYON+PULSE+BalancePower); ActKey(KEYON+PULSE+APEngagePinkyLong);	}	
+				else { ActKey(KEYON+PULSE+BalancePower); ActKey(KEYON+PULSE+APEngagePinkyLong);	}// Set custom APEngagePinkyLong value in the User Preferences	
 			//	ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
 				if(APEngagePinkyLong == mRequestDock & VerboseOutput & !fDocked & !fLanded & !fSRV) printf("Attempting Auto-Dock Procedure...\x0a");
 				if(APEngagePinkyLong == mHangarAutomation & VerboseOutput & fDocked & !fLanded & !fSRV) printf("Repair & Refuel Sequence Activated...\x0a");
@@ -251,15 +251,15 @@
 
 
 
-	int initFreeModeCameraUpgrade() {															// FUNCTION: Toggle External Camera Straight to Free Camera Mode (No HUD)
+	int initFreeCameraModeUpgrade() {															// FUNCTION: Toggle External Camera Straight to Free Camera Mode (No HUD)
 		if(!StartupLock) {
 			ActKey(PULSE+KEYON+ClassifiedCamera);
 			if(CameraMode) {
-				if(VerboseOutput) printf("External Camera:	ON\x0a");
+				if(VerboseOutput) printf("Free Camera External Mode:	ON\x0a");
 				DeferCall(100, &ActKey, PULSE+KEYON+EnterFreeCameraMode);						// Automatically Enable Free Camera Mode
 				DeferCall(200, &ActKey, PULSE+KEYON+ToggleCameraHUD); }							// Automatically Hide Camera HUD
 			else {
-				if(VerboseOutput) printf("External Camera:	OFF\x0a");
+				if(VerboseOutput) printf("Free Camera External Mode:	OFF\x0a");
 			CameraMode = !CameraMode; } } }
 
 
@@ -369,7 +369,7 @@
 
 
 	int initToggleCargoScoop(int x) {															// TOGGLE: Cargo Scoop   (Argument x .. 1 = Deploy, 0 = Retract)
-		if (!fSupercruise & !fLanded & !fDocked) {		//  & !StartupLock						// Only attempt to toggle landing gear if we're not in Supercruise and not Landed or Docked.
+		if (!fSupercruise & !fLanded & !fDocked) {												// Only attempt to toggle landing gear if we're not in Supercruise and not Landed or Docked.
 			if (fCargoScoop != x) {																// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa.
 				if(!Joystick[S4] & !Joystick[H4P]) { 
 					ActKey(KEYON+PULSE+CargoScoop); }											// TRIGGER Cargo Scoop (When no Modifier Held).
@@ -433,7 +433,7 @@
 
 
 	int initToggleLandingGear(int x) {															// TOGGLE: Landing Gear   (Argument x .. 1 = Deploy, 0 = Retract)
-        if (!fSupercruise & !fSRV & !fDocked) {		// & !StartupLock				// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
+        if (!fSupercruise & !fSRV & !fDocked) {													// Only attempt to toggle landing gear if we're not in Supercruise, in SRV, Landed or Docked
             if (fLandingGear != x) {															// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa
 				if(!Joystick[S4] | (Joystick[S4] & !fLanded & Throttle[EACON])) {
 					ActKey(KEYON+PULSE+LandingGear); }

@@ -12,7 +12,7 @@
 // INCLUDED FILES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	include "Target.tmh" 													// Manditory System Default Import (Thrustmaster TARGET Functions)
+	include "Target.tmh" 													// Mandatory System Default Import (Thrustmaster TARGET Functions)
 	include "AD_EDDefaults_v5.0.0.tmh"										// Global Variable Settings, States & Timings/Delays
 	include "AD_EDUserPrefs_v5.0.0.tmh" 									// User Preferences & Script Customisation Options
 	include "AD_EDKeyMap_v5.0.0.ttm" 										// Variable Key Mapping & Reference Tables
@@ -87,7 +87,7 @@
 	initCargoReturnMode();																	// Initiate Disables Cargo Scoop Throttle Mode		 (LED Support) (See AD_EDFunctions.tmh)
 	initIDLEMaster();																		// Initiate Advanced Function to disable Throttle (& Boost) when engaging Throttle IDLE/Afterburner Lock Indent. Will also enable SRV Handbrake. (See AD_EDFunctions.tmh)
 	initHeadlookModeSelect();																// Initiate Custom mapping preference for Headlook Centering based on your hardware (TrackIR, VR, Mouse) (See AD_EDFunctions.tmh)
-	initFreeModeCameraUpgrade();															// Initiate Custom External Camera Module automatically go to Free Camera with HUD disabled (See AD_EDFunctions.tmh)
+	initFreeCameraModeUpgrade();															// Initiate Custom External Camera Module automatically go to Free Camera with HUD disabled (See AD_EDFunctions.tmh)
 	initHardpointManagement();																// Initiate Advanced Function integrating all Hardpoint/Other functions related to the Red Left Throttle Button (See AD_EDFunctions.tmh)
 	initMicCommander();																		// Initiate Full control over Internal & External Mic Push-to-Talk functionality for Hold & Toggle configurations (See AD_EDFunctions.tmh)
 	initUserHotSlotPinkyTrigger();															// Initiate Double Tap Functionality on the Joystick Pinky Trigger (See AD_EDFunctions.tmh)
@@ -370,7 +370,7 @@
 	// NAVIGATION BOAT SWITCH //
 	//MapKey(&Throttle,  BSF,  PULSE+GalaxyMap); 																	// Boat Switch Throttle FORWARD
 	MapKey(&Throttle,  BSF,  TEMPO(EXEC("ActKey(KEYON+PULSE+GalaxyMap);"), 											// Boat Switch Throttle FORWARD
-									EXEC("if(Joystick[S4]) initFreeModeCameraUpgrade();"), LongPressDelay));
+									EXEC("if(Joystick[S4]) initFreeCameraModeUpgrade();"), LongPressDelay));
 	MapKey(&Throttle,  BSM,  PULSE+UIBack); 																		// Boat Switch Throttle MIDDLE		[Centering Switch will Exit Maps]
 	MapKey(&Throttle,  BSB,  PULSE+SystemMap); 																		// Boat Switch Throttle BACK
 
@@ -388,7 +388,7 @@
 										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
 										"else			   initNightVisionEnhancer();"));
 		MapKey(&Throttle,  CHB,  ActKey(KEYON+PULSE+mChinaHatBack));	}											// China Hat BACK
-//		MapKey(&Throttle,  CHB,  EXEC(	"if(Joystick[S4]) initSRVEnbarkBoard();"
+//		MapKey(&Throttle,  CHB,  EXEC(	"if(Joystick[S4]) initSRVEmbarkNBoard();"
 //										"if(!Joystick[S4]) ActKey(KEYON+PULSE+mChinaHatBack);" }					// China Hat BACK
 
 
@@ -446,8 +446,9 @@
 	// SHIP FEATURE FUNCTIONS //
 	MapKey(&Throttle,  EORIGN,   TEMPO(EXEC(																		// Engine Operate Ign/Norm RIGHT UP
 										"if(!Joystick[S4] & !Joystick[H4P]) initToggleShipLights(1);"				// If no Modifier held, default Ship Lights
-										"if(Joystick[S4])  ActKey(KEYON+PULSE+ChangeWeaponColor);"					// If Modifier 1 held, Change Weapon Color
-										"if(Joystick[H4P]) ActKey(KEYON+PULSE+ChangeEngineColor);"),				// If Modifier 2 held, Change Engine Color
+										"if(Joystick[S4])  ActKey(KEYON+PULSE+mChangeColours);"),					// If Modifier held, Change Weapon & Engine Color
+									//	"if(Joystick[S4])  ActKey(KEYON+PULSE+ChangeWeaponColor);"					// If Modifier 1 held, Change Weapon Color
+								//		"if(Joystick[H4P]) ActKey(KEYON+PULSE+ChangeEngineColor);"),				// If Modifier 2 held, Change Engine Color
 							     PULSE+ShipLights, LongPressDelay));												// [Long: Reset Ship Lights (when out of sync)]
 	MapKey(&Throttle,  EORNORM,  0); 																				// Engine Operate Ign/Norm RIGHT OFF
 	MapKey(&Throttle,  EORMOTOR, EXEC("initToggleRotationCorrection();"));											// Engine Operate Ign/Norm RIGHT DOWN
