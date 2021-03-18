@@ -33,7 +33,7 @@
 	define MineTimer			6200					// Set the Delay Timer for Mining Pulse Wave Scanner to auto-disengage	(default = 6200ms)
 
 	define ChatKeyRepeatTime	70						// Auto-Text Chat Preset time	(ms)									(default = 70ms)
-	define StatusReadRate		700						// Looping rate of the fnProcessFlags() function to read latest status.json status updates. (default = 750ms)
+	define StatusReadRate		700						// Looping rate of the initProcessFlags() function to read latest status.json status updates. (default = 750ms)
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -93,6 +93,8 @@
 	int StatusSRVTRet		  = 0;						// Tracks state of SRV Turret Retracting				(used in AD_EDStatusJson.tmh)
 	int StatusSRVTView		  = 0;						// Tracks state of SRV Turret View						(used in AD_EDStatusJson.tmh)
 	int PTModifier			  = 0;						// Tracks state of modifier for Pinky Trigger on Joy	(used in AD_ED_v5.x.x.tmc)
+	int FreeModeHat			  = 0;						// Tracks state of Free Mode Camera activation			(used in initFreeCameraModeUpgrade())
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FLAG VARIABLES   //	(Used in AD_EDStatusJson.tmh)	   Refer to Section 13 (page 80) in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
@@ -103,33 +105,33 @@
 	int fDanger				  = 0;						// Is In Danger
 	int fDocked				  = 0;						// On a Landing Pad
 	int fFAOff				  = 0;						// Flight Assist Off
-	int fFighter			  = 0;
-	int fFSDCharging		  = 0;
-	int fFSDCooldown		  = 0;
-	int fFuelScoop			  = 0;
+	int fFighter			  = 0;						// In Fighter
+	int fFSDCharging		  = 0;						// FSD Charging Timer in Progress
+	int fFSDCooldown		  = 0;						// FSD Cooldown Timer in Progress
+	int fFuelScoop			  = 0;						// Fuel Scoop Active
 	int fHardpoints			  = 0;
-	int fHUDAnalysis		  = 0;
-	int fInterdicted		  = 0;
-	int fInWing				  = 0;
+	int fHUDAnalysis		  = 0;						// HUD tracking, Combat Mode is Off (0), Analysis Mode is On (1)
+	int fInterdicted		  = 0;						// Interdiction Attempt in Progress
+	int fInWing				  = 0;						// Member of a Wing
 	int fLanded				  = 0;						// On a Planet
 	int fLandingGear		  = 0;
 	int fLatLong			  = 0;						// Orbiting a Planet
 	int fLights				  = 0;
-	int fLowFuel			  = 0;
-	int fMainShip			  = 0;
-	int fMassLocked			  = 0;
+	int fLowFuel			  = 0;						// Under 15% Fuel Left
+	int fMainShip			  = 0;						// In Ship
+	int fMassLocked			  = 0;						// Mass Locked by a Planet, Station or Ship
 	int fNightVision		  = 0;
-	int fOverHeating		  = 0;
-	int fsdJump				  = 0;
+	int fOverHeating		  = 0;						// Overheating enabled on 100%
+	int fsdJump				  = 0;						// In Witchspace
 	int fSilentRunning		  = 0;
-	int fShieldsUp			  = 0;
-	int fSRV				  = 0;
+	int fShieldsUp			  = 0;						// Shields are back online
+	int fSRV				  = 0;						// In SRV
 	int fSRVDriveAssist		  = 0;
 	int fSRVHandbrake		  = 0;
 	int fSRVHiBeam			  = 0;
 	int fSRVTurretRetracted	  = 0;						// SRV Turret retracted (close to ship) 
 	int fSRVTurretView		  = 0;
-	int fSupercruise		  = 0;
+	int fSupercruise		  = 0;						// Ship in Supercruise
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

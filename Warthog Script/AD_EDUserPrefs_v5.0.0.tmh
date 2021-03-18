@@ -27,13 +27,13 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 														// User Prefs allow easy modification of some alternative/optional script features without editing the code.
 		// START-UP //
-	define StartSoftware		0						// Start ED Launcher (&/or other 3rd Party Apps) when you Run the Script (Software List & Paths can be customised in AD_ED_v4.x.x.tmc)
+	define StartSoftware		0						// Start ED Launcher (&/or other 3rd Party Apps) when you Run the Script (Software List & Paths can be customised in AD_ED_v5.x.x.tmc)
 														//  [NOTE: Doesn't work under Win10 -> Please use ED-BAT File included in download pack]
 	define ShipSRVTelemetry		1						// Outputs Ship & SRV Telemetry Status to the TARGET Window. Eg. Shields Up, Low Fuel, Mass Locked, Overheating + more (Default = 0)													
 	define VerboseOutput		1						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
 														//	Options:	Enable = 1 (default) (On)					Disable = 0 (Silent Mode / Off)
 
-	int	   SetLED =				172					   ;// Set LED Backlight Level on Throttle	(Value 0-255) (Off = 0, default = 172) [Note: This can be adjusted On-The-Fly by using the Friction Control Axis + Pinky Trigger]
+	int	   SetLED =				200					   ;// Set LED Backlight Level on Throttle	(Value 0-255) (Off = 0, default = 172) [Note: This can be adjusted On-The-Fly by using the Friction Control Axis + Pinky Trigger]
 	define BlingLEDBling		1						// Enables a Short Flashing LED Sequence when you flip a Toggle & will also enable a short start-up sequence pattern. Bling Bling!
 														// 	Options:	Enable = 1 (default)						Disable = 0
 
@@ -46,7 +46,7 @@
 
 
 		// CORE HARDWARE //
-	define KBLayout 			KB_ENG					// Default Keyboard Layout	(Change this to your local keyboard layout (KB_GER for German | KB_FR for French) otherwise some keys may not function correctly!). If your kb not supported try changing kb type in Windows to emulate.
+	define KBLayout 			KB_ENG					// Default Keyboard Layout	(Change this to your local keyboard layout (KB_GER for German | KB_FR for French) otherwise some keys may not function correctly!). If your kb not supported you can also try changing kb type in Windows to emulate.
 
 	define UseMFD 				0 						// No MFD = 0 (default)		One MFD = 1 (Right MFD)			Two MFDs = 2 (Right & Left MFD)		**UNMAPPED** **UNTESTED**
 	
@@ -150,7 +150,7 @@
 														// "Double Tap" on Pinky Trigger. 	->	SHIP	-	ShipLights, SetSpeed75, CargoScoop, SilentRunning, QuickCommsPanel, mRequestDock, BalancePower
 														// 			Some suggestions ->	->	->	OTHER	-	mTextBasicHello, SelectNextSystemInRoute, FighterOrders, UIEscape, TakeSteamScreenshot, GalNetAudioPlayPause, LookToggle
 														// [NOTE 1:	Most other keys in AD_EDKeyMap file not listed in suggestions should also work. Else see AD_EDMacros file to program some thing different/complex]
-														// [NOTE 2:	If your FAV action requires a Hold action instead of a Pulse, edit the line 216 accordingly in AD_EDFunctions & line 190 in AD_ED_v4.x.x files]
+														// [NOTE 2:	If your FAV action requires a Hold action instead of a Pulse, edit the line 216 accordingly in AD_EDFunctions & line 190 in AD_ED_v5.x.x files]
 
 														// User Defined Overrides for the Autopilot Engage Button (APENG): Choose Your Own Short & Long presses/macros
 		// AUTOPILOT BUTTON OVERRIDES //				// [NOTE:	Most other keys in AD_EDKeyMap file should also work as well as the Macros!]
@@ -203,9 +203,9 @@
 // =============================================================================================================================================================//
 // VERSION HISTORY //			Version 5.0.0			\\ Released Sept 2016	|	Updated ?? 2021 //							\\		Public Release #26		//
 // =============================================================================================================================================================//
-// v5.0 - 	leds dont update on srv change - eg cargo scoop		//
-// v5.0 - NEW: SRV & SHIP TELEMETRY FUNCTION, AUTO-HUD OFF IN FSD. SR H4P,  	TODO- ADD Handbrake back to Pinky using Modifier on THrottle, Takeoff seq. from planet.//
-// v5.0 - IMPROVEMENT: Add SRV Turret to Hardpoints,								 External Camera turn off GUI HUD -test 	, SC from Planet Orbit - Jump msgs?	//
+// v5.0 - 	leds dont update on srv change - eg cargo scoop	- limit in json?	//
+// v5.0 - NEW: SRV & SHIP TELEMETRY FUNCTION, AUTO-HUD OFF IN FSD. SR H4P,  TODO- ADD Handbrake back to Pinky using Modifier on THrottle, Takeoff seq. from planet.//
+// v5.0 - IMPROVEMENT: Add SRV Turret to Hardpoints,							  External Camera turn off GUI HUD -test 	, SC from Planet Orbit - Jump msgs?	//
 // v5.0 - IMPROVED: Moved MFD Code to Hardware.tmh. ADD: PIP auto-set to ENG/WEP on Silent Running HS Combo.  Changed LG & CS specials to Pinky modifier.		//
 // v5.0 - NEW: STATUS.JSON State Tracking! So far.. Landing Gear, Silent Running, Esc.Vector, FAOff, Hardpoints, Night Vision .. Cargo Scoop!		 //
 // v5.0 - FIXED: Handbrake changing HUD mode when activated on Pinky Trigger, now mapped to China Hat back. FIXED: UserPIPPref 3 Med/Long Press swapped WEP/ENG.//

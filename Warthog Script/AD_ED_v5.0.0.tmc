@@ -13,8 +13,8 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	include "Target.tmh" 													// Mandatory System Default Import (Thrustmaster TARGET Functions)
-	include "AD_EDDefaults_v5.0.0.tmh"										// Global Variable Settings, States & Timings/Delays
-	include "AD_EDUserPrefs_v5.0.0.tmh" 									// User Preferences & Script Customisation Options
+	include "AD_EDDefaults_v5.0.0.tmh"										// Global Variable Settings, Flags, States & Timings/Delays
+	include "AD_EDUserPrefs_v5.0.0.tmh" 									// User Preferences, Script Customisation Options, Readme & Patch Notes
 	include "AD_EDKeyMap_v5.0.0.ttm" 										// Variable Key Mapping & Reference Tables
 	include "AD_EDHardware_v5.0.0.tmh"										// MFD, Joystick, Throttle & Rudder Axes/Curves Configuration
 	include "AD_EDStatusJson_v5.0.0.tmh"									// Parse Status.json file to get real-time in-game status
@@ -74,6 +74,7 @@
 	// FUNCTION START //
 	initCustomMacroCommands();																// Initiate Custom Macros & Functions (See AD_EDMacros.tmh)
 	initEscapeVector();																		// Initiate Advanced Macro to perform a tactical withdraw from combat (Retract Hardpoints, Set Defensive PIPs, Auto Boost/Chaff, Engage Supercruise) (See AD_EDMacros.tmh)
+	initAutoVehicleTransition();															// Initiate Swapping Vehicle Ship<=>SRV. Will Embark or Board depending what you are in at the time. (See AD_EDFunctions.tmh)
 	initSetThrottleCurves();																// Initiate Mapping of Custom Throttle Curves (3 Presets configurable in AD_EDUserPrefs.tmh)
 	initJsonStartCheck();																	// Initiate Check for status.json file & commence reading output to flags (See AD_EDStatusJson.tmh)
 	initPrintState();																		// Initiate Display Script Settings to Output Window in Script/GUI (See AD_EDFunctions.tmh)
@@ -368,10 +369,10 @@
 
 
 	// NAVIGATION BOAT SWITCH //
-	//MapKey(&Throttle,  BSF,  PULSE+GalaxyMap); 																	// Boat Switch Throttle FORWARD
-	MapKey(&Throttle,  BSF,  TEMPO(EXEC("ActKey(KEYON+PULSE+GalaxyMap);"), 											// Boat Switch Throttle FORWARD
-									EXEC("if(Joystick[S4]) initFreeCameraModeUpgrade();"), LongPressDelay));
-	MapKey(&Throttle,  BSM,  PULSE+UIBack); 																		// Boat Switch Throttle MIDDLE		[Centering Switch will Exit Maps]
+	MapKey(&Throttle,  BSF,  EXEC("if(!Joystick[S4]) ActKey(KEYON+PULSE+GalaxyMap);" 								// Boat Switch Throttle FORWARD
+								  "if(Joystick[S4])  initFreeCameraModeUpgrade();"));
+	MapKey(&Throttle,  BSM,  EXEC("if(FreeModeHat)   initFreeCameraModeUpgrade();" 									// Boat Switch Throttle MIDDLE		[Centering Switch will Exit Maps]
+								  "if(!FreeModeHat)  ActKey(KEYON+PULSE+UIBack);"));
 	MapKey(&Throttle,  BSB,  PULSE+SystemMap); 																		// Boat Switch Throttle BACK
 
 
@@ -382,14 +383,15 @@
 										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
 										"if(!Joystick[S4]) initNightVisionEnhancer();"),
 									  EXEC(
+									  	"if(Joystick[S4]) initAutoVehicleTransition();"
 									  	"if(!Joystick[S4]) ActKey(KEYON+PULSE+mChinaHatBack);"), LongPressDelay)); }
 	if(CruiseOnThrottle == 1) {																						// Sets China Hat to remove Frame Shift Drive when Cruise on Throttle is enabled.
 		MapKey(&Throttle,  CHF, EXEC(																				// China Hat FORWARD
 										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
 										"else			   initNightVisionEnhancer();"));
-		MapKey(&Throttle,  CHB,  ActKey(KEYON+PULSE+mChinaHatBack));	}											// China Hat BACK
-//		MapKey(&Throttle,  CHB,  EXEC(	"if(Joystick[S4]) initSRVEmbarkNBoard();"
-//										"if(!Joystick[S4]) ActKey(KEYON+PULSE+mChinaHatBack);" }					// China Hat BACK
+	//	MapKey(&Throttle,  CHB,  ActKey(KEYON+PULSE+mChinaHatBack));	}											// China Hat BACK
+		MapKey(&Throttle,  CHB,  EXEC(	"if(Joystick[S4]) initAutoVehicleTransition();"
+										"if(!Joystick[S4]) ActKey(KEYON+PULSE+mChinaHatBack);")); }					// China Hat BACK
 
 
 	// SHIFT KEY ADDITIONAL MAPPINGS //

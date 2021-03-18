@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FUNCTIONS //								mFUNCTIONS include logic to customise specific Button/Toggle functionality											//
+// FUNCTIONS //								FUNCTIONS include logic to customise specific Button/Toggle functionality											//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // TOC:/ [1. FIRE/HARDPOINT CONTROLS		] 	[3. SPECIALISED FEATURES				]	[4. TOGGLE CONTROLS					]	[5. REPORT STATES		  ] //
 //-----		- initHardpointManagement	(17)		- initLEDController				(102)		- initEnhancedFAOFF			(256)		- initPrintState (p586)	//
@@ -9,7 +9,8 @@
 //													- initIDLEMaster				(213)		- initCargoReturnMode		(395)								//
 //		 [2. PIP & TEXT CHAT CONTROLS		]		- initUserHotSlotPinkyTrigger	(226)		- initToggleLandingGear		(420)								//
 //			- initPIPMapper				(54)		- initHeadlookModeSelect		(241)		- initToggleShipLights		(450)								//
-//			- initSendChatString		(81)		- initExternalCameraUpgrade 	(555)		- initMicCommander			(464)								//
+//			- initSendChatString		(81)		- initFreeCameraModeUpgrade 	(555)		- initMicCommander			(464)								//
+//													- initAutoVehicleTransition		(676)																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1. FUNCTIONS: FIRE & HARDPOINT CONTROLS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -134,11 +135,11 @@
 
 	int initLEDShutdown() {
 		if(!StartupLock) {
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 150));		Sleep(66);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 150));		Sleep(33);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 120));		Sleep(66);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 100));		Sleep(120);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 100));		Sleep(100);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 70));		Sleep(66);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 20));		Sleep(66);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 20));		Sleep(33);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 0));		} }	
 		
 
@@ -181,7 +182,6 @@
 				if(mHangarAutomation & !fDocked & !fSRV) {
 					if(VerboseOutput) printf("Cannot Repair & Refuel when not Docked!\x0a"); }
 				else { ActKey(KEYON+PULSE+BalancePower); ActKey(KEYON+PULSE+APEngagePinkyLong);	}// Set custom APEngagePinkyLong value in the User Preferences	
-			//	ActKey(KEYON+PULSE+APEngagePinkyLong);											// Set custom APEngagePinkyLong value in the User Preferences
 				if(APEngagePinkyLong == mRequestDock & VerboseOutput & !fDocked & !fLanded & !fSRV) printf("Attempting Auto-Dock Procedure...\x0a");
 				if(APEngagePinkyLong == mHangarAutomation & VerboseOutput & fDocked & !fLanded & !fSRV) printf("Repair & Refuel Sequence Activated...\x0a");
 				APSeqLong=!APSeqLong; } }
@@ -250,17 +250,26 @@
 
 
 
-
 	int initFreeCameraModeUpgrade() {															// FUNCTION: Toggle External Camera Straight to Free Camera Mode (No HUD)
 		if(!StartupLock) {
 			ActKey(PULSE+KEYON+ClassifiedCamera);
 			if(CameraMode) {
-				if(VerboseOutput) printf("Free Camera External Mode:	ON\x0a");
-				DeferCall(100, &ActKey, PULSE+KEYON+EnterFreeCameraMode);						// Automatically Enable Free Camera Mode
+				FreeModeHat = !FreeModeHat;
+				if(VerboseOutput) printf("Free Camera External Mode:  !ON!\x0a");
+				DeferCall(150, &ActKey, PULSE+KEYON+EnterFreeCameraMode);						// Automatically Enable Free Camera Mode
 				DeferCall(200, &ActKey, PULSE+KEYON+ToggleCameraHUD); }							// Automatically Hide Camera HUD
 			else {
-				if(VerboseOutput) printf("Free Camera External Mode:	OFF\x0a");
-			CameraMode = !CameraMode; } } }
+				if(VerboseOutput) printf("Free Camera External Mode:  -OFF-\x0a");  FreeModeHat = !FreeModeHat; }
+			CameraMode  = !CameraMode; } }
+
+
+
+	int initAutoVehicleTransition() {															// FUNCTION: Embark/Board trigger to automatically transition to alternative vehicle based on your current vehicle (ie Ship->SRV, SRV->Ship)
+		if(!StartupLock) {
+			if(fSRV & !fLanded & fSRVTurretRetracted) {
+				ActKey(KEYON+PULSE+mSRV2Ship); }
+			if(fMainShip & fLanded) {
+				ActKey(KEYON+PULSE+mShip2SRV); } } }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -373,7 +382,7 @@
 			if (fCargoScoop != x) {																// Only DEPLOY or RETRACT if landing gear status does NOT match the action we asked for. ie. DEPLOY only when RETRACTED and vice-versa.
 				if(!Joystick[S4] & !Joystick[H4P]) { 
 					ActKey(KEYON+PULSE+CargoScoop); }											// TRIGGER Cargo Scoop (When no Modifier Held).
-				if(Joystick[S4] &  !Joystick[H4P] & Throttle[RDRNRM]) {											// TOGGLE PRECISION MODE: If CMS Hat Switch + Toggle, then Throttle Precision Mode when Cargo Scoop is Open.
+				if(Joystick[S4] &  !Joystick[H4P] & Throttle[RDRNRM]) {							// TOGGLE PRECISION MODE: If CMS Hat Switch + Toggle, then Throttle Precision Mode when Cargo Scoop is Open.
 					CargoPrecisionMode=!CargoPrecisionMode;
 					if(CargoPrecisionMode) {	// ENABLE CPM //								// ENABLE PRECISION MODE: If Precision Mode is ON, then limit Throttle axis to 50% (Blue Zone).
 						ActKey(KEYON+PULSE+CargoScoop);
@@ -381,7 +390,7 @@
 						SetSCurve(&Throttle, THR_RIGHT, 0, 2, 0, 2, -2);
 						if(VerboseOutput) printf("Cargo Scoop Precision Mode: ENABLED -> OVERRIDE PRECISION [-50 -> 50]\x0a");
 						SetThrottle(); }
-					else {						// DISABLE CPM //
+					else {					  // DISABLE CPM //
 						initCargoReturnMode(); } }												// MANUAL DISABLE PRECISION MODE: Returns Throttle range to your default (as set in your User Prefs).
 				if(Joystick[S4] &  !Joystick[H4P] & !Throttle[RDRNRM]) {					
 					ActKey(KEYON+PULSE+CargoScoop);

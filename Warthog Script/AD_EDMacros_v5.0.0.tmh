@@ -1,13 +1,13 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MACROS //													initCustomMacroCommands()																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// TOC:/						mHangarAutomation	(25)		mJumpMidSubSys		(85)		mNextTurretModeX1	(172)										//
-//-----							mRequestDock		(37)		mJumpPrevSubSys 	(89)		mNextTurretModeX2	(189)										//
-//								mShowGameStats		(48)		mJumpNextSubSys		(97)		mChatPanelGrab		(207)										//
-//								mChangeColours		(52)		mReportCrimesToggle	(104)		mBoostBrake			(215)										//
-//								mFastModeSwitch		(56)		mNAVBeaconWing		(123)		mClearAllChatBoxes	(220)										//
-//								mSignalLights		(63)		mNAVBeaconOff		(146)		mChinaHatBack		(226)										//
-//								mSignalLightsLong	(71)		mNAVBeaconToggle	(163)		initEscapeVector	(333)										//
+// TOC:/					mHangarAutomation	(25)		mJumpMidSubSys		(85)		mNextTurretModeX1	(172)		mChinaHatBack		(226)			//
+//-----						mRequestDock		(37)		mJumpPrevSubSys 	(89)		mNextTurretModeX2	(189)		initEscapeVector	(333)			//
+//							mShowGameStats		(48)		mJumpNextSubSys		(97)		mChatPanelGrab		(207)											//
+//							mChangeColours		(52)		mReportCrimesToggle	(104)		mBoostBrake			(215)											//
+//							mFastModeSwitch		(56)		mNAVBeaconWing		(123)		mClearAllChatBoxes	(220)											//
+//							mSignalLights		(63)		mNAVBeaconOff		(146)		mShip2SRV			(444)											//
+//							mSignalLightsLong	(71)		mNAVBeaconToggle	(163)		mSRV2Ship			(563)											//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // START-UP: MACRO VARIABLE INITALISATION //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -241,7 +241,7 @@
 			PULSE+'a',						D(),
 			PULSE+'r',						D(),
 			PULSE+QuickCommsPanel,			D(500),
-//			PULSE+UILeft,					D(),												// Uncomment this and the following lines if you are a member of a squadron
+//			PULSE+UILeft,					D(),												// Uncomment these lines if you are a member of a Squadron
 //			PULSE+UIDown,					D(),												// .
 //			PULSE+QuickCommsPanel,			D(),												// .
 //			PULSE+'\/',						D(),												// .
@@ -257,30 +257,33 @@
 
 		mShip2SRV = CHAIN(																		// MACRO: Deploy SRV from Ship
 			LOCK+PULSE+RolePanel,			D(500),												// 3, down, spc, down, down, up, up, spc
-			PULSE+UIDown,					D(),
+			PULSE+UIDown,					D(150),
 			PULSE+UISelect,					D(500),
-			PULSE+UIDown,					D(),
-			PULSE+UIDown,					D(),
-			PULSE+UIUp,						D(),
-			PULSE+UIUp,						D(),
+			PULSE+UIDown,					D(100),
+			PULSE+UIDown,					D(100),
+			PULSE+UIUp,						D(100),
+			PULSE+UIUp,						D(100),
 			PULSE+UISelect,					D(500),
 			LOCK);
 																								// MACRO: Board Ship from SRV  -  Sometimes scrolling down past the "back" option wraps back to top and sometimes it doesn't
 		mSRV2Ship = CHAIN(																		// This needs further testing as previously, the menu pointer occassionally started at a different place
-			LOCK+PULSE+RolePanel,			D(250),												// 3, spc, down, down, down, down, down, up, up, spc
+			LOCK+PULSE+RolePanel,			D(500),												// 3, spc, down, down, down, down, down, up, up, spc
 			PULSE+UISelect,					D(1500),
-			PULSE+UIDown,					D(200),
-			PULSE+UIDown,					D(200),
-			PULSE+UIDown,					D(200),
-			PULSE+UIDown,					D(200),
-			PULSE+UIDown,					D(200),
-			PULSE+UIDown,					D(200),												// adding 5 extra 'down' in case the selector wraps back to top 
-			PULSE+UIDown,					D(200),
-			PULSE+UIDown,					D(200),
-			PULSE+UIDown,					D(200),
-			PULSE+UIDown,					D(200),
-			PULSE+UIUp,						D(200),
-			PULSE+UIUp,						D(200),												// should now be positioned at 'Board Ship'
+			PULSE+UIDown,					D(100),
+			PULSE+UIDown,					D(100),
+			PULSE+UIDown,					D(100),
+			PULSE+UIDown,					D(100),
+			PULSE+UIDown,					D(150),
+			PULSE+UIDown,					D(150),												// adding 5 extra 'down' in case the selector wraps back to top 
+			PULSE+UIDown,					D(150),
+			PULSE+UIDown,					D(150),
+			PULSE+UIDown,					D(150),
+			PULSE+UIDown,					D(150),
+			PULSE+UIDown,					D(150),
+			PULSE+UIDown,					D(150),
+			PULSE+UIDown,					D(100),
+			PULSE+UIUp,						D(100),
+			PULSE+UIUp,						D(100),												// should now be positioned at 'Board Ship'
 			PULSE+UISelect,					D(500),												// remove comment if macro is reliable for you
 			LOCK);
 
