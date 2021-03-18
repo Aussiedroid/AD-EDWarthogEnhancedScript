@@ -12,6 +12,10 @@ New to the script? Be sure to also check out the Beginners Reference Map in the 
 List of Changes:
 
 NEW: Odyssey Expansion: All New First Person Mode Mappings added! (TBC)
+	- First Person is fully mapped in the HOTAS plus auxilary mappings for keyboard & mouse.
+	- Created all mapping variables for FP and added to the script.
+	- All additional bindings are mapped.
+	- TBC - awaiting Odyssey Alpha.	
 NEW: Script automatically reads in real-time the State of game variables via the ED status.json file. This improvement means:
 	- Toggles actions will always align to the live in-game status.
 	- No more overrides needed to realign toggles.
@@ -22,8 +26,8 @@ NEW: Automatically Stop Script Run when Elite Dangerous game is exited. Set is U
 NEW: Disable LED Backlight on Elite Dangerous exit. Set is UserPrefs.
 NEW: Turn off Ship HUD while in Witchspace Warp Tunnel :).
 NEW: Ship & SRV Live Telemetry Output to the TARGET Window. Includes things like Shields Up, Overheating, Mass Locked, SRV Turret status and more! (Disabled in User Prefs by default)
-NEW: External Camera Mode function added that automatically goes into Free Camera Mode plus auto-hides HUD. Hold Pinky Trigger + Galaxy Map (Boat Forward) to activate.
-NEW: 
+NEW: External Camera Mode function added that automatically goes into Free Camera Mode plus auto-hide HUD. Hold Pinky Trigger + Galaxy Map (Boat Forward) to activate.
+NEW: Added sequence to swap between Ship & SRV (works in both Embark & Board modes) in one press. Hold Pinky Trigger + press China Hat Back to activate (or press China Hat Forward if you do not have Supercruise on Throttle enabled).
 NEW: 
 
 
@@ -33,8 +37,8 @@ IMPROVEMENT: Added verbose output message for Hangar Automation when fired in th
 IMPROVEMENT: Live Check of the LED status for Toggles against flag values in status.json file. LEDs will always be correct!
 IMPROVEMENT: Cargo Precision Mode on the Cargo Scoop toggle, and Take Off Sequence on Landing Gear toggle modifiers, moved to Pinky Modifier from CMS Hat Switch.
 IMPROVEMENT: Hardpoint button on Throttle will now toggle the SRV Turret Mode when in SRV. (Old mapping on Joy remains too)
-IMPROVEMENT: Separated SRV Handbrake & Double Tap functionality on the Pinky Trigger due to conflict. Double Tap is now default, and added Pinky Throttle Switch Forward + CMS Hatswitch modifier to switch Pinky Trigger over to Handbrake. Center Pinky Switch + CMS Hatswitch to disable Handbrake. Only works in SRV, else reverts to JumpNextSubsys in Ship. Handbrake has also been added to China Hat toggle on Throttle (back) as a backup.
-IMPROVEMENT: Weapon & Engine Colour changes now combined into single button. Hold Pinky Trigger and Engine Operate Ign/Norm to cycle through. TBC
+IMPROVEMENT: Separated SRV Handbrake & Double Tap functionality on the Pinky Trigger due to conflict. Double Tap is now default, and added Pinky Throttle Switch Forward + CMS Hatswitch modifier to switch over to Handbrake. Center Pinky Switch + CMS Hatswitch to change back to Double Tap. Only works in SRV, else reverts to JumpNextSubsys in Ship. Handbrake has also been added to China Hat toggle on Throttle (back) as a backup.
+IMPROVEMENT: Weapon & Engine Colour changes now combined into single button. Hold Pinky Trigger and Engine Operate Ign/Norm to cycle through.
 IMPROVEMENT: 
 
 
@@ -56,4 +60,4 @@ CODE:
 
 Fly Safe CMDRs!
 
-*** Ref maps updated 17/3/2021
+*** Ref maps updated 17/3/2021 (not uploaded)
