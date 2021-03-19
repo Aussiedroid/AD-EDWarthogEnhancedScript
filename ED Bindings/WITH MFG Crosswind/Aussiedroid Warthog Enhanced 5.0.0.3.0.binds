@@ -1404,7 +1404,9 @@
 	</FixCameraWorldToggle>
 	<QuitCamera>
 		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_7" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_E">
+			<Modifier Device="Keyboard" Key="Key_LeftControl" />
+		</Secondary>
 	</QuitCamera>
 	<ToggleAdvanceMode>
 		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_19" />
