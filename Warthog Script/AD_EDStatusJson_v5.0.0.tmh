@@ -2,7 +2,7 @@
 // STATUS.JSON PARSER //			Determine the Real-time Status of In-game Commands, via the ED Log file.					Original Author: CMDR Clicker	//	->	https://forums.frontier.co.uk/threads/target-scripting-tutorial-read-status-json-process-flags-keyvalue.539783/
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //TOC:/									initReadStatusJson()		(17)																						//
-//----									initProcessJsonFlags()		(41)																						//
+//----									initProcessFlagsJson()		(41)																						//
 //										initJsonStartCheck()		(211)																						//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // GLOBAL VARIABLES	//
@@ -33,12 +33,12 @@
 				ReadErrorCount = 0;
 				strdel(&myJson, myResult-1, buf); } }						// If no issues with read, remove any trailing garbage
 		else {
-			if(VerboseOutput) printf("FATAL ACCESS ERROR: Status.json .. !ABORT!\x0a");					// File not found OR locked by Elite Dangerous!
+			if(VerboseOutput) printf("EXITING Elite Dangerous .. Reason: FATAL ACCESS ERROR in Status.json .. !ABORT!\x0a");					// File not found OR locked by Elite Dangerous!
 								Abort(); } }
 
 
 
-	int initProcessJsonFlags() {											// FUNCTION: Read & Process "Flags" value from "status.json"
+	int initProcessFlagsJson() {											// FUNCTION: Read & Process "Flags" value from "status.json"
 																			// Declare all required local variables
 		int Flags = 0;														// contains the Flags key value integer.
 		int EndValue = 0;													// Catch when we get to a space or comma
@@ -72,8 +72,8 @@
 		if(Flags == 0 & GameLoaded == 1) {									// Detects when Game halts	  (If Flags == 0, it means the game has not started yet...)
 			GameLoaded = 0;
 			if(TurnOffLEDSOnExit) ActKey(KEYON+PULSE+EXEC("initLEDShutdown();"));	// SHUTDOWN LED BACKLIGHT DIMMING SEQUENCE
-			if(VerboseOutput & ReadErrorCount > 4) printf("FILE READ ERROR: Count Exceeded...\x0a");
-			if(VerboseOutput & ReadErrorCount < 4) printf("EXITING Elite Dangerous .. Auto Script Shutdown Initiated .. Bye!");
+			if(VerboseOutput & ReadErrorCount > 4) printf("EXITING Elite Dangerous .. Reason: FILE READ ERROR.. Count Exceeded...\x0a");
+			if(VerboseOutput & ReadErrorCount < 4) printf("EXITING Elite Dangerous .. Reason: Auto Script Shutdown Initiated .. Bye!");
 			if(AbortScriptOnExit) Abort(); }								// EXIT: Force Stop of Script.
 
 		if(Flags != 0) {													// Detects when Game is active (If Flags != 0, it means the game has started & reading status.json file successful...)
@@ -112,16 +112,27 @@
 			fSRVTurretRetracted = ((Flags & ED_SRVTurretRetracted) > 0);
 			fSRVTurretView		= ((Flags & ED_SRVTurret) > 0);
 			fSupercruise		= ((Flags & ED_Supercruise) > 0);
-																			// Check LEDs are in the right state on each file read
-			if(!fFAOff & !Throttle[SPDF] & !Throttle[SPDB]) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1));	// set LED 1 ON
-			if(fFAOff & (Throttle[SPDF] | Throttle[SPDB])) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));		// set LED 1 OFF
-			if(!fSilentRunning & !Throttle[APUON]) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));				// set LED 3 OFF
-			if(!fCargoScoop & !Throttle[RDRNRM]) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));				// set LED 4 OFF
-			if(!fLandingGear & !Throttle[EACON]) ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));				// set LED 5 OFF
-			
+																			// Check Panel LEDs are in the right state on each file read (Note: Rotational Correction has no flag to check so LEDs controlled by Function)
+			if(fFAOff) 			{	if(FALED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)); FALED = 0; }}//FAOff	// set LED 1 OFF
+													//if(BlingLEDBling) initLEDController(LED1); FALED = 0; }}
+			else				{	if(!FALED)	{	if(BlingLEDBling) initLEDController(LED1); FALED = 1 ;  		 //FAOn
+													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1)); }	}		// set LED 1 ON
+			if(!fSilentRunning) {	if(!SRLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3)); //SROff	// set LED 3 OFF
+													if(BlingLEDBling) initLEDController(LED3); SRLED = 1; } }
+			else				{	if(SRLED)	{	if(BlingLEDBling) initLEDController(LED3); SRLED = 0;			 //SROn
+													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3)); } }		// set LED 3 ON
+			if(!fCargoScoop)	{	if(!CSLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); //CSOff	// set LED 4 OFF
+													if(BlingLEDBling) initLEDController(LED4); CSLED = 1; } }
+			else				{	if(CSLED)	{	if(BlingLEDBling) initLEDController(LED4); CSLED = 0;			 //CSOn
+													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4)); } }		// set LED 4 ON
+			if(!fLandingGear)	{	if(!LGLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); //LGOff	// set LED 5 OFF
+													if(BlingLEDBling) initLEDController(LED5); LGLED = 1; } }
+			else				{	if(LGLED)	{	if(BlingLEDBling) initLEDController(LED5); LGLED = 0;			 //LGOn
+													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5)); }	}		// set LED 5 ON
+
 			if(fsdJump & !fLatLong & FSDJumpCheck == 0) {					// Turn Off Ship HUD when in Witchspace (Frameshift Warp Tunnel)
 				ActKey(KEYON+PULSE+HideShipGUI);
-				FSDJumpCheck = 1;}
+				FSDJumpCheck = 1; }
 			if(!fsdJump & !fLatLong & FSDJumpCheck == 1) {
 				ActKey(KEYON+PULSE+HideShipGUI);
 				FSDJumpCheck = 0; }
@@ -170,38 +181,22 @@
 			if(DebugOutput) {
 				printf("\x0a\ Active Flags");								// Print any Flags which are set to 1
 				printf("\x0a===============\x0a");
-				if(fAltFromAvgRad)			printf("Radius-ALT\x0a");
-				if(fCargoScoop)				printf("Cargo Scoop Deployed\x0a");
-				if(fDanger)					printf("!!! DANGER !!!\x0a");
-				if(fDocked)					printf("Docked\x0a");
-				if(fFAOff)					printf("Flight Assist OFF\x0a");
-				if(fFighter)				printf("In Fighter\x0a");
-				if(fFSDCharging)			printf("FSD Charging\x0a");
-				if(fFSDCooldown)			printf("FSD Cooldown\x0a");
-				if(fFuelScoop)				printf("Fuel Scoop Deployed\x0a");
-				if(fHardpoints)				printf("Hardpoints Deployed\x0a");
-				if(fHUDAnalysis)			printf("AnalysisHUD\x0a");
-				if(fInterdicted)			printf("Being Interdicted\x0a");
-				if(fInWing)					printf("In Wing\x0a");
-				if(fLanded)					printf("Landed on planet\x0a");
-				if(fLandingGear)			printf("Landing Gear Deployed\x0a");
-				if(fLatLong)				printf("Lat\\Lon available\x0a");
-				if(fLights)					printf("Lights On\x0a");
-				if(fLowFuel)				printf("Low Fuel\x0a");
-				if(fMainShip)				printf("In MainShip\x0a");
-				if(fMassLocked)				printf("FSD Masslocked\x0a");
-				if(fNightVision)			printf("Night Vision\x0a");
-				if(fOverHeating)			printf("Over Heating\x0a");
-				if(fsdJump)					printf("Hyperjump\x0a");
-				if(fSilentRunning)			printf("Silent Running\x0a");
-				if(fShieldsUp)				printf("Shields Up\x0a");
-				if(fSRV)					printf("In SRV\x0a");
-				if(fSRVDriveAssist)			printf("SRV Drive Assist\x0a");
-				if(fSRVHandbrake)			printf("SRV Handbrake\x0a");
-				if(fSRVHiBeam)				printf("SRVHiBeam\x0a");
-				if(fSRVTurretRetracted)		printf("SRV Turret Retracted\x0a");
-				if(fSRVTurretView)			printf("SRV Turret View\x0a");
-				if(fSupercruise)			printf("Supercruise Engaged\x0a");
+				if(fAltFromAvgRad)		printf("Radius-ALT\x0a");					if(fLights)					printf("Lights ON\x0a");
+				if(fCargoScoop)			printf("Cargo Scoop Deployed\x0a");			if(fLowFuel)				printf("Low Fuel\x0a");
+				if(fDanger)				printf("!! DANGER !!\x0a");					if(fMainShip)				printf("In MainShip\x0a");
+				if(fDocked)				printf("Docked on Landing Pad\x0a");		if(fMassLocked)				printf("FSD Masslocked\x0a");
+				if(fFAOff)				printf("FlightAssist OFF\x0a");				if(fNightVision)			printf("NightVision\x0a");
+				if(fFighter)			printf("In Fighter\x0a");					if(fOverHeating)			printf("Over Heating\x0a");
+				if(fFSDCharging)		printf("FSD Charging\x0a");					if(fsdJump)					printf("Hyperjump Engaged\x0a");
+				if(fFSDCooldown)		printf("FSD Cooldown\x0a");					if(fSilentRunning)			printf("Silent Running\x0a");
+				if(fFuelScoop)			printf("Fuel Scoop Deployed\x0a");			if(fShieldsUp)				printf("Shields UP\x0a");
+				if(fHardpoints)			printf("Hardpoints Deployed\x0a");			if(fSRV)					printf("In SRV\x0a");
+				if(fHUDAnalysis)		printf("HUD Analysis\x0a");					if(fSRVDriveAssist)			printf("SRV Drive Assist\x0a");
+				if(fInterdicted)		printf("Being Interdicted!!\x0a");			if(fSRVHandbrake)			printf("SRV Handbrake\x0a");
+				if(fInWing)				printf("In Wing\x0a");						if(fSRVHiBeam)				printf("SRV HiBeam\x0a");
+				if(fLanded)				printf("Landed on Planet\x0a");				if(fSRVTurretRetracted)		printf("SRV Turret Retracted\x0a");
+				if(fLandingGear)		printf("Landing Gear Deployed\x0a");		if(fSRVTurretView)			printf("SRV Turret View\x0a");
+				if(fLatLong)			printf("Lat\\Lon\x0a");						if(fSupercruise)			printf("Supercruise Engaged\x0a");
 				printf("===============\x0a"); } } }
 
 
@@ -220,15 +215,15 @@
 			ValidStatusFile = 1;
 			if(DebugOutput) { printf("\FILE LOAD SUCCESS: Status.json file set correctly in AD_EDUserPrefs\x0a"); } }
 		else {
-			printf("\x0a\!!! FATAL ERROR !!!\x0a");
-			printf("Status.json file *Not Found*\x0a");
+			printf("\x0a\!! FATAL ERROR !!\x0a");
+			printf("EXITING Elite Dangerous .. Reason: Status.json file *Not Found*\x0a");
 			printf("Please set 'StatusFile' alias correctly in User Preferences\x0a");
 			printf("Refer to AD_EDUserPrefs.tmh file for instructions. Closing Down Script...");
 			Abort(); }
 		if(ValidStatusFile) {
 			initReadStatusJson();
 			if(VerboseOutput) printf("Processing Status.json flags...now running...Done\x0a");
-			ActKey(KEYON+REXEC(3, StatusReadRate, "initProcessJsonFlags();", RNOSTOP)); } }		// StatusReadRate is set in AD_EDDefaults.tmh. Stops on read failure, else loops while game running.
+			ActKey(KEYON+REXEC(3, StatusReadRate, "initProcessFlagsJson();", RNOSTOP)); } }		// StatusReadRate is set in AD_EDDefaults.tmh. Stops on read failure, else loops while game running.
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

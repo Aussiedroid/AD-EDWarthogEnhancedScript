@@ -33,7 +33,7 @@
 	define MineTimer			6200					// Set the Delay Timer for Mining Pulse Wave Scanner to auto-disengage	(default = 6200ms)
 
 	define ChatKeyRepeatTime	70						// Auto-Text Chat Preset time	(ms)									(default = 70ms)
-	define StatusReadRate		700						// Looping rate of the initProcessFlags() function to read latest status.json status updates. (default = 750ms)
+	define StatusReadRate		500						// Looping rate of the initProcessFlags() function to read latest status.json status updates. (default = 750ms)
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -94,7 +94,10 @@
 	int StatusSRVTView		  = 0;						// Tracks state of SRV Turret View						(used in AD_EDStatusJson.tmh)
 	int PTModifier			  = 0;						// Tracks state of modifier for Pinky Trigger on Joy	(used in AD_ED_v5.x.x.tmc)
 	int FreeModeHat			  = 0;						// Tracks state of Free Mode Camera activation			(used in initFreeCameraModeUpgrade())
-
+	int FALED				  = 1;						// Tracks ???
+	int SRLED				  = 0;						// Tracks ???
+	int CSLED				  = 0;						// Tracks ???
+	int LGLED				  = 0;						// Tracks ???
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FLAG VARIABLES   //	(Used in AD_EDStatusJson.tmh)	   Refer to Section 13 (page 80) in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf

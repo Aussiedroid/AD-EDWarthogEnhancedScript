@@ -17,6 +17,7 @@
 //	define PrevFireGroup 							DX14					// <Disabled> 
 
 
+
 		// TARGET CONTROL //
 	define SelectTargetAhead 						USB[0x17] 				// T
 	define SelectNextShip 							USB[0x0A] 				// G

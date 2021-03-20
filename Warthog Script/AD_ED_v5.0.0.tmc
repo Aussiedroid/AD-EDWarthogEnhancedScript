@@ -38,15 +38,15 @@
 		if(UseMFD == 0) {													// No MFDs (Ignore configuring MFDs unless set in User Preferences)
 			Configure(&LMFD, 	  MODE_EXCLUDED);
 			Configure(&RMFD, 	  MODE_EXCLUDED); }
-		if(UseRuddersT16000 == 0) Configure(&TFRPRudder, MODE_EXCLUDED);	// Enables Standard T.Flight T16000 Rudders
-		if(UseRuddersT16000 == 1) Configure(&TFRPRudder, MODE_FILTERED);	// Enables Differential Toe Brakes on T.Flight T16000 Rudders (for mapping through Target Script)
-		if(UseRuddersTPR == 0)	  Configure(&TFRPHARudder, MODE_EXCLUDED);	// Enables Standard T.Flight TPR Pedals
-		if(UseRuddersTPR == 1)	  Configure(&TFRPHARudder, MODE_FILTERED);	// Enables Differential Toe Brakes on T.Flight TPR Pedals (for mapping through Target Script)Configure(&TFRPHARudder, MODE_FILTERED);
+		if(UseRuddersT16000 == 0) Configure(&TFRPRudder,	MODE_EXCLUDED);	// Enables Standard T.Flight T16000 Rudders
+		if(UseRuddersT16000 == 1) Configure(&TFRPRudder,	MODE_FILTERED);	// Enables Differential Toe Brakes on T.Flight T16000 Rudders (for mapping through Target Script)
+		if(UseRuddersTPR == 0)	  Configure(&TFRPHARudder,	MODE_EXCLUDED);	// Enables Standard T.Flight TPR Pedals
+		if(UseRuddersTPR == 1)	  Configure(&TFRPHARudder,	MODE_FILTERED);	// Enables Differential Toe Brakes on T.Flight TPR Pedals (for mapping through Target Script)Configure(&TFRPHARudder, MODE_FILTERED);
 
 	if(Init(&EventHandle)) return 1;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// START-UP: SOFTWARE //  (*May not work on Win 10* - Use EDBAT instead)	// *system("spawn -w \"software main folder" \"exe shortcut"");  
+// START-UP: SOFTWARE (LEGACY) //  (*May not work on Win 10* - Use EDBAT instead)		// *system("spawn -w \"software main folder" \"exe shortcut"");  
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	if(StartSoftware == 1) {															// Auto-Load on Script Run (Customise Example Paths below OR Add Your Own)
@@ -74,7 +74,7 @@
 	// FUNCTION START //
 	initCustomMacroCommands();																// Initiate Custom Macros & Functions (See AD_EDMacros.tmh)
 	initEscapeVector();																		// Initiate Advanced Macro to perform a tactical withdraw from combat (Retract Hardpoints, Set Defensive PIPs, Auto Boost/Chaff, Engage Supercruise) (See AD_EDMacros.tmh)
-	initAutoVehicleTransition();															// Initiate Swapping Vehicle Ship<=>SRV. Will Embark or Board depending what you are in at the time. (See AD_EDFunctions.tmh)
+	initAutoVehicleTransition();															// Initiate Swapping Vehicle Ship<=>SRV. Will Embark or Board depending what vehicle you are in at the time. (See AD_EDFunctions.tmh)
 	initSetThrottleCurves();																// Initiate Mapping of Custom Throttle Curves (3 Presets configurable in AD_EDUserPrefs.tmh)
 	initJsonStartCheck();																	// Initiate Check for status.json file & commence reading output to flags (See AD_EDStatusJson.tmh)
 	initPrintState();																		// Initiate Display Script Settings to Output Window in Script/GUI (See AD_EDFunctions.tmh)
@@ -94,7 +94,7 @@
 	initUserHotSlotPinkyTrigger();															// Initiate Double Tap Functionality on the Joystick Pinky Trigger (See AD_EDFunctions.tmh)
 	initLEDController(0);																	// Initiate Short LED Flashing Sequence on Toggle Flip & a Pattern on Startup. (LED Support) (See AD_EDFunctions.tmh)
 	initAPEngageEnhancer();																	// Initiate Autopilot Engage button customisation				   (See AD_EDFunctions.tmh) (includes Auto-Dock & Signal Light Macros)
-	initExplorerScannerDisengage();															// Initiate Repeater Fire Explorer-Scanner Disengage/Off Console Printout
+	initExplorerScannerDisengage();															// Initiate Repeater Fire Explorer-Scanner Disengage/Off Console Printout (See AD_EDFunctions.tmh)
 
 
 	// HARDWARE CONFIG //
@@ -398,7 +398,8 @@
 	MapKey(&Throttle,  PSF,  EXEC(																					// Pinky Throttle Switch FORWARD
 								"if(Joystick[H4P] & fSRV) PTModifier = 1;" 
 								"if(Joystick[H4P] & !fSRV) ActKey(KEYON+PULSE+mJumpNextSubSys);"
-								"if(Joystick[S4]) ActKey(KEYON+PULSE+mClearAllChatBoxes);" 			//"if(Joystick[S4])  initSendChatString(chat_ClearChatBox);"
+								"if(Joystick[S4] & SquadronClearPanel)	{ ActKey(KEYON+PULSE+mClearChatBoxesSquadron);	if(VerboseOutput) printf(\"Squadron Chat Box Cleared...\\x0a\");}"
+								"if(Joystick[S4] & !SquadronClearPanel) { ActKey(KEYON+PULSE+mClearMainChatBoxes);		if(VerboseOutput) printf(\"Main Chat Boxes Cleared...\\x0a\");}"
 								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput & !fSRV) { printf(\"SHIFT KEY FORWARD  >>> [Comms Channel: AUTO-TEXT]\\x0a\"); printf(\"SHIFT KEY FORWARD  >>> [Repeater Mode: COMBAT-ENDLESS]\\x0a\"); }"));
 	MapKeyR(&Throttle,  PSF,  EXEC(																					// Pinky Throttle Switch FORWARD
 								"if(Joystick[H4P]) PTModifier = 0;"));
