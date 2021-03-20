@@ -389,7 +389,6 @@
 		MapKey(&Throttle,  CHF, EXEC(																				// China Hat FORWARD
 										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
 										"else			   initNightVisionEnhancer();"));
-	//	MapKey(&Throttle,  CHB,  ActKey(KEYON+PULSE+mChinaHatBack));	}											// China Hat BACK
 		MapKey(&Throttle,  CHB,  EXEC(	"if(Joystick[S4]) initAutoVehicleTransition();"
 										"if(!Joystick[S4]) ActKey(KEYON+PULSE+mChinaHatBack);")); }					// China Hat BACK
 
@@ -398,8 +397,8 @@
 	MapKey(&Throttle,  PSF,  EXEC(																					// Pinky Throttle Switch FORWARD
 								"if(Joystick[H4P] & fSRV) PTModifier = 1;" 
 								"if(Joystick[H4P] & !fSRV) ActKey(KEYON+PULSE+mJumpNextSubSys);"
-								"if(Joystick[S4] & SquadronClearPanel)	{ ActKey(KEYON+PULSE+mClearChatBoxesSquadron);	if(VerboseOutput) printf(\"Squadron Chat Box Cleared...\\x0a\");}"
-								"if(Joystick[S4] & !SquadronClearPanel) { ActKey(KEYON+PULSE+mClearMainChatBoxes);		if(VerboseOutput) printf(\"Main Chat Boxes Cleared...\\x0a\");}"
+								"if(Joystick[S4] & SquadronClearPanel)	ActKey(KEYON+PULSE+mClearChatBoxesSquadron);"
+								"if(Joystick[S4] & !SquadronClearPanel) ActKey(KEYON+PULSE+mClearMainChatBoxes);"
 								"if(!Joystick[S4] & !Joystick[H4P] & VerboseOutput & !fSRV) { printf(\"SHIFT KEY FORWARD  >>> [Comms Channel: AUTO-TEXT]\\x0a\"); printf(\"SHIFT KEY FORWARD  >>> [Repeater Mode: COMBAT-ENDLESS]\\x0a\"); }"));
 	MapKeyR(&Throttle,  PSF,  EXEC(																					// Pinky Throttle Switch FORWARD
 								"if(Joystick[H4P]) PTModifier = 0;"));

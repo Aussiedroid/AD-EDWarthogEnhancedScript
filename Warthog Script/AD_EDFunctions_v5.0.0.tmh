@@ -137,7 +137,7 @@
 		if(!StartupLock) {
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 150));		Sleep(33);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 120));		Sleep(66);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 100));		Sleep(100);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 100));		Sleep(99);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 70));		Sleep(66);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 20));		Sleep(33);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 0));		} }	
@@ -287,8 +287,6 @@
 				SetSCurve(&Joystick, JOYY, 0, 1, 0, 2, -1);										// Full Joystick sensitivity remains on Back HOLD on FA Off for quick turns in combat
 				if(UseRuddersTPR & UseRudderAxisCurves)		SetSCurve(&TFRPHARudder, TRUDDER, 0, 10, 0, 3, -1);
 				if(UseRuddersT16000 & UseRudderAxisCurves)	SetSCurve(&TFRPRudder, TFRPHA_RUDDER, 0, 10, 0, 3, -1);
-				//ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));				// set LED 1 OFF
-				//if(BlingLEDBling) initLEDController(LED1);
 				if(UseRudderAxisCurves & DebugOutput)  printf("Joystick Profile[%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
 				if(!UseRudderAxisCurves & DebugOutput) printf("Joystick Profile[%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]); } }
 		if(!Throttle[SPDF]) {
@@ -298,8 +296,6 @@
 			if(fFAOff) {
 				ActKey(KEYON+PULSE+FlightAssist);
 				initSetJoystickCurves();														// Return Joystick Curve back to previous preset (based on toggle position)
-				//if(BlingLEDBling) initLEDController(LED1);
-				//ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1));				// set LED 1 ON     you will need to toggle back to center, then UP/DOWN again to reapply settings.
 				if(UseRudderAxisCurves & DebugOutput)  printf("Returning to Joystick Profile [%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
 				if(!UseRudderAxisCurves & DebugOutput) printf("Returning to Joystick Profile [%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]);  } }
 		if(Throttle[SPDB]) {																	// FA OFF: HOLD
@@ -308,14 +304,13 @@
 				AltFlightHold = 1; }
 			if(!Joystick[S4] & !fFAOff) {
 				ActKey(KEYON+PULSE+FlightAssist);}}
-				//ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)); } }			// set LED 1 OFF
 		if(!Throttle[SPDB]) {
 			if(AltFlightHold) {
 				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Disables Alternative Flight Control Mappings (works with both Pinky Trigger & Without!).
 				AltFlightHold=!AltFlightHold; }
 			if(fFAOff) {
 				ActKey(KEYON+PULSE+FlightAssist);}}}
-				//ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1)); } } }			// set LED 1 ON
+
 
 
 
@@ -350,7 +345,6 @@
 				if(!Joystick[S4] & Joystick[H4P] & Throttle[APUON] & SRStrobe == 0) {
 					AutoRepeat(5, 2000, &ActKey, PULSE+KEYON+SilentRunning);					// Start Strobe Silent Running
 					ActKey(KEYON+PULSE+EXEC("initPIPMapper(ENG,WEP);"));						// Set PIPs to ENGx4 WEPx2 - Offensive stance - removes from SYS				
-					//ActKey(KEYON+PULSE+SilentRunning);
 					SRStrobe = 1; }
 				if(!Joystick[S4] & Joystick[H4P] & !Throttle[APUON] & SRStrobe == 1) {
 					ActKey(KEYON+PULSE+EXEC("StopAutoRepeat(5);"));								// Stop Strobe Silent Running 
@@ -362,8 +356,6 @@
 					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3));			// set LED 3 ON
                 	if(!StartupLock & VerboseOutput) printf("Silent Running: ACTIVATED   !!\x0a"); }// Print the action to console...
                 else {					 // CLOSE ACTIONS //
-                	//ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));			// set LED 3 OFF
-					//if(BlingLEDBling) initLEDController(LED3);
 					if(CoolRunnings) {
 									CoolRunnings=!CoolRunnings;
 									ActKey(KEYON+PULSE+EXEC("initPIPMapper(SYS,WEP);")); }		// Set PIPs to SYSx4 WEPx2 - Offensive stance - removes from ENG
@@ -402,11 +394,9 @@
                 if(!fCargoScoop) { 			// OPEN ACTIONS //
                 	if(BlingLEDBling) initLEDController(LED4);
 					ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4));			// set LED 4 ON
-                	if(VerboseOutput) printf("Cargo Scoop: DEPLOYED >>\x0a"); }
+                	if(!StartupLock & VerboseOutput) printf("Cargo Scoop: DEPLOYED >>\x0a"); }
                 else {						// CLOSE ACTIONS //
                 	if(CargoPrecisionMode) { initCargoReturnMode();	}							// AUTO DISABLE PRECISION MODE: Returns Throttle range to your default whenever you close Cargo Scoop (as set in your User Prefs).
-                	//ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));			// set LED 4 OFF
-					//if(BlingLEDBling) initLEDController(LED4);
 					if(VerboseOutput) printf("Cargo Scoop: RETRACTED <<\x0a"); } }
 			else {																				// Toggle is currently in the wrong position.
                 if(!StartupLock & VerboseOutput) printf("Cargo Scoop: NOTHING TO DO ==\x0a"); } }
@@ -454,12 +444,8 @@
 					DeferCall(4000, &ActKey, KEYON+UP+ThrustUp);								// Releases Vertical Thrust after 4 seconds
 					if(VerboseOutput) printf("Landing Gear: LAUNCH SEQUENCE ACTIVATED >>\x0a"); }
                 if(!fLandingGear) {  		  // OPEN ACTIONS //
-                	//if(BlingLEDBling) initLEDController(LED5); //LGLED = 1;
-					//ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5));
-                	if(VerboseOutput) printf("Landing Gear: DEPLOYED >>\x0a"); }
+                	if(!StartupLock & VerboseOutput) printf("Landing Gear: DEPLOYED >>\x0a"); }
                 else {						 // CLOSE ACTIONS //
-                	//ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));			// set LED 5 OFF
-					//if(BlingLEDBling) initLEDController(LED5);
                     if(VerboseOutput) printf("Landing Gear: RETRACTED <<\x0a");	 } }
             else {
                 if(VerboseOutput& !StartupLock) printf("Landing Gear: NOTHING TO DO ==\x0a"); } }

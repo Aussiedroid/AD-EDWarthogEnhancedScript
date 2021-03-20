@@ -94,10 +94,10 @@
 	int StatusSRVTView		  = 0;						// Tracks state of SRV Turret View						(used in AD_EDStatusJson.tmh)
 	int PTModifier			  = 0;						// Tracks state of modifier for Pinky Trigger on Joy	(used in AD_ED_v5.x.x.tmc)
 	int FreeModeHat			  = 0;						// Tracks state of Free Mode Camera activation			(used in initFreeCameraModeUpgrade())
-	int FALED				  = 1;						// Tracks ???
-	int SRLED				  = 0;						// Tracks ???
-	int CSLED				  = 0;						// Tracks ???
-	int LGLED				  = 0;						// Tracks ???
+	int FALED				  = 1;						// Tracks state of Flight Assist Off LED				(used in initProcessFlagsJson())
+	int SRLED				  = 0;						// Tracks state of Silent Running LED					(used in initProcessFlagsJson())
+	int CSLED				  = 0;						// Tracks state of Cargo Scoop LED						(used in initProcessFlagsJson())
+	int LGLED				  = 0;						// Tracks state of Landing Gear LED						(used in initProcessFlagsJson())
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FLAG VARIABLES   //	(Used in AD_EDStatusJson.tmh)	   Refer to Section 13 (page 80) in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
