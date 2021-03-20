@@ -1,0 +1,353 @@
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// KEY BINDINGS //   Not all Bindings are used in script directly (these will be commented out below - instead they're mapped directly in ED Bindings Config)	//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// TOC:/																[ 1. KEYBIND GROUP INDEX ]																//
+// ----				- WEAPON CONTROL	(12)		- SHIP SYSTEMS 		 (132)		- WINGS			(232)		- GALAXY MAP		(444)						//
+//					- TARGET CONTROL	(20)		- COOLING/C.MEASURES (132)		- FIGHTERS		(232)		- CAMERA SUITE		(999)						//
+//					- FLIGHT CONTROL	(32)		- THROTTLE BASE		 (132)		- MULTICREW		(232)		- HEADLOOK	 		(343)						//
+//					- SRV CONTROL		(61)		- SCANNERS			 (434)		- HOLO-ME		(111)      	- STORE PAGE & MISC (555)						//
+//					- FIRST PERSON		(68)		- UI NAVIGATION		 (333)		- PLAYLIST		(232)		- EXTERNAL BINDINGS (654)	+ DX MAPPINGS (290)	//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+		// WEAPON CONTROL //
+	define PrimaryFire 								DX1						// JOY 1 (Also mapped to SHIFT+1 in ED Bindings)
+	define SecondaryFire 							DX3						// JOY 3 (Also mapped to SHIFT+2 in ED Bindings)
+	define DeployHardpoints 						USB[0x18] 				// U
+//	define NextFireGroup 							DX12					// <Disabled> 
+//	define PrevFireGroup 							DX14					// <Disabled> 
+
+
+		// TARGET CONTROL //
+	define SelectTargetAhead 						USB[0x17] 				// T
+	define SelectNextShip 							USB[0x0A] 				// G
+	define SelectPrevShip 							USB[0x05] 				// B
+	define SelectHighestThreat 						USB[0x1C] 				// Y
+	define SelectNextHostileShip 					USB[0x0B]				// H
+	define SelectPrevHostileShip 					USB[0x11] 				// N
+	define SelectNextSubsystem 						USB[0x0C]				// I
+	define SelectPrevSubsystem 						USB[0x0E]				// K
+	define SelectNextSystemInRoute 					USB[0x10] 				// M
+
+
+		// FLIGHT CONTROL //
+	define ThrustUp 								USB[0x15]				// R
+	define ThrustDown 								USB[0x09]				// F
+	define ThrustLeft 								USB[0x14]				// Q
+	define ThrustRight 								USB[0x08]				// E
+//	define ThrustForward							USB[0x63]				// NUMPAD . <Disabled>
+//	define ThrustBack								USB[0x67]				// NUMPAD = <Disabled>
+	define EngineBoost 								USB[0x2B] 				// TAB
+	define FrameShiftDrive 							USB[0x0D] 				// J
+	define Supercruise 								USB[0x54]				// NUMPAD /
+//	define Hyperspace 								DX12					// <Disabled>
+	define SetSpeedNeg100 							USB[0x56] 				// NUMPAD -
+	define SetSpeedNeg75 							USB[0x61] 				// NUMPAD 9
+	define SetSpeedNeg50 							USB[0x60] 				// NUMPAD 8
+	define SetSpeedNeg25 							USB[0x5F]				// NUMPAD 7
+	define SetSpeed0 								USB[0x1B] 				// X
+	define SetSpeed25 								USB[0x59] 				// NUMPAD 1
+	define SetSpeed50 								USB[0x5A] 				// NUMPAD 2
+	define SetSpeed75 								USB[0x5B] 				// NUMPAD 3
+	define SetSpeed100 								USB[0x57] 				// NUMPAD +
+	define IncreaseThrottle 						USB[0x1A] 				// W
+	define DecreaseThrottle 						USB[0x16] 				// S
+//	define ReverseThrottle 							DX10					// <Disabled>
+	define FlightAssist 							USB[0x1D] 				// Z
+	define RotationalCorrection 					USB[0x3D] 				// F4
+	define AlternativeFlightMode 					USB[0x40]				// F7
+//	define ThrustForwardOnlyReverse					L_CTL+USB[0x15]			// CTRL+R
+
+
+		// SRV CONTROL //
+	define SRVHandbrake 							L_CTL+USB[0x2D]			// CTRL+-
+	define SRVTurret 								L_SHIFT+USB[0x18]		// SHIFT+U
+	define SRVVerticalThrust 						USB[0x12]				// O
+//	define SRVRecallDismissShip						L_ALT+USB[0x1B]			// ALT+X <Disabled>
+
+
+		// FIRST PERSON CONTROL //					//TBC//
+//	define FPSForward							
+//	define FPSBack
+//	define FPSLeftTurn
+//	define FPSRightTurn	
+//	define FPSStrafeLeft						
+//	define FPSStrafeRight
+//	define FPSSelect
+//	define FPSJump
+//	define FPSJetpack	
+//	define FPSPrimaryFire						
+//	define FPSSecondaryFire						
+//	define FPSUtilityFire
+//	define FPSEnergy 
+	
+	
+
+		// SHIP SYSTEMS //
+	define CargoScoop 								USB[0x4A] 				// HOME
+	define JettisonAllCargo 						L_CTL+USB[0x56]			// CTRL+NUMPAD
+	define LandingGear 								USB[0x0F] 				// L
+	define ShipLights 								USB[0x49] 				// INSERT
+	define NightVision								USB[0x38]				// /
+	define PowerEng 								USB[0x52] 				// UP Arrow
+	define PowerWep 								USB[0x4F] 				// RIGHT Arrow
+	define PowerSys 								USB[0x50] 				// LEFT Arrow
+	define BalancePower 							USB[0x51] 				// DOWN Arrow
+	define IncreseSensorZoom 						USB[0x4B] 				// PAGE UP
+	define DecreaseSensorZoom 						USB[0x4E] 				// PAGE DOWN
+	define SwitchHUDMode							USB[0x24]				// 7		
+
+
+		// COOLING & COUNTERMEASURES //
+	define SilentRunning 							USB[0x4C] 				// DELETE
+	define DeployHeatSink 							USB[0x19] 				// V
+	define FireChaffLauncher 						USB[0x06] 				// C
+	define UseShieldCell 							L_SHIFT+USB[0x20]		// SHIFT+3
+	define ChargeECM 								L_SHIFT+USB[0x18]		// SHIFT+U
+
+
+		// SCANNERS //								(Note: These are mapped in ED Bindings directly)
+//	define DSSToggleFrontBackView					USB[0x05] 				// B
+//	define DSSExitMode								USB[0x2A]				// Backspace
+//	define FSSDiscoveryScan							DX1						// JOY 1
+//	define FSSModeON								L_ALT+USB[0x09]			// ALT+F
+//	define FSSModeOFF								L_SHIFT+USB[0x09]		// SHIFT+F
+//	define FSSCameraPitchIncrease					USB[0x1A] 				// W
+//	define FSSCameraPitchDecrease					USB[0x16] 				// S
+//	define FSSCameraYawIncrease						USB[0x07] 				// D
+//	define FSSCameraYawDecrease						USB[0x04] 				// A
+//	define FSSZoomInToTarget						L_SHIFT+USB[0x18]		// SHIFT+U
+//	define FSSZoomOut								USB[0x1B] 				// X
+//	define FSSZoomSteppedIn							USB[0x15]				// R
+//	define FSSZoomSteppedOut						USB[0x09]				// F
+//	define FSSRadioTuningIncrease					USB[0x08] 				// E
+//	define FSSRadioTuningDecrease					USB[0x14] 				// Q
+//	define FSSTargetCurrentSignal					USB[0x17] 				// T
+//	define FSSShowHelp								USB[0x06] 				// C
+
+
+		// UI NAVIGATION //
+	define UISelect 								USB[0x2C] 				// Space
+	define UIBack 									USB[0x2A]				// Backspace
+	define UIUp 									USB[0x1A] 				// W
+	define UIDown 									USB[0x16] 				// S
+	define UILeft 									USB[0x04] 				// A
+	define UIRight 									USB[0x07] 				// D
+	define UINextPanel 								USB[0x08] 				// E
+	define UIPrevPanel 								USB[0x14] 				// Q
+//	define UINextPage								USB[0x06] 				// C  <Disabled>
+//	define UIPrevPage								USB[0x1D] 				// Z  <Disabled>
+	define TargetPanel 								USB[0x1E] 				// 1
+	define SystemPanel 								USB[0x21] 				// 4
+	define CommsPanel 								USB[0x1F] 				// 2
+	define QuickCommsPanel 							USB[0x28] 				// Enter
+	define RolePanel 								USB[0x20] 				// 3
+	define UIEscape 								USB[0x29] 				// Escape
+	define SystemMap 								USB[0x33] 				// ;
+	define GalaxyMap 								L_SHIFT+USB[0x33] 		// :
+//	define CodexOpenDiscovery						USB[0x23]				// 6  <Disabled>
+//	define FriendsView								USB[0x22]				// 5  <Disabled>
+
+
+		// WINGS //
+	define SelectWingman1 							USB[0x25] 				// 8
+	define SelectWingman2 							USB[0x26] 				// 9
+	define SelectWingman3 							USB[0x27] 				// 0
+	define WingmanTarget 							R_CTL					// CTRL
+	define WingmanNavlock 							R_SHIFT					// SHIFT
+
+
+		// SHIP LAUNCHED FIGHTERS //
+	define FighterDock 								L_ALT+USB[0x05]			// ALT+B
+	define FighterDefensive 						L_ALT+USB[0x07]			// ALT+D
+	define FighterAggressive 						L_ALT+USB[0x04]			// ALT+A
+	define FighterFocusAttack						L_ALT+USB[0x17]			// ALT+T
+	define FighterHoldFire 							L_ALT+USB[0x0B]			// ALT+H
+	define FighterHoldPosition 						L_ALT+USB[0x16]			// ALT+S
+	define FighterFollow 							L_ALT+USB[0x09]			// ALT+F
+	define FighterOrders 							L_ALT+USB[0x12]			// ALT+O
+
+
+		// MULTICREW //								(Note: These are mapped in ED Bindings directly)
+//	define MultiCrewModeToggle						
+//	define MultiCrewPrimaryFire												// Also mapped to Mouse 1 in ED Bindings
+//	define MultiCrewSecondaryFire											// Also mapped to Mouse 2 in ED Bindings
+//	define MultiCrewPrimaryUtilFire					L_SHIFT+USB[0x20]		// SHIFT+3
+//	define MultiCrewSecondaryUtilFire				USB[0x19]				// V
+//	define MultiCrewCycleUIForward					
+//	define MultiCrewCycleUIBack						
+
+
+		// HOLO-ME //								(Note: These are mapped in ED Bindings directly)
+//	define HoloMEUndo								USB[0x26] 				// 9
+//	define HoloMERedo								R_CTL					// CTRL
+//	define HoloMEMouseRotation												// Also mapped to Mouse 3 in ED Bindings
+
+
+		// PLAYLIST //
+	define GalNetAudioPlayPause						L_ALT+USB[0x22]			// ALT+5
+	define GalNetAudioPrev							L_ALT+USB[0x23]			// ALT+6
+	define GalNetAudioNext							L_ALT+USB[0x24]			// ALT+7
+	define GalNetAudioClearQueue					L_ALT+USB[0x25]			// ALT+8
+
+
+		// GALAXY MAP //							(Note: These are mapped in ED Bindings directly)
+//	define GalaxyMapPitchUp							L_CTL+USB[0x17]			// CTRL+T
+//	define GalaxyMapPitchDown						L_CTL+USB[0x0A]			// CTRL+G
+//	define GalaxyMapYawLeft							L_CTL+USB[0x14]			// CTRL+Q
+//	define GalaxyMapYawRight						L_CTL+USB[0x08]			// CTRL+E
+//	define GalaxyMapTranslateForward				L_CTL+USB[0x1A]			// CTRL+W
+//	define GalaxyMapTranslateBack					L_CTL+USB[0x16]			// CTRL+S
+//	define GalaxyMapTranslateLeft					L_CTL+USB[0x04]			// CTRL+A
+//	define GalaxyMapTranslateRight					L_CTL+USB[0x07]			// CTRL+D
+//	define GalaxyMapTranslateUp						L_CTL+USB[0x1C]			// CTRL+Y
+//	define GalaxyMapTranslateDown					L_CTL+USB[0x0B]			// CTRL+H
+//	define GalaxyMapZoomIn							L_CTL+USB[0x1D]			// CTRL+Z
+//	define GalaxyMapZoomOut							L_CTL+USB[0x1B]			// CTRL+X
+//	define GalaxyCurrentSystem						L_CTL+USB[0x06]			// CTRL+C (Not currently mapped in bindings - currently C & V)
+
+
+		// CAMERA SUITE //							(Note: These are mapped in ED Bindings directly)
+//	define PreviousCamera							L_ALT+USB[0x1E]			// ALT+1
+//	define NextCamera								L_ALT+USB[0x1F]			// ALT+2
+	define EnterFreeCameraMode						USB[0x62]				// NUMPAD 0
+//	define ExitFreeCameraMode						L_CTL+USB[0x08]			// CTRL+E
+//	define CameraPreset1							L+CTL+USB[0x1E]			// CTRL+1		(Cockpit FRONT)
+//	define CameraPreset2							L+CTL+USB[0x1E]			// CTRL+2		(Cockpit BACK)
+//	define CameraPreset3							L+CTL+USB[0x1E]			// CTRL+3		(Commander 1)
+//	define CameraPreset4							L+CTL+USB[0x1E]			// CTRL+4		(Commander 2)
+//	define CameraPreset5							L+CTL+USB[0x1E]			// CTRL+5		(Co-Pilot 1)
+//	define CameraPreset6							L+CTL+USB[0x1E]			// CTRL+6		(Co-Pilot 2)
+//	define CameraPreset7							L+CTL+USB[0x1E]			// CTRL+7		(Ship FRONT)
+//	define CameraPreset8							L+CTL+USB[0x1E]			// CTRL+8		(Ship BACK)
+//	define CameraPreset9							L+CTL+USB[0x1E]			// CTRL+9		(Ship LOW)
+	define ToggleCameraHUD							L_CTL					// CTRL
+//	define CameraDecreaseSpeed						USB[0x1E]				// 9
+//	define CameraIncreaseSpeed						R_CTL					// CTRL
+//	define CameraZoomIn								
+//	define CameraZoomOut							
+//	define CameraMoveForward						
+//	define CameraMoveBack							
+//	define CameraMoveRight							
+//	define CameraMoveLeft							
+//	define CameraMoveUp								
+//	define CameraMoveDown							
+//	define CameraRotationLock						
+//	define CameraVehicleLock						USB[0x62]				// NUMPAD 0
+//	define CameraWorldLock							USB[0x2C]				// Space
+//	define CameraZoomDOFToggle						
+//	define CameraIncreaseBlur						
+//	define CameraDecreaseBlur						
+//	define CameraIncreaseFocus						
+//	define CameraDecreaseFocus						
+//	define AttachDetachCamera						L+CTL+USB[0x06]			// CTRL+C
+
+
+		// HEADLOOK //
+//	define LookUp 									DXHATUP					// <Disabled>
+//	define LookDown 								DXHATDOWN				// <Disabled>
+//	define LookLeft 								DXHATLEFT				// <Disabled>
+//	define LookRight 								DXHATRIGHT				// <Disabled>
+	define LookToggle								USB[0x3E]				// F5
+	define LookCenter 								L_CTL+USB[0x4D]			// CTRL+END
+
+
+		// STORE PAGE //							(Note: These are mapped in ED Bindings directly)
+//	define StorePreviewModeToggle					L_CTL+USB[0x16]			// CTRL+S  <Disabled>
+//	define StoreHold2MoveCamera						
+
+
+		// MISCELLANEOUS //
+	define InternalVoiceCommsPTT 					USB[0x31]				// \
+	define ClassifiedCamera 						USB[0x3A] 				// F1 <Disabled>
+//	define ClassifiedCameraSRV						L_ALT+USB[0x3A]			// ALT+F1 <Disabled>
+	define OrbitalLines 							USB[0x2E] 				// =
+	define HideShipGUI 								L_CTL+L_ALT+USB[0x0A]	// CTRL+ALT+G	(Note: This cannot be modified!)
+	define ShowFramerate 							L_CTL++USB[0x09] 		// CTRL+F		(Note: This cannot be modified!)
+	define ShowConnectionStatus 					L_CTL+USB[0x05]			// CTRL+B		(Note: This cannot be modified!)
+	define ShowCQCScoreboard 						USB[0x3F]				// F6
+	define PinkyTriggerDefault						DX4						// JOY 4
+	define HighResScreenshot 						L_ALT+USB[0x43]			// ALT+F10
+	define ChangeWeaponColor 						L_ALT+USB[0x1E]			// ALT+1
+	define ChangeEngineColor 						L_ALT+USB[0x1F]			// ALT+2
+
+
+		// EXTERNAL BINDINGS //
+	define ResetHMDOrientation 						L_CTL+USB[0x4A] 		// CTRL+HOME
+	define TrackIRCenter 							USB[0x4D]				// END			(Update your Center mapping in TrackIR software to match)
+	define TrackIRPause 							USB[0x48] 				// PAUSE		(Update your Pause mapping in TrackIR software to match)
+	define TakeSteamScreenshot 						USB[0x45] 				// F12			(Map this to your Steam Client Take Screenshot hotkey)
+//	define ShowSteamOverlay 						L_SHIFT+USB[0x2B] 		// SHIFT+TAB	(Map this to your Steam Client Overlay hotkey - used to open/close Steam Game Overlay interface)
+//	define ShowDiscordOverlay						L_ALT+USB[0x3C]			// ALT+F3		(Map this to your Discord Overlay hotkey - used to open/close Discord Overlay interface)
+//	define ShowDiscordChatViaOverlay				L_ALT+USB[0x3D]			// ALT+F4		(Map this to your Discord Chat Overlay hotkey - used to open Chat from within the Overlay interface))
+	define GPUCaptureVideoAuto 						L_ALT+USB[0x44] 		// ALT+F11		(Note: Default NVidia Capture of ALT+F10 conflicts with Hi-Res Screenshots - This NEEDS to be updated in Geforce Experience/Overlay)
+	define GPUCaptureManual 						L_ALT+USB[0x42]			// ALT+F9		(Map this & above to your NVidia/AMD/Fraps capture software)
+	define ExternalVoiceCommsPTT 					USB[0x55]				// NUMPAD *		(Map this to your Discord/Ventrilo/Mumble/Skype PTT Key)
+	define ExternalVoiceCommsPTT_ALT				USB[0x35]				// ~			(Map this to your Twitch/OBS/Youtube -> Secondary External PTT Key used with Modifier, mainly to support Streamers)
+	define ToggleVoiceAttackGlobal 					L_ALT+USB[0x3B]			// ALT+F2
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// VA Note: 99% of HCS Voice Attack default keys are already mapped, although manual alignment should no longer be required as VA now reads your bindings file.	//
+//		    Old Defaults list can be found here: (http://forum.hcsvoicepacks.com/forum/technical-support/user-guides-and-how-to/2701-default-keybinds)			//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// REFERENCE: DEFAULT THRUSTMASTER WARTHOG DX MAPPINGS //																										//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//																																								//
+//	JOYSTICK:	//			//	Trim Control: //		//	TMS Hat:	//		//	DMS Hat:	//		//	CMS Hat:	//										//
+//	------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	TG1 = DX1					H1U = DXHATUP				H2U = DX7				H3U = DX11				H4U = DX15											//
+//	TG2 = DX6					H1D = DXHATDOWN				H2D = DX9				H3D = DX13				H4D = DX17											//
+//	S1  = DX5					H1L = DXHATLEFT				H2L = DX10				H3L = DX14				H4L = DX18											//
+//	S2  = DX2					H1R = DXHATRIGHT			H2R = DX8				H3R = DX12				H4R = DX16											//
+//	S3  = DX3																								H4P (Hat4 pressed down) = DX19						//
+//	S4  = DX4																																					//
+//	------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//																																								//
+//	THROTTLE:	//			//	Mic Switch:	//			//	Coolie Hat Switch:	//	Autopilot Switches:	//	Engine Fuel Flow: // FLAPS:	//	//	IDLE:	//		//
+//	------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	SC (slew pressed in) = DX1	MSP (mic pressed in) = DX2	CSU = DXHATUP			APENG = DX26			EFLNORM  = DX16		FLAPU = DX22	IDLERON = DX29	//
+//	LTB  = DX15					MSU = DX3					CSR = DXHATRIGHT		APPAT = DX27			EOLMOTOR = DX18		FLAPD = DX23	IDLELON = DX30	//
+//	SPDF = DX7					MSR = DX4					CSD = DXHATDOWN			APALT = DX28			EFRNORM  = DX17										//
+//	SPDB = DX8					MSD = DX5					CSL = DXHATLEFT									EORMOTOR = DX19										//
+//	BSF  = DX9					MSL = DX6																														//
+//	BSB  = DX10																																					//
+//	CHF  = DX11				//	EAC On/Off:	//	//	Engine Oper Ign/Norm:	//	//	APU Start Switch:	//	RDR/NORM:	//	//	Landing Gear/Warning:	//		//
+//	CHB  = DX12				------------------------------------------------------------------------------------------------------------------------------------//
+//	PSF  = DX13				//	EACON  = DX24		EOLIGN = DX31					APUON = DX20			RDRNRM = DX25		LDGH = DX21						//
+//	PSB  = DX14				//	EORIGN = DX32																													//
+//	------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// REFERENCE: USB KEY DEFINITIONS //																															//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//																																								//
+//	A	USB[0x04]		1	USB[0x1E]		ENTER		USB[0x28]		PRINT SCREEN	USB[0x46]		NUMPAD /	USB[0x54]		F1		USB[0x3A]			//
+//	B	USB[0x05]		2	USB[0x1F]		ESCAPE		USB[0x29]		SCROLL LOCK		USB[0x47]		NUMPAD *	USB[0x55]		F2		USB[0x3B]			//
+//	C	USB[0x06]		3	USB[0x20]		BACKSPACE	USB[0x2A]		PAUSE/BREAK		USB[0x48]		NUMPAD -	USB[0x56]		F3		USB[0x3C]			//
+//	D	USB[0x07]		4	USB[0x21]		TAB			USB[0x2B]		NUM LOCK		USB[0x53]		NUMPAD +	USB[0x57]		F4		USB[0x3D]			//
+//	E	USB[0x08]		5	USB[0x22]		SPACE		USB[0x2C]		INSERT			USB[0x49]		NUMPAD ENT	USB[0x58]		F5		USB[0x3E]			//
+//	F	USB[0x09]		6	USB[0x23]		-			USB[0x2D]		HOME			USB[0x4A]		NUMPAD 1	USB[0x59]		F6		USB[0x3F]			//
+//	G	USB[0x0A]		7	USB[0x24]		=			USB[0x2E]		PAGE UP			USB[0x4B]		NUMPAD 2	USB[0x5A]		F7		USB[0x40]			//
+//	H	USB[0x0B]		8	USB[0x25]		{			USB[0x2F]		DELETE			USB[0x4C]		NUMPAD 3	USB[0x5B]		F8		USB[0x41]			//
+//	I	USB[0x0C]		9	USB[0x26]		}			USB[0x30]		END				USB[0x4D]		NUMPAD 4	USB[0x5C]		F9		USB[0x42]			//
+//	J	USB[0x0D]		0	USB[0x27]		\			USB[0x31]		PAGE DOWN		USB[0x4E]		NUMPAD 5	USB[0x5D]		F10		USB[0x43]			//
+//	K	USB[0x0E]							EUROPE1**	USB[0x32]										NUMPAD 6	USB[0x5E]		F11		USB[0x44]			//
+//	L	USB[0x0F]							:			USB[0x33]		RIGHT ARROW		USB[0x4F]		NUMPAD 7	USB[0x5F]		F12		USB[0x45]			//
+//	M	USB[0x10]							'			USB[0x34]		LEFT ARROW		USB[0x50]		NUMPAD 8	USB[0x60]		F13		USB[0x68]			//
+//	N	USB[0x11]							~			USB[0x35]		DOWN ARROW		USB[0x51]		NUMPAD 9	USB[0x61]		F14		USB[0x69]			//
+//	O	USB[0x12]							,			USB[0x36]		UP ARROW		USB[0x52]		NUMPAD 0	USB[0x62]		F15		USB[0x6A]			//
+//	P	USB[0x13]							.			USB[0x37]										NUMPAD .	USB[0x63]		F16		USB[0x6B]			//
+//	Q	USB[0x14]							/			USB[0x38]		MUTE			USB[0x7F]		NUMPAD =	USB[0x67]		F17		USB[0x6C]			//
+//	R	USB[0x15]							CAPS LOCK	USB[0x39]		VOL UP			USB[0x80]									F18		USB[0x6D]			//
+//	S	USB[0x16]														VOL DOWN		USB[0x81]									F19		USB[0x6E]			//
+//	T	USB[0x17]							L_CTL		USB[0xE0]																	F20		USB[0x6F]			//
+//	U	USB[0x18]							L_SHIFT		USB[0xE1]		EUROPE2**		USB[0x64]									F21		USB[0x70]			//
+//	V	USB[0x19]							L_ALT		USB[0xE2]		APPLICATION		USB[0x65]									F22		USB[0x71]			//
+//	W	USB[0x1A]							L_WIN		USB[0xE3]		POWER			USB[0x66]									F23		USB[0x72]			//
+//	X	USB[0x1B]							R_CTL		USB[0xE4]																	F24		USB[0x73]			//
+//	Y	USB[0x1C]							R_SHIFT		USB[0xE5]																								//
+//	Z	USB[0x1D]							R_ALT		USB[0xE6]																								//
+//											R_WIN		USB[0xE7]	** Further Special Keyboard Commands on page 54/60 of Target Script Editor Manual **		//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
