@@ -42,7 +42,7 @@ IMPROVEMENT: Weapon & Engine Colour changes now combined into single button. Hol
 IMPROVEMENT: 
 
 
-FIXED: Clear Chat macro now clears both local and system tabs of text.
+FIXED: Clear Chat macro now clears both local and system tabs of text. Optional Clear Squadron chat available in User Prefs.
 FIXED: Swapped Med & Long press for UserPIPPref 3 mapping for left PIP direction to match UserPIPPref 2 mapping of WEP (instead of ENG). 
 FIXED: 
 FIXED: 
