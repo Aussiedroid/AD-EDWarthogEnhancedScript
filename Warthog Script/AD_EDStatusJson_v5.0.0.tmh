@@ -114,19 +114,15 @@
 			fSupercruise		= ((Flags & ED_Supercruise) > 0);
 																			// Check Panel LEDs are in the right state on each file read (Note: Rotational Correction has no flag to check so LEDs controlled by Function)
 			if(fFAOff) 			{	if(FALED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)); FALED = 0; }}//FAOff	// set LED 1 OFF
-													//if(BlingLEDBling) initLEDController(LED1); FALED = 0; }}
 			else				{	if(!FALED)	{	if(BlingLEDBling) initLEDController(LED1); FALED = 1 ;  		 //FAOn
 													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1)); }	}		// set LED 1 ON
-			if(!fSilentRunning) {	if(!SRLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3)); //SROff	// set LED 3 OFF
-													if(BlingLEDBling) initLEDController(LED3); SRLED = 1; } }
+			if(!fSilentRunning) {	if(!SRLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3)); SRLED = 1; }}//SROff	// set LED 3 OFF
 			else				{	if(SRLED)	{	if(BlingLEDBling) initLEDController(LED3); SRLED = 0;			 //SROn
 													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3)); } }		// set LED 3 ON
-			if(!fCargoScoop)	{	if(!CSLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); //CSOff	// set LED 4 OFF
-													if(BlingLEDBling) initLEDController(LED4); CSLED = 1; } }
+			if(!fCargoScoop)	{	if(!CSLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); CSLED = 1; } } //CSOff	// set LED 4 OFF
 			else				{	if(CSLED)	{	if(BlingLEDBling) initLEDController(LED4); CSLED = 0;			 //CSOn
 													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4)); } }		// set LED 4 ON
-			if(!fLandingGear)	{	if(!LGLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); //LGOff	// set LED 5 OFF
-													if(BlingLEDBling) initLEDController(LED5); LGLED = 1; } }
+			if(!fLandingGear)	{	if(!LGLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); LGLED = 1; } } //LGOff	// set LED 5 OFF
 			else				{	if(LGLED)	{	if(BlingLEDBling) initLEDController(LED5); LGLED = 0;			 //LGOn
 													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5)); }	}		// set LED 5 ON
 
@@ -162,7 +158,7 @@
 				if(fMassLocked & StatusMassLocked == 0)				{ printf("WARNING: Mass Locked\x0a");				StatusMassLocked = 1; 	DeferCall(20000,  &ActKey, KEYON+PULSE+EXEC("StatusMassLocked = 0;")); }
 				if(!fMassLocked & !fSRV & StatusMassLocked == 1)	{ printf("No Longer Mass Locked\x0a");				StatusMassLocked = 0; }
 				if(fOverHeating & StatusOverheating == 0)			{ printf("^!! OVERHEATING !!^\x0a");				StatusOverheating = 1;	DeferCall(5000,  &ActKey, KEYON+PULSE+EXEC("StatusOverheating = 0;")); }
-				if(fsdJump & !fLatLong & StatusfsdJump == 0)		{ printf("Jumping to the next star system\x0a");	StatusfsdJump = 1; }
+				if(fsdJump & !fLatLong & StatusfsdJump == 0)		{ printf("Frame Shift Drive Engaged\x0a");			StatusfsdJump = 1; }
 				if(!fsdJump & !fLatLong & StatusfsdJump == 1)		{ printf("Leaving Witchspace...\x0a");				StatusfsdJump = 0; }
 				if(fShieldsUp & StatusShieldsUp == 0)				{ printf("Ship Shields: ONLINE\x0a");				StatusShieldsUp = 1; }
 				if(!fShieldsUp & StatusShieldsUp == 1)				{ printf("Ship Shields: OFFLINE!\x0a");				StatusShieldsUp = 0; }

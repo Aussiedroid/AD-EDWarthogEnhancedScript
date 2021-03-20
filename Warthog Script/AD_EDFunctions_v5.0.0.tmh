@@ -129,12 +129,7 @@
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1)); 					// set LED 1 ON 	[Flight Assist]
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));	Sleep(33);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));	Sleep(20);
-			ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));		//} }			// set LED 2 ON 	[Rotational Correction]
-			
-			if(Throttle[SPDF] | Throttle[SPDB])	{ ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)); FALED = 0; }
-			if(Throttle[APUON])					{ ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3)); SRLED = 1; }
-			if(Throttle[RDRNRM])				{ ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4)); CSLED = 1; }
-			if(Throttle[EACON])					{ ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5)); LGLED = 1; } } }
+			ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));		} }			// set LED 2 ON 	[Rotational Correction]
 																								// End of Forward Sequence
 
 

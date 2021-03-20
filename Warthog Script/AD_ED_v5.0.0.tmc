@@ -450,8 +450,6 @@
 	MapKey(&Throttle,  EORIGN,   TEMPO(EXEC(																		// Engine Operate Ign/Norm RIGHT UP
 										"if(!Joystick[S4] & !Joystick[H4P]) initToggleShipLights(1);"				// If no Modifier held, default Ship Lights
 										"if(Joystick[S4])  ActKey(KEYON+PULSE+mChangeColours);"),					// If Modifier held, Change Weapon & Engine Color
-									//	"if(Joystick[S4])  ActKey(KEYON+PULSE+ChangeWeaponColor);"					// If Modifier 1 held, Change Weapon Color
-								//		"if(Joystick[H4P]) ActKey(KEYON+PULSE+ChangeEngineColor);"),				// If Modifier 2 held, Change Engine Color
 							     PULSE+ShipLights, LongPressDelay));												// [Long: Reset Ship Lights (when out of sync)]
 	MapKey(&Throttle,  EORNORM,  0); 																				// Engine Operate Ign/Norm RIGHT OFF
 	MapKey(&Throttle,  EORMOTOR, EXEC("initToggleRotationCorrection();"));											// Engine Operate Ign/Norm RIGHT DOWN
