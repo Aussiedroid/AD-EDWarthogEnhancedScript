@@ -283,7 +283,12 @@ cockpit by changing the axis curve.
 - If you are mainly COMBAT type, set value to 1. This will give short press priority to Heat Sinks & Shield Cell Banks.
 
 ` `
-## -> MICROPHONE BEHAVIOUR ##
+## -> COMMS/MICROPHONE BEHAVIOUR ##
+### SquadronClearPanel [Value 1 or 0] ###
+- Member of a squadron? Enabling this will also clear chat panel for squadrons when using clear all chat command on the throttle Pinky Switch.
+
+- Enable = 1	Disable = 0 (default)
+
 ### MicExternalAction/MicExternalActionALT [Value 1 or 0] ###
 - Different External Voice Communication Software can often provide different way to enable or disable your voice channel. Some use a Push-To-Talk, others only provide a Toggle (some may provide both options). These two variables for your main external voice comms & your alternative external voice comms allows you to choose how the script will handle your external communication software and align it so works correctly with the Push-To-Talk button and also the Open Mic Toggle. 
 Rings of Haze
