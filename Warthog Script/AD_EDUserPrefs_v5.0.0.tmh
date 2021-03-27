@@ -33,7 +33,7 @@
 	define VerboseOutput		1						// Change Script Messaging Behaviour on Keypress Actions to determine if it will Print Output to the TARGET Window.
 														//	Options:	Enable = 1 (default) (On)					Disable = 0 (Silent Mode / Off)
 
-	int	   SetLED =				200					   ;// Set LED Backlight Level on Throttle	(Value 0-255) (Off = 0, default = 172) [Note: This can be adjusted On-The-Fly by using the Friction Control Axis + Pinky Trigger]
+	int	   SetLED =				172					   ;// Set LED Backlight Level on Throttle	(Value 0-255) (Off = 0, default = 172) [Note: This can be adjusted On-The-Fly by using the Friction Control Axis + Pinky Trigger]
 	define BlingLEDBling		1						// Enables a Short Flashing LED Sequence when you flip a Toggle & will also enable a short start-up sequence pattern. Bling Bling!
 														// 	Options:	Enable = 1 (default)						Disable = 0
 
@@ -41,7 +41,7 @@
 														// Local Path to the status.json file on your PC. Default Path: "C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
 
 		// SHUT-DOWN //
-	define AbortScriptOnExit	1						// Automatically stops running the script when you exit to desktop. (default = 1)
+	define AbortScriptOnExit	1						// Automatically stops running the script when you exit to desktop.			(default = 1)
 	define TurnOffLEDSOnExit	1						// Set LED Backlight Level on Throttle to 0 (Off) when you exit to desktop. (default = 1)	
 
 
@@ -70,6 +70,7 @@
 	define SLEW_DEADZONE		20						// Set the Throttle Slew X/Y Axis Deadzone %  (default = 20)(Use the Device Analyzer to validate)
 
 		// JOYSTICK AXIS & OVERRIDES //
+	define FAOffJoyAssist		1						// Choose if you want FAOff Joystick Sensitivity Adjustment on FAOff Hold (Forward). Disable = 0, Enable = 1 (default) (Sensitivity adjustment will reduce the Joystick axis sensitivity, allowing greater control when FAOff enabled)
 	define JoystickOverride		0						// Allows replacement of the Joystick Axis Preset Toggle to custom mappings. (NOTE: This will mean you will NOT be able to change your Joystick Axes Behaviour in-game & will remove any custom axis behaviour found in initSetJoystickCurves())		
 														//   Options:	Use Joystick Presets = 0 (default)			Use Custom Toggle Mappings = 1 
 	define JoystickPresetDEF	1						// If JoystickOverride = 1, this setting will determine what Default Joystick Behaviour to be applied on script startup (Choose your preferred Joystick Preset)
@@ -124,7 +125,7 @@
 	define ShipUtilityPref		1						// Set your preferred Short/Long press for S1/S2 Buttons on Joystick. (Swaps Short & Long Presses based on your play style)
 														// EXPLORER/TRADER Preset = 0 (default)	->	S1 [Short: Chaff, Long: Heat Sink], S2 [Short: ECM/SRV Turret, Long: Shield Cell]
 														// 			COMBAT Preset = 1			->	S1 [Short: Heat Sink, Long: Chaff], S2 [Short: Shield Cell, Long: ECM/SRV Turret]
-		// COMMS BEHAVIOUR //
+		// COMMS/MIC BEHAVIOUR //
 	define SquadronClearPanel	0						// Member of a squadron? Enabling this will also clear chat panel for squadrons when using clear all chat command.  Enable = 1	Disable = 0 (default)
 
 	define MicExternalAction	1						// Define Main External Voice Software Behaviour: 			(If your software is Toggle action (On/Off) = 1 (default), If it's Hold action (PTT) = 0)

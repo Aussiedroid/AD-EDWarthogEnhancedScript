@@ -54,6 +54,7 @@
 	int initPIPMapper(int maxPIPx=0, int minPIPy=0, int balPIPz=0) {							// FUNCTION: Sets Auto-PIP Mapping & then Sends Keystrokes   (Max, Min, Bal)
 		int PIPx, PIPy, PIPz;																	// Parameters = SYS, ENG, WEP, MID		(See AD_EDSettings file)
 
+		if(DebugOutput) printf("\Function: initPIPMapper()\x0a");
 		if		(maxPIPx == 0) 	 PIPx = 0;														// maxPIPx gets 4 PIPs (balanced 1 PIP on others if no 2nd parameter set)
 		else if (maxPIPx == SYS) PIPx = PULSE+PowerSys;
 		else if (maxPIPx == ENG) PIPx = PULSE+PowerEng;
@@ -92,7 +93,10 @@
 			pos = pos + 1;   }																	// 					Next character/key
 		DeferCall(ChatKeyRepeatTime * (pos + 2), &ActKey, KEYON+PULSE+QuickCommsPanel);			// Prepare to Close Text Box/Comms
 		Sleep(250); DeferCall(ChatKeyRepeatTime * (pos + 2), &ActKey, KEYON+PULSE+CommsPanel);	// CLOSE Comms Panel (+UI Delay - Default: 250ms)
-		if(VerboseOutput) { printf("Comms Auto-Text  :SENT:  \"");		printf(&string);		printf("\" \x0a"); } } // Display Full Chat String to TARGET Output Panel
+		if(VerboseOutput) {																		// Display Full Chat String to TARGET Output Panel
+			printf("Comms Auto-Text  :SENT:  \"");
+			printf(&string);
+			printf("\" \x0a"); } }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -101,6 +105,7 @@
 
 	int initLEDController(int x) {																// FUNCTION: LED Controller provides flashing LED feedback on Toggle switching & will initiate a startup up sequence patter for LEDs when script starts.
 		int counter = 0;																		// [Set BlingLEDBling=1 in User Preferences to Enable Function]
+		if(DebugOutput) printf("\Function: initLEDController()\x0a");
 		if(!StartupLock) {
 			while (counter < 6) {																// Flash LED Sequencer (Approx 3 times) (Change counter value & counter*xx in Defercall to change timings/duration) (Default values are 6 and 60)
 				DeferCall(counter*60, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^x));	// Usage example: if(BlingLEDBling) initLEDController(LED1);
@@ -129,18 +134,19 @@
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1)); 					// set LED 1 ON 	[Flight Assist]
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));	Sleep(33);
 			ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));	Sleep(20);
-			ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));		} }			// set LED 2 ON 	[Rotational Correction]
+			ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2));	} }				// set LED 2 ON 	[Rotational Correction]
 																								// End of Forward Sequence
 
 
 	int initLEDShutdown() {
 		if(!StartupLock) {
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 150));		Sleep(33);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 120));		Sleep(66);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 100));		Sleep(99);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 70));		Sleep(66);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 20));		Sleep(33);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 0));		} }	
+			if(DebugOutput) printf("\Function: initLEDShutdown()\x0a");
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 150));				Sleep(99);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 120));				Sleep(66);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 100));				Sleep(66);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 70));				Sleep(66);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 20));				Sleep(33);
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 0));				} }	
 		
 
 
@@ -150,7 +156,7 @@
 		if(!fDocked) { 
 			if(!fNightVision){																	// Dims Throttle LED Backlight intensity when active.
 				if(VerboseOutput) printf("Night Vision: ^^ ACTIVE ^^\x0a");
-				ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 50)); }						// Dim Throttle Lights
+				ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 72)); }						// Dim Throttle Lights
 			else  {
 				if(VerboseOutput) printf("Night Vision: DEACTIVATED\x0a");
 				ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 172)); } }						// Return Throttle Lights to Default
@@ -199,6 +205,7 @@
 
 	int initIDLEMaster() {																		// FUNCTION: Enforce Throttle IDLE (Stationary) on any Throttle Mode
 		if(!StartupLock) {
+			if(DebugOutput) printf("\Function: initIDLEMaster()\x0a");
 			if(Throttle[IDLELON]) {
 				if(!Throttle[FLAPU]) {															// Resets Throttle Axis to 0 for Full Range Throttle Modes
 					DXAxis(DX_ZROT_AXIS, 0);													// Prevents issues launching from stations etc
@@ -238,6 +245,7 @@
 
 	int initHeadlookModeSelect() {																// FUNCTION: Choose Headlook Center Method, based on hardware preference
 		if(!StartupLock) {
+			if(DebugOutput) printf("\Function: initHeadlookModeSelect()\x0a");
 			if(HeadtrackPref == 0) {															// 			(Maps to the Engine Operate Ign/Norm LEFT UP)
 				if(!Joystick[S4]) ActKey(KEYON+PULSE+LookCenter);								// [Short:		 Headlook Center Toggle] 	[MOUSE]
 				if(Joystick[S4])  ActKey(KEYON+PULSE+ToggleVoiceAttackGlobal); }				// [Short+Pinky: VA Toggle]
@@ -259,16 +267,18 @@
 				DeferCall(150, &ActKey, PULSE+KEYON+EnterFreeCameraMode);						// Automatically Enable Free Camera Mode
 				DeferCall(200, &ActKey, PULSE+KEYON+ToggleCameraHUD); }							// Automatically Hide Camera HUD
 			else {
-				if(VerboseOutput) printf("Free Camera External Mode:  -OFF-\x0a");  FreeModeHat = !FreeModeHat; }
+				if(VerboseOutput) printf("Free Camera External Mode:  -OFF-\x0a");
+				FreeModeHat = !FreeModeHat; }
 			CameraMode  = !CameraMode; } }
 
 
 
 	int initAutoVehicleTransition() {															// FUNCTION: Embark/Board trigger to automatically transition to alternative vehicle based on your current vehicle (ie Ship->SRV, SRV->Ship)
 		if(!StartupLock) {
+			if(DebugOutput) printf("\Function: initAutoVehicleTransition()\x0a");
 			if(fSRV & !fLanded & fSRVTurretRetracted) {
 				ActKey(KEYON+PULSE+mSRV2Ship); }
-			if(fMainShip & fLanded) {
+			if(fMainShip & fLanded & !fDocked) {
 				ActKey(KEYON+PULSE+mShip2SRV); } } }
 
 
@@ -283,21 +293,23 @@
 				AltFlightToggle = 1; }
 			if(!Joystick[S4] & !fFAOff) {
 				ActKey(KEYON+PULSE+FlightAssist);
-				SetSCurve(&Joystick, JOYX, 0, 1, 0, 2, -1);										// Reduces the Joystick sensitivity on Forward TOGGLE on FA Off
-				SetSCurve(&Joystick, JOYY, 0, 1, 0, 2, -1);										// Full Joystick sensitivity remains on Back HOLD on FA Off for quick turns in combat
-				if(UseRuddersTPR & UseRudderAxisCurves)		SetSCurve(&TFRPHARudder, TRUDDER, 0, 10, 0, 3, -1);
-				if(UseRuddersT16000 & UseRudderAxisCurves)	SetSCurve(&TFRPRudder, TFRPHA_RUDDER, 0, 10, 0, 3, -1);
-				if(UseRudderAxisCurves & DebugOutput)  printf("Joystick Profile[%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
-				if(!UseRudderAxisCurves & DebugOutput) printf("Joystick Profile[%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]); } }
+				if(FAOffJoyAssist) {															// User Preference set.. else ignores sensitivity adjustments
+					SetSCurve(&Joystick, JOYX, 0, 1, 0, 2, -1);									// Reduces the Joystick sensitivity on Forward TOGGLE on FA Off
+					SetSCurve(&Joystick, JOYY, 0, 1, 0, 2, -1);									// Full Joystick sensitivity remains on Back HOLD on FA Off for quick turns in combat
+					if(UseRuddersTPR & UseRudderAxisCurves)		SetSCurve(&TFRPHARudder, TRUDDER, 0, 10, 0, 3, -1);
+					if(UseRuddersT16000 & UseRudderAxisCurves)	SetSCurve(&TFRPRudder, TFRPHA_RUDDER, 0, 10, 0, 3, -1);
+					if(UseRudderAxisCurves & DebugOutput)  printf("Joystick Profile[%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
+					if(!UseRudderAxisCurves & DebugOutput) printf("Joystick Profile[%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]); } } }
 		if(!Throttle[SPDF]) {
 			if(AltFlightToggle) {
 				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Disables Alternative Flight Control Mappings (works with both Pinky Trigger & Without!).
 				AltFlightToggle=!AltFlightToggle; }
 			if(fFAOff) {
 				ActKey(KEYON+PULSE+FlightAssist);
-				initSetJoystickCurves();														// Return Joystick Curve back to previous preset (based on toggle position)
-				if(UseRudderAxisCurves & DebugOutput)  printf("Returning to Joystick Profile [%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
-				if(!UseRudderAxisCurves & DebugOutput) printf("Returning to Joystick Profile [%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]);  } }
+				if(FAOffJoyAssist) {															// User Preference set.. else ignores restoring sensitivity adjustment
+					initSetJoystickCurves();													// Return Joystick Curve back to previous preset (based on toggle position)
+					if(UseRudderAxisCurves & DebugOutput)  printf("Returning to Joystick Profile [%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
+					if(!UseRudderAxisCurves & DebugOutput) printf("Returning to Joystick Profile [%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]);  } } }
 		if(Throttle[SPDB]) {																	// FA OFF: HOLD
 			if(Joystick[S4]) {
 				ActKey(KEYON+PULSE+AlternativeFlightMode);
@@ -310,7 +322,6 @@
 				AltFlightHold=!AltFlightHold; }
 			if(fFAOff) {
 				ActKey(KEYON+PULSE+FlightAssist);}}}
-
 
 
 
@@ -408,6 +419,7 @@
 
 	int initCargoReturnMode() {																	// FUNCTION: Returns Throttle to default behaviour by disabling Precision Mode or Closing Cargo Scoop.
 		if(!StartupLock) {
+			if(DebugOutput)	  printf("\Function: initCargoReturnMode()\x0a");
 			if(VerboseOutput) printf("Cargo Scoop Precision Mode: DISABLED <<\x0a");
 			if(CargoReturnMode == 0) {															// Used only in initToggleCargoScoop();
 				TrimDXAxis(DX_Z_AXIS, SET(-1024));												// Set your CargoReturnMode preference in User Prefs.
@@ -462,7 +474,7 @@
 		if(Lights){																				// Press 'INSERT' to toggle manually if SRV has messed things up or extra long hold to reset.
 			if(VerboseOutput) printf("Lights: ^^ ILLUMINATE! ^^\x0a");
 			ActKey(KEYON+PULSE+ShipLights);
-			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 50)); }							// Dim Throttle Lights
+			ActKey(KEYON+PULSE+LED(&Throttle, LED_INTENSITY, 72)); }							// Dim Throttle Lights
 		if(!Lights) {
 			if(VerboseOutput) printf("Lights:    DELUMINATE!\x0a");
 			ActKey(KEYON+PULSE+ShipLights);
@@ -471,6 +483,7 @@
 
 
 	int initMicCommander() {																	// FUNCTION: Manages Microphone Internal/External Push-to-Talk buttons
+		if(DebugOutput) printf("\Function: initMicCommander()\x0a");
 		if(Throttle[MSP]) {																		// [HOLD PTT]
 			MicCheckHold = 1;																	// Enable PTT Buttons
 			if(Throttle[EFROVER]) {																// If Mic Toggle OFF:	Use Internal PTT Voice Comms/Open Comms
@@ -600,7 +613,7 @@
 		printf("[Run Software @ Start = %d]  [Custom Slider Curve = %d]  [PIP Mgt. Preset = %d]  [MFD Active  = %d]\x0a", StartSoftware, CustomDXSliderCurve, UserPIPPref, UseMFD);
 		printf("[Cargo Precision Mode = %d]  [S/Cruise @ Throttle = %d]  [Chaff @ Escape  = %d]  [Boost @ Esc = %d]\x0a", CargoPrecisionMode, CruiseOnThrottle, AutoChaffOnEscape, AutoBoostOnEscape);
 		printf("[Combine External Mic = %d]  [Sec. Fire Override  = %d]  [NightVision HUD = %d]  [Ext Mic+Mic = %d]\x0a", ExternalMicCombined, SecFirePinkyPref, NightVisionHUD, ExternalMicCombined);
-		printf("[Headtrak Center Mode = %d]  [Ship Utility Mode   = %d]  [LED Backlight = %d]  [LED ¡Bling! = %d]\x0a", HeadtrackPref, ShipUtilityPref, SetLED, BlingLEDBling);
+		printf("[Headtrak Center Mode = %d]  [Ship Utility Mode   = %d]  [LED Backlight = %d]  [LED ¡Bling! = %d]\x0a",	  HeadtrackPref, ShipUtilityPref, SetLED, BlingLEDBling);
 		printf("[Throttle Axis O/ride = %d]  [Joystik Axis O/ride = %d]  [Throttle D/zone = %d]  [Joys D/zone = %d]\x0a", ThrottleOverride, JoystickOverride, TFULL_DEADZONE, JS_DEADZONE);
 		if(VerboseOutput) printf("\x0a"); 
 		if(VerboseOutput) printf(":..DEFAULT TOGGLE STATE..:\x0a");

@@ -2,8 +2,8 @@
 // MACROS //													initCustomMacroCommands()																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // TOC:/					mHangarAutomation	(25)		mJumpMidSubSys		(85)		mNextTurretModeX1	(172)		mSRV2Ship		(226)				//
-//-----						mRequestDock		(37)		mJumpPrevSubSys 	(89)		mNextTurretModeX2	(189)		mChinaHatBack	(333)				//
-//							mShowGameStats		(48)		mJumpNextSubSys		(97)		mChatPanelGrab		(207)		initEscapeVector(345)				//
+//-----						mRequestDock		(37)		mJumpPrevSubSys 	(89)		mNextTurretModeX2	(189)		initEscapeVector(345)				//
+//							mShowGameStats		(48)		mJumpNextSubSys		(97)		mChatPanelGrab		(207)											//
 //							mChangeColours		(52)		mReportCrimesToggle	(104)		mBoostBrake			(215)											//
 //							mFastModeSwitch		(56)		mNAVBeaconWing		(123)		mClearMainChatBoxes	(220)											//
 //							mSignalLights		(63)		mNAVBeaconOff		(146)		mClearChatBoxesSquad(444)											//
@@ -15,7 +15,7 @@
 	int mRequestDock, mHangarAutomation, mShowGameStats, mFastModeSwitch, mReportCrimesToggle, mSignalLights, mSignalLightsLong;
 	int mNAVBeaconWing, mNAVBeaconOff, mNAVBeaconToggle, mJumpPrevSubSys, mJumpMidSubSys, mJumpNextSubSys, mNextTurretModeX1, mNextTurretModeX2;
 	int mThrottleFwdOnly, mThrottleFullScale, mThrottlePrecision, mThrottleTrimmed, mThrottleFullNonLinear, mThrottleFwdNonLinear, mThrottleFullScaleCustom; 	// Configured for use in AD_EDHardware.tmh
-	int mClearMainChatBoxes, mClearChatBoxesSquadron, mChatPanelGrab, mBoostBrake, mChangeColours, mShip2SRV, mSRV2Ship, mChinaHatBack;
+	int mClearMainChatBoxes, mClearChatBoxesSquadron, mChatPanelGrab, mBoostBrake, mChangeColours, mShip2SRV, mSRV2Ship;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // MACROS: SPECIALISED SEQUENCES //																// MACROS Include a series of automated key presses to perform a specific task.
@@ -219,8 +219,8 @@
 			PULSE+LandingGear);																	//	Close Landing Gear
 
 		mClearMainChatBoxes = CHAIN(															// MACRO: Send '/clear' command to clear any text in all chat box windows
-			LOCK+PULSE+QuickCommsPanel,		D(500),												// enter, enter, 2, left, enter, /, c, l, e, a, r, enter, left, down
-			PULSE+QuickCommsPanel,			D(500),												// repeat twice, 3x if in squadron
+			LOCK+PULSE+QuickCommsPanel,		D(500),
+			PULSE+QuickCommsPanel,			D(500),												// Repeat 2x
 			PULSE+CommsPanel,				D(500),
 			PULSE+UILeft,					D(150),
 			PULSE+QuickCommsPanel,			D(150),
@@ -246,8 +246,8 @@
 			PULSE+CommsPanel,				LOCK);
 
 		mClearChatBoxesSquadron = CHAIN(														// MACRO: Send '/clear' command to clear any text in all chat box windows
-			LOCK+PULSE+QuickCommsPanel,		D(500),												// enter, enter, 2, left, enter, /, c, l, e, a, r, enter, left, down
-			PULSE+QuickCommsPanel,			D(500),												// repeat twice, 3x if in squadron
+			LOCK+PULSE+QuickCommsPanel,		D(500),
+			PULSE+QuickCommsPanel,			D(500),												// Repeat 3x to include Squadron chat
 			PULSE+CommsPanel,				D(500),
 			PULSE+UILeft,					D(150),
 			PULSE+QuickCommsPanel,			D(150),
@@ -283,7 +283,7 @@
 			PULSE+CommsPanel,				LOCK);
 
 		mShip2SRV = CHAIN(																		// MACRO: Deploy SRV from Ship
-			LOCK+PULSE+RolePanel,			D(500),												// 3, down, spc, down, down, up, up, spc
+			LOCK+PULSE+RolePanel,			D(500),
 			PULSE+UIDown,					D(150),
 			PULSE+UISelect,					D(500),
 			PULSE+UIDown,					D(100),
@@ -291,16 +291,16 @@
 			PULSE+UIUp,						D(100),
 			PULSE+UIUp,						D(100),
 			PULSE+UISelect,					LOCK);
-																								// MACRO: Board Ship from SRV  -  Sometimes scrolling down past the "back" option wraps back to top and sometimes it doesn't
-		mSRV2Ship = CHAIN(																		// This needs further testing as previously, the menu pointer occassionally started at a different place
-			LOCK+PULSE+RolePanel,			D(500),												// 3, spc, down, down, down, down, down, up, up, spc
+
+		mSRV2Ship = CHAIN(																		// MACRO: Board Ship from SRV
+			LOCK+PULSE+RolePanel,			D(500),
 			PULSE+UISelect,					D(1500),
 			PULSE+UIDown,					D(100),
 			PULSE+UIDown,					D(100),
 			PULSE+UIDown,					D(100),
 			PULSE+UIDown,					D(100),
 			PULSE+UIDown,					D(150),
-			PULSE+UIDown,					D(150),												// adding 5 extra 'down' in case the selector wraps back to top 
+			PULSE+UIDown,					D(150),												// Added 5 extra 'down' to cover selector wrapping back to top (UI Bug on first use)
 			PULSE+UIDown,					D(150),
 			PULSE+UIDown,					D(150),
 			PULSE+UIDown,					D(150),
@@ -309,12 +309,9 @@
 			PULSE+UIDown,					D(150),
 			PULSE+UIDown,					D(100),
 			PULSE+UIUp,						D(100),
-			PULSE+UIUp,						D(100),												// should now be positioned at 'Board Ship'
-			PULSE+UISelect,					LOCK);												// remove comment if macro is reliable for you
+			PULSE+UIUp,						D(100),
+			PULSE+UISelect,					LOCK); }
 
-		mChinaHatBack = CHAIN(																	// MACRO: China Hat Back Keybinding Combo (See: CRUISE ON THROTTLE CONFIG in AD_ED_v4.x.x.tmc)
-			PULSE+SelectNextSystemInRoute,	D(),												//  Combines mutually exclusive bindings SRV Handbrake & Next System In Route to a single toggle
-			PULSE+SRVHandbrake); }
 
 
 	int initEscapeVector() {																	// MACRO: Disengage Defensively + Emergency Escape Vector (Hold Pinky Trigger)

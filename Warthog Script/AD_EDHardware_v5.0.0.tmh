@@ -7,8 +7,8 @@
 // HARDWARE: JOYSTICK AXIS CURVES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //					      Up,MVR,DN
-	short	JS_CURVE[]	= {0, 1, 2};											// Set via the Autopilot Switch	(UP is most aggresive, DOWN is least aggressive)
-	short	JS_ZOOM[]	= {0, 0,-1};
+	short	JS_CURVE[]	= {0, 1, 2};															// Set via the Autopilot Switch:
+	short	JS_ZOOM[]	= {0, 0,-1};															//  [UP is most aggresive, DOWN is least aggressive]
 	short	YAW_CURVE[]	= {0, 2, 3};
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -17,6 +17,7 @@
 
 		// SET DEFAULT JOYSTICK AXIS //
 	int initSetJoystickCurves() {																// Autopilot Select Switch position sets Joystick Curve Profile
+		if(DebugOutput) printf("\Function: initSetJoystickCurves()\x0a");
 		profile = 1;					// [APAH]												// Three different presets are selectable On-The-Fly
 		if(Throttle[APPAT]) profile = 0;
 		if(Throttle[APALT]) profile = 2;
@@ -147,6 +148,7 @@
 
 
 	int SetThrottle() {																			// Prevents Throttle jumping around on mode changes
+		if(DebugOutput) printf("\Function: SetThrottle()\x0a");
 		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata));
 		if(!DisableLEFTTHRAxis & SyncLEFTTHRAxis) {
 			DXAxis(DX_ZROT_AXIS, -AxisVal(Throttle[THR_LEFT], &axdata)); } }
@@ -158,6 +160,7 @@
 
 		// SET DEFAULT RUDDER AXES //
 	int initTFRPRudder() {																		// Initialise Thrustmaster TFRP (T.Flight T16000) Toe Pedal Axes (When enabled in AD_EDSettings)
+		if(DebugOutput) printf("\Function: initTFRPRudder()\x0a");
 		SetSCurve(&TFRPRudder, TRUDDER,  0, TR_DEADZONE,  0, 0, 0);								// Rudder Axis
 		SetSCurve(&TFRPRudder, TRPRIGHT, 0, TOE_DEADZONE, 0, 0, 0);								// Right Toe Brake
 		SetSCurve(&TFRPRudder, TRPLEFT,  0, TOE_DEADZONE, 0, 0, 0); }							// Left  Toe Brake
@@ -165,6 +168,7 @@
 
 
 	int initTFRPHARudder() {																	// Initialise Thrustmaster TFRPHA (T.Flight TPR) Toe Pedal Axes (When enabled in AD_EDSettings)
+		if(DebugOutput) printf("\Function: initTFRPHARudder()\x0a");
 		SetSCurve(&TFRPHARudder, TFRPHA_RUDDER,	0, TR_DEADZONE,  0, 0, 0);						// Rudder Axis
 		SetSCurve(&TFRPHARudder, TFRPHA_RIGHT,	0, TOE_DEADZONE, 0, 0, 0);						// Right Toe Brake
 		SetSCurve(&TFRPHARudder, TFRPHA_LEFT,	0, TOE_DEADZONE, 0, 0, 0); }					// Left  Toe Brake
@@ -173,13 +177,13 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // HARDWARE: MFD CONTROLS //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-																								// ** CURRENTLY UNMAPPED **
+
 	int initRightMFD() {																		// Set Right MFD 
-//		MapKey(&RMFD, OSB01, 0);
-//		MapKey(&RMFD, OSB02, 0);
-//		MapKey(&RMFD, OSB03, 0);
-//		MapKey(&RMFD, OSB04, 0);
-//		MapKey(&RMFD, OSB05, 0);
+		MapKey(&RMFD, OSB01, CHAIN(PULSE+USB[0x2A]));											// DSS EXIT MODE
+		MapKey(&RMFD, OSB02, mReportCrimesToggle);												// report crimes
+		MapKey(&RMFD, OSB03, mJumpPrevSubSys);													// select powerplant
+		MapKey(&RMFD, OSB04, mHangarAutomation);												// Repair, refuel, restock
+		MapKey(&RMFD, OSB05, mNAVBeaconToggle);													// NAV Beacon
 //		MapKey(&RMFD, OSB06, 0);
 //		MapKey(&RMFD, OSB07, 0);
 //		MapKey(&RMFD, OSB08, 0);
@@ -190,52 +194,52 @@
 //		MapKey(&RMFD, OSB13, 0);
 //		MapKey(&RMFD, OSB14, 0);
 //		MapKey(&RMFD, OSB15, 0);
-//		MapKey(&RMFD, OSB16, 0);
-//		MapKey(&RMFD, OSB17, 0);
-//		MapKey(&RMFD, OSB18, 0);
-//		MapKey(&RMFD, OSB19, 0);
-//		MapKey(&RMFD, OSB20, 0);
-//		MapKey(&RMFD, BRTU,  0);
-//		MapKey(&RMFD, BRTD,  0);
+		MapKey(&RMFD, OSB16, CHAIN(PULSE+USB[0x56]));											// -100% speed
+		MapKey(&RMFD, OSB17, CHAIN(PULSE+USB[0x60]));											// - 50% Speed
+		MapKey(&RMFD, OSB18, CHAIN(PULSE+USB[0x1B]));											// 0% speed
+		MapKey(&RMFD, OSB19, CHAIN(PULSE+USB[0x5A]));											// 50% speed
+		MapKey(&RMFD, OSB20, CHAIN(PULSE+USB[0x57]));											// 100% speed
+		MapKey(&RMFD, BRTU,  EXEC("initSendChatString(chat_Basic_LEFT);"));						// "Thank you for your assistance! o7"	
+		MapKey(&RMFD, BRTD,  EXEC("initSendChatString(chat_Basic_RIGHT);"));					// "Can I help you with something CMDR?"
 //		MapKey(&RMFD, CONU,  0);
 //		MapKey(&RMFD, COND,  0);
-//		MapKey(&RMFD, GAINU, 0);
-//		MapKey(&RMFD, GAIND, 0);
+		MapKey(&RMFD, GAINU, CHAIN(PULSE+L_ALT+USB[0x09]));										// FSS ON
+		MapKey(&RMFD, GAIND, CHAIN(PULSE+L_SHIFT+USB[0x09]));									// FSS OFF
 //		MapKey(&RMFD, SYMU,  0);
 //		MapKey(&RMFD, SYMD,  0);
-		if(VerboseOutput) printf("Right MFD Configured\x0a"); }
+		if(VerboseOutput)	 printf("Right MFD Configured\x0a"); }
 
 
 	int initLeftMFD() {																			// Set Left MFD
-//		MapKey(&LMFD, OSB01, 0);
-//		MapKey(&LMFD, OSB02, 0);
-//		MapKey(&LMFD, OSB03, 0);
-//		MapKey(&LMFD, OSB04, 0);
-//		MapKey(&LMFD, OSB05, 0);
-//		MapKey(&LMFD, OSB06, 0);
-//		MapKey(&LMFD, OSB07, 0);
-//		MapKey(&LMFD, OSB08, 0);
-//		MapKey(&LMFD, OSB09, 0);
-//		MapKey(&LMFD, OSB10, 0);
-//		MapKey(&LMFD, OSB11, 0);
+		MapKey(&LMFD, OSB01, CHAIN(PULSE+L_ALT+USB[0x17]));										// Attack Target
+		MapKey(&LMFD, OSB02, CHAIN(PULSE+L_ALT+USB[0x04]));										// Agressive
+		MapKey(&LMFD, OSB03, CHAIN(PULSE+L_ALT+USB[0x07]));										// Defensive
+		MapKey(&LMFD, OSB04, CHAIN(PULSE+L_ALT+USB[0x16]));										// Hold Psition
+		MapKey(&LMFD, OSB05, CHAIN(PULSE+L_ALT+USB[0x05]));										// Dock Fighter
+		MapKey(&LMFD, OSB06, CHAIN(PULSE+USB[0x1C]));											// Highest Threat
+		MapKey(&LMFD, OSB07, CHAIN(PULSE+USB[0x0B]));											// Next Hostile Ship
+		MapKey(&LMFD, OSB08, CHAIN(PULSE+USB[0x25]));											// Wingman 1
+		MapKey(&LMFD, OSB09, CHAIN(PULSE+USB[0x26]));											// Wingman 2
+		MapKey(&LMFD, OSB10, CHAIN(PULSE+USB[0x27]));											// Wingman 3
+		MapKey(&LMFD, OSB11, CHAIN(PULSE+USB[0x10]));											// Next System in Route
 //		MapKey(&LMFD, OSB12, 0);
-//		MapKey(&LMFD, OSB13, 0);
-//		MapKey(&LMFD, OSB14, 0);
-//		MapKey(&LMFD, OSB15, 0);
-//		MapKey(&LMFD, OSB16, 0);
-//		MapKey(&LMFD, OSB17, 0);
-//		MapKey(&LMFD, OSB18, 0);
-//		MapKey(&LMFD, OSB19, 0);
-//		MapKey(&LMFD, OSB20, 0);
-//		MapKey(&LMFD, BRTU,  0);
-//		MapKey(&LMFD, BRTD,  0);
-//		MapKey(&LMFD, CONU,  0);
-//		MapKey(&LMFD, COND,  0);
-//		MapKey(&LMFD, GAINU, 0);
-//		MapKey(&LMFD, GAIND, 0);
-//		MapKey(&LMFD, SYMU,  0);
-//		MapKey(&LMFD, SYMD,  0);
-		if(VerboseOutput) printf("Left MFD Configured\x0a"); }
+		MapKey(&LMFD, OSB13, L_ALT+USB[0x43]);													// screenshot
+		MapKey(&LMFD, OSB14, HideShipGUI);														// Hide Hud
+		MapKey(&LMFD, OSB15, CHAIN(PULSE+L_ALT+USB[0x44]));										// video
+		MapKey(&LMFD, OSB16, CHAIN(PULSE+USB[0x13]));											// Game Menu
+		MapKey(&LMFD, OSB17, CHAIN(PULSE+L_ALT+USB[0x3B]));										// Voice Attack ON/Off
+		MapKey(&LMFD, OSB18, TrackIRCenter);													// Center TrackIR
+		MapKey(&LMFD, OSB19, CHAIN(PULSE+USB[0x48]));											// Pause TrackIR
+		MapKey(&LMFD, OSB20, mRequestDock);														// Autodock
+		MapKey(&LMFD, BRTU,  EXEC("initSendChatString(chat_Modifier_DOWN);"));					// "Stay calm, cut your engines and prepare to be scanned. Move and you will be fired upon"
+		MapKey(&LMFD, BRTD,  EXEC("initSendChatString(chat_Modifier_UP	);"));					// "You're a disgrace! Die! Time to see the Rebuy!"
+		MapKey(&LMFD, CONU,  CHAIN(PULSE+R_CTL));												// Wingman Target
+		MapKey(&LMFD, COND,  CHAIN(PULSE+R_SHIFT));												// Wingman Nav Lock
+		MapKey(&LMFD, GAINU, EXEC("initSendChatString(chat_Basic_UP);")); 						// o7
+		MapKey(&LMFD, GAIND, EXEC("initSendChatString(chat_Basic_DOWN);"));						// "Fly safe CMDR"		
+		MapKey(&LMFD, SYMU,  EXEC("initSendChatString(chat_Modifier_LEFT);"));					// "CMDR is coming through the mailslot"
+		MapKey(&LMFD, SYMD,  EXEC("initSendChatString(chat_Modifier_RIGHT);"));					// "Easy! Watch where you are going CMDR"	
+		if(VerboseOutput)	 printf("Left MFD Configured\x0a"); }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

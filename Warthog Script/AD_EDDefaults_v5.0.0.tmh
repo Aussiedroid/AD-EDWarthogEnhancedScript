@@ -33,7 +33,7 @@
 	define MineTimer			6200					// Set the Delay Timer for Mining Pulse Wave Scanner to auto-disengage	(default = 6200ms)
 
 	define ChatKeyRepeatTime	70						// Auto-Text Chat Preset time	(ms)									(default = 70ms)
-	define StatusReadRate		500						// Looping rate of the initProcessFlags() function to read latest status.json status updates. (default = 750ms)
+	define StatusReadRate		500						// Looping rate of the initProcessFlags() function to read latest status.json status updates. (default = 500ms)
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -102,7 +102,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FLAG VARIABLES   //	(Used in AD_EDStatusJson.tmh)	   Refer to Section 13 (page 80) in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-														// Use these after calling fnProcessFlags() in your functions.
+														// Use these after calling fnProcessFlags()
 	int fAltFromAvgRad		  = 0;						// Altitude from Average radius 				
 	int fCargoScoop			  = 0;
 	int fDanger				  = 0;						// Is In Danger
@@ -141,45 +141,45 @@
 // FLAG VALUE MASKS //		(Used in AD_EDStatusJson.tmh)										// See around page 80 in the Player Journal documentation.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int ED_Docked				=	0x0000000000000001;
-	int ED_Landed				=	0x0000000000000002;
-	int ED_LandingGearDown		=	0x0000000000000004;
-	int ED_ShieldsUp			=	0x0000000000000008;
+	int ED_Docked			  =	0x0000000000000001;
+	int ED_Landed			  =	0x0000000000000002;
+	int ED_LandingGearDown	  =	0x0000000000000004;
+	int ED_ShieldsUp		  =	0x0000000000000008;
 
-	int ED_Supercruise			=	0x0000000000000010;
-	int ED_FlightAssistOff		=	0x0000000000000020;
-	int ED_HardpointsDeployed	=	0x0000000000000040;
-	int ED_InWing				=	0x0000000000000080;
+	int ED_Supercruise		  =	0x0000000000000010;
+	int ED_FlightAssistOff	  =	0x0000000000000020;
+	int ED_HardpointsDeployed =	0x0000000000000040;
+	int ED_InWing			  =	0x0000000000000080;
 
-	int ED_LightsOn				=	0x0000000000000100;
-	int ED_CargoScoopDeployed	=	0x0000000000000200;
-	int ED_SilentRunning		=	0x0000000000000400;
-	int ED_ScoopingFuel			=	0x0000000000000800;
+	int ED_LightsOn			  =	0x0000000000000100;
+	int ED_CargoScoopDeployed =	0x0000000000000200;
+	int ED_SilentRunning	  =	0x0000000000000400;
+	int ED_ScoopingFuel		  =	0x0000000000000800;
 
-	int ED_SRVHandbrake			=	0x0000000000001000;
-	int ED_SRVTurret			=	0x0000000000002000;
-	int ED_SRVTurretRetracted	=	0x0000000000004000;
-	int ED_SRVDriveAssist		=	0x0000000000008000;
+	int ED_SRVHandbrake		  =	0x0000000000001000;
+	int ED_SRVTurret		  =	0x0000000000002000;
+	int ED_SRVTurretRetracted =	0x0000000000004000;
+	int ED_SRVDriveAssist	  =	0x0000000000008000;
 
-	int ED_FSDMassLocked		=	0x0000000000010000;
-	int ED_FSDCharging			=	0x0000000000020000;
-	int ED_FSDCooldown			=	0x0000000000040000;
-	int ED_LowFuel				=	0x0000000000080000;
+	int ED_FSDMassLocked	  =	0x0000000000010000;
+	int ED_FSDCharging		  =	0x0000000000020000;
+	int ED_FSDCooldown		  =	0x0000000000040000;
+	int ED_LowFuel			  =	0x0000000000080000;
 
-	int ED_OverHeating			=	0x0000000000100000;
-	int ED_HasLatLong			=	0x0000000000200000;
-	int ED_IsInDanger			=	0x0000000000400000;
-	int ED_BeingInterdicted		=	0x0000000000800000;
+	int ED_OverHeating		  =	0x0000000000100000;
+	int ED_HasLatLong		  =	0x0000000000200000;
+	int ED_IsInDanger		  =	0x0000000000400000;
+	int ED_BeingInterdicted   =	0x0000000000800000;
 
-	int ED_InMainShip			=	0x0000000001000000;
-	int ED_InFighter			=	0x0000000002000000;
-	int ED_InSRV				=	0x0000000004000000;
-	int ED_HudInAnalysisMode	=	0x0000000008000000;
+	int ED_InMainShip		  =	0x0000000001000000;
+	int ED_InFighter		  =	0x0000000002000000;
+	int ED_InSRV			  =	0x0000000004000000;
+	int ED_HudInAnalysisMode  =	0x0000000008000000;
 
-	int ED_NightVision			=	0x0000000010000000;
-	int ED_AltFromAvgRad		=	0x0000000020000000;
-	int ED_FSDJump				=	0x0000000040000000;
-	int ED_SRVHiBeam			=	0x0000000080000000;
+	int ED_NightVision		  =	0x0000000010000000;
+	int ED_AltFromAvgRad	  =	0x0000000020000000;
+	int ED_FSDJump			  =	0x0000000040000000;
+	int ED_SRVHiBeam		  =	0x0000000080000000;
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

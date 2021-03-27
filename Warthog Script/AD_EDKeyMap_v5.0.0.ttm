@@ -78,7 +78,15 @@
 //	define FPSPrimaryFire						
 //	define FPSSecondaryFire						
 //	define FPSUtilityFire
-//	define FPSEnergy 
+//	define FPSEnergyGun
+//	define FPSSwapWeapon
+//	define FPSSprint
+//	define FPSWalk
+//	define FPSRecallDismissShip
+//	define FPSShield
+//	define FPSCrouch
+//	define FPSProne
+//	define 
 	
 	
 

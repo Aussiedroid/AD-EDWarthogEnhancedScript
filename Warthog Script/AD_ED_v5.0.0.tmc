@@ -25,8 +25,8 @@
 // START-UP: DEVICE CHECK / MAIN //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int main() {															// Exclude Hardware from Virtual Device & Manage Additional Devices
-		Configure(&HCougar,		  MODE_EXCLUDED);
+	int main() {
+		Configure(&HCougar,		  MODE_EXCLUDED);							// Exclude Hardware from Virtual Device & Manage Additional Devices
 		Configure(&T16000,		  MODE_EXCLUDED);
 		Configure(&T16000L,		  MODE_EXCLUDED);
 		Configure(&JoystickF18,	  MODE_EXCLUDED);
@@ -35,7 +35,7 @@
 		Configure(&TCAQuadrant12, MODE_EXCLUDED);
 		Configure(&TCAQuadrant34, MODE_EXCLUDED);		
 		
-		if(UseMFD == 0) {													// No MFDs (Ignore configuring MFDs unless set in User Preferences)
+		if(UseMFD == 0) {													// No MFDs (Exclude configuring MFDs unless set in User Preferences)
 			Configure(&LMFD, 	  MODE_EXCLUDED);
 			Configure(&RMFD, 	  MODE_EXCLUDED); }
 		if(UseRuddersT16000 == 0) Configure(&TFRPRudder,	MODE_EXCLUDED);	// Enables Standard T.Flight T16000 Rudders
@@ -102,7 +102,7 @@
 	initThrottleAxis();
 
 	if(UseMFD > 0)			  initRightMFD();												// Initiate the First MFD Only		(Initialise via HARDWARE: MFD CONTROLS section) (See AD_EDHardware.tmh) *UNTESTED*
-	if(UseMFD > 1)			  initLeftMFD();												// Initiate the First+Second MFD	(Initialise via HARDWARE: MFD CONTROLS section) (See AD_EDHardware.tmh) *UNTESTED*
+	if(UseMFD > 1)			  initLeftMFD();												// Initiate the Second MFD			(Initialise via HARDWARE: MFD CONTROLS section) (See AD_EDHardware.tmh) *UNTESTED*
 
 	if(UseRuddersT16000 == 1) initTFRPRudder();												// Enables T.Flight TFRP T16000 Rudder Intialisation.	(Note: T.Flight Rudder Axes are Configured below in EVENT HANDLER)
 	if(UseRuddersTPR == 1)	  initTFRPHARudder();											// Enables T.Flight TPR Pedal Intialisation. 			(Note: T.Flight Rudder Axes are Configured below in EVENT HANDLER)
@@ -118,9 +118,9 @@
 
 	// AXIS PRESET TOGGLES // 																// Map Flaps Select Toggle to Throttle Axis Presets & Set Overrides
 	if(ThrottleOverride == 0) {																// Default Throttle Axis Preset Toggle Configuration
-		MapKey(&Throttle, FLAPU,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetUP);"));  // Flaps UP  	 	(Safety: Only Activate When Throttle IDLE is not Locked ON)
-		MapKey(&Throttle, FLAPM,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetMID);"));  // Flaps MIDDLE	(Safety: Only Activate When Throttle IDLE is not Locked ON)
-		MapKey(&Throttle, FLAPD,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetDOWN);")); }// Flaps DOWN	(Safety: Only Activate When Throttle IDLE is not Locked ON)
+		MapKey(&Throttle, FLAPU,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetUP);")); 	 // Flaps UP  	 (Safety: Only Activate When Throttle IDLE is not Locked ON)
+		MapKey(&Throttle, FLAPM,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetMID);"));	 // Flaps MIDDLE (Safety: Only Activate When Throttle IDLE is not Locked ON)
+		MapKey(&Throttle, FLAPD,  EXEC("if(!Throttle[IDLELON]) ActKey(KEYON+PULSE+ThrottlePresetDOWN);")); } // Flaps DOWN	 (Safety: Only Activate When Throttle IDLE is not Locked ON)
 	if(ThrottleOverride == 1) {																// User Configured Throttle Axis Preset Toggle Configuration (set in the User Prefs)
 		MapKey(&Throttle, FLAPU,  EXEC("ActKey(KEYON+PULSE+ThrottlePresetUPALT);"));  		// Flaps UP  	(Safety: Only Activate When Throttle IDLE is not Locked ON)
 		MapKey(&Throttle, FLAPM,  0); 														// Flaps MIDDLE	(Default: Not mapped to avoid conflicts)
@@ -336,7 +336,7 @@
 
 	// BOOST & HARDPOINT BUTTONS //
 	MapKey(&Throttle,  SC,   TEMPO(0, EXEC(																			// Slew Control Button
-										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON] & fSRV) ActKey(KEYON+DOWN+SRVVerticalThrust);" //   [Hold]
+										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON] & fSRV) ActKey(KEYON+DOWN+SRVVerticalThrust);"	  //   [Hold]
 										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON] & fMainShip) ActKey(KEYON+PULSE+EngineBoost);"	 //   [Press]
 										"if(Joystick[S4]  & !Throttle[FLAPD] & !Throttle[IDLELON] & fMainShip) ActKey(KEYON+PULSE+mBoostBrake);"),	// [Modifier]
 						     MiniPressDelay));																		// Safety: Won't Boost when in Precise Throttle or IDLE! Plus 150ms Delay :)
@@ -344,9 +344,9 @@
 
 
 	MapKey(&Throttle,  LTB,  TEMPO(EXEC("initHardpointManagement();"),												// Left Throttle Button (RED)
-								   EXEC("if(!Joystick[H4P] & !Joystick[S4]) ActKey(KEYON+DOWN+ShowCQCScoreboard);"), 	// If in CQC: Show Scoreboard (Hold) | If NOT in CQC: Reset Hardpoint Flag (fix alignment issues with Escape Vector Macro)
+								   EXEC("if(!Joystick[H4P] & !Joystick[S4]) ActKey(KEYON+DOWN+ShowCQCScoreboard);"),// If in CQC: Show Scoreboard (Hold) | If NOT in CQC: Reset Hardpoint Flag (fix alignment issues with Escape Vector Macro)
 							 LongPressDelay));																		// [Have System selected prior to High Wake]
-	MapKeyR(&Throttle, LTB,  EXEC(       "ActKey(KEYON+UP+ShowCQCScoreboard);"));									// Release CQC Scoreboard display
+	MapKeyR(&Throttle, LTB,  EXEC(      "ActKey(KEYON+UP+ShowCQCScoreboard);"));									// Release CQC Scoreboard display
 
 //	MapKey(&Throttle,  MSU,  0); 																					// Mic Switch UP	(Mapped in ED Bindings File)
 //	MapKey(&Throttle,  MSD,  0); 					<MAPPED IN BINDINGS>											// Mic Switch DOWN	(Mapped in ED Bindings File)
@@ -383,14 +383,16 @@
 										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
 										"if(!Joystick[S4]) initNightVisionEnhancer();"),
 									  EXEC(
-									  	"if(Joystick[S4]) initAutoVehicleTransition();"
-									  	"if(!Joystick[S4]) ActKey(KEYON+PULSE+mChinaHatBack);"), LongPressDelay)); }
+									  	"if(Joystick[S4])  initAutoVehicleTransition();"
+									 	"if(!Joystick[S4] & fMainShip) ActKey(KEYON+PULSE+SelectNextSystemInRoute);"
+										"if(!Joystick[S4] & fSRV) ActKey(KEYON+PULSE+SRVHandbrake);"), LongPressDelay)); }
 	if(CruiseOnThrottle == 1) {																						// Sets China Hat to remove Frame Shift Drive when Cruise on Throttle is enabled.
 		MapKey(&Throttle,  CHF, EXEC(																				// China Hat FORWARD
 										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
 										"else			   initNightVisionEnhancer();"));
-		MapKey(&Throttle,  CHB,  EXEC(	"if(Joystick[S4]) initAutoVehicleTransition();"
-										"if(!Joystick[S4]) ActKey(KEYON+PULSE+mChinaHatBack);")); }					// China Hat BACK
+		MapKey(&Throttle,  CHB,  EXEC(	"if(Joystick[S4])  initAutoVehicleTransition();"							// China Hat BACK
+										"if(!Joystick[S4] & fMainShip) ActKey(KEYON+PULSE+SelectNextSystemInRoute);"
+										"if(!Joystick[S4] & fSRV) ActKey(KEYON+PULSE+SRVHandbrake);")); }
 
 
 	// SHIFT KEY ADDITIONAL MAPPINGS //

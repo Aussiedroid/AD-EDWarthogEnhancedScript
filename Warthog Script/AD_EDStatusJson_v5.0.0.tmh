@@ -21,28 +21,28 @@
 		int	myResult;														// General pupose 'result' variable
 
 		Dim(&myJson, buf);													// Dimension our character array to size of buffer
-		myJson[0] = 0;														// Best always to zero out the array before use
+		myJson[0] = 0;														// Set array to zero
 		fp = fopen(&StatusFile, "r");										// Open status.json for reading
 		if(fp) {															// If we succeed in opening...
-			myResult = fread(&myJson, 1, buf, fp);							// ...read the entire file into our character array (myJson)...
-			fclose(fp);														// ... and close the file
-			if(myResult == 0) 	{											// 'myResult' should contain the number of characters read...
+			myResult = fread(&myJson, 1, buf, fp);							// ... read the entire file into our character array (myJson)...
+			fclose(fp);														// ... and then close the file
+			if(myResult == 0) {												// 'myResult' should contain the number of characters read
 				ReadErrorCount = ReadErrorCount + 1;
-				if(VerboseOutput) printf("WARNING READ ERROR #%d: Status.json\x0a", ReadErrorCount); }	// ...so, if we read zero, we had an issue!
+				if(VerboseOutput) printf("WARNING READ ERROR #%d: Status.json\x0a", ReadErrorCount); }
 			else {
 				ReadErrorCount = 0;
 				strdel(&myJson, myResult-1, buf); } }						// If no issues with read, remove any trailing garbage
 		else {
-			if(VerboseOutput) printf("EXITING Elite Dangerous .. Reason: FATAL ACCESS ERROR in Status.json .. !ABORT!\x0a");					// File not found OR locked by Elite Dangerous!
-								Abort(); } }
+			if(VerboseOutput) printf("EXITING Elite Dangerous .. Reason: FATAL ACCESS ERROR in Status.json .. !ABORT!\x0a"); // File not found OR locked by Elite Dangerous!
+			Abort(); } }
 
 
 
 	int initProcessFlagsJson() {											// FUNCTION: Read & Process "Flags" value from "status.json"
-																			// Declare all required local variables
-		int Flags = 0;														// contains the Flags key value integer.
+
+		int Flags = 0;														// Flags key value integer.
 		int EndValue = 0;													// Catch when we get to a space or comma
-		int myResult;														// Temporary general purpose variable to capture results of file and string operations
+		int myResult;														// Temporary general purpose variable to capture results of file & string operations
 		int chrpnt;															// Pointer to current character in string
 
 		char thischr;														// Contains current character read during string search
@@ -50,7 +50,7 @@
 		thischr[0] = 0;
 
 		char keyvalue;														// Contains our Key Value when complete
-		Dim(&keyvalue, 16);													// arbitrary size. Currently Flags integer value does not exceed 11 digits
+		Dim(&keyvalue, 16);													// Arbitrary size. Currently Flags integer value does not exceed 11 digits
 		keyvalue[0] = 0;
 
 		initReadStatusJson();												// Get latest status.json file status
@@ -65,13 +65,13 @@
 			myResult = strcmp(&thischr, ",");
 			if(myResult == 0) EndValue = 1;									// End loop when we find a comma
 			if(EndValue == 0) strcat(&keyvalue, &thischr);					// Otherwise, update keyvalue...
-			chrpnt = chrpnt + 1; }											// ...Update character pointer, and loop
+			chrpnt = chrpnt + 1; }											// ... update character pointer, and loop
 		Flags = ieval(&keyvalue);											// Convert string to integer when we finished the loop
-		if(DebugOutput) printf("Flags Integer    =    %d\x0a", Flags);		// print the Flags integer value to the console
+		if(DebugOutput) printf("Flags Integer    =    %d\x0a", Flags);		// Print the Flags integer value to the console
 																			// TARGET uses 32 bit signed precision for its integers. Flags values larger than 2147483648 wrap around to negative number and means that bit 31 (fSRVHiBeam) is set.																		
 		if(Flags == 0 & GameLoaded == 1) {									// Detects when Game halts	  (If Flags == 0, it means the game has not started yet...)
 			GameLoaded = 0;
-			if(TurnOffLEDSOnExit) ActKey(KEYON+PULSE+EXEC("initLEDShutdown();"));	// SHUTDOWN LED BACKLIGHT DIMMING SEQUENCE
+			if(TurnOffLEDSOnExit) ActKey(KEYON+PULSE+EXEC("initLEDShutdown();")); // SHUTDOWN LED BACKLIGHT DIMMING SEQUENCE
 			if(VerboseOutput & ReadErrorCount > 4) printf("EXITING Elite Dangerous .. Reason: FILE READ ERROR.. Count Exceeded...\x0a");
 			if(VerboseOutput & ReadErrorCount < 4) printf("EXITING Elite Dangerous .. Reason: Auto Script Shutdown Initiated .. Bye!");
 			if(AbortScriptOnExit) Abort(); }								// EXIT: Force Stop of Script.
@@ -81,7 +81,7 @@
 			if(Flags < 0)		fSRVHiBeam = 1;								// ... otherwise, test for bit 31 first, like so...
 			else 				fSRVHiBeam = 0;
 
-			fAltFromAvgRad		= ((Flags & ED_AltFromAvgRad) > 0);			// ...then assign the rest of the 'Flags' values using 'bitwise and' between Flags and a mask for each variable, like so...
+			fAltFromAvgRad		= ((Flags & ED_AltFromAvgRad) > 0);			// ... then assign the rest of the 'Flags' values using 'bitwise and' between Flags and a mask for each variable, like so...
 			fCargoScoop			= ((Flags & ED_CargoScoopDeployed) > 0);
 			fDanger				= ((Flags & ED_IsInDanger) > 0);
 			fDocked				= ((Flags & ED_Docked) > 0);
@@ -113,18 +113,18 @@
 			fSRVTurretView		= ((Flags & ED_SRVTurret) > 0);
 			fSupercruise		= ((Flags & ED_Supercruise) > 0);
 																			// Check Panel LEDs are in the right state on each file read (Note: Rotational Correction has no flag to check so LEDs controlled by Function)
-			if(fFAOff) 			{	if(FALED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)); FALED = 0; }}//FAOff	// set LED 1 OFF
-			else				{	if(!FALED)	{	if(BlingLEDBling) initLEDController(LED1); FALED = 1 ;  		 //FAOn
-													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1)); }	}		// set LED 1 ON
-			if(!fSilentRunning) {	if(!SRLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3)); SRLED = 1; }}//SROff	// set LED 3 OFF
-			else				{	if(SRLED)	{	if(BlingLEDBling) initLEDController(LED3); SRLED = 0;			 //SROn
-													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3)); } }		// set LED 3 ON
-			if(!fCargoScoop)	{	if(!CSLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); CSLED = 1; } } //CSOff	// set LED 4 OFF
-			else				{	if(CSLED)	{	if(BlingLEDBling) initLEDController(LED4); CSLED = 0;			 //CSOn
-													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4)); } }		// set LED 4 ON
-			if(!fLandingGear)	{	if(!LGLED)	{	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); LGLED = 1; } } //LGOff	// set LED 5 OFF
-			else				{	if(LGLED)	{	if(BlingLEDBling) initLEDController(LED5); LGLED = 0;			 //LGOn
-													ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5)); }	}		// set LED 5 ON
+			if(fFAOff) 			{ if(FALED)	 {	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)); FALED = 0; } } //FAOff	// set LED 1 OFF
+			else				{ if(!FALED) {	if(BlingLEDBling) initLEDController(LED1); FALED = 1;  			 //FAOn
+												ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1)); } }		// set LED 1 ON
+			if(!fSilentRunning) { if(!SRLED) {	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3)); SRLED = 1; } } //SROff	// set LED 3 OFF
+			else				{ if(SRLED)	 {	if(BlingLEDBling) initLEDController(LED3); SRLED = 0;			 //SROn
+												ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3)); } }		// set LED 3 ON
+			if(!fCargoScoop)	{ if(!CSLED) {	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); CSLED = 1; } } //CSOff	// set LED 4 OFF
+			else				{ if(CSLED)	 {	if(BlingLEDBling) initLEDController(LED4); CSLED = 0;			 //CSOn
+												ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4)); } }		// set LED 4 ON
+			if(!fLandingGear)	{ if(!LGLED) {	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); LGLED = 1; } } //LGOff	// set LED 5 OFF
+			else				{ if(LGLED)	 {	if(BlingLEDBling) initLEDController(LED5); LGLED = 0;			 //LGOn
+												ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5)); } }		// set LED 5 ON
 
 			if(fsdJump & !fLatLong & FSDJumpCheck == 0) {					// Turn Off Ship HUD when in Witchspace (Frameshift Warp Tunnel)
 				ActKey(KEYON+PULSE+HideShipGUI);
