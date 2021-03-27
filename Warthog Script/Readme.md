@@ -208,6 +208,12 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 
 ` `
 ## -> JOYSTICK AXIS ##
+### FAOffJoyAssist [Value 1 or 0] ###
+- When using the Flight Assist Off toggle in the forward direction, enabling will also change the Joystick Curve to Slow when active.
+- Slow Curve reduces the sensitivity of the Joystick axes to increase the control in FAOff.
+- Does not impact FAOff toggle in the backward direction.
+- Default is 1 (On).
+
 ### JoystickOverride [Value 1 or 0] ###
 - Allows replacement of the Joystick Axis Preset Toggle to custom mappings, set in the user preferences.
 - If you find you do use the Joystick presets very often, then you can replace them with your own custom commands. Both Up and Down directions can be mapped to any 'Pulse' command, with Middle considered Off.
