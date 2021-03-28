@@ -291,7 +291,9 @@ cockpit by changing the axis curve.
 ` `
 ## -> COMMS/MICROPHONE BEHAVIOUR ##
 ### AutoChatEnable [Value 1 or 0] ###
-- There are a number of predefined chat text responses built into the script. Ideal for VR users or those that are too lazy to type 🙃. For those that do not use this, or wish to avoid accidental triggering of the macros, you can disable the functionality here.
+- There are a number of predefined chat text responses built into the script on the Trim Hatswitch. Ideal for VR users or those that are too lazy to type 🙃. For those that do not use this, or wish to avoid accidental triggering of the macros on the Hatswitch, you can disable the functionality here.
+
+- Disabling here does not remove the auto-chat functionality from the script itself, so they can still be used in custom mapping options in the User Preferences as required.
 
 - Enable = 1 (default)	Disable = 0
 
