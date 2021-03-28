@@ -6,7 +6,7 @@ Update 5.0.0: ODD CITY UPDATE (Update #26)
 New to the script? Be sure to also check out the Beginners Reference Map in the download pack to get started.
 
 
-*IMPORTANT*: Please update your TARGET Software to v3.0.20.826 via Thrustmaster Support (https://support.thrustmaster.com/en/product/hotaswarthog-en/)
+*IMPORTANT* Please update your TARGET Software to v3.0.20.826 via Thrustmaster Support (https://support.thrustmaster.com/en/product/hotaswarthog-en/)
 
 
 List of Changes:
@@ -42,8 +42,8 @@ IMPROVEMENT: Hardpoint button on Throttle will now toggle the SRV Turret Mode wh
 IMPROVEMENT: Separated SRV Handbrake & Double Tap functionality on the Pinky Trigger. Double Tap is now default, and Pinky Throttle Switch Forward + CMS Hatswitch modifier to switch over to Handbrake mode. (Center Pinky Switch + CMS Hatswitch to change back to Double Tap). 
 IMPROVEMENT: Handbrake has been added to China Hat toggle on Throttle (back) as a backup for above changes.
 IMPROVEMENT: Weapon & Engine Colour changes now combined into single button. (Hold Pinky Trigger and Engine Operate Ign/Norm to cycle through). (Thx CMDR Clicker!)
-IMPROVEMENT: Clear Chat macro now clears both local and system tabs of all text. (+ Optional User Pref to Clear Squadron chat available too). (Thx CMDR Clicker!)
-IMPROVEMENT: 
+IMPROVEMENT: Clear Chat macro now clears both local and system tabs of all text. (+ Optional User Pref to Clear Squadron chat too!). (Thx CMDR Clicker!)
+IMPROVEMENT: Auto-Chat functionality can now be completely disabled via User Prefs (see AutoChatEnable). (Thx Minotaur)
 
 
 FIXED: Swapped Med & Long press for UserPIPPref 3 mapping for left PIP direction to match UserPIPPref 2 mapping of WEP (instead of ENG). 
