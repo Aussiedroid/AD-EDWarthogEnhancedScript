@@ -126,7 +126,8 @@
 														// EXPLORER/TRADER Preset = 0 (default)	->	S1 [Short: Chaff, Long: Heat Sink], S2 [Short: ECM/SRV Turret, Long: Shield Cell]
 														// 			COMBAT Preset = 1			->	S1 [Short: Heat Sink, Long: Chaff], S2 [Short: Shield Cell, Long: ECM/SRV Turret]
 		// COMMS/MIC BEHAVIOUR //
-	define SquadronClearPanel	0						// Member of a squadron? Enabling this will also clear chat panel for squadrons when using clear all chat command.  Enable = 1	Disable = 0 (default)
+	define AutoChatEnable		1						// Script includes a number of predefined chat response macros primarily for VR users. If not required, they can be disabled here. Enable = 1 (default), Disable = 0
+	define SquadronClearPanel	0						// Member of a squadron? Enabling this will also clear chat panel for squadrons when using clear all chat command.  Enable = 1,	Disable = 0 (default)
 
 	define MicExternalAction	1						// Define Main External Voice Software Behaviour: 			(If your software is Toggle action (On/Off) = 1 (default), If it's Hold action (PTT) = 0)
 	define MicExternalActionALT	1						// Define Alternative External Voice Software Behaviour: 	(If your software is Toggle action (On/Off) = 1 (default), If it's Hold action (PTT) = 0)

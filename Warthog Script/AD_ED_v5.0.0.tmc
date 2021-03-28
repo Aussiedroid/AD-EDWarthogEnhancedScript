@@ -205,29 +205,29 @@
 
 	// COMMS CONTROL PANEL HAT SWITCH (NON-VOICE) //
 	MapKeyIOUMD(&Joystick,  H1U,																					// Trim Switch UP
-								EXEC("initSendChatString(chat_Modifier_UP);"),				// IU
-								EXEC("initSendChatString(chat_Basic_UP);"),					// OU
+								EXEC("if(AutoChatEnable) initSendChatString(chat_Modifier_UP);"),	// IU
+								EXEC("if(AutoChatEnable) initSendChatString(chat_Basic_UP);"),		// OU
 								EXEC("ActKey(KEYON+PULSE+mReportCrimesToggle);"),			// IM
 								EXEC("ActKey(KEYON+PULSE+WingmanTarget);"),					// OM
 								EXEC("ActKey(KEYON+PULSE+FighterFocusAttack);"),			// ID
 								EXEC("ActKey(KEYON+PULSE+FighterAggressive);"));			// OD
 	MapKeyIOUMD(&Joystick,  H1D,																					// Trim Switch DOWN
-								EXEC("initSendChatString(chat_Modifier_DOWN);"),			// IU
-								EXEC("initSendChatString(chat_Basic_DOWN);"),				// OU
+								EXEC("if(AutoChatEnable) initSendChatString(chat_Modifier_DOWN);"),	// IU
+								EXEC("if(AutoChatEnable) initSendChatString(chat_Basic_DOWN);"),	// OU
 								EXEC("ActKey(KEYON+PULSE+WingmanNavlock);"),				// IM
 								EXEC("ActKey(KEYON+PULSE+SelectWingman2);"),				// OM
 								EXEC("ActKey(KEYON+PULSE+FighterDock);"),					// ID
 								EXEC("ActKey(KEYON+PULSE+FighterOrders);"));				// OD
 	MapKeyIOUMD(&Joystick,  H1L,																					// Trim Switch LEFT
-								EXEC("initSendChatString(chat_Modifier_LEFT);"),			// IU
-								EXEC("initSendChatString(chat_Basic_LEFT);"),				// OU
+								EXEC("if(AutoChatEnable) initSendChatString(chat_Modifier_LEFT);"),	// IU
+								EXEC("if(AutoChatEnable) initSendChatString(chat_Basic_LEFT);"),	// OU
 								EXEC("ActKey(KEYON+PULSE+mNAVBeaconOff);"),					// IM
 								EXEC("ActKey(KEYON+PULSE+SelectWingman1);"),				// OM
 								EXEC("ActKey(KEYON+PULSE+FighterHoldPosition);"),			// ID
 								EXEC("ActKey(KEYON+PULSE+FighterDefensive);"));				// OD
 	MapKeyIOUMD(&Joystick,  H1R,																					// Trim Switch RIGHT
-								EXEC("initSendChatString(chat_Modifier_RIGHT);"),			// IU
-								EXEC("initSendChatString(chat_Basic_RIGHT);"),				// OU
+								EXEC("if(AutoChatEnable) initSendChatString(chat_Modifier_RIGHT);"),// IU
+								EXEC("if(AutoChatEnable) initSendChatString(chat_Basic_RIGHT);"),	// OU
 								EXEC("ActKey(KEYON+PULSE+mNAVBeaconWing);"),				// IM
 								EXEC("ActKey(KEYON+PULSE+SelectWingman3);"),				// OM
 								EXEC("ActKey(KEYON+PULSE+FighterHoldFire);"),				// ID
