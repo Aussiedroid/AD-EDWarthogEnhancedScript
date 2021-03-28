@@ -290,6 +290,11 @@ cockpit by changing the axis curve.
 
 ` `
 ## -> COMMS/MICROPHONE BEHAVIOUR ##
+### AutoChatEnable [Value 1 or 0] ###
+- There are a number of predefined chat text responses built into the script. Ideal for VR users or those that are too lazy to type 🙃. For those that do not use this, or wish to avoid accidental triggering of the macros, you can disable the functionality here.
+
+- Enable = 1 (default)	Disable = 0
+
 ### SquadronClearPanel [Value 1 or 0] ###
 - Member of a squadron? Enabling this will also clear chat panel for squadrons when using clear all chat command on the throttle Pinky Switch.
 
