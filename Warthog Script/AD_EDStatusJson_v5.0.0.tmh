@@ -1,8 +1,8 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // STATUS.JSON PARSER //			Determine the Real-time Status of In-game Commands, via the ED Log file.					Original Author: CMDR Clicker	//	->	https://forums.frontier.co.uk/threads/target-scripting-tutorial-read-status-json-process-flags-keyvalue.539783/
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//TOC:/									initReadStatusJson()		(17)																						//
-//----									initProcessFlagsJson()		(41)																						//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//	->	https://hosting.zaonce.net/community/journal/v31/Journal_Manual_v31.pdf
+// TOC:/								initReadStatusJson()		(17)																						//
+//-----									initProcessFlagsJson()		(41)																						//
 //										initJsonStartCheck()		(211)																						//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // GLOBAL VARIABLES	//
@@ -40,10 +40,10 @@
 
 	int initProcessFlagsJson() {											// FUNCTION: Read & Process "Flags" value from "status.json"
 
-		int Flags = 0;														// Flags key value integer.
-		int EndValue = 0;													// Catch when we get to a space or comma
-		int myResult;														// Temporary general purpose variable to capture results of file & string operations
-		int chrpnt;															// Pointer to current character in string
+		int Flags = 0;			//? int Flags2 = 0;							// Flags key value integer.
+		int EndValue = 0;		//? int EndValue2 = 0;						// Catch when we get to a space or comma
+		int myResult;			//? int myResult2;							// Temporary general purpose variable to capture results of file & string operations
+		int chrpnt;				//? int chrpnt2;								// Pointer to current character in string
 
 		char thischr;														// Contains current character read during string search
 		Dim(&thischr, 2);
@@ -68,7 +68,16 @@
 			chrpnt = chrpnt + 1; }											// ... update character pointer, and loop
 		Flags = ieval(&keyvalue);											// Convert string to integer when we finished the loop
 		if(DebugOutput) printf("Flags Integer    =    %d\x0a", Flags);		// Print the Flags integer value to the console
-																			// TARGET uses 32 bit signed precision for its integers. Flags values larger than 2147483648 wrap around to negative number and means that bit 31 (fSRVHiBeam) is set.																		
+																			// TARGET uses 32 bit signed precision for its integers. Flags values larger than 2147483648 wrap around to negative number and means that bit 31 (fSRVHiBeam) is set.
+//		Flags2 = ieval(&keyvalue);
+
+
+// READ FLAG 2 //
+// How do I read in both flags? //
+
+
+
+
 		if(Flags == 0 & GameLoaded == 1) {									// Detects when Game halts	  (If Flags == 0, it means the game has not started yet...)
 			GameLoaded = 0;
 			if(TurnOffLEDSOnExit) ActKey(KEYON+PULSE+EXEC("initLEDShutdown();")); // SHUTDOWN LED BACKLIGHT DIMMING SEQUENCE
@@ -77,6 +86,17 @@
 			if(AbortScriptOnExit) Abort(); }								// EXIT: Force Stop of Script.
 
 		if(Flags != 0) {													// Detects when Game is active (If Flags != 0, it means the game has started & reading status.json file successful...)
+
+//			Flags2 = stfnGetKeyValue("Flags2", INTEGER);
+//			if (Flags2 != -1) {
+//				Odyssey = 1;					// Flags2 presence means we're running Odyssey
+//			}
+//			else {
+//				Odyssey = 0;
+//			}
+
+
+
 			if(GameLoaded == 0) GameLoaded = 1;								// Set Flag to represent game has started for the first time (as opposed to re-started).			
 			if(Flags < 0)		fSRVHiBeam = 1;								// ... otherwise, test for bit 31 first, like so...
 			else 				fSRVHiBeam = 0;
@@ -112,6 +132,31 @@
 			fSRVTurretRetracted = ((Flags & ED_SRVTurretRetracted) > 0);
 			fSRVTurretView		= ((Flags & ED_SRVTurret) > 0);
 			fSupercruise		= ((Flags & ED_Supercruise) > 0);
+			
+			//if(Flags2 != 0) {
+//			fOnFoot					= ((Flags2 & ED_OnFoot) > 0);					// 'ED_...' masks defined within 'ED_ScriptDefines' file 
+//			fInTaxi					= ((Flags2 & ED_InTaxi) > 0);
+//			fInMultiCrew			= ((Flags2 & ED_InMultiCrew) > 0);
+//			fOnFootInStation		= ((Flags2 & ED_OnFootInStation) > 0);
+//			fOnFootOnPlanet			= ((Flags2 & ED_OnFootOnPlanet) > 0);
+//			fAimDownSight			= ((Flags2 & ED_AimDownSight) > 0);
+//			fLowOxygen				= ((Flags2 & ED_LowOxygen) > 0);
+//			fLowHealth				= ((Flags2 & ED_LowHealth) > 0);
+//			fCold					= ((Flags2 & ED_Cold) > 0);
+//			fHot					= ((Flags2 & ED_Hot) > 0);
+//			fVeryCold				= ((Flags2 & ED_VeryCold) > 0);
+//			fVeryHot				= ((Flags2 & ED_VeryHot) > 0);
+//			fGlideMode				= ((Flags2 & ED_GlideMode) > 0);
+//			fOnFootInHanger			= ((Flags2 & ED_OnFootInHanger) > 0);
+//			fOnFootSocialSpace		= ((Flags2 & ED_OnFootSocialSpace) > 0);
+//			fOnFootExterior			= ((Flags2 & ED_OnFootExterior) > 0);
+//			fBreathableAtmosphere	= ((Flags2 & ED_BreathableAtmosphere) > 0);
+			
+			
+			
+			
+			
+			
 																			// Check Panel LEDs are in the right state on each file read (Note: Rotational Correction has no flag to check so LEDs controlled by Function)
 			if(fFAOff) 			{ if(FALED)	 {	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)); FALED = 0; } } //FAOff	// set LED 1 OFF
 			else				{ if(!FALED) {	if(BlingLEDBling) initLEDController(LED1); FALED = 1;  			 //FAOn
@@ -193,6 +238,27 @@
 				if(fLanded)				printf("Landed on Planet\x0a");				if(fSRVTurretRetracted)		printf("SRV Turret Retracted\x0a");
 				if(fLandingGear)		printf("Landing Gear Deployed\x0a");		if(fSRVTurretView)			printf("SRV Turret View\x0a");
 				if(fLatLong)			printf("Lat\\Lon\x0a");						if(fSupercruise)			printf("Supercruise Engaged\x0a");
+				
+				
+//				printf("Bits set in FLAGS2:\X0A");
+//				if (fOnFoot)	 			printf("On Foot\x0a");
+//				if (fInTaxi) 				printf("In Taxi\x0a");
+//				if (fInMultiCrew) 			printf("In Multi Crew\x0a");
+//				if (fOnFootInStation) 		printf("On Foot In Station\x0a");
+//				if (fOnFootOnPlanet) 		printf("On Foot On Planet\x0a");
+//				if (fAimDownSight) 			printf("Aim Down Sight\x0a");
+//				if (fLowOxygen) 			printf("Low Oxygen\x0a");
+//				if (fLowHealth) 			printf("Low Health\x0a");
+//				if (fCold) 					printf("Cold\x0a");
+//				if (fHot) 					printf("Hot\x0a");
+//				if (fVeryCold) 				printf("Very Cold\x0a");
+//				if (fVeryHot) 				printf("Very Hot\x0a");
+//				if (fGlideMode)				printf("Glide Mode\x0a");
+//				if (fOnFootInHanger)		printf("On Foot In Hanger\x0a");
+//				if (fOnFootSocialSpace)		printf("On Foot in Social Space\x0a");
+//				if (fOnFootExterior)		printf("On Foot Exterior\x0a");
+//				if (fBreathableAtmosphere)	printf("Breathable Atmosphere\x0a");
+
 				printf("===============\x0a"); } } }
 
 

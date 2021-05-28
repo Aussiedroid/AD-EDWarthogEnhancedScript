@@ -3,7 +3,7 @@
 //==============================================================================================================================================================//
 //													///  Aussiedroid's Enhanced Warthog Script  \\\																//
 //==============================================================================================================================================================//
-// TOC:/					[1. INITIALISATION / STARTUP  ]		[2. HOTAS CONTROL MAPPING	 ]		[3. HARDWARE HANDLER		  ]								//
+// TOC:/					[1. INITIALISATION / STARTUP  ]		[2. HOTAS CONTROL MAPPING	 ]		[3. HARDWARE HANDLER		 ]								//
 //-----							- INCLUDED FILES	  (12)			- JOYSTICK 			(143)			- EVENT HANDLE	 (492)									//
 //								- DEVICE CHECK		  (25)			- THROTTLE ARM 		(329)																	//
 //								- START SOFTWARE	  (49)			- THROTTLE BASE		(404)																	//
@@ -100,6 +100,8 @@
 	// HARDWARE CONFIG //
 	initJoystickAxis();																		// Initiate HOTAS Axis Mappings
 	initThrottleAxis();
+	initSlewAxis();
+
 
 	if(UseMFD > 0)			  initRightMFD();												// Initiate the First MFD Only		(Initialise via HARDWARE: MFD CONTROLS section) (See AD_EDHardware.tmh) *UNTESTED*
 	if(UseMFD > 1)			  initLeftMFD();												// Initiate the Second MFD			(Initialise via HARDWARE: MFD CONTROLS section) (See AD_EDHardware.tmh) *UNTESTED*
@@ -207,31 +209,31 @@
 	MapKeyIOUMD(&Joystick,  H1U,																					// Trim Switch UP
 								EXEC("if(AutoChatEnable) initSendChatString(chat_Modifier_UP);"),	// IU
 								EXEC("if(AutoChatEnable) initSendChatString(chat_Basic_UP);"),		// OU
-								EXEC("ActKey(KEYON+PULSE+mReportCrimesToggle);"),			// IM
-								EXEC("ActKey(KEYON+PULSE+WingmanTarget);"),					// OM
-								EXEC("ActKey(KEYON+PULSE+FighterFocusAttack);"),			// ID
-								EXEC("ActKey(KEYON+PULSE+FighterAggressive);"));			// OD
+								EXEC("ActKey(KEYON+PULSE+mReportCrimesToggle);"),					// IM
+								EXEC("ActKey(KEYON+PULSE+WingmanTarget);"),							// OM
+								EXEC("ActKey(KEYON+PULSE+FighterFocusAttack);"),					// ID
+								EXEC("ActKey(KEYON+PULSE+FighterAggressive);"));					// OD
 	MapKeyIOUMD(&Joystick,  H1D,																					// Trim Switch DOWN
 								EXEC("if(AutoChatEnable) initSendChatString(chat_Modifier_DOWN);"),	// IU
 								EXEC("if(AutoChatEnable) initSendChatString(chat_Basic_DOWN);"),	// OU
-								EXEC("ActKey(KEYON+PULSE+WingmanNavlock);"),				// IM
-								EXEC("ActKey(KEYON+PULSE+SelectWingman2);"),				// OM
-								EXEC("ActKey(KEYON+PULSE+FighterDock);"),					// ID
-								EXEC("ActKey(KEYON+PULSE+FighterOrders);"));				// OD
+								EXEC("ActKey(KEYON+PULSE+WingmanNavlock);"),						// IM
+								EXEC("ActKey(KEYON+PULSE+SelectWingman2);"),						// OM
+								EXEC("ActKey(KEYON+PULSE+FighterDock);"),							// ID
+								EXEC("ActKey(KEYON+PULSE+FighterOrders);"));						// OD
 	MapKeyIOUMD(&Joystick,  H1L,																					// Trim Switch LEFT
 								EXEC("if(AutoChatEnable) initSendChatString(chat_Modifier_LEFT);"),	// IU
 								EXEC("if(AutoChatEnable) initSendChatString(chat_Basic_LEFT);"),	// OU
-								EXEC("ActKey(KEYON+PULSE+mNAVBeaconOff);"),					// IM
-								EXEC("ActKey(KEYON+PULSE+SelectWingman1);"),				// OM
-								EXEC("ActKey(KEYON+PULSE+FighterHoldPosition);"),			// ID
-								EXEC("ActKey(KEYON+PULSE+FighterDefensive);"));				// OD
+								EXEC("ActKey(KEYON+PULSE+mNAVBeaconOff);"),							// IM
+								EXEC("ActKey(KEYON+PULSE+SelectWingman1);"),						// OM
+								EXEC("ActKey(KEYON+PULSE+FighterHoldPosition);"),					// ID
+								EXEC("ActKey(KEYON+PULSE+FighterDefensive);"));						// OD
 	MapKeyIOUMD(&Joystick,  H1R,																					// Trim Switch RIGHT
 								EXEC("if(AutoChatEnable) initSendChatString(chat_Modifier_RIGHT);"),// IU
 								EXEC("if(AutoChatEnable) initSendChatString(chat_Basic_RIGHT);"),	// OU
-								EXEC("ActKey(KEYON+PULSE+mNAVBeaconWing);"),				// IM
-								EXEC("ActKey(KEYON+PULSE+SelectWingman3);"),				// OM
-								EXEC("ActKey(KEYON+PULSE+FighterHoldFire);"),				// ID
-								EXEC("ActKey(KEYON+PULSE+FighterFollow);"));				// OD
+								EXEC("ActKey(KEYON+PULSE+mNAVBeaconWing);"),						// IM
+								EXEC("ActKey(KEYON+PULSE+SelectWingman3);"),						// OM
+								EXEC("ActKey(KEYON+PULSE+FighterHoldFire);"),						// ID
+								EXEC("ActKey(KEYON+PULSE+FighterFollow);"));						// OD
 
 																													// Data Management Switch (DMS): Advanced PIP Selection (4 Configurations)
 	// PIP CONFIG //																								//    [NOTE: Set UserPIPPref in the AD_EDUserPrefs.tmh file]
@@ -344,7 +346,7 @@
 
 
 	MapKey(&Throttle,  LTB,  TEMPO(EXEC("initHardpointManagement();"),												// Left Throttle Button (RED)
-								   EXEC("if(!Joystick[H4P] & !Joystick[S4]) ActKey(KEYON+DOWN+ShowCQCScoreboard);"),// If in CQC: Show Scoreboard (Hold) | If NOT in CQC: Reset Hardpoint Flag (fix alignment issues with Escape Vector Macro)
+								   EXEC("if(!Joystick[H4P] & !Joystick[S4]) ActKey(KEYON+DOWN+ShowCQCScoreboard);"),// If in CQC: Show Scoreboard (Hold)
 							 LongPressDelay));																		// [Have System selected prior to High Wake]
 	MapKeyR(&Throttle, LTB,  EXEC(      "ActKey(KEYON+UP+ShowCQCScoreboard);"));									// Release CQC Scoreboard display
 

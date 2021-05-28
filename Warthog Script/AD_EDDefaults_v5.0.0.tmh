@@ -137,6 +137,30 @@
 	int fSupercruise		  = 0;						// Ship in Supercruise
 
 
+//	int fOnFoot				  =	0;
+//	int fInTaxi				  =	0;
+//	int fInMultiCrew		  =	0;	      
+//	int fOnFootInStation      =	0;
+
+//	int fOnFootOnPlanet       =	0;
+//	int fAimDownSight      	  =	0;
+//	int fLowOxygen			  =	0;
+//	int fLowHealth            =	0;
+
+//	int fCold	              =	0;
+//	int fHot				  =	0;
+//	int fVeryCold	          =	0;
+//	int fVeryHot	          =	0;
+
+//	int fGlideMode			  = 0;
+//	int fOnFootInHanger		  = 0;
+//	int fOnFootSocialSpace	  = 0;
+//	int fOnFootExterior		  = 0;
+
+//	int fBreathableAtmosphere = 0;
+
+
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // FLAG VALUE MASKS //		(Used in AD_EDStatusJson.tmh)										// See around page 80 in the Player Journal documentation.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -180,6 +204,30 @@
 	int ED_AltFromAvgRad	  =	0x0000000020000000;
 	int ED_FSDJump			  =	0x0000000040000000;
 	int ED_SRVHiBeam		  =	0x0000000080000000;
+
+//	define ED_OnFoot               	0x0000000000000001
+//	define ED_InTaxi               	0x0000000000000002
+//	define ED_InMultiCrew	      	0x0000000000000004
+//	define ED_OnFootInStation      	0x0000000000000008
+//
+//	define ED_OnFootOnPlanet       	0x0000000000000010
+//	define ED_AimDownSight      	0x0000000000000020
+//	define ED_LowOxygen			   	0x0000000000000040
+//	define ED_LowHealth            	0x0000000000000080
+
+//	define ED_Cold	             	0x0000000000000100
+//	define ED_Hot				   	0x0000000000000200
+//	define ED_VeryCold	        	0x0000000000000400
+//	define ED_VeryHot	         	0x0000000000000800
+	
+//	define ED_GlideMode	         	0x0000000000001000
+//	define ED_OnFootInHanger       	0x0000000000002000
+//	define ED_OnFootSocialSpace	 	0x0000000000004000
+//	define ED_OnFootExterior     	0x0000000000008000
+
+//	define ED_BreathableAtmosphere 	0x0000000000010000
+
+
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

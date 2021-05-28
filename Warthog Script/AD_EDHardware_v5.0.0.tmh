@@ -124,9 +124,10 @@
 		// SET DEFAULT THROTTLE AXIS //
 	int initThrottleAxis() { 																	// Set Default Throttle Axis
 		if(VerboseOutput) printf("Initialising Throttle Axis..\x0a");
+		if(VerboseOutput) printf("Initialising Slew Axis... Setting ");
 		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
 			SetJCurve(&Throttle, THR_RIGHT, 50, 50);
-			if(VerboseOutput) printf("Setting ");
+			//if(VerboseOutput) printf("Setting ");
 			if(ThrottleOverride == 0) {
 				if		(Throttle[FLAPU]) ActKey(KEYON+PULSE+ThrottlePresetUP); 				// Configure Throttle FLAP Switch Position on Script Run
     			else if	(Throttle[FLAPM]) ActKey(KEYON+PULSE+ThrottlePresetMID);
@@ -135,10 +136,6 @@
 		if(!DisableLEFTTHRAxis) {
 			MapAxis(&Throttle, THR_LEFT, DX_ZROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);				// Set Left Throttle
 			SetSCurve(&Throttle, THR_LEFT, 0, 0, 0, 0, 0); }
-		MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
-			SetSCurve(&Throttle, SCX, 0, SLEW_DEADZONE, 0, 2, -1);
-		MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
-			SetSCurve(&Throttle, SCY, 0, SLEW_DEADZONE, 0, 2, -1);
 		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling)
 			if(CustomDXSliderCurve == 0) SetSCurve(&Throttle, THR_FC, 0, 0, 0, 0, 0);			// (DEFAULT)
 			if(CustomDXSliderCurve == 1) SetCustomCurve(&Throttle, THR_FC, AxisCurveMod); 		// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
@@ -152,6 +149,28 @@
 		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata));
 		if(!DisableLEFTTHRAxis & SyncLEFTTHRAxis) {
 			DXAxis(DX_ZROT_AXIS, -AxisVal(Throttle[THR_LEFT], &axdata)); } }
+
+
+	int initSlewAxis() {						// NEW!!
+		if(SlewAxisPreset == 1) {			// *SetSCurve(&Device, axis, left_deadzone%, center_deadzone%, right_deadzone%, curve(-20...20), scale)
+			MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
+				SetSCurve(&Throttle, SCX, 0, SLEW_DEADZONE, 0, 2, -1);
+			MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
+				SetSCurve(&Throttle, SCY, 0, SLEW_DEADZONE, 0, 2, -1);
+			}
+		if(SlewAxisPreset == 0) {
+			MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
+				SetSCurve(&Throttle, SCX, 0, SLEW_DEADZONE, 0, 1, 0);
+			MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
+				SetSCurve(&Throttle, SCY, 0, SLEW_DEADZONE, 0, 1, 0); }
+		if(SlewAxisPreset == 2) {
+			MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
+				SetSCurve(&Throttle, SCX, 0, SLEW_DEADZONE, 0, 0, 0);
+			MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
+				SetSCurve(&Throttle, SCY, 0, SLEW_DEADZONE, 0, 0, 0); } }
+		//else {
+		//	if(VerboseOutput) { printf("ERROR: SlewAxisPreset set to invalid value of %d.\x0a", SlewAxisPreset);
+		//						printf("* Please change it to SlewPresetSlow = 1, SlewPresetDefault = 0 or SlewPresetFast = 2 in User Prefs *\x0a"); } } }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
