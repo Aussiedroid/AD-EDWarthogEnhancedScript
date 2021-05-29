@@ -26,6 +26,7 @@
 			if(!StartupLock) {
 				if(fMainShip) { ActKey(KEYON+PULSE+DeployHardpoints); }							// If in Ship: Deploy/Retract Hardpoints
 				if(fSRV) 	  { ActKey(KEYON+PULSE+SRVTurret); }								// If in SRV: Deploy/Retract Turret
+				if(fOnFoot) { ActKey(KEYON+PULSE+FPSInteract); }
 				ActKey(KEYON+DOWN+ShowCQCScoreboard); } } }										// If in CQC: Show Scoreboard (Hold)
 	
 	
@@ -287,7 +288,9 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int initEnhancedFAOFF() {																	// FUNCTION: Enhanced Joystick Curves tailored for Flight Assist Off (TOGGLE)
-		if(Throttle[SPDF]) {																	//    AKA     "FAOFF LIKE A BOSS!"
+		if(Throttle[SPDF] & fOnFoot) {
+			ActKey(KEYON+DOWN+FPSJump);	}
+		if(Throttle[SPDF] & fMainShip) {																	//    AKA     "FAOFF LIKE A BOSS!"
 			if(Joystick[S4]) {																	// FA OFF: TOGGLE
 				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Enables Alternative Flight Control Mappings (when using the Pinky Trigger).
 				AltFlightToggle = 1; }
@@ -300,7 +303,9 @@
 					if(UseRuddersT16000 & UseRudderAxisCurves)	SetSCurve(&TFRPRudder, TFRPHA_RUDDER, 0, 10, 0, 3, -1);
 					if(UseRudderAxisCurves & DebugOutput)  printf("Joystick Profile[%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
 					if(!UseRudderAxisCurves & DebugOutput) printf("Joystick Profile[%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]); } } }
-		if(!Throttle[SPDF]) {
+		if(!Throttle[SPDF] & fOnFoot) {
+			ActKey(KEYON+UP+FPSJump); }
+		if(!Throttle[SPDF] & fMainShip) {
 			if(AltFlightToggle) {
 				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Disables Alternative Flight Control Mappings (works with both Pinky Trigger & Without!).
 				AltFlightToggle=!AltFlightToggle; }
@@ -310,18 +315,22 @@
 					initSetJoystickCurves();													// Return Joystick Curve back to previous preset (based on toggle position)
 					if(UseRudderAxisCurves & DebugOutput)  printf("Returning to Joystick Profile [%d]: Yaw=%d, Curve=%d, Zoom=%d\x0a", profile, YAW_CURVE[profile], JS_CURVE[profile], JS_ZOOM[profile]);
 					if(!UseRudderAxisCurves & DebugOutput) printf("Returning to Joystick Profile [%d]: Curve=%d, Zoom=%d\x0a", profile, JS_CURVE[profile], JS_ZOOM[profile]);  } } }
-		if(Throttle[SPDB]) {																	// FA OFF: HOLD
+		if(Throttle[SPDB] & fOnFoot) {
+			ActKey(KEYON+DOWN+FPSItemWheelOpen); }
+		if(Throttle[SPDB] & fMainShip) {																	// FA OFF: HOLD
 			if(Joystick[S4]) {
 				ActKey(KEYON+PULSE+AlternativeFlightMode);
 				AltFlightHold = 1; }
 			if(!Joystick[S4] & !fFAOff) {
-				ActKey(KEYON+PULSE+FlightAssist);}}
-		if(!Throttle[SPDB]) {
+				ActKey(KEYON+PULSE+FlightAssist); } }
+		if(!Throttle[SPDB] & fOnFoot) {
+			ActKey(KEYON+UP+FPSItemWheelOpen); }
+		if(!Throttle[SPDB] & fMainShip) {
 			if(AltFlightHold) {
 				ActKey(KEYON+PULSE+AlternativeFlightMode);										// Disables Alternative Flight Control Mappings (works with both Pinky Trigger & Without!).
 				AltFlightHold=!AltFlightHold; }
 			if(fFAOff) {
-				ActKey(KEYON+PULSE+FlightAssist);}}}
+				ActKey(KEYON+PULSE+FlightAssist); } } }
 
 
 

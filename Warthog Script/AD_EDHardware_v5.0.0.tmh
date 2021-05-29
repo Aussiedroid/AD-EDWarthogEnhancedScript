@@ -1,8 +1,9 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // HARDWARE //								Set Device Axis behaviour &  Map MFD Controls																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// TOC:/								JOYSTICK AXIS		(7)				RUDDER AXIS			(156)															//
-//-----									THROTTLE AXIS		(42)			MFD CONTROLS 		(174)															//
+// TOC:/								JOYSTICK AXIS		(7)				RUDDER AXIS			(175)															//
+//-----									THROTTLE AXIS		(42)			MFD CONTROLS 		(195)															//
+//										SLEW AXIS			(156)																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // HARDWARE: JOYSTICK AXIS CURVES //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -123,8 +124,8 @@
 
 		// SET DEFAULT THROTTLE AXIS //
 	int initThrottleAxis() { 																	// Set Default Throttle Axis
-		if(VerboseOutput) printf("Initialising Throttle Axis..\x0a");
-		if(VerboseOutput) printf("Initialising Slew Axis... Setting ");
+		if(VerboseOutput) printf("Initialising Slew Axis..\x0a");
+		if(VerboseOutput) printf("Initialising Throttle Axis... Setting ");
 		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
 			SetJCurve(&Throttle, THR_RIGHT, 50, 50);
 			//if(VerboseOutput) printf("Setting ");
@@ -151,26 +152,23 @@
 			DXAxis(DX_ZROT_AXIS, -AxisVal(Throttle[THR_LEFT], &axdata)); } }
 
 
-	int initSlewAxis() {						// NEW!!
-		if(SlewAxisPreset == 1) {			// *SetSCurve(&Device, axis, left_deadzone%, center_deadzone%, right_deadzone%, curve(-20...20), scale)
-			MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
+
+	int initSlewAxis() {																		// NEW!!
+		if(SlewAxisPreset == 2) {																// *SetSCurve(&Device, axis, left_deadzone%, center_deadzone%, right_deadzone%, curve(-20...20), scale)
+			MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Slew Control X Axis
 				SetSCurve(&Throttle, SCX, 0, SLEW_DEADZONE, 0, 2, -1);
-			MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
-				SetSCurve(&Throttle, SCY, 0, SLEW_DEADZONE, 0, 2, -1);
-			}
+			MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Slew Control Y Axis
+				SetSCurve(&Throttle, SCY, 0, SLEW_DEADZONE, 0, 2, -1); }
 		if(SlewAxisPreset == 0) {
-			MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
+			MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Slew Control X Axis
 				SetSCurve(&Throttle, SCX, 0, SLEW_DEADZONE, 0, 1, 0);
-			MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
+			MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Slew Control Y Axis
 				SetSCurve(&Throttle, SCY, 0, SLEW_DEADZONE, 0, 1, 0); }
-		if(SlewAxisPreset == 2) {
-			MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
+		if(SlewAxisPreset == 1) {
+			MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Slew Control X Axis
 				SetSCurve(&Throttle, SCX, 0, SLEW_DEADZONE, 0, 0, 0);
-			MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
+			MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Slew Control Y Axis
 				SetSCurve(&Throttle, SCY, 0, SLEW_DEADZONE, 0, 0, 0); } }
-		//else {
-		//	if(VerboseOutput) { printf("ERROR: SlewAxisPreset set to invalid value of %d.\x0a", SlewAxisPreset);
-		//						printf("* Please change it to SlewPresetSlow = 1, SlewPresetDefault = 0 or SlewPresetFast = 2 in User Prefs *\x0a"); } } }
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

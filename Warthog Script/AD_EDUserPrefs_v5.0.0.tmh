@@ -17,7 +17,7 @@
 //																																								//
 // Need help understanding this script?		-> Click the (?) HELP button in top right corner of Target Script Editor OR ask a question in the Forum/Guide <-	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// MINIMUM REQUIREMENTS: THRUSTMASTER TARGET SOFTWARE v3.0.18.826+		\	JOYSTICK FIRMWARE v12	\	THROTTLE FIRMWARE v23	\	TPR RUDDER FIRMWARE v1.15	// 
+// MINIMUM REQUIREMENTS:	THRUSTMASTER TARGET SOFTWARE v3.0.18.826+	\	JOYSTICK FIRMWARE v12	\	THROTTLE FIRMWARE v23	\	TPR RUDDER FIRMWARE v1.15	// 
 // 									  												(https://support.thrustmaster.com/en/product/hotaswarthog-en/)				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //										** RECOMMENDED RUNNING SCRIPT IN TARGET GUI & EDITING VIA TARGET SCRIPT EDITOR **										//
@@ -38,7 +38,7 @@
 	define BlingLEDBling		1						// Enables a Short Flashing LED Sequence when you flip a Toggle & will also enable a short start-up sequence pattern. Bling Bling!
 														// 	Options:	Enable = 1 (default)						Disable = 0
 
-	alias  StatusFile			= "Z:\\Users\\USERNAME\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
+	alias  StatusFile			= "C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
 														// Local Path to the status.json file on your PC. Default Path: "C:\\Users\\<username>\\Saved Games\\Frontier Developments\\Elite Dangerous\\status.json";
 
 		// SHUT-DOWN //
@@ -81,7 +81,7 @@
 
 		// THROTTLE AXIS & OVERRIDES //
 	define CruiseOnThrottle 	1						// Enable Supercruise on Throttle @ 100% and 0% = 1 (default)	Disable = 0  [HOLD Pinky Trigger or CMS Hat to activate @ 100%/0%]
-	define SlewAxisPreset		0						// SlewPresetSlow = 1, SlewPresetDefault = 0, SlewPresetFast = 2
+	define SlewAxisPreset		0						// Set the axis curve of the Slew Axis		(Slew Preset FAST = 1, Slew Preset Default = 0, Slew Preset SLOW = 2)	(Same as Joystick Curve Presets)
 
 	define ThrottlePresetUP 	mThrottleFwdOnly		// 7 Presets: 	mThrottleFwdOnly			[   0 -> 100]	mThrottleFwdNonLinear [   0 ~> 100]
 	define ThrottlePresetMID 	mThrottleFullScale		// 	   To	 	mThrottleFullScale			[-100 -> 100]	mThrottleFullNonLinear[-100 ~> 100]

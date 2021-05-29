@@ -76,10 +76,10 @@
 //	define LookDown									
 //	define FPSSprint								L_SHIFT					// SHIFT
 //	define FPSCrouch								L_CTL					// CTRL
-//	define FPSJump									USB[0x2C] 				// Space
-//	define FPSInteract								USB[0x08] 				// E
-//	define FPSInteractSecondary						USB[0x09]				// F
-//	define FPSItemWheelOpen							L_ALT					// ALT (Hold)
+	define FPSJump									USB[0x2C] 				// Space
+	define FPSInteract								USB[0x08] 				// E
+	define FPSInteractSecondary						USB[0x09]				// F
+	define FPSItemWheelOpen							L_ALT					// ALT (Hold)
 //	define FPSItemWheelUp							USB[0x1A] 				// W
 //	define FPSItemWheelDown							USB[0x16] 				// S
 //	define FPSItemWheelLeft							USB[0x04] 				// A
@@ -98,7 +98,7 @@
 //	define FPSHolsterWeapon							USB[0x18] 				// U
 //	define FPSNextGrenadeType						
 //	define FPSPrevGrenadeType						
-//	define FPSFlashlight							USB[0x17] 				// T
+	define FPSFlashlight							USB[0x17] 				// T
 //	define FPSNightVision							USB[0x38]				// /
 //	define FPSShield								USB[0x06] 				// C
 //	define FPSEnergyLink							USB[0x20] 				// 3
@@ -112,7 +112,6 @@
 //	define FPSQuickCommsPanel 						USB[0x28] 				// Enter
 //	define FPSOpenAccessPanel						USB[0x14] 				// Q
 //	define FPSConflictZoneStats						USB[0x08] 				// E
-//	define FPSRecallDismissShip						L_ALT+USB[0x1B]			// ALT+X <Disabled>
 	
 
 		// SHIP SYSTEMS //

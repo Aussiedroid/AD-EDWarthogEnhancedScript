@@ -14,6 +14,11 @@
 	int    profile =			1					   ;// Set initial joystick profile global variable for joystick curves	(Options: 0, 1, 2)	(default = 1)
 	char   ca_pulseChar[] =	   "0"					   ;// Used in Auto-Text Chat Presets		(DO NOT modify!)
 
+	define FLOAT				0						// Used in initGetKeyValue()
+	define INTEGER				1						// Used in initGetKeyValue()
+	define STRING				2						// Used in initGetKeyValue()
+	define NUL					0						// Used in initGetKeyValue()
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // DEFAULT TIMINGS //
@@ -98,11 +103,17 @@
 	int SRLED				  = 0;						// Tracks state of Silent Running LED					(used in initProcessFlagsJson())
 	int CSLED				  = 0;						// Tracks state of Cargo Scoop LED						(used in initProcessFlagsJson())
 	int LGLED				  = 0;						// Tracks state of Landing Gear LED						(used in initProcessFlagsJson())
+	int Odyssey				  = 0;						// Tracks Game Version	(0 = Horizons, 1 = Odyssey) 	(We check this when game starts running via presence of 'Flags2' Key in status.json)
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FLAG VARIABLES   //	(Used in AD_EDStatusJson.tmh)	   Refer to Section 13 (page 80) in latest Player Journal Docs for more info -> http://hosting.zaonce.net/community/journal/v28/Journal_Manual_v28.pdf
+// FLAG VARIABLES   //	(Used in AD_EDStatusJson.tmh)	   Refer to Section 13 (page 80) in latest Player Journal Docs for more info -> https://hosting.zaonce.net/community/journal/v31/Journal_Manual_v31.pdf
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-														// Use these after calling fnProcessFlags()
+														// Use these after calling initProcessFlags()
+	int Flags 				  =	0;						// contains the Flags key value integer
+	int Flags2				  =	0;						// contains the Flags2 key value integer 
+	int OldFlags			  =	0;						// track when Flags key value changes
+	int OldFlags2			  =	0;						// track when Flags2 key value changes 
 	int fAltFromAvgRad		  = 0;						// Altitude from Average radius 				
 	int fCargoScoop			  = 0;
 	int fDanger				  = 0;						// Is In Danger
@@ -135,99 +146,90 @@
 	int fSRVTurretRetracted	  = 0;						// SRV Turret retracted (close to ship) 
 	int fSRVTurretView		  = 0;
 	int fSupercruise		  = 0;						// Ship in Supercruise
-
-
-//	int fOnFoot				  =	0;
-//	int fInTaxi				  =	0;
-//	int fInMultiCrew		  =	0;	      
-//	int fOnFootInStation      =	0;
-
-//	int fOnFootOnPlanet       =	0;
-//	int fAimDownSight      	  =	0;
-//	int fLowOxygen			  =	0;
-//	int fLowHealth            =	0;
-
-//	int fCold	              =	0;
-//	int fHot				  =	0;
-//	int fVeryCold	          =	0;
-//	int fVeryHot	          =	0;
-
-//	int fGlideMode			  = 0;
-//	int fOnFootInHanger		  = 0;
-//	int fOnFootSocialSpace	  = 0;
-//	int fOnFootExterior		  = 0;
-
-//	int fBreathableAtmosphere = 0;
-
+	int fOnFoot				  =	0;						// Disembarked on Foot
+	int fInTaxi				  =	0;						// Travelling in a Taxi Ship
+	int fInMultiCrew		  =	0;	      				// Multi-Crew Mode Active
+	int fOnFootInStation      =	0;
+	int fOnFootOnPlanet       =	0;
+	int fAimDownSight      	  =	0;
+	int fLowOxygen			  =	0;
+	int fLowHealth            =	0;
+	int fCold	              =	0;
+	int fHot				  =	0;
+	int fVeryCold	          =	0;
+	int fVeryHot	          =	0;
+	int fGlideMode			  = 0;
+	int fOnFootInHanger		  = 0;
+	int fOnFootSocialSpace	  = 0;
+	int fOnFootExterior		  = 0;
+	int fBreathableAtmosphere = 0;
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// FLAG VALUE MASKS //		(Used in AD_EDStatusJson.tmh)										// See around page 80 in the Player Journal documentation.
+// FLAGS VALUE MASKS //		(Used in AD_EDStatusJson.tmh)		(Updated to Journal v31) 			  // See around page 80 in the Player Journal documentation.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int ED_Docked			  =	0x0000000000000001;
-	int ED_Landed			  =	0x0000000000000002;
-	int ED_LandingGearDown	  =	0x0000000000000004;
-	int ED_ShieldsUp		  =	0x0000000000000008;
+	define ED_Docked				0x0000000000000001	// Flags1 (Horizon)
+	define ED_Landed				0x0000000000000002
+	define ED_LandingGearDown		0x0000000000000004
+	define ED_ShieldsUp				0x0000000000000008
 
-	int ED_Supercruise		  =	0x0000000000000010;
-	int ED_FlightAssistOff	  =	0x0000000000000020;
-	int ED_HardpointsDeployed =	0x0000000000000040;
-	int ED_InWing			  =	0x0000000000000080;
+	define ED_Supercruise			0x0000000000000010
+	define ED_FlightAssistOff		0x0000000000000020
+	define ED_HardpointsDeployed	0x0000000000000040
+	define ED_InWing				0x0000000000000080
 
-	int ED_LightsOn			  =	0x0000000000000100;
-	int ED_CargoScoopDeployed =	0x0000000000000200;
-	int ED_SilentRunning	  =	0x0000000000000400;
-	int ED_ScoopingFuel		  =	0x0000000000000800;
+	define ED_LightsOn				0x0000000000000100
+	define ED_CargoScoopDeployed	0x0000000000000200
+	define ED_SilentRunning	 		0x0000000000000400
+	define ED_ScoopingFuel			0x0000000000000800
 
-	int ED_SRVHandbrake		  =	0x0000000000001000;
-	int ED_SRVTurret		  =	0x0000000000002000;
-	int ED_SRVTurretRetracted =	0x0000000000004000;
-	int ED_SRVDriveAssist	  =	0x0000000000008000;
+	define ED_SRVHandbrake			0x0000000000001000
+	define ED_SRVTurret				0x0000000000002000
+	define ED_SRVTurretRetracted	0x0000000000004000
+	define ED_SRVDriveAssist		0x0000000000008000
 
-	int ED_FSDMassLocked	  =	0x0000000000010000;
-	int ED_FSDCharging		  =	0x0000000000020000;
-	int ED_FSDCooldown		  =	0x0000000000040000;
-	int ED_LowFuel			  =	0x0000000000080000;
+	define ED_FSDMassLocked			0x0000000000010000
+	define ED_FSDCharging			0x0000000000020000
+	define ED_FSDCooldown			0x0000000000040000
+	define ED_LowFuel				0x0000000000080000
 
-	int ED_OverHeating		  =	0x0000000000100000;
-	int ED_HasLatLong		  =	0x0000000000200000;
-	int ED_IsInDanger		  =	0x0000000000400000;
-	int ED_BeingInterdicted   =	0x0000000000800000;
+	define ED_OverHeating			0x0000000000100000
+	define ED_HasLatLong			0x0000000000200000
+	define ED_IsInDanger			0x0000000000400000
+	define ED_BeingInterdicted		0x0000000000800000
 
-	int ED_InMainShip		  =	0x0000000001000000;
-	int ED_InFighter		  =	0x0000000002000000;
-	int ED_InSRV			  =	0x0000000004000000;
-	int ED_HudInAnalysisMode  =	0x0000000008000000;
+	define ED_InMainShip			0x0000000001000000
+	define ED_InFighter				0x0000000002000000
+	define ED_InSRV					0x0000000004000000
+	define ED_HudInAnalysisMode		0x0000000008000000
 
-	int ED_NightVision		  =	0x0000000010000000;
-	int ED_AltFromAvgRad	  =	0x0000000020000000;
-	int ED_FSDJump			  =	0x0000000040000000;
-	int ED_SRVHiBeam		  =	0x0000000080000000;
+	define ED_NightVision		 	0x0000000010000000
+	define ED_AltFromAvgRad	  		0x0000000020000000
+	define ED_FSDJump				0x0000000040000000
+	define ED_SRVHiBeam				0x0000000080000000
 
-//	define ED_OnFoot               	0x0000000000000001
-//	define ED_InTaxi               	0x0000000000000002
-//	define ED_InMultiCrew	      	0x0000000000000004
-//	define ED_OnFootInStation      	0x0000000000000008
-//
-//	define ED_OnFootOnPlanet       	0x0000000000000010
-//	define ED_AimDownSight      	0x0000000000000020
-//	define ED_LowOxygen			   	0x0000000000000040
-//	define ED_LowHealth            	0x0000000000000080
+	define ED_OnFoot               	0x0000000000000001	// Flags2 (Odyssey)
+	define ED_InTaxi               	0x0000000000000002
+	define ED_InMultiCrew	      	0x0000000000000004
+	define ED_OnFootInStation      	0x0000000000000008
 
-//	define ED_Cold	             	0x0000000000000100
-//	define ED_Hot				   	0x0000000000000200
-//	define ED_VeryCold	        	0x0000000000000400
-//	define ED_VeryHot	         	0x0000000000000800
-	
-//	define ED_GlideMode	         	0x0000000000001000
-//	define ED_OnFootInHanger       	0x0000000000002000
-//	define ED_OnFootSocialSpace	 	0x0000000000004000
-//	define ED_OnFootExterior     	0x0000000000008000
+	define ED_OnFootOnPlanet       	0x0000000000000010
+	define ED_AimDownSight      	0x0000000000000020
+	define ED_LowOxygen			   	0x0000000000000040
+	define ED_LowHealth            	0x0000000000000080
 
-//	define ED_BreathableAtmosphere 	0x0000000000010000
+	define ED_Cold	             	0x0000000000000100
+	define ED_Hot				   	0x0000000000000200
+	define ED_VeryCold	        	0x0000000000000400
+	define ED_VeryHot	         	0x0000000000000800
 
+	define ED_GlideMode	         	0x0000000000001000
+	define ED_OnFootInHanger       	0x0000000000002000
+	define ED_OnFootSocialSpace	 	0x0000000000004000
+	define ED_OnFootExterior     	0x0000000000008000
 
+	define ED_BreathableAtmosphere 	0x0000000000010000
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

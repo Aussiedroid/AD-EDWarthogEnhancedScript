@@ -2,101 +2,245 @@
 // STATUS.JSON PARSER //			Determine the Real-time Status of In-game Commands, via the ED Log file.					Original Author: CMDR Clicker	//	->	https://forums.frontier.co.uk/threads/target-scripting-tutorial-read-status-json-process-flags-keyvalue.539783/
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//	->	https://hosting.zaonce.net/community/journal/v31/Journal_Manual_v31.pdf
 // TOC:/								initReadStatusJson()		(17)																						//
-//-----									initProcessFlagsJson()		(41)																						//
+//-----									initGetKeyValue()			(77)																						//
+//										initProcessFlagsJson()		(141)																						//
 //										initJsonStartCheck()		(211)																						//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // GLOBAL VARIABLES	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	char myJson;								 							// Char array to store status.json
+	char keyvalue;															// Char array to store converted key value read from status.json
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // STATUS 'READ/PROCESS' FUNCTIONS	//										Requires:	'StatusFile' alias must be set correctly in AD_EDUserPrefs.tmh
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int initReadStatusJson() {												// FUNCTION: Read status.json into 'myJson'
+//	int initReadStatusJson() {												// FUNCTION: Read status.json into 'myJson'
+//
+//		int	fp;																// General purpose file handle
+//		int	buf = 512;														// Buffer variable. status.json can get lengthy, so assign a buffer of at least 512
+//		int	myResult;														// General pupose 'result' variable
 
-		int	fp;																// General purpose file handle
-		int	buf = 512;														// Buffer variable. status.json can get lengthy, so assign a buffer of at least 512
-		int	myResult;														// General pupose 'result' variable
+//		Dim(&myJson, buf);													// Dimension our character array to size of buffer
+//		myJson[0] = 0;														// Set array to zero
+//		fp = fopen(&StatusFile, "r");										// Open status.json for reading
+//		if(fp) {															// If we succeed in opening...
+//			myResult = fread(&myJson, 1, buf, fp);							// ... read the entire file into our character array (myJson)...
+//			fclose(fp);														// ... and then close the file
+//			if(myResult == 0) {												// 'myResult' should contain the number of characters read
+//				ReadErrorCount = ReadErrorCount + 1;
+//				if(VerboseOutput) printf("WARNING READ ERROR #%d: Status.json\x0a", ReadErrorCount); }
+//			else {
+//				ReadErrorCount = 0;
+//				strdel(&myJson, myResult-1, buf); } }						// If no issues with read, remove any trailing garbage
+//		else {
+//			if(VerboseOutput) printf("EXITING Elite Dangerous .. Reason: FATAL ACCESS ERROR in Status.json .. !ABORT!\x0a"); // File not found OR locked by Elite Dangerous!
+//			Abort(); } }
 
-		Dim(&myJson, buf);													// Dimension our character array to size of buffer
-		myJson[0] = 0;														// Set array to zero
-		fp = fopen(&StatusFile, "r");										// Open status.json for reading
-		if(fp) {															// If we succeed in opening...
-			myResult = fread(&myJson, 1, buf, fp);							// ... read the entire file into our character array (myJson)...
-			fclose(fp);														// ... and then close the file
-			if(myResult == 0) {												// 'myResult' should contain the number of characters read
+	//	FUNCTION:	Find substring within a string and return first char position or -1 if not found
+	//	NOTE:		sys.tmh has strstr() listed to provide this functionality, however it seems to always
+	//				return a '0' no matter what you plug in. So, I decided to write my own.
+	
+	int findstr(alias string, alias substring) {
+	
+		int substrlen	= strlen(&substring);
+		int strstart	= 0;
+		int	strend		= strlen(&string) - substrlen;
+		int result;
+		char mystr;		Dim(&mystr, substrlen+1);		mystr[0] = NUL;
+		
+		while (strstart <= strend) {
+			strsub(&mystr, &string, strstart, strstart+substrlen);
+			mystr[substrlen] = NUL;						// nul terminate char array
+			result = strcmp(&mystr, &substring);			
+			if (result == 0 ) return strstart;
+			strstart = strstart + 1; }
+		return -1; }
+
+
+	int initReadStatusJson() {
+		int 	VoiceTxt;		int 	buf 			= 512;
+		int 	fp;				int		ReadErrorSent	= 0;
+		int		myResult;
+		int		newJson		= 0;		Dim(&myJson, buf);			myJson[0]	= NUL;	// set when myJson != lastJson...we then call initProcessFlags();
+		char	lastJson;				Dim(&lastJson, buf); 		lastJson[0] = NUL;
+		
+		fp = fopen(&StatusFile, "r");
+		
+		if (fp) {
+			myResult = fread(&myJson, 1, buf, fp);		fclose(fp);
+			if (myResult == 0) {
 				ReadErrorCount = ReadErrorCount + 1;
-				if(VerboseOutput) printf("WARNING READ ERROR #%d: Status.json\x0a", ReadErrorCount); }
+				if (ReadErrorCount > 4) {
+					if(VerboseOutput) printf("WARNING READ ERROR #%d: Status.json\x0a", ReadErrorCount);
+					if(!ReadErrorSent) ReadErrorSent = 1; } }
 			else {
-				ReadErrorCount = 0;
-				strdel(&myJson, myResult-1, buf); } }						// If no issues with read, remove any trailing garbage
+				ReadErrorCount 		= 0;
+				ReadErrorSent 		= 0;
+				myJson[myResult] 	= 0;									// terminates char array with nul
+				newJson = strcmp(&myJson, &lastJson);
+				if (newJson != 0) {
+					//if (DebugOutput) {
+					//	printf("Function: initReadStatusJson();\x0a"); 
+					//	printf("\x0a\myJson	  = %s \x0a", &myJson);
+					//	printf("strlen(myJson) = %d\x0a\x0a", strlen(&myJson));	}
+					Flags = initGetKeyValue("Flags", INTEGER);
+					if (OldFlags != Flags) initProcessFlagsJson();
+					OldFlags = Flags;
+					if (Odyssey) {
+						Flags2 = initGetKeyValue("Flags2", INTEGER);
+						if (Flags2 == -1) Odyssey = 0;
+						else {
+							if (OldFlags2 != Flags2) initProcessFlags2Json();
+							OldFlags2 = Flags2;	} } }			
+				sprintf(&lastJson, "%s", &myJson);
+				lastJson[strlen(&lastJson)] = NUL; } }						// terminate char array 
+		else {	if(VerboseOutput) printf("EXITING Elite Dangerous .. Reason: FATAL ACCESS ERROR in Status.json .. !ABORT!\x0a");
+				Abort(); } }
+
+
+	// FUNCTION:	Extract json key value by name from status.json
+	// Input:		Key name (pattern: string), key value type (vtype: FLOAT, INTEGER, STRING)
+	// Output:		Returns key value
+	
+	// Valid Key Names: pattern(vtype);
+	//				Flags(INTEGER), Flags2 (INTEGER), Pips(STRING), Firegroup(INTEGER), GuiFocus(INTEGER), FuelMain(FLOAT), FuelReservoir(FLOAT)
+	//				Cargo(INTEGER), LegalState(STRING), Latitude(FLOAT), Longitude(FLOAT), Altitude(INTEGER), Heading(INTEGER)
+	//				BodyName(STRING), PlanetRadius(INTEGER), timestamp(STRING), event(STRING)
+
+	// GlobalVars
+
+	
+
+	int initGetKeyValue(alias pattern, int vtype) {
+		//if (DebugOutput) printf("\x0a\Function: initGetKeyValue(\"%s\", %d))\x0a", &pattern, vtype);
+		
+		int 	PatLen = strlen(&pattern);
+		int 	valstart	= 0;											// string position of where the key value starts
+		int 	vallen		= 0;											// string length of the key value
+		int 	chrpnt		= 0;											// character pointer used to determine where key value ends
+		int		EndValue	= 0;											// flag to set when we hit the end of value
+		
+		char 	thischr;													// char variable to detect end of value via a ',' or '}' or ' '	
+		Dim(&thischr, 2);
+		thischr[0]	= NUL;
+		
+		char	myStr;
+		Dim(&myStr, PatLen);
+		myStr[0] 	= NUL;
+
+		Dim(&keyvalue, 64);													// keyvalue char is global (used in status dump)
+		keyvalue[0] = NUL;
+
+		float	fkeyvalue;													// floating point key values
+		int		ikeyvalue;													// integer key value
+		int		PseudoText = "";
+		int		myResult;
+		
+		// Find the Key (pattern) //
+		int Start = findstr(&myJson, &pattern);								// 'findstr()' is my version of 'strstr()' in sys.tmh...which doesn't work...defined in ED_Functions.tmh 
+																			// 'Start' contains the character count to the first character of the Keyname, if found. 
+		if (Start == -1) {													// 'Start' contains -1 if the Keyname is not found 
+			myResult = strcmp(&pattern, "Flags2");
+			if (myResult == 0) {
+				printf("Key %s NOT Found - Odyssey not running\x0a\x0a", &pattern);	}
+			else {
+				printf("Key %s NOT Found\x0a", &pattern); }	
+			return -1; }
+		
+		// Now grab the key-value //
+		valstart = Start + PatLen + 2;										// start of value we're after
+		chrpnt = 0;
+		myResult = strcmp(&pattern, "Pips");
+		
+		if (myResult == 0) {												// pattern = "Pips"
+			vallen = 5;
+			while(chrpnt < vallen) {
+				strsub(&thischr, &myJson, valstart+chrpnt, valstart+chrpnt);
+				strcat(&keyvalue, &thischr);
+				chrpnt = chrpnt + 1; } }
 		else {
-			if(VerboseOutput) printf("EXITING Elite Dangerous .. Reason: FATAL ACCESS ERROR in Status.json .. !ABORT!\x0a"); // File not found OR locked by Elite Dangerous!
-			Abort(); } }
+			strsub(&thischr, &myJson, valstart, valstart);
+			myResult = strcmp(&thischr, ",");
+			if (myResult == 0 & (vtype == FLOAT | vtype == INTEGER)) EndValue = 1;
+			myResult = strcmp(&thischr, "}");
+			if (myResult == 0) EndValue = 1;
+			myResult = strcmp(&thischr, " ");
+			if (myResult == 0 & (vtype == FLOAT | vtype == INTEGER)) EndValue = 1;
+			if (EndValue == 0) strcat(&keyvalue, &thischr);
+			while (EndValue == 0 & chrpnt < 20) {
+				chrpnt = chrpnt + 1;
+				strsub(&thischr, &myJson, valstart+chrpnt, valstart+chrpnt);
+				myResult = strcmp(&thischr, ",");							// end of value signalled by ',' or '}' or ' ' or '"' 
+				if (myResult == 0 & (vtype == FLOAT | vtype == INTEGER)) EndValue = 1;
+				myResult = strcmp(&thischr, "}");
+				if (myResult == 0) {
+					EndValue = 1;
+					chrpnt = chrpnt - 1; }
+				myResult = strcmp(&thischr, " ");
+				if (myResult == 0 & (vtype == FLOAT | vtype == INTEGER)) EndValue = 1;
+				myResult = strcmp(&thischr, "\"");
+				if (myResult == 0 & vtype == STRING) EndValue = 1;			
+				if (EndValue == 0) strcat(&keyvalue, &thischr); } }			// continue building char array
+		keyvalue[chrpnt] = NUL;												// terminate char array with a nul 
+		//if (DebugOutput) printf("Key:	%s	value:	%s\x0a", &pattern, &keyvalue);
+
+		// Return converted key-value //
+		if (vtype == FLOAT) {												// convert string to float
+			return eval(&keyvalue);	}
+		if (vtype == INTEGER) {												// convert string to integer
+			return ieval(&keyvalue); }
+		if (vtype == STRING) {			
+			strdel(&keyvalue, 0, 0);										// Just remove leading quote and...
+			return 0; } }													// ...use the global keyvalue on return
 
 
 
 	int initProcessFlagsJson() {											// FUNCTION: Read & Process "Flags" value from "status.json"
 
-		int Flags = 0;			//? int Flags2 = 0;							// Flags key value integer.
-		int EndValue = 0;		//? int EndValue2 = 0;						// Catch when we get to a space or comma
-		int myResult;			//? int myResult2;							// Temporary general purpose variable to capture results of file & string operations
-		int chrpnt;				//? int chrpnt2;								// Pointer to current character in string
+//		int Flags = 0;														// Flags key value integer.
+//		int EndValue = 0;													// Catch when we get to a space or comma
+//		int myResult;														// Temporary general purpose variable to capture results of file & string operations
+//		int chrpnt;															// Pointer to current character in string
 
-		char thischr;														// Contains current character read during string search
-		Dim(&thischr, 2);
-		thischr[0] = 0;
+//		char thischr;														// Contains current character read during string search
+//		Dim(&thischr, 2);
+//		thischr[0] = 0;
 
-		char keyvalue;														// Contains our Key Value when complete
-		Dim(&keyvalue, 16);													// Arbitrary size. Currently Flags integer value does not exceed 11 digits
-		keyvalue[0] = 0;
-
-		initReadStatusJson();												// Get latest status.json file status
-		int Start = 64;														// Flags key value always starts at char# 64 in status.json
+//		char keyvalue;														// Contains our Key Value when complete
+//		Dim(&keyvalue, 16);													// Arbitrary size. Currently Flags integer value does not exceed 11 digits
+//		keyvalue[0] = 0;
+//
+//		initReadStatusJson();												// Get latest status.json file status
+//		int Start = 64;														// Flags key value always starts at char# 64 in status.json
 																			// Flags key value always ends in a space if zero, else comma character
-		chrpnt = 0;															// Reset character pointer
+//		chrpnt = 0;															// Reset character pointer
 
-		while(EndValue == 0) {												// Start loop...
-			strsub(&thischr, &myJson, Start+chrpnt, Start+chrpnt);			// Grab next character in 'myJson' and put it into 'thischr'
-			myResult = strcmp(&thischr, " ");
-			if(myResult == 0) EndValue = 1;									// End loop when we find a space
-			myResult = strcmp(&thischr, ",");
-			if(myResult == 0) EndValue = 1;									// End loop when we find a comma
-			if(EndValue == 0) strcat(&keyvalue, &thischr);					// Otherwise, update keyvalue...
-			chrpnt = chrpnt + 1; }											// ... update character pointer, and loop
-		Flags = ieval(&keyvalue);											// Convert string to integer when we finished the loop
-		if(DebugOutput) printf("Flags Integer    =    %d\x0a", Flags);		// Print the Flags integer value to the console
+//		while(EndValue == 0) {												// Start loop...
+//			strsub(&thischr, &myJson, Start+chrpnt, Start+chrpnt);			// Grab next character in 'myJson' and put it into 'thischr'
+//			myResult = strcmp(&thischr, " ");
+//			if(myResult == 0) EndValue = 1;									// End loop when we find a space
+//			myResult = strcmp(&thischr, ",");
+//			if(myResult == 0) EndValue = 1;									// End loop when we find a comma
+//			if(EndValue == 0) strcat(&keyvalue, &thischr);					// Otherwise, update keyvalue...
+//			chrpnt = chrpnt + 1; }											// ... update character pointer, and loop
+//		Flags = ieval(&keyvalue);											// Convert string to integer when we finished the loop
+//		if(DebugOutput) printf("Flags Integer    =    %d\x0a", Flags);		// Print the Flags integer value to the console
+
+
+
 																			// TARGET uses 32 bit signed precision for its integers. Flags values larger than 2147483648 wrap around to negative number and means that bit 31 (fSRVHiBeam) is set.
-//		Flags2 = ieval(&keyvalue);
 
-
-// READ FLAG 2 //
-// How do I read in both flags? //
-
-
-
-
-		if(Flags == 0 & GameLoaded == 1) {									// Detects when Game halts	  (If Flags == 0, it means the game has not started yet...)
-			GameLoaded = 0;
-			if(TurnOffLEDSOnExit) ActKey(KEYON+PULSE+EXEC("initLEDShutdown();")); // SHUTDOWN LED BACKLIGHT DIMMING SEQUENCE
-			if(VerboseOutput & ReadErrorCount > 4) printf("EXITING Elite Dangerous .. Reason: FILE READ ERROR.. Count Exceeded...\x0a");
-			if(VerboseOutput & ReadErrorCount < 4) printf("EXITING Elite Dangerous .. Reason: Auto Script Shutdown Initiated .. Bye!");
-			if(AbortScriptOnExit) Abort(); }								// EXIT: Force Stop of Script.
+		//if(Flags == 0 & GameLoaded == 1) {								// Detects when Game halts	  (If Flags == 0, it means the game has not started yet...)
+		//	GameLoaded = 0;
+		//	Odyssey = 0;
+		//	if(TurnOffLEDSOnExit) ActKey(KEYON+PULSE+EXEC("initLEDShutdown();")); // SHUTDOWN LED BACKLIGHT DIMMING SEQUENCE
+		//	if(VerboseOutput & ReadErrorCount > 4) printf("EXITING Elite Dangerous .. Reason: FILE READ ERROR.. Count Exceeded...\x0a");
+		//	if(VerboseOutput & ReadErrorCount < 4) printf("EXITING Elite Dangerous .. Reason: Auto Script Shutdown Initiated .. Bye!");
+		//	if(AbortScriptOnExit) Abort(); }								// EXIT: Force Stop of Script.
 
 		if(Flags != 0) {													// Detects when Game is active (If Flags != 0, it means the game has started & reading status.json file successful...)
-
-//			Flags2 = stfnGetKeyValue("Flags2", INTEGER);
-//			if (Flags2 != -1) {
-//				Odyssey = 1;					// Flags2 presence means we're running Odyssey
-//			}
-//			else {
-//				Odyssey = 0;
-//			}
-
-
-
 			if(GameLoaded == 0) GameLoaded = 1;								// Set Flag to represent game has started for the first time (as opposed to re-started).			
 			if(Flags < 0)		fSRVHiBeam = 1;								// ... otherwise, test for bit 31 first, like so...
 			else 				fSRVHiBeam = 0;
@@ -132,31 +276,7 @@
 			fSRVTurretRetracted = ((Flags & ED_SRVTurretRetracted) > 0);
 			fSRVTurretView		= ((Flags & ED_SRVTurret) > 0);
 			fSupercruise		= ((Flags & ED_Supercruise) > 0);
-			
-			//if(Flags2 != 0) {
-//			fOnFoot					= ((Flags2 & ED_OnFoot) > 0);					// 'ED_...' masks defined within 'ED_ScriptDefines' file 
-//			fInTaxi					= ((Flags2 & ED_InTaxi) > 0);
-//			fInMultiCrew			= ((Flags2 & ED_InMultiCrew) > 0);
-//			fOnFootInStation		= ((Flags2 & ED_OnFootInStation) > 0);
-//			fOnFootOnPlanet			= ((Flags2 & ED_OnFootOnPlanet) > 0);
-//			fAimDownSight			= ((Flags2 & ED_AimDownSight) > 0);
-//			fLowOxygen				= ((Flags2 & ED_LowOxygen) > 0);
-//			fLowHealth				= ((Flags2 & ED_LowHealth) > 0);
-//			fCold					= ((Flags2 & ED_Cold) > 0);
-//			fHot					= ((Flags2 & ED_Hot) > 0);
-//			fVeryCold				= ((Flags2 & ED_VeryCold) > 0);
-//			fVeryHot				= ((Flags2 & ED_VeryHot) > 0);
-//			fGlideMode				= ((Flags2 & ED_GlideMode) > 0);
-//			fOnFootInHanger			= ((Flags2 & ED_OnFootInHanger) > 0);
-//			fOnFootSocialSpace		= ((Flags2 & ED_OnFootSocialSpace) > 0);
-//			fOnFootExterior			= ((Flags2 & ED_OnFootExterior) > 0);
-//			fBreathableAtmosphere	= ((Flags2 & ED_BreathableAtmosphere) > 0);
-			
-			
-			
-			
-			
-			
+
 																			// Check Panel LEDs are in the right state on each file read (Note: Rotational Correction has no flag to check so LEDs controlled by Function)
 			if(fFAOff) 			{ if(FALED)	 {	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)); FALED = 0; } } //FAOff	// set LED 1 OFF
 			else				{ if(!FALED) {	if(BlingLEDBling) initLEDController(LED1); FALED = 1;  			 //FAOn
@@ -218,6 +338,8 @@
 				if(!fSRVTurretView & fSRV & StatusSRVTView == 1)	{ printf("SRV: TURRET VIEW DISABLED\x0a");			StatusSRVTView = 0; }
 				if(fSupercruise & StatusSupercruise == 0)			{ printf("Ship Flight: SUPERCRUISE ON\x0a");		StatusSupercruise = 1; }
 				if(!fSupercruise & StatusSupercruise == 1)			{ printf("Ship Flight: SUPERCRUISE OFF\x0a");		StatusSupercruise = 0; } }
+				
+			OldFlags = Flags;												// Keep track of last Flags Value to track when Flag bits change
 
 			if(DebugOutput) {
 				printf("\x0a\ Active Flags");								// Print any Flags which are set to 1
@@ -238,28 +360,49 @@
 				if(fLanded)				printf("Landed on Planet\x0a");				if(fSRVTurretRetracted)		printf("SRV Turret Retracted\x0a");
 				if(fLandingGear)		printf("Landing Gear Deployed\x0a");		if(fSRVTurretView)			printf("SRV Turret View\x0a");
 				if(fLatLong)			printf("Lat\\Lon\x0a");						if(fSupercruise)			printf("Supercruise Engaged\x0a");
-				
-				
-//				printf("Bits set in FLAGS2:\X0A");
-//				if (fOnFoot)	 			printf("On Foot\x0a");
-//				if (fInTaxi) 				printf("In Taxi\x0a");
-//				if (fInMultiCrew) 			printf("In Multi Crew\x0a");
-//				if (fOnFootInStation) 		printf("On Foot In Station\x0a");
-//				if (fOnFootOnPlanet) 		printf("On Foot On Planet\x0a");
-//				if (fAimDownSight) 			printf("Aim Down Sight\x0a");
-//				if (fLowOxygen) 			printf("Low Oxygen\x0a");
-//				if (fLowHealth) 			printf("Low Health\x0a");
-//				if (fCold) 					printf("Cold\x0a");
-//				if (fHot) 					printf("Hot\x0a");
-//				if (fVeryCold) 				printf("Very Cold\x0a");
-//				if (fVeryHot) 				printf("Very Hot\x0a");
-//				if (fGlideMode)				printf("Glide Mode\x0a");
-//				if (fOnFootInHanger)		printf("On Foot In Hanger\x0a");
-//				if (fOnFootSocialSpace)		printf("On Foot in Social Space\x0a");
-//				if (fOnFootExterior)		printf("On Foot Exterior\x0a");
-//				if (fBreathableAtmosphere)	printf("Breathable Atmosphere\x0a");
-
 				printf("===============\x0a"); } } }
+
+
+	int initProcessFlags2Json() {											// FUNCTION: Read & Process "Flags2" value from "status.json"
+		if(Flags2 != 0) {
+			fOnFoot					= ((Flags2 & ED_OnFoot) > 0);
+			fInTaxi					= ((Flags2 & ED_InTaxi) > 0);
+			fInMultiCrew			= ((Flags2 & ED_InMultiCrew) > 0);
+			fOnFootInStation		= ((Flags2 & ED_OnFootInStation) > 0);
+			fOnFootOnPlanet			= ((Flags2 & ED_OnFootOnPlanet) > 0);
+			fAimDownSight			= ((Flags2 & ED_AimDownSight) > 0);
+			fLowOxygen				= ((Flags2 & ED_LowOxygen) > 0);
+			fLowHealth				= ((Flags2 & ED_LowHealth) > 0);
+			fCold					= ((Flags2 & ED_Cold) > 0);
+			fHot					= ((Flags2 & ED_Hot) > 0);
+			fVeryCold				= ((Flags2 & ED_VeryCold) > 0);
+			fVeryHot				= ((Flags2 & ED_VeryHot) > 0);
+			fGlideMode				= ((Flags2 & ED_GlideMode) > 0);
+			fOnFootInHanger			= ((Flags2 & ED_OnFootInHanger) > 0);
+			fOnFootSocialSpace		= ((Flags2 & ED_OnFootSocialSpace) > 0);
+			fOnFootExterior			= ((Flags2 & ED_OnFootExterior) > 0);
+			fBreathableAtmosphere	= ((Flags2 & ED_BreathableAtmosphere) > 0); }
+			
+			OldFlags2 = Flags2;												// Keep track of last Flags2 Value to track when Flags2 bits change
+
+			if(DebugOutput) {
+				printf("\x0a\ Active Flags2");								// Print any Flags2 which are set to 1
+				printf("\x0a===============\x0a");
+				if (fOnFoot)	 			printf("On Foot\x0a");					if (fCold) 					printf("Cold\x0a");
+				if (fInTaxi) 				printf("In Taxi\x0a");					if (fVeryCold) 				printf("Very Cold\x0a");
+				if (fInMultiCrew) 			printf("In Multi Crew\x0a");			if (fHot) 					printf("Hot\x0a");
+				if (fOnFootInStation) 		printf("On Foot In Station\x0a");		if (fVeryHot) 				printf("Very Hot\x0a");
+				if (fOnFootOnPlanet) 		printf("On Foot On Planet\x0a");		if (fGlideMode)				printf("Glide Mode\x0a");
+				if (fAimDownSight) 			printf("Aim Down Sight\x0a");			if (fOnFootInHanger)		printf("On Foot In Hanger\x0a");
+				if (fLowOxygen) 			printf("Low Oxygen\x0a");				if (fOnFootSocialSpace)		printf("On Foot in Social Space\x0a");
+				if (fLowHealth) 			printf("Low Health\x0a");				if (fOnFootExterior)		printf("On Foot Exterior\x0a");
+				if (fBreathableAtmosphere)	printf("Breathable Atmosphere\x0a");
+				printf("===============\x0a"); }
+				
+			if(ShipSRVTelemetry & !StartupLock) {							// Outputs Ship & SRV Telemetry data sourced from the status.json file to the TARGET Window.
+			}
+		
+		}
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -285,7 +428,7 @@
 		if(ValidStatusFile) {
 			initReadStatusJson();
 			if(VerboseOutput) printf("Processing Status.json flags...now running...Done\x0a");
-			ActKey(KEYON+REXEC(3, StatusReadRate, "initProcessFlagsJson();", RNOSTOP)); } }		// StatusReadRate is set in AD_EDDefaults.tmh. Stops on read failure, else loops while game running.
+			ActKey(KEYON+REXEC(3, StatusReadRate, "initReadStatusJson();", RNOSTOP)); } }		// StatusReadRate is set in AD_EDDefaults.tmh. Stops on read failure, else loops while game running.
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

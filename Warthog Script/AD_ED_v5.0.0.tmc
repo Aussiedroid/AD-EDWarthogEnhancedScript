@@ -340,13 +340,15 @@
 	MapKey(&Throttle,  SC,   TEMPO(0, EXEC(																			// Slew Control Button
 										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON] & fSRV) ActKey(KEYON+DOWN+SRVVerticalThrust);"	  //   [Hold]
 										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON] & fMainShip) ActKey(KEYON+PULSE+EngineBoost);"	 //   [Press]
+										"if(!Joystick[S4] & !Throttle[FLAPD] & !Throttle[IDLELON] & fOnFoot) ActKey(KEYON+DOWN+FPSJump);"	// [Press][On Foot]
 										"if(Joystick[S4]  & !Throttle[FLAPD] & !Throttle[IDLELON] & fMainShip) ActKey(KEYON+PULSE+mBoostBrake);"),	// [Modifier]
 						     MiniPressDelay));																		// Safety: Won't Boost when in Precise Throttle or IDLE! Plus 150ms Delay :)
-	MapKeyR(&Throttle, SC,   EXEC(		"ActKey(KEYON+UP+SRVVerticalThrust);"));									// Release the SRV Vertical Thrust
-
+	MapKeyR(&Throttle, SC,   EXEC(		"ActKey(KEYON+UP+SRVVerticalThrust);"										// Release the SRV Vertical Thrust
+										"ActKey(KEYON+UP+FPSJump);"));
 
 	MapKey(&Throttle,  LTB,  TEMPO(EXEC("initHardpointManagement();"),												// Left Throttle Button (RED)
-								   EXEC("if(!Joystick[H4P] & !Joystick[S4]) ActKey(KEYON+DOWN+ShowCQCScoreboard);"),// If in CQC: Show Scoreboard (Hold)
+								   EXEC("if(!Joystick[H4P] & !Joystick[S4] & fOnFoot) ActKey(KEYON+PULSE+FPSInteractSecondary);"
+								   		"if(!Joystick[H4P] & !Joystick[S4] & fMainShip) ActKey(KEYON+DOWN+ShowCQCScoreboard);"),// If in CQC: Show Scoreboard (Hold)
 							 LongPressDelay));																		// [Have System selected prior to High Wake]
 	MapKeyR(&Throttle, LTB,  EXEC(      "ActKey(KEYON+UP+ShowCQCScoreboard);"));									// Release CQC Scoreboard display
 
@@ -382,17 +384,19 @@
 	if(CruiseOnThrottle == 0) {																						// Sets China Hat to add Frame Shift Drive when Cruise on Throttle is disabled.
 		MapKey(&Throttle,  CHF, TEMPO(FrameShiftDrive, Supercruise, LongPressDelay)); 								// China Hat FORWARD [When Route Blocked HOLD for Supercruise]
 		MapKey(&Throttle,  CHB, TEMPO(EXEC(																			// China Hat BACK 	 [Short: Night Vision or Orbital Lines(+Pinky), Very Long: Next Sys Route]
-										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
+										"if(Joystick[S4] & fMainShip)  ActKey(KEYON+PULSE+OrbitalLines);"
 										"if(!Joystick[S4]) initNightVisionEnhancer();"),
 									  EXEC(
 									  	"if(Joystick[S4])  initAutoVehicleTransition();"
+									  	"if(!Joystick[S4] & fOnFoot)  ActKey(KEYON+PULSE+FPSFlashlight);"
 									 	"if(!Joystick[S4] & fMainShip) ActKey(KEYON+PULSE+SelectNextSystemInRoute);"
 										"if(!Joystick[S4] & fSRV) ActKey(KEYON+PULSE+SRVHandbrake);"), LongPressDelay)); }
 	if(CruiseOnThrottle == 1) {																						// Sets China Hat to remove Frame Shift Drive when Cruise on Throttle is enabled.
 		MapKey(&Throttle,  CHF, EXEC(																				// China Hat FORWARD
-										"if(Joystick[S4])  ActKey(KEYON+PULSE+OrbitalLines);"
+										"if(Joystick[S4] & fMainShip)  ActKey(KEYON+PULSE+OrbitalLines);"
 										"else			   initNightVisionEnhancer();"));
 		MapKey(&Throttle,  CHB,  EXEC(	"if(Joystick[S4])  initAutoVehicleTransition();"							// China Hat BACK
+										"if(!Joystick[S4] & fOnFoot)  ActKey(KEYON+PULSE+FPSFlashlight);"
 										"if(!Joystick[S4] & fMainShip) ActKey(KEYON+PULSE+SelectNextSystemInRoute);"
 										"if(!Joystick[S4] & fSRV) ActKey(KEYON+PULSE+SRVHandbrake);")); }
 
