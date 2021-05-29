@@ -16,6 +16,7 @@ AD_EDUserPrefs_v5.0.0.tmh | User Preferences & Script Customisation Options
 AD_EDKeyMap_v5.0.0.ttm | Variable Key Mapping & Reference Tables
 AD_EDHardware_v5.0.0.tmh | Joystick, Throttle & Rudder Axes/Curves Configuration
 AD_EDMacros_v5.0.0.tmh | Macro Definitions _(Custom Sequences)_
+AD_EDStatusJson_v5.0.0.tmh | Parse Status.json file to get real-time in-game status
 AD_EDFunctions_v5.0.0.tmh | Function Definitions _(Custom Logic for Buttons, Toggles & Ship Controls)_
 
 ` `
@@ -164,6 +165,11 @@ As a general rule, a value of 1 is Yes, and a value of 0 is No, but many of the 
 - When value 1 is set, it allows you to enter Supercruise/Hypercruise by holding down the Pinky Trigger Modifier & moving the Throttle forward to 100%. Repeat the same action to disengage. Hold the CMS Hatswitch Modifier instead of Pinky Trigger if you target destination is blocked.
 
 - When value 0 is set, entering Supercruise/Hypercruise is done via the China Hat Switch. In this configuration, please see the reference maps above as it will remap some other functions on the China Hat Switch.
+
+### SlewAxisPreset  [Value 2, 1 or 0]  ###
+- Sets the axis curve of the Slew Axis on the Throttle.
+- Three Presets available (that use the same curves as the Joystick Presets).
+- Fast, Default or Slow.
 
 ### ThrottlePresetUP/ThrottlePresetMID/ThrottlePresetDOWN [Values See Below] ###
 - This maps the Throttle 3-Way Toggle Switch for UP, MIDDLE & DOWN so you can change on-the-fly your main Throttle axis. For example, you could use Forward Only for SRV, but Full Range for Ships or set to Precision for movement around structures in space!
