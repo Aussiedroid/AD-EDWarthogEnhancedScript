@@ -29,6 +29,7 @@ NEW: Ship & SRV Live Telemetry Output to the TARGET Window. Includes things like
 NEW: Enhanced Free Camera Mode function added that automatically goes straight to Free Camera & auto-hides HUD. (Hold Pinky Trigger + Galaxy Map (Boat Forward) to activate).
 NEW: Embark & Board sequence added to swap between Ship & SRV in one press. (Hold Pinky Trigger + press China Hat Back to activate or press China Hat Forward if you do not have Supercruise on Throttle enabled). (Thx CMDR Clicker!)
 NEW: Left & Right MFD panels now include default mappings, plus background templates!  (Thx Braxhunter!)
+NEW: Adjust Slew Axis Curve via User Prefs (3 Modes mirroring Joystick Curves). (Good for DeltaSim upgrades)
 NEW: 
 
 
@@ -65,3 +66,4 @@ CODE: 50+ Minor code clean-ups covering description updates & spacing/alignment 
 Fly Safe CMDRs!
 
 *** Ref maps updated 17/3/2021 (not uploaded)
+
