@@ -1,7 +1,7 @@
 ## *(Alpha/Beta Odyssey Branch Build for testing)* _[Please Report Any Issues]_ ##
 
 # Aussiedroid's Enhanced Warthog Script 4 Elite Dangerous
-### LATEST BUILD | [v5.0.0](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest "Latest Official Build") | Updated for [Elite Dangerous](https://www.elitedangerous.com/ "Frontier's Official Website"):  Odyssey 3.7+  "Odyssey Alpha Update" ###
+### LATEST BUILD | [v5.0.0](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/releases/latest "Latest Official Build") | Updated for [Elite Dangerous](https://www.elitedangerous.com/ "Frontier's Official Website"):  Odyssey 3.7+  "Odyssey Update" ###
 ## ##
 >> _"Welcome Commander, let me introduce myself, I am Engineer Aussiedroid, & I offer only the best Grade 5 Controller mods in the bubble! No lower level enhancements, no no .. only the best, for the Elite of the Pilot's Federation. Not all of my mods are, shall we say 'approved' in all duristictions throughout the galaxy, but I see in your eyes that's why you are here, is it not? No questions asked, I understand, please browse the shop & remember for Pilot's Federation Members upgrades are free of charge."_
 
@@ -9,7 +9,7 @@
 ` ` | Supported
 ------------ | -------------
 ![Logo](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/folder-small.jpg) | ![Specs](https://github.com/Aussiedroid/AD-EDWarthogEnhancedScript/blob/master/Maps/Supported.png)
-### REQUIREMENTS | TARGET Software, Drivers & Firmware, 2018 Update ([v3.0.18.826](https://support.thrustmaster.com/en/product/hotaswarthog-en/ "Official Thrustmaster Warthog Support Portal") _or higher_) ###
+### REQUIREMENTS | TARGET Software, Drivers & Firmware, 2020 Update ([v3.0.18.826](https://support.thrustmaster.com/en/product/hotaswarthog-en/ "Official Thrustmaster Warthog Support Portal") _or higher_) ###
 
 ## ##
 
