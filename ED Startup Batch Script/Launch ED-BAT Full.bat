@@ -27,8 +27,8 @@
 SET EDLAUNCHER-PATH="%PROGRAMFILES(X86)%\Steam\steamapps\common\Elite Dangerous"
 :SET STEAM-PATH="%PROGRAMFILES(X86)%\Steam"
 SET TARGET-GUI-PATH="%PROGRAMFILES(X86)%\Thrustmaster\TARGET\x64"
-SET TARGET-SCRIPT-FILE="C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-4.0.0\Warthog Script\AD_ED_v4.0.0.tmc"
-SET REFERENCE-MAP-PATH=C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-4.0.0\Maps\Advanced-Map.jpg
+SET TARGET-SCRIPT-FILE="C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-5.0.0\Warthog Script\AD_ED_v5.0.0.tmc"
+SET REFERENCE-MAP-PATH="C:\GAME TOOLS\Elite Dangerous\Aussiedroid-ED-Warthog-Script-5.0.0\Maps\Advanced-Map.jpg"
 SET TRACKIR-PATH="%PROGRAMFILES(X86)%\NaturalPoint\TrackIR5"
 SET VOICEATTACK-PATH="%PROGRAMFILES(X86)%\VoiceAttack"
 SET EDP-PATH="%LOCALAPPDATA%\Apps\2.0\XNL477CX.MQX\5V68MEY7.N22\edpr..tion_8fee7e9965259bee_0003.0002_4c8d6a102e806080"
@@ -48,7 +48,7 @@ SET /A AppCount=11
 
 ECHO.
 ECHO -------------------------------------------------------
-ECHO AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER FULL v0.4:
+ECHO AUSSIEDROID'S ENHANCED ED-BAT MULTI-LAUNCHER FULL v0.5:
 ECHO -------------------------------------------------------
 ECHO.
 ECHO Creating Immersion Platform... Please wait..
