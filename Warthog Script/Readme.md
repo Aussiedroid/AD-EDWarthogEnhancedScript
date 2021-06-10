@@ -260,6 +260,13 @@ cockpit by changing the axis curve.
 
 - Standard Hide Ship GUI toggle on Throttle will still work as a override (if needed).
 
+### DisableHUDinWarp [Value 1 or 0] ###
+- Automatically disabling of the Ship HUD when jumping from one system to another (Witchspace).
+
+- Set to 1 to disable HUD, 0 to enable HUD.
+
+- Standard Hide Ship GUI toggle on Throttle will still work as a override (if needed).
+
 ` `
 ## -> PRIMARY/SECONDARY FIRE CONTROL ##
 ### combinePriSecFire [Value 1 or 0] ###
