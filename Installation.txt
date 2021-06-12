@@ -14,13 +14,13 @@ Installation:
       C:\Users\USERNAME\AppData\Roaming\NaturalPoint\TrackIR 5\Profiles
 6.  Set the Hotkeys in TrackIR; Pause Key to PAUSE, and Center to END.
       Tick 'Exclusive' in TrackIR to autoload if you want.
-7.  Set MFD Panels .... TBC
+7.  Set MFD Panels (See MFD-Setup-Instructions.pdf in MFD folder).
 8.  Set NVidia/AMD Capture Last 20 mins Hotkey to ALT+F11 (as required). (Default causes conflict)
 9.  Map any other 3rd Party Keybinds such as Voice Comm Apps (as required). (Setup Mic Behaviour in User Prefs)
 10. Edit ED-BAT Batch File and update the path/locations for any apps you use (as required).
 11. Open TARGET GUI & Run, and then Start ED Launcher (OR alternatively run it automatically via the ED-BAT file)
 12. PLAY, and remember to select the AD Enhanced Warthog 5.x.x bindings in Elite Dangerous Config Menu, & APPLY.
-13. *If you are NOT running MFG Crosswind Pedals, map the missing axis/buttons covered under 'Other Mappings/Pedals' in
+13. *If you are NOT running MFG Crosswind Pedals (this includes the TM TFRP/T16000 devices), map the missing axis/buttons covered under 'Other Mappings/Pedals' in
     the Legend in ED Controls Config to your own devices*
 14. *Ensure you have set UseRuddersT16000 to 1 if you use Thrustmaster TFRP/T16000 (see Step 3) or UseRuddersTPR to 1 if
     you use the Thrustmaster Pendular Rudders. -> Remember to Test!*

@@ -15,7 +15,7 @@ NEW: Odyssey Expansion: All New First Person Mode Mappings added! (TBC)
 	- First Person is fully mapped in the HOTAS plus auxilary mappings for keyboard & mouse.
 	- Created all mapping variables for FP and added to the script.
 	- All additional bindings are mapped.
-	- TBC - awaiting Odyssey Alpha.	
+	- WIP..	
 NEW: Real-time Game State reading integrated into Script; automatically reads variables via the ED status.json file. This improvement means:
 	- Toggles actions will always align to the live in-game status.
 	- No more overrides needed to realign toggles.
@@ -24,12 +24,13 @@ NEW: Real-time Game State reading integrated into Script; automatically reads va
 	**REMEMBER: Set the new StatusFile User Preferences, to define the path to your status.json file before you start.**  (Thx CMDR Clicker!!)
 NEW: Automatically Stop Script Run when Elite Dangerous game is exited. (Set is UserPrefs).
 NEW: Disable LED Backlight on Elite Dangerous exit. (Set is UserPrefs).
-NEW: Hide Ship HUD while in Witchspace Tunnel :).
+NEW: Hide Ship HUD while in Witchspace Tunnel :). (Set is UserPrefs).
 NEW: Ship & SRV Live Telemetry Output to the TARGET Window. Includes things like Shields Up, Overheating, Mass Locked, SRV Turret status and more! (Disabled in User Prefs by default)
 NEW: Enhanced Free Camera Mode function added that automatically goes straight to Free Camera & auto-hides HUD. (Hold Pinky Trigger + Galaxy Map (Boat Forward) to activate).
 NEW: Embark & Board sequence added to swap between Ship & SRV in one press. (Hold Pinky Trigger + press China Hat Back to activate or press China Hat Forward if you do not have Supercruise on Throttle enabled). (Thx CMDR Clicker!)
-NEW: Left & Right MFD panels now include default mappings, plus background templates!  (Thx Braxhunter!)
+NEW: Left & Right MFD panels now include default mappings, plus background templates! Installation instructions now also included!  (Thx Braxhunter!)
 NEW: Adjust Slew Axis Curve via User Prefs (3 Modes mirroring Joystick Curves). (Good for DeltaSim upgrades)
+NEW: 
 NEW: 
 
 
@@ -45,6 +46,8 @@ IMPROVEMENT: Handbrake has been added to China Hat toggle on Throttle (back) as 
 IMPROVEMENT: Weapon & Engine Colour changes now combined into single button. (Hold Pinky Trigger and Engine Operate Ign/Norm to cycle through). (Thx CMDR Clicker!)
 IMPROVEMENT: Clear Chat macro now clears both local and system tabs of all text. (+ Optional User Pref to Clear Squadron chat too!). (Thx CMDR Clicker!)
 IMPROVEMENT: Auto-Chat functionality can now be completely disabled via User Prefs (see AutoChatEnable). (Thx Minotaur)
+IMPROVEMENT: 
+IMPROVEMENT: 
 
 
 FIXED: Swapped Med & Long press for UserPIPPref 3 mapping for left PIP direction to match UserPIPPref 2 mapping of WEP (instead of ENG). 
@@ -61,6 +64,8 @@ CODE: Debug Output User Preference added. Provides additional TARGET Window text
 CODE: Added Missing Device names to the Exclude list in main(). (Up-to-date to v3.0.20.826)
 CODE: 
 CODE: 50+ Minor code clean-ups covering description updates & spacing/alignment fixes. 
+CODE: 
+CODE: 
 
 
 Fly Safe CMDRs!
