@@ -290,13 +290,13 @@
 			if(!fLandingGear)	{ if(!LGLED) {	ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); LGLED = 1; } } //LGOff	// set LED 5 OFF
 			else				{ if(LGLED)	 {	if(BlingLEDBling) initLEDController(LED5); LGLED = 0;			 //LGOn
 												ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5)); } }		// set LED 5 ON
-
-			if(fsdJump & !fLatLong & FSDJumpCheck == 0) {					// Turn Off Ship HUD when in Witchspace (Frameshift Warp Tunnel)
-				ActKey(KEYON+PULSE+HideShipGUI);
-				FSDJumpCheck = 1; }
-			if(!fsdJump & !fLatLong & FSDJumpCheck == 1) {
-				ActKey(KEYON+PULSE+HideShipGUI);
-				FSDJumpCheck = 0; }
+			if(DisableHUDinWarp) {
+				if(fsdJump & !fLatLong & FSDJumpCheck == 0) {					// Turn Off Ship HUD when in Witchspace (Frameshift Warp Tunnel)
+					ActKey(KEYON+PULSE+HideShipGUI);
+					FSDJumpCheck = 1; }
+				if(!fsdJump & !fLatLong & FSDJumpCheck == 1) {
+					ActKey(KEYON+PULSE+HideShipGUI);
+					FSDJumpCheck = 0; } }
 
 			if(ShipSRVTelemetry & !StartupLock) {							// Outputs Ship & SRV Telemetry data sourced from the status.json file to the TARGET Window.
 				if(fDanger & StatusDanger)							{ printf("*!! DANGER !!*\x0a");						StatusDanger = 1;		DeferCall(5000,  &ActKey, KEYON+PULSE+EXEC("StatusDanger = 0;")); }

@@ -110,7 +110,8 @@
 
 	define NightVisionHUD		0						// Disables the Ship/SRV HUD GUI when Night Vision is Enabled (and Visa-Versa). IMMERSION!
 														//	Options:	Hide HUD in Night Vision = 1.				Show HUD in Night Vision = 0 (default).
-
+	define DisableHUDinWarp		1						// Disables the Ship HUD GUI when in Witchspace (Warping to new System) and reenables HUD when you arrive.
+														//  Options:	Hide HUD when Warping	 = 1 (default).		Show HUD when Warping = 0.	
 
 		// PRI-SEC FIRE CONTROL //
 	int    combinePriSecFire  = 1					   ;// Set the default behaviour for the main Dual Stage Trigger	(how full depression of trigger will work)  (Note: You can still toggle this behaviour in-game)
